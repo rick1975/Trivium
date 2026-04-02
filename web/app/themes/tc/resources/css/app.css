@@ -1,0 +1,163 @@
+@import "tailwindcss" theme(static);
+@source "../views/";
+@source "../../app/";
+
+html { scroll-behavior: smooth; }
+
+@layer base {
+  :root {
+    --primary: #00386c;
+    --primary-dark: #003261;
+    --primary-light: #265582;
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+  }
+
+  body {
+    @apply bg-white text-gray-700 antialiased;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    line-height: 1.75;
+    font-size: 1rem;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-pretty text-gray-800 leading-tight;
+  }
+
+  h1 { @apply text-4xl md:text-5xl mb-6; }
+  h2 { @apply text-3xl md:text-4xl mb-5; }
+  h3 { @apply text-2xl md:text-3xl mb-4; }
+  h4 { @apply text-xl md:text-2xl mb-3 font-semibold; }
+  h5 { @apply text-lg md:text-xl mb-2 font-semibold; }
+  h6 { @apply text-base md:text-lg mb-2 font-semibold; }
+
+  p {
+    @apply mb-4 text-gray-700;
+  }
+
+  /* Links */
+  a {
+    @apply no-underline transition-colors duration-200;
+    color: var(--primary);
+  }
+
+  a:hover {
+    color: var(--primary-dark);
+  }
+
+  a:where(:not(.wp-element-button)) {
+    text-decoration: none !important;
+  }
+
+  /* Lists - Remove default list styles */
+  ul, ol {
+    @apply mb-4 ml-0;
+    list-style: none;
+  }
+
+  li {
+    @apply mb-1;
+  }
+
+  /* Navigation menus - override margin and list style */
+  nav ul,
+  .footer ul {
+    @apply mb-0;
+    list-style: none;
+  }
+
+  nav li,
+  .footer li {
+    @apply mb-0;
+  }
+
+  /* Blockquotes */
+  blockquote {
+    @apply border-l-4 pl-4 italic my-4;
+    border-color: var(--primary);
+  }
+
+  /* Images */
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-block px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    background-color: var(--primary);
+    color: white;
+  }
+
+  .btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-outline {
+    @apply border-2 bg-transparent;
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .btn-outline:hover {
+    background-color: var(--primary);
+    color: white;
+  }
+}
+
+@layer components {
+  /* Container */
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+
+  /* Section spacing */
+  .section {
+    @apply py-12 md:py-16 lg:py-20;
+  }
+
+  /* Footer */
+  .footer {
+    @apply py-12 md:py-16;
+    background-color: var(--primary);
+    color: white;
+  }
+
+  .footer a {
+    @apply text-white hover:text-gray-100;
+  }
+
+  .footer h3 {
+    @apply text-white mb-4;
+  }
+
+  .footer p {
+    @apply text-white;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-white rounded-lg shadow-md p-6 transition-shadow duration-200;
+  }
+
+  .card:hover {
+    @apply shadow-lg;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
