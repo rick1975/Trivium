@@ -920,6 +920,38 @@ BLADEEOF
 print_success "index.blade.php bijgewerkt met Nederlandse tekst"
 
 # ============================================
+# Update content-single.blade.php
+# ============================================
+
+print_info "Updaten content-single.blade.php (comments verwijderd)..."
+
+cat > resources/views/partials/content-single.blade.php << 'BLADEEOF'
+<article @php(post_class('h-entry'))>
+  <header>
+    <h1 class="p-name">
+      {!! $title !!}
+    </h1>
+
+    @include('partials.entry-meta')
+  </header>
+
+  <div class="e-content">
+    @php(the_content())
+  </div>
+
+  @if ($pagination())
+    <footer>
+      <nav class="page-nav" aria-label="Page">
+        {!! $pagination !!}
+      </nav>
+    </footer>
+  @endif
+</article>
+BLADEEOF
+
+print_success "content-single.blade.php bijgewerkt"
+
+# ============================================
 # Create Header Composer for Navi
 # ============================================
 
