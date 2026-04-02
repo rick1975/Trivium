@@ -886,6 +886,40 @@ BLADEEOF
 print_success "404.blade.php bijgewerkt met Nederlandse tekst"
 
 # ============================================
+# Update index.blade.php
+# ============================================
+
+print_info "Updaten index.blade.php met Nederlandse tekst..."
+
+cat > resources/views/index.blade.php << 'BLADEEOF'
+@extends('layouts.app')
+
+@section('content')
+  @include('partials.page-header')
+
+  @if (! have_posts())
+    <x-alert type="warning">
+      {!! __('Sorry, geen resultaten gevonden.', 'sage') !!}
+    </x-alert>
+
+    {!! get_search_form(false) !!}
+  @endif
+
+  @while(have_posts()) @php(the_post())
+    @includeFirst(['partials.content-' . get_post_type(), 'partials.content'])
+  @endwhile
+
+  {!! get_the_posts_navigation() !!}
+@endsection
+
+@section('sidebar')
+  @include('sections.sidebar')
+@endsection
+BLADEEOF
+
+print_success "index.blade.php bijgewerkt met Nederlandse tekst"
+
+# ============================================
 # Create Header Composer for Navi
 # ============================================
 
