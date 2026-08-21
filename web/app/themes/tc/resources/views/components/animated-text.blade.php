@@ -31,56 +31,9 @@
     }
 
     /*
-     * Elke kleur groeit vanuit een eigen plek in de
-     * letter (niet allemaal vanuit het midden), zodat er
-     * meerdere kleuren tegelijk zichtbaar zijn binnen
-     * dezelfde letter, zoals bij SAIC.
-     */
-    .future-fill {
-        clip-path: circle(0% at var(--cx, 50%) var(--cy, 50%));
-
-        animation:
-            future-fill-grow 0.5s cubic-bezier(.22, 1, .36, 1)
-            var(--delay) forwards;
-    }
-
-    @keyframes future-fill-grow {
-
-        0% {
-            clip-path: circle(0% at var(--cx, 50%) var(--cy, 50%));
-        }
-
-        100% {
-            clip-path: circle(var(--max-r, 60%) at var(--cx, 50%) var(--cy, 50%));
-        }
-    }
-
-    /*
-     * Pas als alle kleuren hun plek hebben ingenomen,
-     * vervaagt de hele groep in één keer samen naar wit.
-     */
-    .future-fill-group {
-        opacity: 1;
-
-        animation:
-            future-fade-out 0.6s ease-in
-            var(--fade-delay) forwards;
-    }
-
-    @keyframes future-fade-out {
-
-        0% {
-            opacity: 1;
-        }
-
-        100% {
-            opacity: 0;
-        }
-    }
-
-    /*
-     * De kleurvorm wordt getekend, blijft even
-     * zichtbaar en vervaagt dan weer.
+     * Elke kleur tekent zichzelf (net als bij SAIC, via
+     * eenzelfde soort "trim paths"-beweging) en blijft
+     * daarna gewoon staan — geen losse fade per kleur.
      */
     .future-shape {
         fill: none;
@@ -107,18 +60,32 @@
             opacity: 1;
         }
 
-        45% {
+        100% {
             stroke-dasharray: 1000 1000;
             opacity: 1;
         }
+    }
 
-        75% {
-            stroke-dasharray: 1000 1000;
+    /*
+     * Pas als alle kleuren van een letter klaar zijn met
+     * tekenen en een tijdje hebben gestaan, vervaagt de
+     * hele letter in één keer samen naar wit.
+     */
+    .future-letter-group {
+        opacity: 1;
+
+        animation:
+            future-fade-out 0.8s ease-in
+            var(--fade-delay) forwards;
+    }
+
+    @keyframes future-fade-out {
+
+        0% {
             opacity: 1;
         }
 
         100% {
-            stroke-dasharray: 1000 1000;
             opacity: 0;
         }
     }
@@ -435,70 +402,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
             /*
             |--------------------------------------------------------------------------
-            | Afmetingen van het vulvlak (per letter gelijk).
-            |--------------------------------------------------------------------------
-            */
-
-            const fillWidth =
-                width * 1.2;
-
-            const fillHeight =
-                capHeight * 1.1;
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | MEERDERE KLEUREN TEGELIJK
+            | ÉÉN GEDEELDE GROEP PER LETTER
             |
-            | Elke kleur groeit vanuit een eigen plek in de
-            | letter, zodat er meerdere kleuren tegelijk
-            | zichtbaar zijn (niet één kleur die de vorige
-            | vervangt). Pas als alle kleuren hun plek
-            | hebben ingenomen, vervaagt de hele groep in
-            | één keer samen naar wit.
+            | Alle 6 kleuren tekenen na elkaar hetzelfde pad
+            | en blijven daarna gewoon staan (zoals bij SAIC).
+            | Pas als de laatste kleur een tijdje heeft
+            | gestaan, vervaagt de hele letter in één keer
+            | samen naar wit.
             |--------------------------------------------------------------------------
             */
 
-            const fillCenters = [
-                { cx: 35, cy: 65, r: 62 },
-                { cx: 65, cy: 60, r: 60 },
-                { cx: 50, cy: 30, r: 58 },
-                { cx: 30, cy: 35, r: 55 },
-                { cx: 70, cy: 35, r: 55 },
-                { cx: 50, cy: 70, r: 60 }
-            ];
+            const strokeStagger = 0.22;
 
-            const fillGrowDuration = 0.5;
+            const strokeDrawDuration = 1.5;
 
-            const fillStagger = 0.12;
+            const strokeHoldBuffer = 0.6;
 
-            const fillHoldBuffer = 0.3;
+            const strokeTotalTime =
+                (COLORS.length - 1) * strokeStagger +
+                strokeDrawDuration +
+                strokeHoldBuffer;
 
-            const fillTotalTime =
-                (COLORS.length - 1) * fillStagger +
-                fillGrowDuration +
-                fillHoldBuffer;
-
-            const fillGroup = create("g", {
+            const letterGroup = create("g", {
 
                 mask:
                     `url(#${maskId})`,
 
                 class:
-                    "future-fill-group",
+                    "future-letter-group",
 
                 style: `
                     --fade-delay:
                     ${
                         letterIndex *
                         LETTER_DELAY +
-                        fillTotalTime
+                        strokeTotalTime
                     }s;
                 `
 
             });
 
-            textGroup.appendChild(fillGroup);
+            textGroup.appendChild(letterGroup);
 
 
             /*
@@ -519,36 +463,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${
                         letterIndex *
                         LETTER_DELAY +
-                        c * 0.22
+                        c * strokeStagger
                     }s;
                 `;
-
-                const center =
-                    fillCenters[c % fillCenters.length];
-
-                const fill = create("rect", {
-
-                    x: centerX - fillWidth / 2,
-                    y: line.y - fillHeight,
-
-                    width: fillWidth,
-                    height: fillHeight,
-
-                    fill: color,
-
-                    class:
-                        "future-fill",
-
-                    style: `
-                        --cx: ${center.cx}%;
-                        --cy: ${center.cy}%;
-                        --max-r: ${center.r}%;
-                        --delay: ${letterIndex * LETTER_DELAY + c * fillStagger}s;
-                    `
-
-                });
-
-                fillGroup.appendChild(fill);
 
 
                 /*
@@ -663,24 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
 
-                /*
-                |--------------------------------------------------------------------------
-                | Masker toepassen
-                |--------------------------------------------------------------------------
-                */
-
-                const maskedGroup =
-                    create("g", {
-
-                        mask:
-                            `url(#${maskId})`
-
-                    });
-
-
-                maskedGroup.appendChild(path);
-
-                textGroup.appendChild(maskedGroup);
+                letterGroup.appendChild(path);
 
             }
 
