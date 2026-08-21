@@ -442,10 +442,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const colWidth = width / cols;
             const rowHeight = fillHeight / ROW_COUNT;
 
-            // Straal ruim genoeg zodat naburige vlekken
-            // (ook tussen rijen) elkaar overlappen.
+            // Straal ruim genoeg zodat naburige vlekken elkaar
+            // stevig overlappen — anders blijven er bij
+            // complexere vormen (zoals de inkeping in een "M")
+            // witte gaatjes zichtbaar binnen de letter.
             const dotRadius =
-                Math.max(colWidth, rowHeight) * 0.78;
+                Math.max(colWidth, rowHeight) * 1.35;
 
             const fillGroup = create("g", {
 
