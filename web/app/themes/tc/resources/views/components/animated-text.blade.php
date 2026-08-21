@@ -44,7 +44,7 @@
         transform-origin: center;
 
         animation:
-            future-circle .75s cubic-bezier(.22, 1, .36, 1)
+            future-circle .62s cubic-bezier(.22, 1, .36, 1)
             var(--delay) forwards;
     }
 
