@@ -32,13 +32,15 @@
     }
 
     /*
-     * De letter wordt van onderaf opgevuld
-     * met kleur, zoals bij SAIC.
+     * De letter wordt van onderaf opgevuld met kleur
+     * en vloeit daarna weer weg, zodat de tekst
+     * uiteindelijk wit blijft (zoals bij SAIC).
      */
     .future-fill {
         transform-box: fill-box;
         transform-origin: bottom center;
         transform: scaleY(0);
+        opacity: 1;
 
         animation:
             future-fill 0.9s cubic-bezier(.22, 1, .36, 1)
@@ -49,16 +51,23 @@
 
         0% {
             transform: scaleY(0);
+            opacity: 1;
+        }
+
+        45% {
+            transform: scaleY(1);
+            opacity: 1;
         }
 
         100% {
             transform: scaleY(1);
+            opacity: 0;
         }
     }
 
     /*
-     * De kleurvorm wordt getekend,
-     * niet als complete blob zichtbaar.
+     * De kleurvorm wordt getekend, blijft even
+     * zichtbaar en vervaagt dan weer.
      */
     .future-shape {
         fill: none;
@@ -85,9 +94,14 @@
             opacity: 1;
         }
 
-        100% {
+        60% {
             stroke-dasharray: 1000 1000;
             opacity: 1;
+        }
+
+        100% {
+            stroke-dasharray: 1000 1000;
+            opacity: 0;
         }
     }
 </style>
@@ -328,10 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             /*
             |--------------------------------------------------------------------------
-            | KLEUR-VULLING
-            |
-            | De letter wordt van onderaf opgevuld met
-            | een vlakke kleur, zoals bij SAIC.
+            | Afmetingen van het vulvlak (per letter gelijk).
             |--------------------------------------------------------------------------
             */
 
@@ -344,42 +355,15 @@ document.addEventListener("DOMContentLoaded", () => {
             const fillHeight =
                 capHeight * 1.1;
 
-            const fill = create("rect", {
-
-                x: centerX - fillWidth / 2,
-                y: line.y - fillHeight,
-
-                width: fillWidth,
-                height: fillHeight,
-
-                fill: COLORS[letterIndex % COLORS.length],
-
-                class:
-                    "future-fill",
-
-                style: `
-                    --delay:
-                    ${letterIndex * LETTER_DELAY}s;
-                `
-
-            });
-
-            const fillGroup =
-                create("g", {
-
-                    mask:
-                        `url(#${maskId})`
-
-                });
-
-            fillGroup.appendChild(fill);
-
-            textGroup.appendChild(fillGroup);
-
 
             /*
             |--------------------------------------------------------------------------
-            | DRIE KLEUR-PATHS
+            | DRIE KLEUR-LAGEN
+            |
+            | Elke laag vult de letter van onderaf met een
+            | kleur en vloeit daarna weer weg, zodat de
+            | volgende kleur erdoorheen komt en de letter
+            | uiteindelijk weer wit is.
             |--------------------------------------------------------------------------
             */
 
@@ -389,6 +373,32 @@ document.addEventListener("DOMContentLoaded", () => {
                     COLORS[
                         (letterIndex + c) % 3
                     ];
+
+                const delay = `
+                    --delay:
+                    ${
+                        letterIndex *
+                        LETTER_DELAY +
+                        c * 0.18
+                    }s;
+                `;
+
+                const fill = create("rect", {
+
+                    x: centerX - fillWidth / 2,
+                    y: line.y - fillHeight,
+
+                    width: fillWidth,
+                    height: fillHeight,
+
+                    fill: color,
+
+                    class:
+                        "future-fill",
+
+                    style: delay
+
+                });
 
 
                 /*
@@ -498,14 +508,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     class:
                         "future-shape",
 
-                    style: `
-                        --delay:
-                        ${
-                            letterIndex *
-                            LETTER_DELAY +
-                            c * 0.18
-                        }s;
-                    `
+                    style: delay
 
                 });
 
@@ -525,6 +528,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
 
 
+                maskedGroup.appendChild(fill);
                 maskedGroup.appendChild(path);
 
                 textGroup.appendChild(maskedGroup);
