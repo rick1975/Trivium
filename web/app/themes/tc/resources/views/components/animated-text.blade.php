@@ -45,7 +45,7 @@
         opacity: 0;
 
         animation:
-            future-draw 0.55s cubic-bezier(.65, 0, .35, 1)
+            future-draw 1.3s cubic-bezier(.22, 1, .36, 1)
             var(--delay) forwards;
     }
 
@@ -56,28 +56,13 @@
             opacity: 0;
         }
 
-        10% {
-            opacity: 1;
-        }
-
-        35% {
-            stroke-dasharray: 220 1000;
-            opacity: 1;
-        }
-
-        65% {
-            stroke-dasharray: 520 1000;
-            opacity: 1;
-        }
-
-        82% {
-            stroke-dasharray: 760 1000;
+        8% {
             opacity: 1;
         }
 
         100% {
             stroke-dasharray: 1000 1000;
-            opacity: 0;
+            opacity: 1;
         }
     }
 </style>
@@ -445,7 +430,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         ${
                             letterIndex *
                             LETTER_DELAY +
-                            c * 0.055
+                            c * 0.18
                         }s;
                     `
 
