@@ -31,38 +31,49 @@
     }
 
     /*
-     * De letter wordt van onderaf opgevuld met kleur
-     * en vloeit daarna weer weg, zodat de tekst
-     * uiteindelijk wit blijft (zoals bij SAIC).
+     * Elke kleur groeit vanuit een eigen plek in de
+     * letter (niet allemaal vanuit het midden), zodat er
+     * meerdere kleuren tegelijk zichtbaar zijn binnen
+     * dezelfde letter, zoals bij SAIC.
      */
     .future-fill {
-        clip-path: circle(0% at 50% 50%);
-        opacity: 1;
+        clip-path: circle(0% at var(--cx, 50%) var(--cy, 50%));
 
         animation:
-            future-fill 1.1s cubic-bezier(.22, 1, .36, 1)
+            future-fill-grow 0.5s cubic-bezier(.22, 1, .36, 1)
             var(--delay) forwards;
     }
 
-    @keyframes future-fill {
+    @keyframes future-fill-grow {
 
         0% {
-            clip-path: circle(0% at 50% 50%);
-            opacity: 1;
+            clip-path: circle(0% at var(--cx, 50%) var(--cy, 50%));
         }
 
-        35% {
-            clip-path: circle(100% at 50% 50%);
-            opacity: 1;
+        100% {
+            clip-path: circle(var(--max-r, 60%) at var(--cx, 50%) var(--cy, 50%));
         }
+    }
 
-        70% {
-            clip-path: circle(100% at 50% 50%);
+    /*
+     * Pas als alle kleuren hun plek hebben ingenomen,
+     * vervaagt de hele groep in één keer samen naar wit.
+     */
+    .future-fill-group {
+        opacity: 1;
+
+        animation:
+            future-fade-out 0.6s ease-in
+            var(--fade-delay) forwards;
+    }
+
+    @keyframes future-fade-out {
+
+        0% {
             opacity: 1;
         }
 
         100% {
-            clip-path: circle(100% at 50% 50%);
             opacity: 0;
         }
     }
@@ -201,11 +212,9 @@ document.addEventListener("DOMContentLoaded", () => {
     |--------------------------------------------------------------------------
     */
 
+    let lastBuildKey = null;
+
     const build = () => {
-
-        defs.replaceChildren();
-        textGroup.replaceChildren();
-
 
         /*
         |----------------------------------------------------------------
@@ -223,6 +232,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const viewBoxWidth =
             svg.getBoundingClientRect().width || 1600;
+
+
+        /*
+        |----------------------------------------------------------------
+        | Alleen echt opnieuw opbouwen (en de animatie laten
+        | herstarten) als de grootte ook echt is veranderd.
+        | Voorkomt dat een losse resize-event (bv. door het
+        | verdwijnen van de scrollbar) de hele animatie
+        | opnieuw laat afspelen.
+        |----------------------------------------------------------------
+        */
+
+        const buildKey = `${FONT_SIZE}|${Math.round(viewBoxWidth)}`;
+
+        if (buildKey === lastBuildKey) return;
+
+        lastBuildKey = buildKey;
+
+
+        defs.replaceChildren();
+        textGroup.replaceChildren();
 
         ctx.font = `700 ${FONT_SIZE}px Poppins`;
 
@@ -287,12 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.measureText(char).width
         );
 
-        const totalWidth = widths.reduce(
-            (sum, width) => sum + width,
-            0
-        );
-
-        let x = (viewBoxWidth - totalWidth) / 2;
+        let x = 0;
 
 
         /*
@@ -423,12 +448,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
             /*
             |--------------------------------------------------------------------------
-            | DRIE KLEUR-LAGEN
+            | MEERDERE KLEUREN TEGELIJK
             |
-            | Elke laag vult de letter van onderaf met een
-            | kleur en vloeit daarna weer weg, zodat de
-            | volgende kleur erdoorheen komt en de letter
-            | uiteindelijk weer wit is.
+            | Elke kleur groeit vanuit een eigen plek in de
+            | letter, zodat er meerdere kleuren tegelijk
+            | zichtbaar zijn (niet één kleur die de vorige
+            | vervangt). Pas als alle kleuren hun plek
+            | hebben ingenomen, vervaagt de hele groep in
+            | één keer samen naar wit.
+            |--------------------------------------------------------------------------
+            */
+
+            const fillCenters = [
+                { cx: 35, cy: 65, r: 62 },
+                { cx: 65, cy: 60, r: 60 },
+                { cx: 50, cy: 30, r: 58 },
+                { cx: 30, cy: 35, r: 55 },
+                { cx: 70, cy: 35, r: 55 },
+                { cx: 50, cy: 70, r: 60 }
+            ];
+
+            const fillGrowDuration = 0.5;
+
+            const fillStagger = 0.12;
+
+            const fillHoldBuffer = 0.3;
+
+            const fillTotalTime =
+                (COLORS.length - 1) * fillStagger +
+                fillGrowDuration +
+                fillHoldBuffer;
+
+            const fillGroup = create("g", {
+
+                mask:
+                    `url(#${maskId})`,
+
+                class:
+                    "future-fill-group",
+
+                style: `
+                    --fade-delay:
+                    ${
+                        letterIndex *
+                        LETTER_DELAY +
+                        fillTotalTime
+                    }s;
+                `
+
+            });
+
+            textGroup.appendChild(fillGroup);
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | ZES KLEUR-LAGEN
             |--------------------------------------------------------------------------
             */
 
@@ -448,6 +523,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     }s;
                 `;
 
+                const center =
+                    fillCenters[c % fillCenters.length];
+
                 const fill = create("rect", {
 
                     x: centerX - fillWidth / 2,
@@ -461,9 +539,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     class:
                         "future-fill",
 
-                    style: delay
+                    style: `
+                        --cx: ${center.cx}%;
+                        --cy: ${center.cy}%;
+                        --max-r: ${center.r}%;
+                        --delay: ${letterIndex * LETTER_DELAY + c * fillStagger}s;
+                    `
 
                 });
+
+                fillGroup.appendChild(fill);
 
 
                 /*
@@ -593,7 +678,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
 
 
-                maskedGroup.appendChild(fill);
                 maskedGroup.appendChild(path);
 
                 textGroup.appendChild(maskedGroup);
