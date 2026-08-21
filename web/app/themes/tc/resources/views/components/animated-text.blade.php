@@ -31,52 +31,41 @@
     }
 
     /*
-     * De letter wordt opgebouwd uit dunne, gekleurde
-     * horizontale stroken die licht verschoven verschijnen,
-     * kort heen-en-weer "glitchen" en daarna uitlijnen en
-     * naar wit vervagen — zoals bij SAIC.
+     * De letter wordt gevuld door een aantal ronde
+     * kleurvlekken die vanuit een punt uitdijen tot volle
+     * grootte, verspreid over de letter, kort blijven staan
+     * en dan samen naar wit vervagen — zoals bij SAIC.
      */
-    .future-glitch-slice {
+    .future-glitch-dot {
         opacity: 0;
+        transform-box: fill-box;
+        transform-origin: center;
 
         animation:
-            future-glitch 1.4s cubic-bezier(.22, 1, .36, 1)
+            future-dot 1.4s cubic-bezier(.22, 1, .36, 1)
             var(--delay) forwards;
     }
 
-    @keyframes future-glitch {
+    @keyframes future-dot {
 
         0% {
             opacity: 0;
-            transform: translateX(var(--jitter));
+            transform: scale(0);
         }
 
-        8% {
+        12% {
             opacity: 1;
-            transform: translateX(var(--jitter));
+            transform: scale(1);
         }
 
-        18% {
-            transform: translateX(calc(var(--jitter) * -0.7));
-        }
-
-        28% {
-            transform: translateX(calc(var(--jitter) * 0.4));
-        }
-
-        38% {
+        70% {
             opacity: 1;
-            transform: translateX(0);
-        }
-
-        75% {
-            opacity: 1;
-            transform: translateX(0);
+            transform: scale(1);
         }
 
         100% {
             opacity: 0;
-            transform: translateX(0);
+            transform: scale(1);
         }
     }
 </style>
@@ -101,13 +90,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hoe snel de animatie door de letters loopt.
     const LETTER_DELAY = 0.10;
 
-    // Aantal horizontale kleurstroken waaruit elke letter
-    // wordt opgebouwd (het glitch-effect).
-    const SLICE_COUNT = 4;
+    // Hoeveel ronde kleurvlekken er (minimaal) per letter
+    // worden gebruikt om de letter te vullen. Bredere
+    // letters krijgen er automatisch meer.
+    const MIN_DOTS_PER_LETTER = 3;
 
-    // Extra vertraging tussen de stroken binnen één letter,
-    // zodat ze niet allemaal exact gelijk starten.
-    const SLICE_STAGGER = 0.03;
+    // Extra vertraging tussen de vlekken binnen één letter,
+    // zodat ze niet allemaal exact gelijk verschijnen maar
+    // de letter geleidelijk "volloopt".
+    const DOT_STAGGER = 0.035;
 
 
     /*
@@ -405,17 +396,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
             /*
             |--------------------------------------------------------------------------
-            | GLITCH: MEERDERE GEKLEURDE STROKEN PER LETTER
+            | CIRKELVORMIGE VULLING PER LETTER
             |
-            | De letter wordt opgebouwd uit dunne horizontale
-            | stroken in verschillende kleuren, die licht
-            | verschoven verschijnen, kort "glitchen" en dan
-            | uitlijnen en naar wit vervagen — zoals bij SAIC.
+            | De letter wordt gevuld door verspreide ronde
+            | kleurvlekken die vanuit het niets uitdijen tot
+            | volle grootte, elkaar overlappen en zo de hele
+            | letter kleuren, en daarna samen naar wit
+            | vervagen — zoals bij SAIC.
             |--------------------------------------------------------------------------
             */
-
-            const fillWidth =
-                width * 1.2;
 
             const fillHeight =
                 capHeight * 1.1;
@@ -423,8 +412,20 @@ document.addEventListener("DOMContentLoaded", () => {
             const fillTop =
                 line.y - fillHeight;
 
-            const sliceHeight =
-                fillHeight / SLICE_COUNT;
+            const fillCenterY =
+                fillTop + fillHeight / 2;
+
+            // Bredere letters krijgen automatisch meer
+            // vlekken, zodat ze net zo goed gevuld raken.
+            const dotCount = Math.max(
+                MIN_DOTS_PER_LETTER,
+                Math.round(width / (FONT_SIZE * 0.5))
+            );
+
+            // Straal ruim genoeg zodat naburige vlekken
+            // elkaar overlappen en de letter dicht kleuren.
+            const dotRadius =
+                Math.max(width / dotCount, fillHeight) * 0.68;
 
             const fillGroup = create("g", {
 
@@ -433,43 +434,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
             });
 
-            for (let sliceIndex = 0; sliceIndex < SLICE_COUNT; sliceIndex++) {
+            for (let dotIndex = 0; dotIndex < dotCount; dotIndex++) {
 
                 const color =
                     GLITCH_COLORS[
-                        (letterIndex + sliceIndex) % GLITCH_COLORS.length
+                        Math.floor(Math.random() * GLITCH_COLORS.length)
                     ];
 
-                const jitter =
-                    (FONT_SIZE * 0.06) *
-                    (sliceIndex % 2 === 0 ? 1 : -1) *
-                    (0.6 + Math.random() * 0.6);
+                const dotX =
+                    (centerX - width / 2) +
+                    (width / dotCount) * (dotIndex + 0.5) +
+                    (Math.random() - 0.5) * (width / dotCount) * 0.5;
+
+                const dotY =
+                    fillCenterY +
+                    (Math.random() - 0.5) * fillHeight * 0.4;
 
                 const delay =
                     letterIndex * LETTER_DELAY +
-                    sliceIndex * SLICE_STAGGER;
+                    dotIndex * DOT_STAGGER;
 
-                const slice = create("rect", {
+                const dot = create("circle", {
 
-                    x: centerX - fillWidth / 2,
-                    y: fillTop + sliceIndex * sliceHeight,
-
-                    width: fillWidth,
-                    height: sliceHeight + 0.5,
+                    cx: dotX,
+                    cy: dotY,
+                    r: dotRadius,
 
                     fill: color,
 
                     class:
-                        "future-glitch-slice",
+                        "future-glitch-dot",
 
                     style: `
-                        --jitter: ${jitter}px;
                         --delay: ${delay}s;
                     `
 
                 });
 
-                fillGroup.appendChild(slice);
+                fillGroup.appendChild(dot);
 
             }
 
