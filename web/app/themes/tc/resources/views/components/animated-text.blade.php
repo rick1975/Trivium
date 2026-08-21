@@ -44,7 +44,7 @@
         transform-origin: center;
 
         animation:
-            future-circle 1.1s cubic-bezier(.22, 1, .36, 1)
+            future-circle .9s cubic-bezier(.22, 1, .36, 1)
             var(--delay) forwards;
     }
 
@@ -55,17 +55,17 @@
             transform: scale(0);
         }
 
-        6% {
+        7% {
             opacity: 1;
             transform: scale(.08);
         }
 
-        45% {
+        55% {
             opacity: 1;
             transform: scale(1);
         }
 
-        70% {
+        68% {
             opacity: 1;
             transform: scale(1);
         }
