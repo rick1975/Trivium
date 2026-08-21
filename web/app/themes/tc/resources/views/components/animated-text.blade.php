@@ -90,15 +90,23 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hoe snel de animatie door de letters loopt.
     const LETTER_DELAY = 0.10;
 
-    // Hoeveel ronde kleurvlekken er (minimaal) per letter
-    // worden gebruikt om de letter te vullen. Bredere
-    // letters krijgen er automatisch meer.
-    const MIN_DOTS_PER_LETTER = 3;
+    // Hoeveel kolommen ronde kleurvlekken er (minimaal) per
+    // letter worden gebruikt. Bredere letters krijgen er
+    // automatisch meer.
+    const MIN_COLS_PER_LETTER = 3;
 
-    // Extra vertraging tussen de vlekken binnen één letter,
-    // zodat ze niet allemaal exact gelijk verschijnen maar
-    // de letter geleidelijk "volloopt".
-    const DOT_STAGGER = 0.035;
+    // In hoeveel rijen (boven naar onder) de letter wordt
+    // opgebouwd.
+    const ROW_COUNT = 3;
+
+    // Vertraging per rij: bepaalt hoe duidelijk de vulling
+    // van boven naar beneden "zakt" — zoals bij SAIC.
+    const ROW_STAGGER = 0.09;
+
+    // Kleine extra vertraging per kolom binnen een rij,
+    // zodat het geen strakke rechte lijn blijft maar wat
+    // organischer oogt.
+    const DOT_STAGGER = 0.02;
 
 
     /*
@@ -396,13 +404,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             /*
             |--------------------------------------------------------------------------
-            | CIRKELVORMIGE VULLING PER LETTER
+            | CIRKELVORMIGE VULLING PER LETTER, VAN BOVEN NAAR ONDER
             |
-            | De letter wordt gevuld door verspreide ronde
-            | kleurvlekken die vanuit het niets uitdijen tot
-            | volle grootte, elkaar overlappen en zo de hele
-            | letter kleuren, en daarna samen naar wit
-            | vervagen — zoals bij SAIC.
+            | De letter wordt opgebouwd uit een raster van
+            | ronde kleurvlekken (rijen x kolommen). De
+            | vertraging is vooral gebaseerd op de rij, zodat
+            | de vulling zichtbaar van boven naar beneden
+            | door de letter zakt — zoals bij SAIC. Daarna
+            | vervaagt alles samen weer naar wit.
             |--------------------------------------------------------------------------
             */
 
@@ -412,20 +421,23 @@ document.addEventListener("DOMContentLoaded", () => {
             const fillTop =
                 line.y - fillHeight;
 
-            const fillCenterY =
-                fillTop + fillHeight / 2;
+            const letterLeft =
+                centerX - width / 2;
 
             // Bredere letters krijgen automatisch meer
-            // vlekken, zodat ze net zo goed gevuld raken.
-            const dotCount = Math.max(
-                MIN_DOTS_PER_LETTER,
+            // kolommen, zodat ze net zo goed gevuld raken.
+            const cols = Math.max(
+                MIN_COLS_PER_LETTER,
                 Math.round(width / (FONT_SIZE * 0.5))
             );
 
+            const colWidth = width / cols;
+            const rowHeight = fillHeight / ROW_COUNT;
+
             // Straal ruim genoeg zodat naburige vlekken
-            // elkaar overlappen en de letter dicht kleuren.
+            // (ook tussen rijen) elkaar overlappen.
             const dotRadius =
-                Math.max(width / dotCount, fillHeight) * 0.68;
+                Math.max(colWidth, rowHeight) * 0.72;
 
             const fillGroup = create("g", {
 
@@ -434,44 +446,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
             });
 
-            for (let dotIndex = 0; dotIndex < dotCount; dotIndex++) {
-
-                const color =
-                    GLITCH_COLORS[
-                        Math.floor(Math.random() * GLITCH_COLORS.length)
-                    ];
-
-                const dotX =
-                    (centerX - width / 2) +
-                    (width / dotCount) * (dotIndex + 0.5) +
-                    (Math.random() - 0.5) * (width / dotCount) * 0.5;
+            for (let row = 0; row < ROW_COUNT; row++) {
 
                 const dotY =
-                    fillCenterY +
-                    (Math.random() - 0.5) * fillHeight * 0.4;
+                    fillTop + rowHeight * (row + 0.5);
 
-                const delay =
-                    letterIndex * LETTER_DELAY +
-                    dotIndex * DOT_STAGGER;
+                for (let col = 0; col < cols; col++) {
 
-                const dot = create("circle", {
+                    const color =
+                        GLITCH_COLORS[
+                            Math.floor(Math.random() * GLITCH_COLORS.length)
+                        ];
 
-                    cx: dotX,
-                    cy: dotY,
-                    r: dotRadius,
+                    const dotX =
+                        letterLeft +
+                        colWidth * (col + 0.5) +
+                        (Math.random() - 0.5) * colWidth * 0.5;
 
-                    fill: color,
+                    const delay =
+                        letterIndex * LETTER_DELAY +
+                        row * ROW_STAGGER +
+                        col * DOT_STAGGER;
 
-                    class:
-                        "future-glitch-dot",
+                    const dot = create("circle", {
 
-                    style: `
-                        --delay: ${delay}s;
-                    `
+                        cx: dotX,
+                        cy: dotY,
+                        r: dotRadius,
 
-                });
+                        fill: color,
 
-                fillGroup.appendChild(dot);
+                        class:
+                            "future-glitch-dot",
+
+                        style: `
+                            --delay: ${delay}s;
+                        `
+
+                    });
+
+                    fillGroup.appendChild(dot);
+
+                }
 
             }
 
