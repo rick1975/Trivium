@@ -32,6 +32,31 @@
     }
 
     /*
+     * De letter wordt van onderaf opgevuld
+     * met kleur, zoals bij SAIC.
+     */
+    .future-fill {
+        transform-box: fill-box;
+        transform-origin: bottom center;
+        transform: scaleY(0);
+
+        animation:
+            future-fill 0.9s cubic-bezier(.22, 1, .36, 1)
+            var(--delay) forwards;
+    }
+
+    @keyframes future-fill {
+
+        0% {
+            transform: scaleY(0);
+        }
+
+        100% {
+            transform: scaleY(1);
+        }
+    }
+
+    /*
      * De kleurvorm wordt getekend,
      * niet als complete blob zichtbaar.
      */
@@ -303,6 +328,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
             /*
             |--------------------------------------------------------------------------
+            | KLEUR-VULLING
+            |
+            | De letter wordt van onderaf opgevuld met
+            | een vlakke kleur, zoals bij SAIC.
+            |--------------------------------------------------------------------------
+            */
+
+            const capHeight =
+                FONT_SIZE * 0.72;
+
+            const fillWidth =
+                width * 1.2;
+
+            const fillHeight =
+                capHeight * 1.1;
+
+            const fill = create("rect", {
+
+                x: centerX - fillWidth / 2,
+                y: line.y - fillHeight,
+
+                width: fillWidth,
+                height: fillHeight,
+
+                fill: COLORS[letterIndex % COLORS.length],
+
+                class:
+                    "future-fill",
+
+                style: `
+                    --delay:
+                    ${letterIndex * LETTER_DELAY}s;
+                `
+
+            });
+
+            const fillGroup =
+                create("g", {
+
+                    mask:
+                        `url(#${maskId})`
+
+                });
+
+            fillGroup.appendChild(fill);
+
+            textGroup.appendChild(fillGroup);
+
+
+            /*
+            |--------------------------------------------------------------------------
             | DRIE KLEUR-PATHS
             |--------------------------------------------------------------------------
             */
@@ -339,9 +415,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 | volgende rechtsdraaiend (via `direction`).
                 |--------------------------------------------------------------------------
                 */
-
-                const capHeight =
-                    FONT_SIZE * 0.72;
 
                 const r =
                     Math.max(width * 0.28, 28);
