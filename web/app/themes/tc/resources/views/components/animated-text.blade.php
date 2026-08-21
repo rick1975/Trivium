@@ -31,57 +31,29 @@
     }
 
     /*
-     * Elke kleur tekent zichzelf (net als bij SAIC, via
-     * eenzelfde soort "trim paths"-beweging) en blijft
-     * daarna gewoon staan — geen losse fade per kleur.
+     * De letter wordt één plat, effen kleurvlak: verschijnt,
+     * blijft even staan, en vervaagt dan weer naar wit —
+     * exact zoals bij SAIC (geen lijn/spiraal, gewoon vulling).
      */
-    .future-shape {
-        fill: none;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-
-        stroke-dasharray: 0 1000;
-
+    .future-fill {
         opacity: 0;
 
         animation:
-            future-draw 1.5s cubic-bezier(.22, 1, .36, 1)
+            future-fill 1.6s cubic-bezier(.22, 1, .36, 1)
             var(--delay) forwards;
     }
 
-    @keyframes future-draw {
+    @keyframes future-fill {
 
         0% {
-            stroke-dasharray: 0 1000;
             opacity: 0;
         }
 
-        8% {
+        10% {
             opacity: 1;
         }
 
-        100% {
-            stroke-dasharray: 1000 1000;
-            opacity: 1;
-        }
-    }
-
-    /*
-     * Pas als alle kleuren van een letter klaar zijn met
-     * tekenen en een tijdje hebben gestaan, vervaagt de
-     * hele letter in één keer samen naar wit.
-     */
-    .future-letter-group {
-        opacity: 1;
-
-        animation:
-            future-fade-out 0.8s ease-in
-            var(--fade-delay) forwards;
-    }
-
-    @keyframes future-fade-out {
-
-        0% {
+        70% {
             opacity: 1;
         }
 
@@ -250,8 +222,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         /*
         |----------------------------------------------------------------
-        | Masker-achtergrond, ruim genoeg zodat de lussen
-        | nooit buiten de rand vallen.
+        | Masker-achtergrond, ruim genoeg zodat niets
+        | onbedoeld wordt afgeknipt.
         |----------------------------------------------------------------
         */
 
@@ -402,187 +374,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
             /*
             |--------------------------------------------------------------------------
-            | ÉÉN GEDEELDE GROEP PER LETTER
+            | ÉÉN EFFEN KLEURVLAK PER LETTER
             |
-            | Alle 6 kleuren tekenen na elkaar hetzelfde pad
-            | en blijven daarna gewoon staan (zoals bij SAIC).
-            | Pas als de laatste kleur een tijdje heeft
-            | gestaan, vervaagt de hele letter in één keer
-            | samen naar wit.
+            | De letter verschijnt in één platte kleur (uit
+            | het palet, cyclisch per letter), blijft even
+            | staan, en vervaagt dan terug naar wit — zoals
+            | bij SAIC.
             |--------------------------------------------------------------------------
             */
 
-            const strokeStagger = 0.22;
+            const color =
+                COLORS[letterIndex % COLORS.length];
 
-            const strokeDrawDuration = 1.5;
+            const fillWidth =
+                width * 1.2;
 
-            const strokeHoldBuffer = 0.6;
+            const fillHeight =
+                capHeight * 1.1;
 
-            const strokeTotalTime =
-                (COLORS.length - 1) * strokeStagger +
-                strokeDrawDuration +
-                strokeHoldBuffer;
+            const fill = create("rect", {
 
-            const letterGroup = create("g", {
+                x: centerX - fillWidth / 2,
+                y: line.y - fillHeight,
 
-                mask:
-                    `url(#${maskId})`,
+                width: fillWidth,
+                height: fillHeight,
+
+                fill: color,
 
                 class:
-                    "future-letter-group",
+                    "future-fill",
 
                 style: `
-                    --fade-delay:
-                    ${
-                        letterIndex *
-                        LETTER_DELAY +
-                        strokeTotalTime
-                    }s;
+                    --delay:
+                    ${letterIndex * LETTER_DELAY}s;
                 `
 
             });
 
-            textGroup.appendChild(letterGroup);
+            const fillGroup = create("g", {
 
+                mask:
+                    `url(#${maskId})`
 
-            /*
-            |--------------------------------------------------------------------------
-            | ZES KLEUR-LAGEN
-            |--------------------------------------------------------------------------
-            */
+            });
 
-            for (let c = 0; c < COLORS.length; c++) {
+            fillGroup.appendChild(fill);
 
-                const color =
-                    COLORS[
-                        (letterIndex + c) % COLORS.length
-                    ];
-
-                const delay = `
-                    --delay:
-                    ${
-                        letterIndex *
-                        LETTER_DELAY +
-                        c * strokeStagger
-                    }s;
-                `;
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | Elke letter krijgt een andere beweging.
-                |--------------------------------------------------------------------------
-                */
-
-                const reverse =
-                    letterIndex % 2 !== 0;
-
-
-                const direction =
-                    reverse ? -1 : 1;
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | Spiraalvulling, zoals bij SAIC.
-                |
-                | Drie gestapelde lussen (rond) van onder tot
-                | boven in de letter, allemaal dezelfde kant op
-                | draaiend: de ene letter linksdraaiend, de
-                | volgende rechtsdraaiend (via `direction`).
-                |--------------------------------------------------------------------------
-                */
-
-                const r =
-                    Math.max(width * 0.28, FONT_SIZE * 0.15);
-
-                const k =
-                    r * 0.5523;
-
-                const spiralY = [
-                    line.y - capHeight * 0.14,
-                    line.y - capHeight * 0.50,
-                    line.y - capHeight * 0.86
-                ];
-
-                const loop = cy => `
-
-                    C
-                    ${centerX - k * direction} ${cy + r},
-                    ${centerX - r * direction} ${cy + k},
-                    ${centerX - r * direction} ${cy}
-
-                    C
-                    ${centerX - r * direction} ${cy - k},
-                    ${centerX - k * direction} ${cy - r},
-                    ${centerX} ${cy - r}
-
-                    C
-                    ${centerX + k * direction} ${cy - r},
-                    ${centerX + r * direction} ${cy - k},
-                    ${centerX + r * direction} ${cy}
-
-                    C
-                    ${centerX + r * direction} ${cy + k},
-                    ${centerX + k * direction} ${cy + r},
-                    ${centerX} ${cy + r}
-                `;
-
-                const bridge = (fromY, toY) => `
-
-                    C
-                    ${centerX} ${fromY - r * 0.4},
-                    ${centerX} ${toY + r * 0.4},
-                    ${centerX} ${toY + r}
-                `;
-
-
-                const pathData = `
-
-                    M ${centerX} ${spiralY[0] + r}
-
-                    ${loop(spiralY[0])}
-                    ${bridge(spiralY[0], spiralY[1])}
-                    ${loop(spiralY[1])}
-                    ${bridge(spiralY[1], spiralY[2])}
-                    ${loop(spiralY[2])}
-
-                `;
-
-
-                const path = create("path", {
-
-                    d: pathData,
-
-                    fill: "none",
-
-                    stroke: color,
-
-                    /*
-                     * Dikke stroke zodat de vorm
-                     * daadwerkelijk delen van de
-                     * letter kan vullen.
-                     */
-                    "stroke-width":
-                        Math.max(width * .65, FONT_SIZE * 0.22),
-
-                    "stroke-linecap":
-                        "round",
-
-                    "stroke-linejoin":
-                        "round",
-
-                    class:
-                        "future-shape",
-
-                    style: delay
-
-                });
-
-
-                letterGroup.appendChild(path);
-
-            }
+            textGroup.appendChild(fillGroup);
 
 
             x += width;
