@@ -31,29 +31,35 @@
     }
 
     /*
-     * De letter wordt gevuld door een aantal ronde
-     * kleurvlekken die vanuit een punt uitdijen tot volle
-     * grootte, verspreid over de letter, kort blijven staan
-     * en dan samen naar wit vervagen — zoals bij SAIC.
+     * De letter wordt gevuld door één cirkel die vanuit een
+     * punt bovenin de letter uitdijt tot ze de hele letter
+     * bedekt, kort blijft staan en dan weer naar wit
+     * vervaagt — zoals bij SAIC (goed te zien bij ronde
+     * letters als de "o").
      */
-    .future-glitch-dot {
+    .future-circle-fill {
         opacity: 0;
         transform-box: fill-box;
         transform-origin: center;
 
         animation:
-            future-dot 1.4s cubic-bezier(.22, 1, .36, 1)
+            future-circle 1.1s cubic-bezier(.22, 1, .36, 1)
             var(--delay) forwards;
     }
 
-    @keyframes future-dot {
+    @keyframes future-circle {
 
         0% {
             opacity: 0;
             transform: scale(0);
         }
 
-        12% {
+        6% {
+            opacity: 1;
+            transform: scale(.08);
+        }
+
+        45% {
             opacity: 1;
             transform: scale(1);
         }
@@ -89,24 +95,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Hoe snel de animatie door de letters loopt.
     const LETTER_DELAY = 0.10;
-
-    // Hoeveel kolommen ronde kleurvlekken er (minimaal) per
-    // letter worden gebruikt. Bredere letters krijgen er
-    // automatisch meer.
-    const MIN_COLS_PER_LETTER = 3;
-
-    // In hoeveel rijen (boven naar onder) de letter wordt
-    // opgebouwd.
-    const ROW_COUNT = 3;
-
-    // Vertraging per rij: bepaalt hoe duidelijk de vulling
-    // van boven naar beneden "zakt" — zoals bij SAIC.
-    const ROW_STAGGER = 0.09;
-
-    // Kleine extra vertraging per kolom binnen een rij,
-    // zodat het geen strakke rechte lijn blijft maar wat
-    // organischer oogt.
-    const DOT_STAGGER = 0.02;
 
 
     /*
@@ -404,14 +392,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             /*
             |--------------------------------------------------------------------------
-            | CIRKELVORMIGE VULLING PER LETTER, VAN BOVEN NAAR ONDER
+            | ÉÉN GROEIENDE CIRKEL PER LETTER
             |
-            | De letter wordt opgebouwd uit een raster van
-            | ronde kleurvlekken (rijen x kolommen). De
-            | vertraging is vooral gebaseerd op de rij, zodat
-            | de vulling zichtbaar van boven naar beneden
-            | door de letter zakt — zoals bij SAIC. Daarna
-            | vervaagt alles samen weer naar wit.
+            | De letter wordt gevuld door één cirkel die
+            | vanuit een punt bovenin de letter groeit tot ze
+            | de hele letter bedekt — bij ronde letters (o, a,
+            | e) zie je daardoor letterlijk een met kleur
+            | gevulde cirkel ontstaan, zoals bij SAIC. Daarna
+            | vervaagt de cirkel weer naar wit.
             |--------------------------------------------------------------------------
             */
 
@@ -421,23 +409,43 @@ document.addEventListener("DOMContentLoaded", () => {
             const fillTop =
                 line.y - fillHeight;
 
-            const letterLeft =
-                centerX - width / 2;
+            // Startpunt van de cirkel: net onder de bovenkant
+            // van de letter, zodat het uitdijen zichtbaar
+            // naar beneden "loopt".
+            const growCenterY =
+                fillTop + fillHeight * 0.15;
 
-            // Bredere letters krijgen automatisch meer
-            // kolommen, zodat ze net zo goed gevuld raken.
-            const cols = Math.max(
-                MIN_COLS_PER_LETTER,
-                Math.round(width / (FONT_SIZE * 0.5))
-            );
+            // Straal groot genoeg zodat de cirkel vanuit dat
+            // punt ook de onderkant en de zijkanten van de
+            // letter volledig bedekt.
+            const dx = width / 2;
+            const dy = line.y - growCenterY;
 
-            const colWidth = width / cols;
-            const rowHeight = fillHeight / ROW_COUNT;
+            const radius =
+                Math.sqrt(dx * dx + dy * dy) * 1.08;
 
-            // Straal ruim genoeg zodat naburige vlekken
-            // (ook tussen rijen) elkaar overlappen.
-            const dotRadius =
-                Math.max(colWidth, rowHeight) * 0.72;
+            const color =
+                GLITCH_COLORS[letterIndex % GLITCH_COLORS.length];
+
+            const delay =
+                letterIndex * LETTER_DELAY;
+
+            const circle = create("circle", {
+
+                cx: centerX,
+                cy: growCenterY,
+                r: radius,
+
+                fill: color,
+
+                class:
+                    "future-circle-fill",
+
+                style: `
+                    --delay: ${delay}s;
+                `
+
+            });
 
             const fillGroup = create("g", {
 
@@ -446,50 +454,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             });
 
-            for (let row = 0; row < ROW_COUNT; row++) {
-
-                const dotY =
-                    fillTop + rowHeight * (row + 0.5);
-
-                for (let col = 0; col < cols; col++) {
-
-                    const color =
-                        GLITCH_COLORS[
-                            Math.floor(Math.random() * GLITCH_COLORS.length)
-                        ];
-
-                    const dotX =
-                        letterLeft +
-                        colWidth * (col + 0.5) +
-                        (Math.random() - 0.5) * colWidth * 0.5;
-
-                    const delay =
-                        letterIndex * LETTER_DELAY +
-                        row * ROW_STAGGER +
-                        col * DOT_STAGGER;
-
-                    const dot = create("circle", {
-
-                        cx: dotX,
-                        cy: dotY,
-                        r: dotRadius,
-
-                        fill: color,
-
-                        class:
-                            "future-glitch-dot",
-
-                        style: `
-                            --delay: ${delay}s;
-                        `
-
-                    });
-
-                    fillGroup.appendChild(dot);
-
-                }
-
-            }
+            fillGroup.appendChild(circle);
 
             textGroup.appendChild(fillGroup);
 
