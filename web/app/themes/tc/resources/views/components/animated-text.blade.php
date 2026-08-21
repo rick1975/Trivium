@@ -132,10 +132,14 @@ document.addEventListener("DOMContentLoaded", () => {
     |--------------------------------------------------------------------------
     */
 
+    // Zelfde palet als het SAIC-logo.
     const COLORS = [
-        "#FF7A00",
-        "#F04444",
-        "#F72585"
+        "#5597CE",
+        "#4DADAA",
+        "#F3DC4A",
+        "#E69C3F",
+        "#D93386",
+        "#FFFFFF"
     ];
 
 
@@ -420,11 +424,11 @@ document.addEventListener("DOMContentLoaded", () => {
             |--------------------------------------------------------------------------
             */
 
-            for (let c = 0; c < 3; c++) {
+            for (let c = 0; c < COLORS.length; c++) {
 
                 const color =
                     COLORS[
-                        (letterIndex + c) % 3
+                        (letterIndex + c) % COLORS.length
                     ];
 
                 const delay = `
@@ -432,7 +436,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${
                         letterIndex *
                         LETTER_DELAY +
-                        c * 0.18
+                        c * 0.10
                     }s;
                 `;
 
