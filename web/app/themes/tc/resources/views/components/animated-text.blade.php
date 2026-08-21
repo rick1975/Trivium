@@ -40,7 +40,7 @@
         opacity: 1;
 
         animation:
-            future-fill 0.9s cubic-bezier(.22, 1, .36, 1)
+            future-fill 1.1s cubic-bezier(.22, 1, .36, 1)
             var(--delay) forwards;
     }
 
@@ -51,7 +51,12 @@
             opacity: 1;
         }
 
-        45% {
+        35% {
+            clip-path: circle(100% at 50% 50%);
+            opacity: 1;
+        }
+
+        70% {
             clip-path: circle(100% at 50% 50%);
             opacity: 1;
         }
@@ -76,7 +81,7 @@
         opacity: 0;
 
         animation:
-            future-draw 1.3s cubic-bezier(.22, 1, .36, 1)
+            future-draw 1.5s cubic-bezier(.22, 1, .36, 1)
             var(--delay) forwards;
     }
 
@@ -91,7 +96,12 @@
             opacity: 1;
         }
 
-        60% {
+        45% {
+            stroke-dasharray: 1000 1000;
+            opacity: 1;
+        }
+
+        75% {
             stroke-dasharray: 1000 1000;
             opacity: 1;
         }
@@ -434,7 +444,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     ${
                         letterIndex *
                         LETTER_DELAY +
-                        c * 0.10
+                        c * 0.22
                     }s;
                 `;
 
