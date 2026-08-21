@@ -31,34 +31,52 @@
     }
 
     /*
-     * De letter wordt één plat, effen kleurvlak: verschijnt,
-     * blijft even staan, en vervaagt dan weer naar wit —
-     * exact zoals bij SAIC (geen lijn/spiraal, gewoon vulling).
+     * De letter wordt opgebouwd uit dunne, gekleurde
+     * horizontale stroken die licht verschoven verschijnen,
+     * kort heen-en-weer "glitchen" en daarna uitlijnen en
+     * naar wit vervagen — zoals bij SAIC.
      */
-    .future-fill {
+    .future-glitch-slice {
         opacity: 0;
 
         animation:
-            future-fill 1.6s cubic-bezier(.22, 1, .36, 1)
+            future-glitch 1.4s cubic-bezier(.22, 1, .36, 1)
             var(--delay) forwards;
     }
 
-    @keyframes future-fill {
+    @keyframes future-glitch {
 
         0% {
             opacity: 0;
+            transform: translateX(var(--jitter));
         }
 
-        10% {
+        8% {
             opacity: 1;
+            transform: translateX(var(--jitter));
         }
 
-        70% {
+        18% {
+            transform: translateX(calc(var(--jitter) * -0.7));
+        }
+
+        28% {
+            transform: translateX(calc(var(--jitter) * 0.4));
+        }
+
+        38% {
             opacity: 1;
+            transform: translateX(0);
+        }
+
+        75% {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         100% {
             opacity: 0;
+            transform: translateX(0);
         }
     }
 </style>
@@ -83,6 +101,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hoe snel de animatie door de letters loopt.
     const LETTER_DELAY = 0.10;
 
+    // Aantal horizontale kleurstroken waaruit elke letter
+    // wordt opgebouwd (het glitch-effect).
+    const SLICE_COUNT = 4;
+
+    // Extra vertraging tussen de stroken binnen één letter,
+    // zodat ze niet allemaal exact gelijk starten.
+    const SLICE_STAGGER = 0.03;
+
 
     /*
     |--------------------------------------------------------------------------
@@ -99,6 +125,11 @@ document.addEventListener("DOMContentLoaded", () => {
         "#D93386",
         "#FFFFFF"
     ];
+
+    // Voor de kleurstroken zelf laten we wit weg (dat is
+    // toch al de kleur van de basisletter eronder).
+    const GLITCH_COLORS =
+        COLORS.filter(color => color !== "#FFFFFF");
 
 
     /*
@@ -374,17 +405,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             /*
             |--------------------------------------------------------------------------
-            | ÉÉN EFFEN KLEURVLAK PER LETTER
+            | GLITCH: MEERDERE GEKLEURDE STROKEN PER LETTER
             |
-            | De letter verschijnt in één platte kleur (uit
-            | het palet, cyclisch per letter), blijft even
-            | staan, en vervaagt dan terug naar wit — zoals
-            | bij SAIC.
+            | De letter wordt opgebouwd uit dunne horizontale
+            | stroken in verschillende kleuren, die licht
+            | verschoven verschijnen, kort "glitchen" en dan
+            | uitlijnen en naar wit vervagen — zoals bij SAIC.
             |--------------------------------------------------------------------------
             */
-
-            const color =
-                COLORS[letterIndex % COLORS.length];
 
             const fillWidth =
                 width * 1.2;
@@ -392,25 +420,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const fillHeight =
                 capHeight * 1.1;
 
-            const fill = create("rect", {
+            const fillTop =
+                line.y - fillHeight;
 
-                x: centerX - fillWidth / 2,
-                y: line.y - fillHeight,
-
-                width: fillWidth,
-                height: fillHeight,
-
-                fill: color,
-
-                class:
-                    "future-fill",
-
-                style: `
-                    --delay:
-                    ${letterIndex * LETTER_DELAY}s;
-                `
-
-            });
+            const sliceHeight =
+                fillHeight / SLICE_COUNT;
 
             const fillGroup = create("g", {
 
@@ -419,7 +433,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
             });
 
-            fillGroup.appendChild(fill);
+            for (let sliceIndex = 0; sliceIndex < SLICE_COUNT; sliceIndex++) {
+
+                const color =
+                    GLITCH_COLORS[
+                        (letterIndex + sliceIndex) % GLITCH_COLORS.length
+                    ];
+
+                const jitter =
+                    (FONT_SIZE * 0.06) *
+                    (sliceIndex % 2 === 0 ? 1 : -1) *
+                    (0.6 + Math.random() * 0.6);
+
+                const delay =
+                    letterIndex * LETTER_DELAY +
+                    sliceIndex * SLICE_STAGGER;
+
+                const slice = create("rect", {
+
+                    x: centerX - fillWidth / 2,
+                    y: fillTop + sliceIndex * sliceHeight,
+
+                    width: fillWidth,
+                    height: sliceHeight + 0.5,
+
+                    fill: color,
+
+                    class:
+                        "future-glitch-slice",
+
+                    style: `
+                        --jitter: ${jitter}px;
+                        --delay: ${delay}s;
+                    `
+
+                });
+
+                fillGroup.appendChild(slice);
+
+            }
 
             textGroup.appendChild(fillGroup);
 
