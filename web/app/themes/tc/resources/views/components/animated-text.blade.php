@@ -27,7 +27,6 @@
     .future-base {
         fill: #fff;
         font-family: "Poppins", sans-serif;
-        font-size: 190px;
         font-weight: 700;
     }
 
@@ -112,8 +111,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const svg = document.getElementById("future-svg");
     const defs = document.getElementById("future-defs");
     const textGroup = document.getElementById("future-text");
+    const container = document.querySelector(".future-animation");
 
-    if (!svg || !defs || !textGroup) return;
+    if (!svg || !defs || !textGroup || !container) return;
 
 
     /*
@@ -121,8 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
     | INSTELLINGEN
     |--------------------------------------------------------------------------
     */
-
-    const FONT_SIZE = 190;
 
     // Hoe snel de animatie door de letters loopt.
     const LETTER_DELAY = 0.10;
@@ -148,14 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
     */
 
     const lines = [
-        {
-            text: "Maak",
-            y: 155
-        },
-        {
-            text: "Jouw toekomst!",
-            y: 335
-        }
+        { text: "Maak" },
+        { text: "Jouw toekomst!" }
     ];
 
 
@@ -182,19 +174,89 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    /*
-    |--------------------------------------------------------------------------
-    | Font meten
-    |--------------------------------------------------------------------------
-    */
-
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    ctx.font = `700 ${FONT_SIZE}px Poppins`;
+
+    /*
+    |--------------------------------------------------------------------------
+    | OPBOUW
+    |
+    | Wordt bij het laden en bij elke resize opnieuw
+    | uitgevoerd, zodat de tekst altijd exact even groot
+    | is als de h1 erboven (die zelf ook responsive is
+    | via text-5xl / lg:text-7xl).
+    |--------------------------------------------------------------------------
+    */
+
+    const build = () => {
+
+        defs.replaceChildren();
+        textGroup.replaceChildren();
 
 
-    let letterIndex = 0;
+        /*
+        |----------------------------------------------------------------
+        | Lettergrootte overnemen van de h1 erboven.
+        |----------------------------------------------------------------
+        */
+
+        const h1 =
+            container.parentElement?.querySelector("h1")
+            ?? document.querySelector("h1");
+
+        const FONT_SIZE = h1
+            ? parseFloat(getComputedStyle(h1).fontSize)
+            : 48;
+
+        const viewBoxWidth =
+            svg.getBoundingClientRect().width || 1600;
+
+        ctx.font = `700 ${FONT_SIZE}px Poppins`;
+
+
+        const capHeight =
+            FONT_SIZE * 0.72;
+
+        const topPad =
+            FONT_SIZE * 0.3;
+
+        const bottomPad =
+            FONT_SIZE * 0.3;
+
+        const lineHeight =
+            FONT_SIZE * 1.05;
+
+        const viewBoxHeight =
+            topPad +
+            capHeight +
+            (lines.length - 1) * lineHeight +
+            bottomPad;
+
+        svg.setAttribute(
+            "viewBox",
+            `0 0 ${viewBoxWidth} ${viewBoxHeight}`
+        );
+
+
+        /*
+        |----------------------------------------------------------------
+        | Masker-achtergrond, ruim genoeg zodat de lussen
+        | nooit buiten de rand vallen.
+        |----------------------------------------------------------------
+        */
+
+        const maskMargin = FONT_SIZE;
+
+        const maskBounds = {
+            x: -maskMargin,
+            y: -maskMargin,
+            width: viewBoxWidth + maskMargin * 2,
+            height: viewBoxHeight + maskMargin * 2
+        };
+
+
+        let letterIndex = 0;
 
 
     /*
@@ -203,7 +265,9 @@ document.addEventListener("DOMContentLoaded", () => {
     |--------------------------------------------------------------------------
     */
 
-    lines.forEach(line => {
+    lines.forEach((line, lineIndex) => {
+
+        line.y = topPad + capHeight + lineIndex * lineHeight;
 
         const characters = [...line.text];
 
@@ -216,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
             0
         );
 
-        let x = (1600 - totalWidth) / 2;
+        let x = (viewBoxWidth - totalWidth) / 2;
 
 
         /*
@@ -289,11 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 maskUnits: "userSpaceOnUse",
 
-                x: 0,
-                y: 0,
-
-                width: 1600,
-                height: 420
+                ...maskBounds
 
             });
 
@@ -301,11 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
             mask.appendChild(
                 create("rect", {
 
-                    x: 0,
-                    y: 0,
-
-                    width: 1600,
-                    height: 420,
+                    ...maskBounds,
 
                     fill: "black"
 
@@ -345,9 +401,6 @@ document.addEventListener("DOMContentLoaded", () => {
             | Afmetingen van het vulvlak (per letter gelijk).
             |--------------------------------------------------------------------------
             */
-
-            const capHeight =
-                FONT_SIZE * 0.72;
 
             const fillWidth =
                 width * 1.2;
@@ -427,7 +480,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 */
 
                 const r =
-                    Math.max(width * 0.28, 28);
+                    Math.max(width * 0.28, FONT_SIZE * 0.15);
 
                 const k =
                     r * 0.5523;
@@ -497,7 +550,7 @@ document.addEventListener("DOMContentLoaded", () => {
                      * letter kan vullen.
                      */
                     "stroke-width":
-                        Math.max(width * .65, 42),
+                        Math.max(width * .65, FONT_SIZE * 0.22),
 
                     "stroke-linecap":
                         "round",
@@ -542,6 +595,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
         });
 
+    });
+
+    };
+
+
+    build();
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Opnieuw opbouwen bij resize, zodat de tekst even
+    | groot blijft als de (responsive) h1 erboven.
+    |--------------------------------------------------------------------------
+    */
+
+    let resizeTimer;
+
+    window.addEventListener("resize", () => {
+
+        clearTimeout(resizeTimer);
+
+        resizeTimer = setTimeout(build, 200);
     });
 
 });
