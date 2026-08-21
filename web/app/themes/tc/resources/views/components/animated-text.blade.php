@@ -36,9 +36,7 @@
      * uiteindelijk wit blijft (zoals bij SAIC).
      */
     .future-fill {
-        transform-box: fill-box;
-        transform-origin: bottom center;
-        transform: scaleY(0);
+        clip-path: circle(0% at 50% 50%);
         opacity: 1;
 
         animation:
@@ -49,17 +47,17 @@
     @keyframes future-fill {
 
         0% {
-            transform: scaleY(0);
+            clip-path: circle(0% at 50% 50%);
             opacity: 1;
         }
 
         45% {
-            transform: scaleY(1);
+            clip-path: circle(100% at 50% 50%);
             opacity: 1;
         }
 
         100% {
-            transform: scaleY(1);
+            clip-path: circle(100% at 50% 50%);
             opacity: 0;
         }
     }
@@ -150,8 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
     */
 
     const lines = [
-        { text: "Maak" },
-        { text: "Jouw toekomst!" }
+        { text: "Maak Jouw" },
+        { text: "toekomst!" }
     ];
 
 
