@@ -167,17 +167,6 @@ html {
   .card:hover {
     @apply shadow-lg;
   }
-
-  /* Header niet onder de WP-adminbalk laten schuiven */
-  .admin-bar .banner.absolute {
-    top: 32px;
-  }
-
-  @media (max-width: 782px) {
-    .admin-bar .banner.absolute {
-      top: 46px;
-    }
-  }
 }
 
 @layer utilities {
@@ -187,6 +176,18 @@ html {
 
   .text-pretty {
     text-wrap: pretty;
+  }
+}
+
+/* Header niet onder de WP-adminbalk laten schuiven (bewust buiten @layer:
+   Tailwind's utilities-layer wint anders altijd van top-0, ongeacht specificiteit) */
+.admin-bar .banner.absolute {
+  top: 32px;
+}
+
+@media (max-width: 782px) {
+  .admin-bar .banner.absolute {
+    top: 46px;
   }
 }
 
