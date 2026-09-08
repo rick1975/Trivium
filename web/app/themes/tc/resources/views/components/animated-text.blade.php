@@ -142,8 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
     */
 
     const lines = [
-        { text: "Maak Jouw" },
-        { text: "toekomst!" }
+        { text: "LEREN MET LEF" }
     ];
 
 
