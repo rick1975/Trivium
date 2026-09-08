@@ -289,7 +289,17 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.measureText(char).width
         );
 
-        let x = 0;
+        // De canvas-breedte van een letter is de "advance width" en
+        // laat de inkt meestal een stukje na x=0 beginnen (de linker
+        // sidebearing van het font). Bij grote koptekst is dat gat
+        // zichtbaar; we meten het exact voor de eerste letter en
+        // trekken de startpositie ervoor terug, zodat de tekst hier
+        // optisch even ver links begint als de tekst eronder.
+        const firstCharBearing =
+            ctx.measureText(characters[0] ?? "")
+                .actualBoundingBoxLeft || 0;
+
+        let x = firstCharBearing;
 
 
         /*
