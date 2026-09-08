@@ -14,7 +14,7 @@
     <div class="max-w-[30rem]" x-data="{ visible: false }" x-init="setTimeout(() => visible = true, 100)">
 
       {{-- Titel (visueel verborgen, animated-text neemt de lettergrootte hiervan over) --}}
-      <h1 class="sr-only">Leren met lef</h1>
+      <h1 class="sr-only text-5xl lg:text-7xl font-bold">Leren met lef</h1>
 
       {{-- Geanimeerde titel --}}
       @include('components.animated-text')
