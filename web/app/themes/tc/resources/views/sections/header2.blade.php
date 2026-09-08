@@ -1,10 +1,10 @@
 <header class="banner absolute top-0 left-0 right-0 z-50 bg-transparent transition-colors duration-300"
-  x-data="{ mobileOpen: false, hovered: false }"
+  x-data="{ mobileOpen: false, searchOpen: false, hovered: false }"
   @mouseenter="hovered = true"
   @mouseleave="hovered = false"
-  @keydown.escape.window="mobileOpen = false"
+  @keydown.escape.window="mobileOpen = false; searchOpen = false"
   x-effect="document.body.classList.toggle('overflow-hidden', mobileOpen)"
-  :class="hovered ? 'bg-white shadow-sm' : 'bg-transparent'">
+  :class="(hovered || searchOpen) ? 'bg-white shadow-sm' : 'bg-transparent'">
 
   <div class="px-6 xl:px-20">
     <div class="flex items-center justify-between min-h-[80px]">
@@ -16,45 +16,75 @@
         </div>
       </a>
 
-      {{-- Zoekbalk --}}
-      <div
-        class="flex items-center gap-3 rounded-full px-5 py-3 max-w-lg transition-all duration-300"
-        :class="hovered
-          ? 'bg-white border border-[#ddd8cc] focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)]'
-          : 'bg-white/15 border border-white/30 backdrop-blur-sm'"
-      >
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
-          :class="hovered ? 'text-[#7a7060]' : 'text-white'"
-          class="shrink-0 transition-colors duration-300">
+      {{-- Rechts: zoek-icoon + hamburger --}}
+      <div class="flex items-center gap-2">
+
+        {{-- Zoek-icoon --}}
+        <button type="button"
+          class="w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300"
+          :class="searchOpen
+            ? 'bg-[#e56b6f] border-[#e56b6f] text-white'
+            : (hovered ? 'bg-[#f6f4ee] border-[#ddd8cc] text-[#7a7060] hover:border-[#e56b6f] hover:text-[#e56b6f]' : 'bg-white/15 border-white/30 text-white backdrop-blur-sm')"
+          @click="searchOpen = !searchOpen; mobileOpen = false"
+          :aria-expanded="searchOpen.toString()"
+          aria-label="Zoeken">
+          <svg width="16" height="16" viewBox="0 0 15 15" fill="none">
+            <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M11 11l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        {{-- Hamburger --}}
+        <button type="button" class="-m-2.5 p-2.5" @click="mobileOpen = !mobileOpen; searchOpen = false" :aria-expanded="mobileOpen.toString()" aria-label="Toggle menu">
+          <span class="block relative w-6 h-4">
+            <span
+              class="absolute left-0 top-0 block h-[2px] w-6 transition-all duration-300"
+              :class="[mobileOpen ? 'translate-y-[7px] rotate-45' : '', hovered ? 'bg-[#1a1612]' : 'bg-white']"
+            ></span>
+            <span
+              class="absolute left-0 top-1/2 block h-[2px] w-6 -translate-y-1/2 transition-all duration-200"
+              :class="[mobileOpen ? 'opacity-0' : 'opacity-100', hovered ? 'bg-[#1a1612]' : 'bg-white']"
+            ></span>
+            <span
+              class="absolute left-0 bottom-0 block h-[2px] transition-all duration-300"
+              :class="[mobileOpen ? 'w-6 -translate-y-[7px] -rotate-45' : 'w-4', hovered ? 'bg-[#1a1612]' : 'bg-white']"
+            ></span>
+          </span>
+        </button>
+
+      </div>
+
+    </div>
+
+    {{-- Uitschuivend zoekpaneel --}}
+    <div x-show="searchOpen"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0 -translate-y-2"
+      x-transition:enter-end="opacity-100 translate-y-0"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100 translate-y-0"
+      x-transition:leave-end="opacity-0 -translate-y-2"
+      x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
+      class="pb-6"
+      style="display: none;">
+      <div class="flex items-center gap-3 bg-white border border-[#ddd8cc] rounded-full px-5 py-3 max-w-lg focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)] transition-all duration-200">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="text-[#7a7060] shrink-0">
           <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
           <path d="M11 11l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
         </svg>
-        <input
-          type="text"
-          placeholder="Waar ben je naar op zoek?"
-          :class="hovered ? 'text-[#1a1612] placeholder:text-[#7a7060]' : 'text-white placeholder:text-white/70'"
-          class="border-none outline-none bg-transparent text-sm w-full font-['DM_Sans'] transition-colors duration-300"
-        />
+        <input x-ref="searchInput" type="search" placeholder="Waar ben je naar op zoek?" aria-label="Zoeken"
+          class="border-none outline-none bg-transparent text-sm text-[#1a1612] placeholder:text-[#7a7060] w-full font-['DM_Sans']" />
+        <button type="button" @click="searchOpen = false" class="text-2xl leading-none text-[#8b9098] hover:text-[#d14d51] transition-colors shrink-0" aria-label="Zoeken sluiten">&times;</button>
       </div>
-
-      {{-- Hamburger --}}
-      <button type="button" class="-m-2.5 p-2.5" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen.toString()" aria-label="Toggle menu">
-        <span class="block relative w-6 h-4">
-          <span
-            class="absolute left-0 top-0 block h-[2px] w-6 transition-all duration-300"
-            :class="[mobileOpen ? 'translate-y-[7px] rotate-45' : '', hovered ? 'bg-[#1a1612]' : 'bg-white']"
-          ></span>
-          <span
-            class="absolute left-0 top-1/2 block h-[2px] w-6 -translate-y-1/2 transition-all duration-200"
-            :class="[mobileOpen ? 'opacity-0' : 'opacity-100', hovered ? 'bg-[#1a1612]' : 'bg-white']"
-          ></span>
-          <span
-            class="absolute left-0 bottom-0 block h-[2px] transition-all duration-300"
-            :class="[mobileOpen ? 'w-6 -translate-y-[7px] -rotate-45' : 'w-4', hovered ? 'bg-[#1a1612]' : 'bg-white']"
-          ></span>
-        </span>
-      </button>
-
+      <div class="flex flex-wrap gap-2 mt-3">
+        @foreach(['Aanmelden', 'Open dag', 'Rooster', 'Ziekmelden', 'Vakanties'] as $suggestion)
+          <button type="button"
+            @click="$refs.searchInput.value = '{{ $suggestion }}'; $refs.searchInput.focus()"
+            class="text-xs font-medium text-[#6f757d] bg-white border border-[#ddd8cc] rounded-full px-3 py-1.5 hover:border-[#e56b6f] hover:text-[#d14d51] transition-colors">
+            {{ $suggestion }}
+          </button>
+        @endforeach
+      </div>
     </div>
 
   </div>
