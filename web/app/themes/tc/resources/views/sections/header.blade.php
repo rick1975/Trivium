@@ -1,13 +1,16 @@
-<header class="banner bg-white shadow-sm relative z-50"
+<header class="banner absolute top-0 left-0 right-0 z-50 bg-transparent transition-colors duration-300"
   x-data="{ mobileOpen: false, searchOpen: false }"
   @keydown.escape.window="mobileOpen = false; searchOpen = false"
-  x-effect="document.body.classList.toggle('overflow-hidden', mobileOpen)">
+  x-effect="document.body.classList.toggle('overflow-hidden', mobileOpen)"
+  :class="searchOpen ? 'bg-white shadow-sm' : 'bg-transparent'">
+
   <div class="px-6 xl:px-20">
     <div class="flex items-center justify-between min-h-[80px]">
+
       {{-- Logo --}}
       <a href="{{ home_url('/') }}">
-        <div class="w-40 [&>svg]:w-full [&>svg]:h-auto">
-        {!! file_get_contents(get_template_directory() . '/resources/images/VMBO-Trivium-college.svg') !!}
+        <div class="w-44 [&>svg]:w-full [&>svg]:h-auto">
+          {!! file_get_contents(get_template_directory() . '/resources/images/VMBO-Trivium-college.svg') !!}
         </div>
       </a>
 
@@ -17,7 +20,9 @@
         {{-- Zoek-icoon --}}
         <button type="button"
           class="w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-300"
-          :class="searchOpen ? 'bg-[#e56b6f] border-[#e56b6f] text-white' : 'bg-[#f6f4ee] border-[#ddd8cc] text-[#7a7060] hover:border-[#e56b6f] hover:text-[#e56b6f]'"
+          :class="searchOpen
+            ? 'bg-[#e56b6f] border-[#e56b6f] text-white'
+            : 'bg-white/15 border-white/30 text-white backdrop-blur-sm hover:bg-white/25'"
           @click="searchOpen = !searchOpen; mobileOpen = false"
           :aria-expanded="searchOpen.toString()"
           aria-label="Zoeken">
@@ -28,15 +33,25 @@
         </button>
 
         {{-- Hamburger --}}
-        <button type="button" class="-m-2.5 p-2.5 relative z-50" @click="mobileOpen = !mobileOpen; searchOpen = false" :aria-expanded="mobileOpen.toString()" aria-label="Toggle menu">
+        <button type="button" class="-m-2.5 p-2.5" @click="mobileOpen = !mobileOpen; searchOpen = false" :aria-expanded="mobileOpen.toString()" aria-label="Toggle menu">
           <span class="block relative w-6 h-4">
-            <span class="absolute left-0 top-0 block h-[2px] w-6 bg-current transition-transform duration-300" :class="mobileOpen ? 'translate-y-[7px] rotate-45' : ''"></span>
-            <span class="absolute left-0 top-1/2 block h-[2px] w-6 -translate-y-1/2 bg-current transition-opacity duration-200" :class="mobileOpen ? 'opacity-0' : 'opacity-100'"></span>
-            <span class="absolute left-0 bottom-0 block h-[2px] bg-current transition-all duration-300" :class="mobileOpen ? 'w-6 -translate-y-[7px] -rotate-45' : 'w-4'"></span>
+            <span
+              class="absolute left-0 top-0 block h-[2px] w-6 transition-all duration-300"
+              :class="[mobileOpen ? 'translate-y-[7px] rotate-45' : '', searchOpen ? 'bg-[#1a1612]' : 'bg-white']"
+            ></span>
+            <span
+              class="absolute left-0 top-1/2 block h-[2px] w-6 -translate-y-1/2 transition-all duration-200"
+              :class="[mobileOpen ? 'opacity-0' : 'opacity-100', searchOpen ? 'bg-[#1a1612]' : 'bg-white']"
+            ></span>
+            <span
+              class="absolute left-0 bottom-0 block h-[2px] transition-all duration-300"
+              :class="[mobileOpen ? 'w-6 -translate-y-[7px] -rotate-45' : 'w-4', searchOpen ? 'bg-[#1a1612]' : 'bg-white']"
+            ></span>
           </span>
         </button>
 
       </div>
+
     </div>
 
     {{-- Uitschuivend zoekpaneel --}}
@@ -69,6 +84,7 @@
         @endforeach
       </div>
     </div>
+
   </div>
 
   {{-- Backdrop --}}
@@ -104,7 +120,7 @@
                 <svg class="w-2.5 h-2.5 shrink-0 border-r-2 border-b-2 border-[#9aa0a8] transition-transform duration-200" :class="subOpen ? '-rotate-[135deg]' : 'rotate-45'" style="transform-origin:center;"></svg>
               </button>
 
-              <ul x-show="subOpen" x-collapse class="bg-[#faf7f7]" style="display: none;">
+              <ul x-show="subOpen" x-collapse class="mb-2 bg-[#faf7f7]" style="display: none;">
                 @foreach($item->children as $child)
                   <li class="border-t border-[#f0eaea]">
                     <a href="{{ $child->url }}" @click="mobileOpen = false"
