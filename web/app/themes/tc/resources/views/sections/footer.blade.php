@@ -1,11 +1,17 @@
 <footer class="footer">
   <div class="container">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       {{-- Footer Column 1 --}}
       <div>
         <h3 class="text-lg font-semibold mb-4 text-white">{{ get_bloginfo('name') }}</h3>
         <p class="text-sm text-white">
-          {{ get_bloginfo('description') }}
+          Maak jouw toekomst bij Trivium College in Gorinchem. Praktijkgericht onderwijs dat écht bij jou past.</p>
+        <p class="text-sm">
+        Dierenriem 11<br/>
+        3813 VN Amersfoort</p>
+        <p class="text-sm">
+        033-475 36 94 (bereikbaar van 08.00 - 16.30u)<br/>
+        info@vmbotriviumcollege.nl
         </p>
       </div>
 
@@ -19,7 +25,7 @@
                 <a href="{{ $item->url }}" 
                    class="text-white hover:text-gray-100"
                    @if($item->target) target="{{ $item->target }}" @endif>
-                  {{ $item->label }}
+                  {!! $item->label !!}
                 </a>
               </li>
             @endforeach

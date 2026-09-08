@@ -1,34 +1,62 @@
-<header class="banner bg-white shadow-sm relative z-50"
-  x-data="{ mobileOpen: false }"
+<header class="banner absolute top-0 left-0 right-0 z-50 bg-transparent transition-colors duration-300"
+  x-data="{ mobileOpen: false, hovered: false }"
+  @mouseenter="hovered = true"
+  @mouseleave="hovered = false"
   @keydown.escape.window="mobileOpen = false"
-  x-effect="document.body.classList.toggle('overflow-hidden', mobileOpen)">
+  x-effect="document.body.classList.toggle('overflow-hidden', mobileOpen)"
+  :class="hovered ? 'bg-white shadow-sm' : 'bg-transparent'">
+
   <div class="px-6 xl:px-20">
     <div class="flex items-center justify-between min-h-[80px]">
+
       {{-- Logo --}}
       <a href="{{ home_url('/') }}">
-        <div class="w-40 [&>svg]:w-full [&>svg]:h-auto">
-        {!! file_get_contents(get_template_directory() . '/resources/images/VMBO-Trivium-college.svg') !!}
+        <div class="w-44 [&>svg]:w-full [&>svg]:h-auto">
+          {!! file_get_contents(get_template_directory() . '/resources/images/VMBO-Trivium-college.svg') !!}
         </div>
       </a>
 
-      <div class="flex items-center gap-3 bg-white border border-[#ddd8cc] rounded-full px-5 py-3 max-w-lg focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)] transition-all duration-200">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="text-[#7a7060] shrink-0">
+      {{-- Zoekbalk --}}
+      <div
+        class="flex items-center gap-3 rounded-full px-5 py-3 max-w-lg transition-all duration-300"
+        :class="hovered
+          ? 'bg-white border border-[#ddd8cc] focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)]'
+          : 'bg-white/15 border border-white/30 backdrop-blur-sm'"
+      >
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
+          :class="hovered ? 'text-[#7a7060]' : 'text-white'"
+          class="shrink-0 transition-colors duration-300">
           <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
           <path d="M11 11l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
         </svg>
-        <input type="text" placeholder="Waar ben je naar op zoek?"
-          class="border-none outline-none bg-transparent text-sm text-[#1a1612] placeholder:text-[#7a7060] w-full font-['DM_Sans']" />
+        <input
+          type="text"
+          placeholder="Waar ben je naar op zoek?"
+          :class="hovered ? 'text-[#1a1612] placeholder:text-[#7a7060]' : 'text-white placeholder:text-white/70'"
+          class="border-none outline-none bg-transparent text-sm w-full font-['DM_Sans'] transition-colors duration-300"
+        />
       </div>
 
       {{-- Hamburger --}}
-      <button type="button" class="-m-2.5 p-2.5 relative z-50" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen.toString()" aria-label="Toggle menu">
+      <button type="button" class="-m-2.5 p-2.5" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen.toString()" aria-label="Toggle menu">
         <span class="block relative w-6 h-4">
-          <span class="absolute left-0 top-0 block h-[2px] w-6 bg-current transition-transform duration-300" :class="mobileOpen ? 'translate-y-[7px] rotate-45' : ''"></span>
-          <span class="absolute left-0 top-1/2 block h-[2px] w-6 -translate-y-1/2 bg-current transition-opacity duration-200" :class="mobileOpen ? 'opacity-0' : 'opacity-100'"></span>
-          <span class="absolute left-0 bottom-0 block h-[2px] bg-current transition-all duration-300" :class="mobileOpen ? 'w-6 -translate-y-[7px] -rotate-45' : 'w-4'"></span>
+          <span
+            class="absolute left-0 top-0 block h-[2px] w-6 transition-all duration-300"
+            :class="[mobileOpen ? 'translate-y-[7px] rotate-45' : '', hovered ? 'bg-[#1a1612]' : 'bg-white']"
+          ></span>
+          <span
+            class="absolute left-0 top-1/2 block h-[2px] w-6 -translate-y-1/2 transition-all duration-200"
+            :class="[mobileOpen ? 'opacity-0' : 'opacity-100', hovered ? 'bg-[#1a1612]' : 'bg-white']"
+          ></span>
+          <span
+            class="absolute left-0 bottom-0 block h-[2px] transition-all duration-300"
+            :class="[mobileOpen ? 'w-6 -translate-y-[7px] -rotate-45' : 'w-4', hovered ? 'bg-[#1a1612]' : 'bg-white']"
+          ></span>
         </span>
       </button>
+
     </div>
+
   </div>
 
   {{-- Backdrop --}}
