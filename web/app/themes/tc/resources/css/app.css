@@ -4,29 +4,35 @@
 
 html { scroll-behavior: smooth; }
 
-@layer base {
-  :root {
-    --primary: #00386c;
-    --primary-dark: #003261;
-    --primary-light: #265582;
-    --text-dark: #1f2937;
-    --text-light: #6b7280;
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-  }
+html {
+    scroll-behavior: smooth;
+}
 
+@theme {
+    --color-triv-blue: #004289;
+    --color-triv-lightblue: #3577bc;
+    --color-triv-red: #e62733;
+    --color-triv-orange: #f07f3c;
+    --color-triv-pink: #E56B6F;
+    --color-triv-green: #56af31;
+    --color-triv-olive:#9b9e4b; 
+    --color-triv-yellow: #fcbf00;
+    --breakpoint-2xl: 1500px;
+}
+
+@layer base {
   body {
     @apply bg-white text-gray-700 antialiased;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 400;
     line-height: 1.75;
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   /* Typography */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold text-pretty text-gray-800 leading-tight;
+    @apply font-bold text-pretty text-triv-blue leading-tight;
+    font-family: 'Poppins', sans-serif;
   }
 
   h1 { @apply text-4xl md:text-5xl mb-6; }
@@ -51,7 +57,7 @@ html { scroll-behavior: smooth; }
   }
 
   a:where(:not(.wp-element-button)) {
-    text-decoration: none !important;
+    @apply !no-underline;
   }
 
   /* Lists - Remove default list styles */
@@ -110,6 +116,19 @@ html { scroll-behavior: smooth; }
     background-color: var(--primary);
     color: white;
   }
+
+  .rainbow {
+    height: 5px;
+    background: linear-gradient(90deg,
+      #fcbf00 0%,
+      #f07f3c 20%,
+      #e4003a 30%,
+      #f08cb9 50%,
+      #3577bc 70%,
+      #56af31 85%,
+      #004289 100%
+    );
+  }
 }
 
 @layer components {
@@ -125,9 +144,7 @@ html { scroll-behavior: smooth; }
 
   /* Footer */
   .footer {
-    @apply py-12 md:py-16;
-    background-color: var(--primary);
-    color: white;
+    @apply py-12 md:py-16 bg-triv-blue text-white;
   }
 
   .footer a {
@@ -150,6 +167,17 @@ html { scroll-behavior: smooth; }
   .card:hover {
     @apply shadow-lg;
   }
+
+  /* Header niet onder de WP-adminbalk laten schuiven */
+  .admin-bar .banner.absolute {
+    top: 32px;
+  }
+
+  @media (max-width: 782px) {
+    .admin-bar .banner.absolute {
+      top: 46px;
+    }
+  }
 }
 
 @layer utilities {
@@ -159,5 +187,27 @@ html { scroll-behavior: smooth; }
 
   .text-pretty {
     text-wrap: pretty;
+  }
+}
+
+
+/* animation */
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-ticker {
+  animation: ticker 60s linear infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
