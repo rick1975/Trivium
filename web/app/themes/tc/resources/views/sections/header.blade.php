@@ -14,8 +14,8 @@
         </div>
       </a>
 
-      {{-- Zoek-icoon + hamburger: mobiel gegroepeerd rechts, op desktop los verspreid tussen logo en hamburger --}}
-      <div class="flex items-center gap-2 lg:contents">
+      {{-- Zoek-icoon + hamburger, altijd gegroepeerd rechts --}}
+      <div class="flex items-center gap-2">
 
         {{-- Zoek-icoon + paneel: paneel verankert op desktop precies onder dit icoon --}}
         <div class="relative">
@@ -42,7 +42,7 @@
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 -translate-y-2"
             x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
-            class="pb-6 lg:pb-0 lg:absolute lg:top-full lg:left-0 lg:mt-3 lg:w-[380px] lg:z-10"
+            class="pb-6 lg:pb-0 lg:absolute lg:top-full lg:right-0 lg:mt-3 lg:w-[380px] lg:z-10"
             style="display: none;">
             <form method="GET" action="{{ home_url('/') }}" x-ref="searchForm" class="flex items-center gap-3 bg-white border border-[#ddd8cc] rounded-full px-5 py-3 lg:w-full max-w-lg focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)] transition-all duration-200">
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="text-[#7a7060] shrink-0">
