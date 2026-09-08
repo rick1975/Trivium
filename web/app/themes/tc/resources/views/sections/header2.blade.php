@@ -1,10 +1,8 @@
 <header class="banner absolute top-0 left-0 right-0 z-50 bg-transparent transition-colors duration-300"
-  x-data="{ mobileOpen: false, searchOpen: false, hovered: false }"
-  @mouseenter="hovered = true"
-  @mouseleave="hovered = false"
+  x-data="{ mobileOpen: false, searchOpen: false }"
   @keydown.escape.window="mobileOpen = false; searchOpen = false"
   x-effect="document.body.classList.toggle('overflow-hidden', mobileOpen)"
-  :class="(hovered || searchOpen) ? 'bg-white shadow-sm' : 'bg-transparent'">
+  :class="searchOpen ? 'bg-white shadow-sm' : 'bg-transparent'">
 
   <div class="px-6 xl:px-20">
     <div class="flex items-center justify-between min-h-[80px]">
@@ -21,10 +19,10 @@
 
         {{-- Zoek-icoon --}}
         <button type="button"
-          class="w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300"
+          class="w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-300"
           :class="searchOpen
             ? 'bg-[#e56b6f] border-[#e56b6f] text-white'
-            : (hovered ? 'bg-[#f6f4ee] border-[#ddd8cc] text-[#7a7060] hover:border-[#e56b6f] hover:text-[#e56b6f]' : 'bg-white/15 border-white/30 text-white backdrop-blur-sm')"
+            : 'bg-white/15 border-white/30 text-white backdrop-blur-sm hover:bg-white/25'"
           @click="searchOpen = !searchOpen; mobileOpen = false"
           :aria-expanded="searchOpen.toString()"
           aria-label="Zoeken">
@@ -39,15 +37,15 @@
           <span class="block relative w-6 h-4">
             <span
               class="absolute left-0 top-0 block h-[2px] w-6 transition-all duration-300"
-              :class="[mobileOpen ? 'translate-y-[7px] rotate-45' : '', hovered ? 'bg-[#1a1612]' : 'bg-white']"
+              :class="[mobileOpen ? 'translate-y-[7px] rotate-45' : '', searchOpen ? 'bg-[#1a1612]' : 'bg-white']"
             ></span>
             <span
               class="absolute left-0 top-1/2 block h-[2px] w-6 -translate-y-1/2 transition-all duration-200"
-              :class="[mobileOpen ? 'opacity-0' : 'opacity-100', hovered ? 'bg-[#1a1612]' : 'bg-white']"
+              :class="[mobileOpen ? 'opacity-0' : 'opacity-100', searchOpen ? 'bg-[#1a1612]' : 'bg-white']"
             ></span>
             <span
               class="absolute left-0 bottom-0 block h-[2px] transition-all duration-300"
-              :class="[mobileOpen ? 'w-6 -translate-y-[7px] -rotate-45' : 'w-4', hovered ? 'bg-[#1a1612]' : 'bg-white']"
+              :class="[mobileOpen ? 'w-6 -translate-y-[7px] -rotate-45' : 'w-4', searchOpen ? 'bg-[#1a1612]' : 'bg-white']"
             ></span>
           </span>
         </button>

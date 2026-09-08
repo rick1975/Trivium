@@ -16,7 +16,7 @@
 
         {{-- Zoek-icoon --}}
         <button type="button"
-          class="w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300"
+          class="w-12 h-12 rounded-full flex items-center justify-center border transition-all duration-300"
           :class="searchOpen ? 'bg-[#e56b6f] border-[#e56b6f] text-white' : 'bg-[#f6f4ee] border-[#ddd8cc] text-[#7a7060] hover:border-[#e56b6f] hover:text-[#e56b6f]'"
           @click="searchOpen = !searchOpen; mobileOpen = false"
           :aria-expanded="searchOpen.toString()"
