@@ -13,8 +13,8 @@
     .future-animation {
         width: 100%;
         max-width: 1600px;
-        margin: 80px auto;
-        padding: 0 20px;
+        margin: 8px 0 20px;
+        padding: 0;
     }
 
     .future-animation svg {
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
     */
 
     const lines = [
-        { text: "LEREN MET LEF" }
+        { text: "Leren met lef" }
     ];
 
 
