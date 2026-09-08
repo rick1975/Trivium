@@ -524,7 +524,16 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    build();
+    // Pas opbouwen zodra het lettertype echt geladen is. Anders meet
+    // canvas de letterbreedtes met een fallback-font (bv. bij een
+    // harde refresh, wanneer Poppins nog niet in de cache zit), en
+    // komen de posities niet meer overeen zodra Poppins alsnog
+    // verschijnt — de tekst lijkt dan horizontaal in elkaar gedrukt.
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(build);
+    } else {
+        build();
+    }
 
 
     /*
