@@ -55,7 +55,7 @@
     x-transition:leave-start="opacity-100 translate-y-0"
     x-transition:leave-end="opacity-0 -translate-y-2"
     x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
-    class="bg-[#f6f4ee] border-b border-[#e8e0d0]"
+    class="bg-black/70 backdrop-blur-md border-b border-white/10"
     style="display: none;">
     <div class="px-6 xl:px-20 py-5">
       <form method="GET" action="{{ home_url('/') }}" x-ref="searchForm" class="flex items-center gap-3 bg-white border border-[#ddd8cc] rounded-full px-5 py-3 max-w-lg focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)] transition-all duration-200">
