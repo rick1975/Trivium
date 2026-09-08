@@ -14,8 +14,8 @@
         </div>
       </a>
 
-      {{-- Rechts: zoek-icoon + hamburger --}}
-      <div class="flex items-center gap-2">
+      {{-- Zoek-icoon + hamburger: mobiel gegroepeerd rechts, op desktop los verspreid tussen logo en hamburger --}}
+      <div class="flex items-center gap-2 lg:contents">
 
         {{-- Zoek-icoon --}}
         <button type="button"
