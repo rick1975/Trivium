@@ -5,11 +5,9 @@
       <div class="flex flex-wrap justify-between gap-8">
         @foreach($navigation as $item)
           <div class="w-full sm:w-auto sm:flex-1">
-            <a href="{{ $item->url }}"
-              class="block font-bold text-[#1a1612] hover:text-triv-pink hover:translate-x-1.5 transition-all duration-200 mb-3"
-              @if($item->target) target="{{ $item->target }}" @endif>
+            <span class="block font-bold text-[#1a1612] mb-3">
               {!! $item->label !!}
-            </a>
+            </span>
             @if($item->children)
               <ul class="space-y-2">
                 @foreach($item->children as $child)
