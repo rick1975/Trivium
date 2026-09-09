@@ -46,7 +46,7 @@
 
   </div>
 
-  {{-- Uitklappend zoekpaneel: volle breedte onder de header, eigen achtergrondkleur --}}
+  {{-- Uitklappend zoekpaneel: mobiel/tablet volle breedte, vanaf xl rechts verankerd tot aan de slogan --}}
   <div x-show="searchOpen"
     x-transition:enter="transition ease-out duration-300"
     x-transition:enter-start="opacity-0 -translate-y-2"
@@ -55,9 +55,9 @@
     x-transition:leave-start="opacity-100 translate-y-0"
     x-transition:leave-end="opacity-0 -translate-y-2"
     x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
-    class="bg-black/70 backdrop-blur-md border-b border-white/10"
+    class="bg-black/70 backdrop-blur-md border-b border-white/10 xl:absolute xl:top-full xl:right-20 xl:w-[calc(25rem+6vw)] 2xl:w-152 xl:border xl:border-white/10 xl:rounded-b-2xl xl:shadow-2xl"
     style="display: none;">
-    <div class="px-6 xl:px-20 py-5">
+    <div class="px-6 py-5">
       <form method="GET" action="{{ home_url('/') }}" x-ref="searchForm" class="flex items-center gap-3 bg-white border border-[#ddd8cc] rounded-full px-5 py-3 max-w-lg focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)] transition-all duration-200">
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="text-[#7a7060] shrink-0">
           <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
