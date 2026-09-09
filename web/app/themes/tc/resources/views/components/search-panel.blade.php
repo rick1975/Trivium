@@ -84,15 +84,17 @@
 
       {{-- Live zoekresultaten tijdens het typen --}}
       <div x-show="query.trim().length >= 2" class="mt-4" style="display: none;">
-        <p x-show="loading" class="text-white/70 text-xs px-1">Zoeken...</p>
-        <p x-show="!loading && results.length === 0" class="text-white/70 text-xs px-1">Geen resultaten gevonden.</p>
-        <ul x-show="!loading && results.length > 0" class="flex flex-col gap-1">
+        <p x-show="loading" class="text-stone-400 text-xs px-1">Zoeken...</p>
+        <p x-show="!loading && results.length === 0" class="text-stone-400 text-xs px-1">Geen resultaten gevonden.</p>
+        <p x-show="!loading && results.length > 0" class="text-neutral-800 text-xs font-semibold uppercase tracking-widest px-1 mb-2" x-text="`${results.length} resultaten voor &quot;${query}&quot;`"></p>
+        <ul x-show="!loading && results.length > 0">
           <template x-for="result in results" :key="result.id">
-            <li>
+            <li class="border-b border-stone-200 last:border-b-0">
               <a :href="result.url"
-                class="flex items-center justify-between gap-2 px-4 py-2 bg-white border border-[#ddd8cc] rounded-xl text-sm text-[#1a1612] hover:border-[#e56b6f] hover:text-[#d14d51] transition-colors">
-                <span x-html="highlight(result.title)"></span>
-                <span class="shrink-0 text-[#8b9098]">&rarr;</span>
+                class="group flex items-center gap-4 py-4 px-1 text-[#1a1612] hover:text-triv-pink transition-colors">
+                <span class="w-20 shrink-0 text-xs font-semibold uppercase tracking-widest text-stone-400" x-text="result.subtype === 'page' ? 'Pagina' : 'Bericht'"></span>
+                <span class="flex-1 font-bold" x-html="highlight(result.title)"></span>
+                <span class="shrink-0 text-stone-400 transition-transform duration-200 group-hover:translate-x-1.5">&rarr;</span>
               </a>
             </li>
           </template>
