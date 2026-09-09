@@ -30,6 +30,7 @@
         </aside>
       @endif
 
+      @include('components.sitemap')
       @include('sections.footer')
     </div>
 
