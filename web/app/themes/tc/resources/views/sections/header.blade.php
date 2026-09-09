@@ -18,7 +18,7 @@
 
         {{-- Zoek-icoon --}}
         <button type="button"
-          class="w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-300"
+          class="w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-300 cursor-pointer"
           :class="searchOpen
             ? 'bg-[#e56b6f] border-[#e56b6f] text-white'
             : 'bg-white/15 border-white/30 text-white backdrop-blur-sm hover:bg-white/25'"
@@ -32,7 +32,7 @@
         </button>
 
         {{-- Hamburger --}}
-        <button type="button" class="-m-2.5 p-2.5" @click="mobileOpen = !mobileOpen; searchOpen = false" :aria-expanded="mobileOpen.toString()" aria-label="Toggle menu">
+        <button type="button" class="-m-2.5 p-2.5 cursor-pointer" @click="mobileOpen = !mobileOpen; searchOpen = false" :aria-expanded="mobileOpen.toString()" aria-label="Toggle menu">
           <span class="block relative w-6 h-4">
             <span class="absolute left-0 top-0 block h-[2px] w-6 bg-white transition-transform duration-300" :class="mobileOpen ? 'translate-y-[7px] rotate-45' : ''"></span>
             <span class="absolute left-0 top-1/2 block h-[2px] w-6 bg-white -translate-y-1/2 transition-opacity duration-200" :class="mobileOpen ? 'opacity-0' : 'opacity-100'"></span>
@@ -67,7 +67,7 @@
       aria-label="Hoofdmenu">
       <div class="sticky top-0 bg-white flex items-center justify-between px-6 py-4 border-b border-[#eef0f2] shrink-0">
         <span class="font-bold text-base text-[#2f333a]">Menu</span>
-        <button type="button" @click="mobileOpen = false" class="text-3xl leading-none text-[#8b9098] hover:text-[#d14d51] transition-colors" aria-label="Menu sluiten">&times;</button>
+        <button type="button" @click="mobileOpen = false" class="text-3xl leading-none text-[#8b9098] hover:text-[#d14d51] transition-colors cursor-pointer" aria-label="Menu sluiten">&times;</button>
       </div>
 
       <nav class="flex flex-col py-1 pb-6">
@@ -75,7 +75,7 @@
           <div class="border-b border-[#eef0f2]" x-data="{ subOpen: false }">
             @if($item->children)
               <button type="button" @click="subOpen = !subOpen" :aria-expanded="subOpen.toString()"
-                class="w-full flex items-center justify-between gap-2.5 py-4 px-6 text-left font-bold text-base transition-colors"
+                class="w-full flex items-center justify-between gap-2.5 py-4 px-6 text-left font-bold text-base transition-colors cursor-pointer"
                 :class="subOpen ? 'text-[#e56b6f]' : 'text-[#2f333a] hover:text-[#d14d51]'">
                 {!! $item->label !!}
                 <svg class="w-2.5 h-2.5 shrink-0 border-r-2 border-b-2 border-[#9aa0a8] transition-transform duration-200" :class="subOpen ? '-rotate-[135deg]' : 'rotate-45'" style="transform-origin:center;"></svg>

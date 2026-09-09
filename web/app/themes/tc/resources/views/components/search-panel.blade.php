@@ -16,7 +16,7 @@
       {!! file_get_contents(get_template_directory() . '/resources/images/VMBO-Trivium-college.svg') !!}
     </div>
     <button type="button" @click="searchOpen = false"
-      class="mr-8 w-9 h-9 rounded-full flex items-center justify-center border border-[#ddd8cc] bg-white text-[#1a1612] hover:bg-[#e56b6f] hover:border-[#e56b6f] hover:text-white transition-all duration-300" aria-label="Zoeken sluiten">
+      class="mr-8 w-9 h-9 rounded-full flex items-center justify-center border border-[#ddd8cc] bg-white text-[#1a1612] hover:bg-[#e56b6f] hover:border-[#e56b6f] hover:text-white transition-all duration-300 cursor-pointer" aria-label="Zoeken sluiten">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <line x1="4" y1="4" x2="20" y2="20"/>
         <line x1="20" y1="4" x2="4" y2="20"/>
@@ -63,7 +63,7 @@
     x-effect="if (!searchOpen) { query = ''; results = [] }">
     <div class="max-w-lg mx-auto w-full">
       <form method="GET" action="{{ home_url('/') }}" x-ref="searchForm" class="flex items-center gap-3 bg-white border border-[#ddd8cc] rounded-full px-6 py-4 focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)] transition-all duration-200">
-        <button type="submit" class="text-[#7a7060] hover:text-triv-blue transition-colors shrink-0" aria-label="Zoeken uitvoeren">
+        <button type="submit" class="text-[#7a7060] hover:text-triv-blue transition-colors shrink-0 cursor-pointer" aria-label="Zoeken uitvoeren">
           <svg width="18" height="18" viewBox="0 0 15 15" fill="none">
             <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
             <path d="M11 11l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
@@ -74,7 +74,7 @@
           class="border-none outline-none bg-transparent text-lg text-[#1a1612] placeholder:text-[#7a7060] w-full font-['DM_Sans']" />
         <button type="button" x-show="query.length > 0" style="display: none;"
           @click="query = ''; results = []; $refs.searchInput.focus()"
-          class="text-[#8b9098] hover:text-[#d14d51] transition-colors shrink-0" aria-label="Zoekopdracht wissen">
+          class="text-[#8b9098] hover:text-[#d14d51] transition-colors shrink-0 cursor-pointer" aria-label="Zoekopdracht wissen">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
             <line x1="4" y1="4" x2="20" y2="20"/>
             <line x1="20" y1="4" x2="4" y2="20"/>
