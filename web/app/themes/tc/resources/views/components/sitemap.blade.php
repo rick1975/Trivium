@@ -6,7 +6,7 @@
         @foreach($navigation as $item)
           <div class="w-full sm:w-auto sm:flex-1">
             <a href="{{ $item->url }}"
-              class="block font-bold text-[#1a1612] hover:text-triv-pink transition-colors mb-3"
+              class="block font-bold text-[#1a1612] hover:text-triv-pink hover:translate-x-1.5 transition-all duration-200 mb-3"
               @if($item->target) target="{{ $item->target }}" @endif>
               {!! $item->label !!}
             </a>
@@ -15,7 +15,7 @@
                 @foreach($item->children as $child)
                   <li>
                     <a href="{{ $child->url }}"
-                      class="text-sm text-[#5a616b] hover:text-triv-pink transition-colors"
+                      class="inline-block text-sm text-[#5a616b] hover:text-triv-pink hover:translate-x-1.5 transition-all duration-200"
                       @if($child->target) target="{{ $child->target }}" @endif>
                       {!! $child->label !!}
                     </a>
