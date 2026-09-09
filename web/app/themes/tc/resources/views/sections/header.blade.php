@@ -57,8 +57,11 @@
     x-transition:leave-end="opacity-0 -translate-y-2"
     x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
     @click.outside="if (!$refs.searchToggle.contains($event.target)) searchOpen = false"
-    class="bg-black/70 backdrop-blur-md border-b border-white/10"
+    class="relative bg-black/70 backdrop-blur-md border-b border-white/10"
     style="display: none;">
+    <button type="button" @click="searchOpen = false"
+      class="absolute top-5 right-6 xl:right-20 text-2xl leading-none text-white/70 hover:text-white transition-colors"
+      aria-label="Zoeken sluiten">&times;</button>
     <div class="px-6 xl:px-20 py-5">
       <form method="GET" action="{{ home_url('/') }}" x-ref="searchForm" class="flex items-center gap-3 bg-white border border-[#ddd8cc] rounded-full px-5 py-3 max-w-lg focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)] transition-all duration-200">
         <button type="submit" class="text-[#7a7060] hover:text-triv-blue transition-colors shrink-0" aria-label="Zoeken uitvoeren">
@@ -69,7 +72,6 @@
         </button>
         <input x-ref="searchInput" type="search" name="s" placeholder="Waar ben je naar op zoek?" aria-label="Zoeken"
           class="border-none outline-none bg-transparent text-sm text-[#1a1612] placeholder:text-[#7a7060] w-full font-['DM_Sans']" />
-        <button type="button" @click="searchOpen = false" class="text-2xl leading-none text-[#8b9098] hover:text-[#d14d51] transition-colors shrink-0" aria-label="Zoeken sluiten">&times;</button>
       </form>
       <div class="flex flex-wrap gap-2 mt-3">
         @foreach(['Aanmelden', 'Open dag', 'Rooster', 'Ziekmelden', 'Vakanties'] as $suggestion)
