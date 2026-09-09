@@ -57,7 +57,7 @@
     x-transition:leave-end="opacity-0 -translate-y-2"
     x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
     @click.outside="if (!$refs.searchToggle.contains($event.target)) searchOpen = false"
-    class="relative bg-black/70 backdrop-blur-md border-b border-white/10"
+    class="relative bg-[rgb(242_242_238/0.2)] backdrop-blur-md border-b border-white/10"
     style="display: none;">
     <button type="button" @click="searchOpen = false"
       class="absolute top-5 right-6 xl:right-20 text-2xl leading-none text-white/70 hover:text-white transition-colors"
