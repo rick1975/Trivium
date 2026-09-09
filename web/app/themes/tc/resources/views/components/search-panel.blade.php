@@ -1,9 +1,9 @@
 {{-- Zoekpaneel: volledig-scherm overlay met live zoekresultaten --}}
 <div x-show="searchOpen"
-  x-transition:enter="transition-opacity transition-transform ease-out duration-500"
+  x-transition:enter.duration.500ms
   x-transition:enter-start="opacity-0 -translate-y-full"
   x-transition:enter-end="opacity-100 translate-y-0"
-  x-transition:leave="transition-opacity transition-transform ease-out duration-500"
+  x-transition:leave.duration.500ms
   x-transition:leave-start="opacity-100 translate-y-0"
   x-transition:leave-end="opacity-0 -translate-y-full"
   x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
