@@ -16,8 +16,13 @@
       {!! file_get_contents(get_template_directory() . '/resources/images/VMBO-Trivium-college.svg') !!}
     </div>
     <button type="button" @click="searchOpen = false"
-      class="text-2xl leading-none text-white/70 hover:text-white transition-colors"
-      aria-label="Zoeken sluiten">&times;</button>
+      class="w-9 h-9 rounded-full flex items-center justify-center border border-[#ddd8cc] bg-white text-[#1a1612] hover:bg-[#e56b6f] hover:border-[#e56b6f] hover:text-white transition-all duration-300"
+      aria-label="Zoeken sluiten">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="4" y1="4" x2="20" y2="20"/>
+        <line x1="20" y1="4" x2="4" y2="20"/>
+      </svg>
+    </button>
   </div>
 
   {{-- Zoekveld en resultaten --}}
