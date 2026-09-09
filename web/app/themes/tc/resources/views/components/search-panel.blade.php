@@ -7,7 +7,7 @@
   x-transition:leave-start="opacity-100 translate-y-0"
   x-transition:leave-end="opacity-0 -translate-y-full"
   x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
-  class="fixed inset-0 z-50 bg-[rgb(242_242_238/0.9)] backdrop-blur-xl flex flex-col"
+  class="search-overlay fixed inset-0 z-50 bg-[rgb(242_242_238/0.9)] backdrop-blur-xl flex flex-col"
   style="display: none;">
 
   {{-- Balk met logo en sluitknop --}}
@@ -16,8 +16,7 @@
       {!! file_get_contents(get_template_directory() . '/resources/images/VMBO-Trivium-college.svg') !!}
     </div>
     <button type="button" @click="searchOpen = false"
-      class="w-9 h-9 rounded-full flex items-center justify-center border border-[#ddd8cc] bg-white text-[#1a1612] hover:bg-[#e56b6f] hover:border-[#e56b6f] hover:text-white transition-all duration-300"
-      aria-label="Zoeken sluiten">
+      class="w-9 h-9 rounded-full flex items-center justify-center border border-[#ddd8cc] bg-white text-[#1a1612] hover:bg-[#e56b6f] hover:border-[#e56b6f] hover:text-white transition-all duration-300" aria-label="Zoeken sluiten">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
         <line x1="4" y1="4" x2="20" y2="20"/>
         <line x1="20" y1="4" x2="4" y2="20"/>
@@ -101,14 +100,14 @@
       </div>
 
       {{-- Populaire pagina's: eenvoudige tekstlinks, geen buttons --}}
-      <div x-show="query.trim().length < 2" class="mt-6" style="display: none;">
-        <p class="text-white/70 text-xs font-semibold uppercase tracking-wide px-1 mb-2">Populaire pagina's</p>
+      <div x-show="query.trim().length < 2" class="mt-12" style="display: none;">
+        <p class="text-neutral-800 text-xs font-semibold uppercase tracking-widest px-1 mb-2">Populaire pagina's</p>
         <ul class="flex flex-col">
-          @foreach(['Aanmelden', 'Open dag', 'Rooster', 'Ziekmelden', 'Vakanties'] as $suggestion)
-            <li class="border-b border-white/10 last:border-b-0">
+          @foreach(['Aanmelden', 'Open dag', 'Rooster', 'Contact', 'Vakanties'] as $suggestion)
+            <li class="border-b border-stone-300 last:border-b-0">
               <button type="button"
                 @click="$refs.searchInput.value = '{{ $suggestion }}'; $refs.searchForm.requestSubmit()"
-                class="w-full flex items-center justify-between gap-2 px-1 py-2.5 text-sm text-white/90 hover:text-triv-yellow transition-colors text-left">
+                class="w-full flex items-center justify-between gap-2 px-1 py-2.5 text-sm text-stone-500 hover:text-triv-pink transition-colors text-left">
                 {{ $suggestion }}
                 <span class="shrink-0">&rarr;</span>
               </button>

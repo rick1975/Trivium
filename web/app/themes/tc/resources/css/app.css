@@ -179,14 +179,16 @@ html {
   }
 }
 
-/* Header niet onder de WP-adminbalk laten schuiven (bewust buiten @layer:
+/* Header en zoekpaneel niet onder de WP-adminbalk laten schuiven (bewust buiten @layer:
    Tailwind's utilities-layer wint anders altijd van top-0, ongeacht specificiteit) */
-.admin-bar .banner.absolute {
+.admin-bar .banner.absolute,
+.admin-bar .search-overlay {
   top: 32px;
 }
 
 @media (max-width: 782px) {
-  .admin-bar .banner.absolute {
+  .admin-bar .banner.absolute,
+  .admin-bar .search-overlay {
     top: 46px;
   }
 }
