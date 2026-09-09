@@ -18,6 +18,7 @@
 
         {{-- Zoek-icoon --}}
         <button type="button"
+          x-ref="searchToggle"
           class="w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-300"
           :class="searchOpen
             ? 'bg-[#e56b6f] border-[#e56b6f] text-white'
@@ -55,14 +56,17 @@
     x-transition:leave-start="opacity-100 translate-y-0"
     x-transition:leave-end="opacity-0 -translate-y-2"
     x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
+    @click.outside="if (!$refs.searchToggle.contains($event.target)) searchOpen = false"
     class="bg-black/70 backdrop-blur-md border-b border-white/10"
     style="display: none;">
     <div class="px-6 xl:px-20 py-5">
       <form method="GET" action="{{ home_url('/') }}" x-ref="searchForm" class="flex items-center gap-3 bg-white border border-[#ddd8cc] rounded-full px-5 py-3 max-w-lg focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)] transition-all duration-200">
-        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" class="text-[#7a7060] shrink-0">
-          <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
-          <path d="M11 11l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-        </svg>
+        <button type="submit" class="text-[#7a7060] hover:text-triv-blue transition-colors shrink-0" aria-label="Zoeken uitvoeren">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M11 11l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </button>
         <input x-ref="searchInput" type="search" name="s" placeholder="Waar ben je naar op zoek?" aria-label="Zoeken"
           class="border-none outline-none bg-transparent text-sm text-[#1a1612] placeholder:text-[#7a7060] w-full font-['DM_Sans']" />
         <button type="button" @click="searchOpen = false" class="text-2xl leading-none text-[#8b9098] hover:text-[#d14d51] transition-colors shrink-0" aria-label="Zoeken sluiten">&times;</button>
