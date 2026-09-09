@@ -107,7 +107,7 @@
             <li class="border-b border-stone-300 last:border-b-0">
               <button type="button"
                 @click="$refs.searchInput.value = '{{ $suggestion }}'; $refs.searchForm.requestSubmit()"
-                class="w-full flex items-center justify-between gap-2 px-1 py-2.5 text-sm text-stone-500 hover:text-triv-pink transition-colors text-left">
+                class="w-full flex items-center justify-between gap-2 px-1 py-2.5 text-sm text-stone-500 hover:text-triv-pink transition-colors text-left cursor-pointer">
                 {{ $suggestion }}
                 <span class="shrink-0">&rarr;</span>
               </button>
