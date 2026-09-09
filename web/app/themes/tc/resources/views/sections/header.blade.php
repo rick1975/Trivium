@@ -68,21 +68,33 @@
         results: [],
         loading: false,
         searchTimer: null,
+        abortController: null,
         onInput() {
           clearTimeout(this.searchTimer)
-          this.searchTimer = setTimeout(() => this.fetchResults(), 400)
+          if (this.abortController) this.abortController.abort()
+          if (this.query.trim().length < 2) { this.results = []; this.loading = false; return }
+          this.searchTimer = setTimeout(() => this.fetchResults(), 200)
         },
         async fetchResults() {
           const term = this.query.trim()
-          if (term.length < 2) { this.results = []; this.loading = false; return }
+          this.abortController = new AbortController()
           this.loading = true
           try {
-            const response = await fetch('/wp-json/wp/v2/search?search=' + encodeURIComponent(term) + '&per_page=5')
+            const response = await fetch('/wp-json/wp/v2/search?search=' + encodeURIComponent(term) + '&per_page=5', { signal: this.abortController.signal })
             this.results = response.ok ? await response.json() : []
           } catch (e) {
-            this.results = []
+            if (e.name !== 'AbortError') this.results = []
           }
           this.loading = false
+        },
+        escapeHtml(text) {
+          return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        },
+        highlight(text) {
+          const safeText = this.escapeHtml(text)
+          const term = this.query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+          if (!term) return safeText
+          return safeText.replace(new RegExp('(' + term + ')', 'ig'), `<mark class='bg-triv-yellow/60 rounded-sm'>$1</mark>`)
         }
       }"
       x-effect="if (!searchOpen) { query = ''; results = [] }">
@@ -96,6 +108,14 @@
         <input x-ref="searchInput" type="search" name="s" placeholder="Waar ben je naar op zoek?" aria-label="Zoeken" required
           x-model="query" @input="onInput()" autocomplete="off"
           class="border-none outline-none bg-transparent text-sm text-[#1a1612] placeholder:text-[#7a7060] w-full font-['DM_Sans']" />
+        <button type="button" x-show="query.length > 0" style="display: none;"
+          @click="query = ''; results = []; $refs.searchInput.focus()"
+          class="text-[#8b9098] hover:text-[#d14d51] transition-colors shrink-0" aria-label="Zoekopdracht wissen">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="4" y1="4" x2="20" y2="20"/>
+            <line x1="20" y1="4" x2="4" y2="20"/>
+          </svg>
+        </button>
       </form>
 
       {{-- Live zoekresultaten tijdens het typen --}}
@@ -105,21 +125,30 @@
         <ul x-show="!loading && results.length > 0" class="flex flex-col gap-1">
           <template x-for="result in results" :key="result.id">
             <li>
-              <a :href="result.url" x-text="result.title"
-                class="block px-4 py-2 bg-white border border-[#ddd8cc] rounded-xl text-sm text-[#1a1612] hover:border-[#e56b6f] hover:text-[#d14d51] transition-colors"></a>
+              <a :href="result.url"
+                class="flex items-center justify-between gap-2 px-4 py-2 bg-white border border-[#ddd8cc] rounded-xl text-sm text-[#1a1612] hover:border-[#e56b6f] hover:text-[#d14d51] transition-colors">
+                <span x-html="highlight(result.title)"></span>
+                <span class="shrink-0 text-[#8b9098]">&rarr;</span>
+              </a>
             </li>
           </template>
         </ul>
       </div>
 
-      <div class="flex flex-wrap gap-2 mt-3" x-show="query.trim().length < 2">
-        @foreach(['Aanmelden', 'Open dag', 'Rooster', 'Ziekmelden', 'Vakanties'] as $suggestion)
-          <button type="button"
-            @click="$refs.searchInput.value = '{{ $suggestion }}'; $refs.searchForm.requestSubmit()"
-            class="text-xs font-medium text-[#6f757d] bg-white border border-[#ddd8cc] rounded-full px-3 py-1.5 hover:border-[#e56b6f] hover:text-[#d14d51] transition-colors">
-            {{ $suggestion }}
-          </button>
-        @endforeach
+      <div x-show="query.trim().length < 2" class="max-w-lg mt-3" style="display: none;">
+        <p class="text-white/70 text-xs font-semibold uppercase tracking-wide px-1 mb-2">Populaire pagina's</p>
+        <ul class="flex flex-col gap-1">
+          @foreach(['Aanmelden', 'Open dag', 'Rooster', 'Ziekmelden', 'Vakanties'] as $suggestion)
+            <li>
+              <button type="button"
+                @click="$refs.searchInput.value = '{{ $suggestion }}'; $refs.searchForm.requestSubmit()"
+                class="w-full flex items-center justify-between gap-2 px-4 py-2 bg-white border border-[#ddd8cc] rounded-xl text-sm text-[#1a1612] hover:border-[#e56b6f] hover:text-[#d14d51] transition-colors">
+                {{ $suggestion }}
+                <span class="shrink-0 text-[#8b9098]">&rarr;</span>
+              </button>
+            </li>
+          @endforeach
+        </ul>
       </div>
     </div>
   </div>
