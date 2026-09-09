@@ -57,12 +57,35 @@
     x-transition:leave-end="opacity-0 -translate-y-2"
     x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
     @click.outside="if (!$refs.searchToggle.contains($event.target)) searchOpen = false"
-    class="relative bg-[rgb(242_242_238/0.2)] backdrop-blur-md border-b border-white/10"
+    class="relative bg-[rgb(242_242_238/0.2)] backdrop-blur-xs border-b border-white/10"
     style="display: none;">
     <button type="button" @click="searchOpen = false"
       class="absolute top-5 right-6 xl:right-20 text-2xl leading-none text-white/70 hover:text-white transition-colors"
       aria-label="Zoeken sluiten">&times;</button>
-    <div class="px-6 xl:px-20 py-5">
+    <div class="px-6 xl:px-20 py-5"
+      x-data="{
+        query: '',
+        results: [],
+        loading: false,
+        searchTimer: null,
+        onInput() {
+          clearTimeout(this.searchTimer)
+          this.searchTimer = setTimeout(() => this.fetchResults(), 400)
+        },
+        async fetchResults() {
+          const term = this.query.trim()
+          if (term.length < 2) { this.results = []; this.loading = false; return }
+          this.loading = true
+          try {
+            const response = await fetch('/wp-json/wp/v2/search?search=' + encodeURIComponent(term) + '&per_page=5')
+            this.results = response.ok ? await response.json() : []
+          } catch (e) {
+            this.results = []
+          }
+          this.loading = false
+        }
+      }"
+      x-effect="if (!searchOpen) { query = ''; results = [] }">
       <form method="GET" action="{{ home_url('/') }}" x-ref="searchForm" class="flex items-center gap-3 bg-white border border-[#ddd8cc] rounded-full px-5 py-3 max-w-lg focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)] transition-all duration-200">
         <button type="submit" class="text-[#7a7060] hover:text-triv-blue transition-colors shrink-0" aria-label="Zoeken uitvoeren">
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
@@ -71,13 +94,29 @@
           </svg>
         </button>
         <input x-ref="searchInput" type="search" name="s" placeholder="Waar ben je naar op zoek?" aria-label="Zoeken" required
+          x-model="query" @input="onInput()" autocomplete="off"
           class="border-none outline-none bg-transparent text-sm text-[#1a1612] placeholder:text-[#7a7060] w-full font-['DM_Sans']" />
       </form>
-      <div class="flex flex-wrap gap-2 mt-3">
+
+      {{-- Live zoekresultaten tijdens het typen --}}
+      <div x-show="query.trim().length >= 2" class="max-w-lg mt-2" style="display: none;">
+        <p x-show="loading" class="text-white/70 text-xs px-1">Zoeken...</p>
+        <p x-show="!loading && results.length === 0" class="text-white/70 text-xs px-1">Geen resultaten gevonden.</p>
+        <ul x-show="!loading && results.length > 0" class="flex flex-col gap-1">
+          <template x-for="result in results" :key="result.id">
+            <li>
+              <a :href="result.url" x-text="result.title"
+                class="block px-4 py-2 bg-white border border-[#ddd8cc] rounded-xl text-sm text-[#1a1612] hover:border-[#e56b6f] hover:text-[#d14d51] transition-colors"></a>
+            </li>
+          </template>
+        </ul>
+      </div>
+
+      <div class="flex flex-wrap gap-2 mt-3" x-show="query.trim().length < 2">
         @foreach(['Aanmelden', 'Open dag', 'Rooster', 'Ziekmelden', 'Vakanties'] as $suggestion)
           <button type="button"
             @click="$refs.searchInput.value = '{{ $suggestion }}'; $refs.searchForm.requestSubmit()"
-            class="text-sm font-medium text-[#6f757d] bg-white border border-[#ddd8cc] rounded-full px-3 py-1.5 hover:border-[#e56b6f] hover:text-[#d14d51] transition-colors">
+            class="text-xs font-medium text-[#6f757d] bg-white border border-[#ddd8cc] rounded-full px-3 py-1.5 hover:border-[#e56b6f] hover:text-[#d14d51] transition-colors">
             {{ $suggestion }}
           </button>
         @endforeach
