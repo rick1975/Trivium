@@ -1,6 +1,6 @@
 {{-- Zoekpaneel: volledig-scherm overlay met live zoekresultaten --}}
 <div x-show="searchOpen"
-  x-transition:enter="transition ease-out duration-800"
+  x-transition:enter="transition ease-out duration-500"
   x-transition:enter-start="-translate-y-full"
   x-transition:enter-end="translate-y-0"
   x-transition:leave="transition ease-in duration-500"
@@ -111,7 +111,9 @@
                 @click="$refs.searchInput.value = '{{ $suggestion }}'; $refs.searchForm.requestSubmit()"
                 class="group w-full flex items-center justify-between font-semibold gap-2 px-1 py-2.5 text-sm text-stone-500 hover:text-triv-pink transition-colors text-left cursor-pointer">
                 <span class="transition-transform duration-200 group-hover:translate-x-1.5">{{ $suggestion }}</span>
-                <span class="shrink-0 transition-transform duration-200 group-hover:translate-x-1.5">&rarr;</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
               </button>
             </li>
           @endforeach
