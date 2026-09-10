@@ -56,12 +56,12 @@
   {{-- Mobile Navigation (drawer) --}}
   @if($navigation)
     <aside x-show="mobileOpen"
-      x-transition:enter.duration.500ms
-      x-transition:enter-start="opacity-0 -translate-y-full"
-      x-transition:enter-end="opacity-100 translate-y-0"
-      x-transition:leave.duration.500ms
-      x-transition:leave-start="opacity-100 translate-y-0"
-      x-transition:leave-end="opacity-0 -translate-y-full"
+      x-transition:enter="transition ease-out duration-300"
+      x-transition:enter-start="opacity-0 translate-x-full"
+      x-transition:enter-end="opacity-100 translate-x-0"
+      x-transition:leave="transition ease-in duration-200"
+      x-transition:leave-start="opacity-100 translate-x-0"
+      x-transition:leave-end="opacity-0 translate-x-full"
       class="fixed top-0 right-0 h-full w-[360px] max-w-[88vw] bg-white shadow-2xl z-50 flex flex-col overflow-y-auto"
       style="display: none;"
       aria-label="Hoofdmenu">
