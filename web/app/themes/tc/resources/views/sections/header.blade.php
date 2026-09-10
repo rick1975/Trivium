@@ -49,9 +49,7 @@
   @include('components.search-panel')
 
   {{-- Backdrop --}}
-  <div x-show="mobileOpen" x-transition.opacity
-    class="fixed inset-0 bg-black/40 z-40" style="display:none;"
-    @click="mobileOpen = false" aria-hidden="true"></div>
+  <div x-show="mobileOpen" x-transition.opacity  class="fixed inset-0 bg-black/40 z-40" style="display:none;" @click="mobileOpen = false" aria-hidden="true"></div>
 
   {{-- Mobile Navigation (drawer) --}}
   @if($navigation)
@@ -62,12 +60,18 @@
       x-transition:leave="transition ease-in duration-200"
       x-transition:leave-start="opacity-100 translate-x-0"
       x-transition:leave-end="opacity-0 translate-x-full"
-      class="fixed top-0 right-0 h-full w-[360px] max-w-[88vw] bg-white shadow-2xl z-50 flex flex-col overflow-y-auto"
+      class="fixed top-0 right-0 h-full w-[460px] max-w-[88vw] bg-white shadow-2xl z-50 flex flex-col overflow-y-auto"
       style="display: none;"
       aria-label="Hoofdmenu">
       <div class="sticky top-0 bg-white flex items-center justify-between px-6 py-4 border-b border-[#eef0f2] shrink-0">
-        <span class="font-bold text-base text-[#2f333a]">Menu</span>
-        <button type="button" @click="mobileOpen = false" class="text-3xl leading-none text-[#8b9098] hover:text-[#d14d51] transition-colors cursor-pointer" aria-label="Menu sluiten">&times;</button>
+        <span class="font-bold text-xs text-[#2f333a] mt-2">Menu</span>
+        <button type="button" @click="mobileOpen = false"
+          class="w-9 h-9 rounded-full flex items-center justify-center border border-[#ddd8cc] bg-white text-[#1a1612] hover:bg-[#e56b6f] hover:border-[#e56b6f] hover:text-white transition-all duration-300 cursor-pointer" aria-label="Menu sluiten">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="4" y1="4" x2="20" y2="20"/>
+            <line x1="20" y1="4" x2="4" y2="20"/>
+          </svg>
+        </button>
       </div>
 
       <nav class="flex flex-col py-1 pb-6">
@@ -81,11 +85,11 @@
                 <svg class="w-2.5 h-2.5 shrink-0 border-r-2 border-b-2 border-[#9aa0a8] transition-transform duration-200" :class="subOpen ? '-rotate-[135deg]' : 'rotate-45'" style="transform-origin:center;"></svg>
               </button>
 
-              <ul x-show="subOpen" x-collapse class="mb-2 bg-[#faf7f7]" style="display: none;">
+              <ul x-show="subOpen" x-collapse class="bg-[#faf7f7]" style="display: none;">
                 @foreach($item->children as $child)
                   <li class="border-t border-[#f0eaea]">
                     <a href="{{ $child->url }}" @click="mobileOpen = false"
-                      class="block py-2.5 pl-8 pr-6 text-sm text-[#5a616b] hover:text-[#d14d51] hover:bg-[#f4eded] transition-colors"
+                      class="block py-2.5 pl-6 pr-6 text-sm text-[#5a616b] hover:text-[#d14d51] hover:bg-[#f4eded] transition-colors"
                       @if($child->target) target="{{ $child->target }}" @endif>
                       {!! $child->label !!}
                     </a>
