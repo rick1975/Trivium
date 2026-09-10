@@ -1,6 +1,6 @@
 {{-- Zoekpaneel: volledig-scherm overlay met live zoekresultaten --}}
 <div x-show="searchOpen"
-  x-transition:enter="transition ease-out duration-500"
+  x-transition:enter="transition ease-out duration-800"
   x-transition:enter-start="-translate-y-full"
   x-transition:enter-end="translate-y-0"
   x-transition:leave="transition ease-in duration-500"
@@ -60,7 +60,7 @@
         return safeText.replace(new RegExp('(' + term + ')', 'ig'), `<mark class='bg-triv-yellow/60 rounded-sm'>$1</mark>`)
       }
     }"
-    x-effect="if (!searchOpen) { query = ''; results = [] }">
+    x-effect="if (searchOpen) { query = ''; results = [] }">
     <div class="max-w-lg mx-auto w-full">
       <form method="GET" action="{{ home_url('/') }}" x-ref="searchForm" class="flex items-center gap-3 bg-white border border-[#ddd8cc] rounded-full px-6 py-4 focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)] transition-all duration-200">
         <button type="submit" class="text-[#7a7060] hover:text-triv-blue transition-colors shrink-0 cursor-pointer" aria-label="Zoeken uitvoeren">
