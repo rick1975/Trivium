@@ -6,7 +6,6 @@
   x-transition:leave="transition ease-in duration-500"
   x-transition:leave-start="translate-y-0"
   x-transition:leave-end="-translate-y-full"
-  x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
   class="search-overlay fixed inset-0 z-50 bg-triv-cream flex flex-col"
   style="display: none;">
 
@@ -60,6 +59,7 @@
         return safeText.replace(new RegExp('(' + term + ')', 'ig'), `<mark class='bg-triv-yellow/60 rounded-sm'>$1</mark>`)
       }
     }"
+    x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
     x-effect="if (searchOpen) { query = ''; results = [] }">
     <div class="max-w-lg mx-auto w-full">
       <form method="GET" action="{{ home_url('/') }}" x-ref="searchForm" class="flex items-center gap-3 bg-white border border-[#ddd8cc] rounded-full px-6 py-4 focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)] transition-all duration-200">
