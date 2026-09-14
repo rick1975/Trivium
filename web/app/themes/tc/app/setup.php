@@ -166,6 +166,10 @@ add_action('widgets_init', function () {
  * Custom Login Page Styling
  */
 add_action('login_enqueue_scripts', function () {
+    echo '<link rel="preconnect" href="https://fonts.googleapis.com">';
+    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
+    echo '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">';
+
     $manifest_path = get_theme_file_path('public/build/manifest.json');
     if (!file_exists($manifest_path)) {
         return;
@@ -196,20 +200,3 @@ add_filter('login_headertext', function () {
     return get_bloginfo('name');
 });
 
-/**
- * Replace WordPress Logo with Site Name (CSS)
- */
-add_action('login_head', function () {
-    ?>
-    <style>
-        .login h1 a {
-            font-size: 0 !important;
-        }
-        .login h1 a::before {
-            content: "<?php echo esc_js(get_bloginfo('name')); ?>";
-            font-size: 32px !important;
-            display: block !important;
-        }
-    </style>
-    <?php
-});

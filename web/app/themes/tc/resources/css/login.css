@@ -1,5 +1,5 @@
 body.login { 
-    background-color: #F9FAFB; 
+    background-color: #fbfaf4; 
 }
 
 body {
@@ -38,37 +38,31 @@ p {
 }
 
 .login h1 a {
-    background-image: none !important;
-    text-indent: 0 !important;
-    width: auto !important;
-    height: auto !important;
-    font-weight: 700 !important;
-    color: #111827 !important;
-    line-height: 1.2 !important;
-    font-size: 0 !important;
-}
-
-.login h1 a::before {
-    font-size: 32px !important;
-    display: block !important;
+    background-image: url('/favicon.svg') !important;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    text-indent: -9999px !important;
+    width: 100% !important;
+    height: 84px !important;
 }
 
 #loginform { 
-    border-radius: 6px; 
+    border-radius: 16px; 
     box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); 
     border: 1px solid #E5E7EB; 
     padding: 46px 34px;
 }
 
 .wp-core-ui .button-primary {
-    background-color: #00386c !important; 
-    border-color: #00386c !important;
+    background-color: #E56B6F !important; 
+    border-color: #E56B6F !important;
 }
 
 .wp-core-ui .button-primary:hover,
 .wp-core-ui .button-primary:focus {
-    background-color: #003261 !important;
-    border-color: #003261 !important;
+    background-color: #3577bc !important;
+    border-color: #3577bc !important;
 }
 
 #backtoblog,
