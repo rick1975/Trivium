@@ -125,20 +125,24 @@
           $sp_email = get_field('email', 'option');
           $sp_telefoon = get_field('telefoonnummer', 'option');
         @endphp
-        <div class="mt-10 px-1">
+        <div class="mt-10 pt-6 px-1 border-t border-stone-300">
           <p class="text-neutral-800 text-xs font-semibold uppercase tracking-widest mb-3">Contact</p>
-          <p class="text-sm text-stone-600 leading-relaxed">
-            @if($sp_telefoon)
-              <a href="tel:{{ preg_replace('/[^0-9+]/', '', $sp_telefoon) }}" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">{{ $sp_telefoon }}</a>
-              <span class="text-stone-400">(bereikbaar van 08.00 - 16.30u)</span><br>
-            @endif
-            @if($sp_email)
-              <a href="mailto:{{ $sp_email }}" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">{{ $sp_email }}</a><br>
-            @endif
+          <div class="text-sm text-stone-600 leading-relaxed">
             @if($sp_adres)
-              {{ $sp_adres }}
+              <p>{!! nl2br(e($sp_adres)) !!}</p>
             @endif
-          </p>
+            @if($sp_email || $sp_telefoon)
+              <p class="mt-3">
+                @if($sp_email)
+                  <a href="mailto:{{ $sp_email }}" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">{{ $sp_email }}</a><br>
+                @endif
+                @if($sp_telefoon)
+                  <a href="tel:{{ preg_replace('/[^0-9+]/', '', $sp_telefoon) }}" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">{{ $sp_telefoon }}</a>
+                  <span class="text-stone-400">(bereikbaar van 08.00 - 16.30u)</span>
+                @endif
+              </p>
+            @endif
+          </div>
         </div>
       </div>
     </div>
