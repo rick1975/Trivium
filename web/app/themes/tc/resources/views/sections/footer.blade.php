@@ -1,4 +1,9 @@
 <footer class="footer">
+  @php
+    $triv_adres = get_field('adres', 'option');
+    $triv_email = get_field('email', 'option');
+    $triv_telefoon = get_field('telefoonnummer', 'option');
+  @endphp
   <div class="container">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       {{-- Footer Column 1 --}}
@@ -6,13 +11,19 @@
         <h3 class="text-lg font-semibold mb-4 text-white">{{ get_bloginfo('name') }}</h3>
         <p class="text-sm text-white">
           Maak jouw toekomst bij Trivium College in Gorinchem. Praktijkgericht onderwijs dat écht bij jou past.</p>
-        <p class="text-sm">
-        Dierenriem 11<br/>
-        3813 VN Amersfoort</p>
-        <p class="text-sm">
-        033-475 36 94 (bereikbaar van 08.00 - 16.30u)<br/>
-        info@vmbotriviumcollege.nl
-        </p>
+        @if($triv_adres)
+          <p class="text-sm">{!! nl2br(e($triv_adres)) !!}</p>
+        @endif
+        @if($triv_telefoon || $triv_email)
+          <p class="text-sm">
+            @if($triv_telefoon)
+              {{ $triv_telefoon }} (bereikbaar van 08.00 - 16.30u)<br/>
+            @endif
+            @if($triv_email)
+              {{ $triv_email }}
+            @endif
+          </p>
+        @endif
       </div>
 
       {{-- Footer Column 2 - Primary Menu --}}
@@ -37,8 +48,12 @@
       <div>
         <h3 class="text-lg font-semibold mb-4 text-white">Contact</h3>
         <p class="text-sm text-white">
-          Email: info@example.com<br>
-          Tel: 012-3456789
+          @if($triv_email)
+            Email: {{ $triv_email }}<br>
+          @endif
+          @if($triv_telefoon)
+            Tel: {{ $triv_telefoon }}
+          @endif
         </p>
       </div>
     </div>

@@ -120,13 +120,24 @@
         </ul>
 
         {{-- Contactgegevens --}}
+        @php
+          $sp_adres = get_field('adres', 'option');
+          $sp_email = get_field('email', 'option');
+          $sp_telefoon = get_field('telefoonnummer', 'option');
+        @endphp
         <div class="mt-10 px-1">
           <p class="text-neutral-800 text-xs font-semibold uppercase tracking-widest mb-3">Contact</p>
           <p class="text-sm text-stone-600 leading-relaxed">
-            <a href="tel:0334753694" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">033-475 36 94</a>
-            <span class="text-stone-400">(bereikbaar van 08.00 - 16.30u)</span><br>
-            <a href="mailto:info@vmbotriviumcollege.nl" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">info@vmbotriviumcollege.nl</a><br>
-            Dierenriem 11, 3813 VN Amersfoort
+            @if($sp_telefoon)
+              <a href="tel:{{ preg_replace('/[^0-9+]/', '', $sp_telefoon) }}" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">{{ $sp_telefoon }}</a>
+              <span class="text-stone-400">(bereikbaar van 08.00 - 16.30u)</span><br>
+            @endif
+            @if($sp_email)
+              <a href="mailto:{{ $sp_email }}" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">{{ $sp_email }}</a><br>
+            @endif
+            @if($sp_adres)
+              {{ $sp_adres }}
+            @endif
           </p>
         </div>
       </div>

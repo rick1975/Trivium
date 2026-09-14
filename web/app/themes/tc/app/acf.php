@@ -54,7 +54,6 @@ add_action('acf/init', function () {
                 'name' => 'adres',
                 'type' => 'textarea',
                 'rows' => 3,
-                'new_lines' => 'br',
             ],
             [
                 'key' => 'field_trivium_email',
@@ -99,7 +98,6 @@ add_action('acf/init', function () {
                         'name' => 'content',
                         'type' => 'textarea',
                         'rows' => 3,
-                        'new_lines' => 'br',
                     ],
                 ],
             ],
