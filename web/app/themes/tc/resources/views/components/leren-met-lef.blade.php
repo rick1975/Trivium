@@ -3,28 +3,23 @@
   $onderwerpen = [
     [
       'kleur' => 'bg-triv-blue',
-      'titel' => 'Onderwerp 1',
-      'tekst' => 'Korte omschrijving van dit onderwerp komt hier.',
+      'titel' => 'Leren met lef is leuk',
     ],
     [
       'kleur' => 'bg-triv-pink',
-      'titel' => 'Onderwerp 2',
-      'tekst' => 'Korte omschrijving van dit onderwerp komt hier.',
+      'titel' => 'Leren met lef doe je op maat',
     ],
     [
       'kleur' => 'bg-triv-orange',
-      'titel' => 'Onderwerp 3',
-      'tekst' => 'Korte omschrijving van dit onderwerp komt hier.',
+      'titel' => 'Leren met lef is ontdekken en doen!',
     ],
     [
       'kleur' => 'bg-triv-green',
-      'titel' => 'Onderwerp 4',
-      'tekst' => 'Korte omschrijving van dit onderwerp komt hier.',
+      'titel' => 'Leren met lef is goed voor je zorgen',
     ],
     [
       'kleur' => 'bg-triv-yellow',
-      'titel' => 'Onderwerp 5',
-      'tekst' => 'Korte omschrijving van dit onderwerp komt hier.',
+      'titel' => 'Wijs in een digitale wereld',
     ],
   ];
 @endphp
@@ -48,8 +43,7 @@
           <div class="{{ $item['kleur'] }} w-11 h-11 rounded-2xl flex items-center justify-center text-white font-black text-lg mb-5">
             {{ $i + 1 }}
           </div>
-          <h3 class="text-xl font-bold text-gray-800 mb-2">{{ $item['titel'] }}</h3>
-          <p class="text-sm text-[#7a6248] leading-relaxed">{{ $item['tekst'] }}</p>
+          <h3 class="text-xl font-bold text-gray-800">{{ $item['titel'] }}</h3>
         </div>
       @endforeach
 
@@ -61,3 +55,5 @@
     </div>
   </div>
 </section>
+
+@include('components.wave-divider', ['fill' => '#fbfaf4', 'edge' => 'bottom'])
