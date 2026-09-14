@@ -24,18 +24,9 @@
   ];
 @endphp
 
-<section class="pt-16 pb-20 px-6 xl:px-20 bg-[#fbfaf4]">
+<section class="relative z-20 -mt-[12vh] lg:-mt-[22vh] pt-16 pb-20 px-6 xl:px-20 bg-triv-cream">
   <div class="max-w-[1280px] mx-auto">
-
-    {{-- Header --}}
-    <div class="mb-10">
-      <div class="flex items-center gap-2 text-[.68rem] font-bold tracking-[.18em] uppercase text-[#004289] mb-2 before:content-[''] before:w-[18px] before:h-[3px] before:bg-triv-yellow before:rounded-full">
-        Leren met lef
-      </div>
-      <h2 class="text-4xl font-bold text-gray-800 max-w-2xl">Vijf onderwerpen waar we vol lef voor gaan</h2>
-    </div>
-
-    {{-- Grid: 1 kolom mobiel, 3+3 op desktop --}}
+     {{-- Grid: 1 kolom mobiel, 3+3 op desktop --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
       @foreach ($onderwerpen as $i => $item)
