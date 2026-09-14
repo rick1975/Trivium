@@ -111,13 +111,24 @@
                 @click="$refs.searchInput.value = '{{ $suggestion }}'; $refs.searchForm.requestSubmit()"
                 class="group w-full flex items-center justify-between font-semibold gap-2 px-1 py-2.5 text-sm text-stone-500 hover:text-triv-pink transition-colors text-left cursor-pointer">
                 <span class="transition-transform duration-200 group-hover:translate-x-1.5">{{ $suggestion }}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                 </svg>
               </button>
             </li>
           @endforeach
         </ul>
+
+        {{-- Contactgegevens --}}
+        <div class="mt-10 px-1">
+          <p class="text-neutral-800 text-xs font-semibold uppercase tracking-widest mb-3">Contact</p>
+          <p class="text-sm text-stone-600 leading-relaxed">
+            <a href="tel:0334753694" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">033-475 36 94</a>
+            <span class="text-stone-400">(bereikbaar van 08.00 - 16.30u)</span><br>
+            <a href="mailto:info@vmbotriviumcollege.nl" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">info@vmbotriviumcollege.nl</a><br>
+            Dierenriem 11, 3813 VN Amersfoort
+          </p>
+        </div>
       </div>
     </div>
   </div>
