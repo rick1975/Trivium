@@ -5,6 +5,9 @@
 @endphp
 
 <section class="relative z-20 -mt-[12vh] lg:-mt-[22vh] pt-16 pb-20 px-6 xl:px-20 bg-triv-cream">
+  {{-- Golfboog binnen de section, zodat hij boven de opgetilde hero-overlap zichtbaar blijft --}}
+  @include('components.wave-divider', ['fill' => '#fbfaf4'])
+
   <div class="max-w-[1280px] mx-auto">
      {{-- Grid: 1 kolom mobiel, 3+3 op desktop --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
