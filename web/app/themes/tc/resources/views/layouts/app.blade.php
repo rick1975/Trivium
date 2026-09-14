@@ -20,6 +20,7 @@
 
       @include('sections.header')
       @include('components.hero')
+      @include('components.leren-met-lef')
       <main id="main" class="main mx-auto max-w-4xl px-6 py-10 md:py-16">
         @yield('content')
       </main>
@@ -29,7 +30,7 @@
           @yield('sidebar')
         </aside>
       @endif
-
+      @include('components.news')
       @include('components.sitemap')
       @include('sections.footer')
     </div>
