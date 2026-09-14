@@ -33,5 +33,3 @@
   </div>
 </section>
 
-@include('components.wave-divider', ['fill' => '#fbfaf4'])
-
