@@ -19,7 +19,7 @@
       </a>
 
       @include('sections.header')
-      @include('components.hero4')
+      @include('components.hero')
       <main id="main" class="main mx-auto max-w-4xl px-6 py-10 md:py-16">
         @yield('content')
       </main>
