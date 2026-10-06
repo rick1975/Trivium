@@ -117,10 +117,10 @@
             @if($contact->email || $contact->telefoon)
               <p class="mt-3">
                 @if($contact->email)
-                  <a href="mailto:{{ $contact->email }}" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">{{ $contact->email }}</a><br>
+                  <a href="mailto:{{ $contact->email }}" class="text-stone-600 hover:text-triv-pink transition-colors">{{ $contact->email }}</a><br>
                 @endif
                 @if($contact->telefoon)
-                  <a href="tel:{{ $contact->telefoonLink }}" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">{{ $contact->telefoon }}</a>
+                  <a href="tel:{{ $contact->telefoonLink }}" class="text-stone-600 hover:text-triv-pink transition-colors">{{ $contact->telefoon }}</a>
                   <span class="text-stone-400">(bereikbaar van 08.00 - 16.30u)</span>
                 @endif
               </p>
