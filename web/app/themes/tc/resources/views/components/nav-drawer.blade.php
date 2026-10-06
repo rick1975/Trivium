@@ -41,7 +41,7 @@
               class="group w-full flex items-center gap-3 px-3 py-3 rounded-2xl text-left transition-colors cursor-pointer"
               :class="subOpen ? 'bg-white' : 'hover:bg-white/70'">
               <span class="flex-1 font-bold text-lg leading-snug transition-colors"
-                :class="subOpen ? 'text-triv-green' : 'text-triv-blue group-hover:text-triv-green'">{!! $item->label !!}</span>
+                :class="subOpen ? 'text-triv-green' : 'text-gray-800 group-hover:text-triv-green'">{!! $item->label !!}</span>
               <span class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
                 :class="subOpen ? 'bg-triv-green text-white rotate-90' : 'bg-white text-stone-400 group-hover:text-triv-green'">
                 <x-icon name="chevron-right" class="size-3.5" />
@@ -49,7 +49,7 @@
             </button>
 
             <ul x-show="subOpen" x-collapse style="display: none;"
-              class="ml-3 mr-2 mt-1 mb-3 pl-4 border-l-2 border-triv-green flex flex-col">
+              class="ml-3 mr-2 mt-1 mb-3 pl-3 flex flex-col">
               @foreach($item->children as $child)
                 <li>
                   <a href="{{ $child->url }}" @click="mobileOpen = false"
@@ -71,7 +71,7 @@
               <span @class([
                 'flex-1 font-bold text-lg leading-snug transition-colors',
                 'text-triv-green' => $item->active,
-                'text-triv-blue group-hover:text-triv-green' => ! $item->active,
+                'text-gray-800 group-hover:text-triv-green' => ! $item->active,
               ])>{!! $item->label !!}</span>
             </a>
           @endif
