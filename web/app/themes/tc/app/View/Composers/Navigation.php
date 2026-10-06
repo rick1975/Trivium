@@ -13,7 +13,6 @@ class Navigation extends Composer
      */
     protected static $views = [
         'sections.header',
-        'sections.footer',
         'components.sitemap',
     ];
 

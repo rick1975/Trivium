@@ -12,7 +12,8 @@
         @if($contact->telefoon || $contact->email)
           <p class="text-sm">
             @if($contact->telefoon)
-              {{ $contact->telefoon }} (bereikbaar van 08.00 - 16.30u)<br/>
+              {{ $contact->telefoon }}<br/>
+              (bereikbaar van 08.00 - 16.30u)<br/>
             @endif
             @if($contact->email)
               {{ $contact->email }}
@@ -21,25 +22,7 @@
         @endif
       </div>
 
-      {{-- Footer Column 2 - Primary Menu --}}
-      <div>
-        <h3 class="text-lg font-semibold mb-4 text-white">Menu</h3>
-        @if($navigation)
-          <ul class="space-y-2 text-sm mb-0">
-            @foreach($navigation as $item)
-              <li>
-                <a href="{{ $item->url }}"
-                   class="text-white hover:text-gray-100"
-                   @if($item->target) target="{{ $item->target }}" @endif>
-                  {!! $item->label !!}
-                </a>
-              </li>
-            @endforeach
-          </ul>
-        @endif
-      </div>
-
-      {{-- Footer Column 3 --}}
+      {{-- Footer Column 2 --}}
       <div>
         <h3 class="text-lg font-semibold mb-4 text-white">Contact</h3>
         <p class="text-sm text-white">
