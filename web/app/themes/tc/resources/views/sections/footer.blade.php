@@ -21,19 +21,6 @@
           </p>
         @endif
       </div>
-
-      {{-- Footer Column 2 --}}
-      <div>
-        <h3 class="text-lg font-semibold mb-4 text-white">Contact</h3>
-        <p class="text-sm text-white">
-          @if($contact->email)
-            Email: {{ $contact->email }}<br>
-          @endif
-          @if($contact->telefoon)
-            Tel: {{ $contact->telefoon }}
-          @endif
-        </p>
-      </div>
     </div>
   </div>
 </footer>
