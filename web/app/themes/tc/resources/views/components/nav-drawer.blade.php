@@ -21,7 +21,7 @@
   {{-- Kop: sluiten --}}
   <div class="flex items-center justify-end px-6 lg:px-8 pt-6 pb-4 shrink-0">
     <button type="button" @click="mobileOpen = false"
-      class="w-10 h-10 rounded-full flex items-center justify-center bg-white text-[#1a1612] shadow-sm hover:bg-triv-green hover:text-white hover:rotate-90 transition-all duration-300 cursor-pointer"
+      class="w-10 h-10 rounded-full flex items-center justify-center bg-white text-[#1a1612] shadow-sm hover:bg-triv-pink hover:text-white hover:rotate-90 transition-all duration-300 cursor-pointer"
       aria-label="Menu sluiten">
       <x-icon name="close" />
     </button>
@@ -41,9 +41,9 @@
               class="group w-full flex items-center gap-3 px-3 py-3 rounded-2xl text-left transition-colors cursor-pointer"
               :class="subOpen ? 'bg-white' : 'hover:bg-white/70'">
               <span class="flex-1 font-bold text-lg leading-snug transition-colors"
-                :class="subOpen ? 'text-triv-green' : 'text-gray-800 group-hover:text-triv-green'">{!! $item->label !!}</span>
+                :class="subOpen ? 'text-triv-pink' : 'text-gray-800 group-hover:text-triv-pink'">{!! $item->label !!}</span>
               <span class="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300"
-                :class="subOpen ? 'bg-triv-green text-white rotate-90' : 'bg-white text-stone-400 group-hover:text-triv-green'">
+                :class="subOpen ? 'bg-triv-pink text-white rotate-90' : 'bg-white text-stone-400 group-hover:text-triv-pink'">
                 <x-icon name="chevron-right" class="size-3.5" />
               </span>
             </button>
@@ -55,8 +55,8 @@
                   <a href="{{ $child->url }}" @click="mobileOpen = false"
                     @class([
                       'nav-link inline-block my-1.5 text-[0.95rem] transition-colors',
-                      'text-triv-green font-semibold' => $child->active,
-                      'text-stone-600 hover:text-triv-green' => ! $child->active,
+                      'text-triv-pink font-semibold' => $child->active,
+                      'text-stone-600 hover:text-triv-pink' => ! $child->active,
                     ])
                     @if($child->active) aria-current="page" @endif
                     @if($child->target) target="{{ $child->target }}" @endif>
@@ -71,8 +71,8 @@
               @if($item->target) target="{{ $item->target }}" @endif>
               <span @class([
                 'flex-1 font-bold text-lg leading-snug transition-colors',
-                'text-triv-green' => $item->active,
-                'text-gray-800 group-hover:text-triv-green' => ! $item->active,
+                'text-triv-pink' => $item->active,
+                'text-gray-800 group-hover:text-triv-pink' => ! $item->active,
               ])>{!! $item->label !!}</span>
             </a>
           @endif
@@ -86,7 +86,7 @@
     :class="mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'"
     style="transition-delay: {{ 120 + count($navigation) * 50 }}ms;">
     <div class="grid grid-cols-2 gap-2">
-      <x-button :href="App\page_url('aanmelden')" variant="green" class="justify-center">Aanmelden</x-button>
+      <x-button :href="App\page_url('aanmelden')" class="justify-center">Aanmelden</x-button>
       <a href="{{ App\page_url('open-dagen') }}"
         class="inline-flex items-center justify-center font-semibold text-sm py-3 rounded-xl border-2 border-triv-blue text-triv-blue hover:bg-triv-blue hover:text-white transition-colors no-underline">
         Open dagen
@@ -96,10 +96,10 @@
     @if($contact->telefoon || $contact->email)
       <div class="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm">
         @if($contact->telefoon)
-          <a href="tel:{{ $contact->telefoonLink }}" class="text-stone-600 hover:text-triv-green transition-colors">{{ $contact->telefoon }}</a>
+          <a href="tel:{{ $contact->telefoonLink }}" class="text-stone-600 hover:text-triv-pink transition-colors">{{ $contact->telefoon }}</a>
         @endif
         @if($contact->email)
-          <a href="mailto:{{ $contact->email }}" class="text-stone-600 hover:text-triv-green transition-colors">{{ $contact->email }}</a>
+          <a href="mailto:{{ $contact->email }}" class="text-stone-600 hover:text-triv-pink transition-colors">{{ $contact->email }}</a>
         @endif
       </div>
     @endif
