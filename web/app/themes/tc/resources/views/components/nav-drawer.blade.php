@@ -54,9 +54,9 @@
                 <li>
                   <a href="{{ $child->url }}" @click="mobileOpen = false"
                     @class([
-                      'nav-link inline-block my-1.5 text-[0.95rem] transition-colors',
+                      'nav-link inline-block my-1.5 text-[0.95rem] transition-opacity hover:opacity-90',
                       'text-triv-pink font-semibold' => $child->active,
-                      'text-stone-600 hover:text-triv-pink' => ! $child->active,
+                      'text-stone-600' => ! $child->active,
                     ])
                     @if($child->active) aria-current="page" @endif
                     @if($child->target) target="{{ $child->target }}" @endif>
