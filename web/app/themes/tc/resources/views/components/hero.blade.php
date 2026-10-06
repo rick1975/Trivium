@@ -2,7 +2,7 @@
 <section class="relative min-h-[95vh] overflow-hidden">
 
   {{-- Foto volledige breedte --}}
-  <img src="{{ Vite::asset('resources/images/Jongen-roert-in-pan.avif') }}" alt="Leerlingen Trivium College"
+  <img src="{{ Vite::asset('resources/images/Jongen-roert-in-pan.avif') }}" alt="Leerling van Trivium College roert in een pan tijdens de kookles"
     fetchpriority="high" decoding="async"
     class="absolute inset-0 w-full h-full object-cover object-top"
   />
@@ -26,9 +26,7 @@
 
       {{-- Buttons --}}
       <div class="flex flex-wrap gap-3 mb-8 transition-all duration-700 delay-300" :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'">
-        <a href="#" class="inline-flex items-center gap-2 bg-triv-pink text-white font-semibold text-sm px-6 py-3 rounded-xl hover:-translate-y-0.5 hover:shadow-lg transition-all duration-200 no-underline">
-          Ontdek onze school
-        </a>
+        <x-button :href="App\page_url('onze-school')">Ontdek onze school</x-button>
       </div>
     </div>
   </div>

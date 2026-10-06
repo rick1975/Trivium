@@ -13,7 +13,7 @@
                 @foreach($item->children as $child)
                   <li>
                     <a href="{{ $child->url }}"
-                      class="inline-block text-sm text-[#5a616b] hover:text-triv-pink hover:translate-x-1.5 transition-all duration-200"
+                      class="inline-block text-sm text-gray-700 hover:text-triv-pink hover:translate-x-1.5 transition-all duration-200"
                       @if($child->target) target="{{ $child->target }}" @endif>
                       {!! $child->label !!}
                     </a>

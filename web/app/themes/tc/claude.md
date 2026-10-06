@@ -3,20 +3,26 @@
 ## Stack
 - WordPress
 - Sage 11 (Roots) met Bedrock
-- Acorn v4 (Laravel integratie)
+- Acorn v6 (Laravel integratie)
 - Blade templates in `resources/views/`
 - Tailwind CSS v4
-- Vite v6 (via @roots/vite-plugin + laravel-vite-plugin)
-- Alpine.js v3 + @alpinejs/intersect
-- PHP 8.2+
+- Vite v8 (via @roots/vite-plugin + laravel-vite-plugin)
+- Alpine.js v3 + @alpinejs/intersect + @alpinejs/collapse
+- Fonts zelf gehost via @fontsource (DM Sans + Poppins), geen Google Fonts
+- PHP 8.3+
 - Node >= 20
 
 ## Workflow
 - Git via GitHub, na elke wijziging commit + push
-- Build: `yarn build` / dev: `yarn dev`
+- Package manager: npm (geen yarn)
+- Build: `npm run build` / dev: `npm run dev`
 
 ## Conventies
 - Blade templates voor alle views
+- Herbruikbare UI als anonieme Blade-components in `resources/views/components/` (`<x-button>`, `<x-icon>`, `<x-logo>`, `<x-eyebrow>`, `<x-news-card>`, `<x-quick-links>`, `<x-parallax-banner>`)
+- Voorpagina-blokken staan in `front-page.blade.php` (via `@section('before-main')` / `@section('after-main')`), niet in de layout
+- Data voor views via View Composers in `app/View/Composers/`; gedeelde data (menu, contactgegevens) als singleton in `ThemeServiceProvider`
+- Links naar pagina's via `App\page_url('slug')` (fallback `#` als de pagina niet bestaat)
 - Controllers via Acorn
 - Alpine.js v3 voor interactiviteit
 
@@ -29,7 +35,7 @@
 - Gebruik bij voorkeur `@apply` in plaats van inline utility classes
 - CSS bestanden staan in `resources/css/` (hoofdbestand: `app.css`)
 - Vóór een CSS fix: eerst diagnose uitleggen, geen bestanden aanpassen totdat bevestigd
-- Na wijzigingen `yarn build` draaien om te controleren
+- Na wijzigingen `npm run build` draaien om te controleren
 
 ## Instructies voor Claude
 - Geef antwoorden in het Nederlands

@@ -6,6 +6,7 @@
   x-transition:leave="transition ease-in duration-500"
   x-transition:leave-start="translate-y-0"
   x-transition:leave-end="-translate-y-full"
+  role="dialog" aria-modal="true" aria-label="Zoeken"
   class="search-overlay fixed inset-0 z-50 bg-triv-cream flex flex-col"
   style="display: none;">
 

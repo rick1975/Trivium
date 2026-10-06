@@ -14,12 +14,9 @@
       >
     </label>
 
-    <button 
+    <button
       type="submit"
-      class="text-white text-sm w-full sm:w-auto px-5 py-2.5 xl:py-[0.7rem] text-center xl:rounded-r-md transition-colors duration-200"
-      style="background-color: var(--primary);"
-      onmouseover="this.style.backgroundColor='var(--primary-dark)'"
-      onmouseout="this.style.backgroundColor='var(--primary)'">
+      class="bg-triv-blue hover:bg-triv-lightblue text-white text-sm w-full sm:w-auto px-5 py-2.5 xl:py-[0.7rem] text-center xl:rounded-r-md transition-colors duration-200 cursor-pointer">
       {{ _x('Zoek', 'submit button', 'sage') }}
     </button>
   </div>

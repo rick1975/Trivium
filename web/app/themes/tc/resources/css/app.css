@@ -1,4 +1,5 @@
 @import "tailwindcss" theme(static);
+@import "./components/animated-text.css";
 @source "../views/";
 @source "../../app/";
 
@@ -13,10 +14,16 @@ html {
     --color-triv-orange: #f07f3c;
     --color-triv-pink: #E56B6F;
     --color-triv-green: #56af31;
-    --color-triv-olive:#9b9e4b; 
+    --color-triv-olive: #9b9e4b;
     --color-triv-yellow: #fcbf00;
     --color-triv-cream: #fbfaf4;
     --breakpoint-2xl: 1500px;
+}
+
+/* Algemene merkkleuren voor links/knoppen (waren eerder nergens gedefinieerd) */
+:root {
+    --primary: var(--color-triv-blue);
+    --primary-dark: var(--color-triv-lightblue);
 }
 
 @layer base {

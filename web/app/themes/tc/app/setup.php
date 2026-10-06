@@ -166,15 +166,8 @@ add_action('widgets_init', function () {
  * Custom Login Page Styling
  */
 add_action('login_enqueue_scripts', function () {
-    wp_enqueue_style(
-        'tc-login-font',
-        'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap',
-        [],
-        null
-    );
-
     try {
-        wp_enqueue_style('tc-login', Vite::asset('resources/css/login.css'), ['tc-login-font'], null);
+        wp_enqueue_style('tc-login', Vite::asset('resources/css/login.css'), [], null);
     } catch (\Throwable $e) {
         // Geen build aanwezig: standaard WordPress-login tonen.
     }

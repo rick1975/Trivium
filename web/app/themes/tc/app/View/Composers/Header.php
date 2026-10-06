@@ -13,7 +13,7 @@ class Header extends Composer
     public function with()
     {
         return [
-            'navigation' => app('navigation.primary'),
+            'isFront' => is_front_page(),
         ];
     }
 }

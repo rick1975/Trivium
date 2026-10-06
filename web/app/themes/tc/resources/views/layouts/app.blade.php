@@ -19,13 +19,19 @@
       </a>
 
       @include('sections.header')
-      @include('components.hero')
-      @include('components.leren-met-lef')
-      <main id="main" class="main mx-auto max-w-4xl px-6 py-10 md:py-16">
-        @yield('content')
+
+      {{-- Optionele blokken boven de inhoud (bv. hero op de voorpagina) --}}
+      @yield('before-main')
+
+      {{-- Zonder inhoud (bv. een lege voorpagina) geen lege witruimte tonen --}}
+      @php($mainContent = trim($__env->yieldContent('content')))
+      <main id="main" @class(['main mx-auto max-w-4xl px-6 py-10 md:py-16' => $mainContent !== ''])>
+        {!! $mainContent !!}
       </main>
 
-      @include('components.news')
+      {{-- Optionele blokken onder de inhoud (bv. nieuws op de voorpagina) --}}
+      @yield('after-main')
+
       @include('components.sitemap')
       @include('sections.footer')
     </div>

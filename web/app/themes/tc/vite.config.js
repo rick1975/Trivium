@@ -21,7 +21,7 @@ export default defineConfig({
         'resources/js/editor.js',
       ],
       refresh: true,
-      assets: ['resources/images/**', 'resources/fonts/**', 'resources/json/**'],
+      assets: ['resources/images/**', 'resources/fonts/**'],
     }),
 
     wordpressPlugin(),
@@ -41,7 +41,6 @@ export default defineConfig({
       '@styles': '/resources/css',
       '@fonts': '/resources/fonts',
       '@images': '/resources/images',
-      '@json': '/resources/json',
     },
   },
 })

@@ -4,3 +4,8 @@
 !/public/.gitkeep
 .env
 npm-debug.log
+
+# Package manager: npm (package-lock.json). Yarn-bestanden niet meer committen.
+/.yarn
+/.pnp.*
+yarn.lock
