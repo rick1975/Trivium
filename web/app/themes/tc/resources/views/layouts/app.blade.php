@@ -15,7 +15,7 @@
 
     <div id="app">
       <a class="sr-only focus:not-sr-only" href="#main">
-        {{ __('Skip to content', 'sage') }}
+        {{ __('Direct naar de inhoud', 'sage') }}
       </a>
 
       @include('sections.header')
@@ -25,11 +25,6 @@
         @yield('content')
       </main>
 
-      @hasSection('sidebar')
-        <aside class="sidebar">
-          @yield('sidebar')
-        </aside>
-      @endif
       @include('components.news')
       @include('components.sitemap')
       @include('sections.footer')

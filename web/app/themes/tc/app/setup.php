@@ -34,7 +34,7 @@ add_action('admin_head', function () {
     }
 
     if (! Vite::isRunningHot()) {
-        $dependencies = json_decode(Vite::content('editor.deps.json'));
+        $dependencies = json_decode(Vite::content('editor.deps.json')) ?: [];
 
         foreach ($dependencies as $dependency) {
             if (! wp_script_is($dependency)) {
@@ -166,24 +166,18 @@ add_action('widgets_init', function () {
  * Custom Login Page Styling
  */
 add_action('login_enqueue_scripts', function () {
-    echo '<link rel="preconnect" href="https://fonts.googleapis.com">';
-    echo '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>';
-    echo '<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">';
+    wp_enqueue_style(
+        'tc-login-font',
+        'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap',
+        [],
+        null
+    );
 
-    $manifest_path = get_theme_file_path('public/build/manifest.json');
-    if (!file_exists($manifest_path)) {
-        return;
+    try {
+        wp_enqueue_style('tc-login', Vite::asset('resources/css/login.css'), ['tc-login-font'], null);
+    } catch (\Throwable $e) {
+        // Geen build aanwezig: standaard WordPress-login tonen.
     }
-
-    $manifest = json_decode(file_get_contents($manifest_path), true);
-    $entry = 'resources/css/login.css';
-
-    if (empty($manifest[$entry]['file'])) {
-        return;
-    }
-
-    $href = get_theme_file_uri('public/build/' . $manifest[$entry]['file']);
-    echo '<link rel="stylesheet" href="' . esc_url($href) . '" />';
 });
 
 /**

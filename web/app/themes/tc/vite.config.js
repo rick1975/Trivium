@@ -9,7 +9,7 @@ if (! process.env.APP_URL) {
 }
 
 export default defineConfig({
-  base: '/app/themes/sage/public/build/',
+  base: '/app/themes/tc/public/build/',
   plugins: [
     tailwindcss(),
     laravel({
@@ -21,7 +21,7 @@ export default defineConfig({
         'resources/js/editor.js',
       ],
       refresh: true,
-      assets: ['resources/images/**', 'resources/fonts/**'],
+      assets: ['resources/images/**', 'resources/fonts/**', 'resources/json/**'],
     }),
 
     wordpressPlugin(),
@@ -41,6 +41,7 @@ export default defineConfig({
       '@styles': '/resources/css',
       '@fonts': '/resources/fonts',
       '@images': '/resources/images',
+      '@json': '/resources/json',
     },
   },
 })

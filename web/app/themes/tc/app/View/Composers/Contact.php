@@ -4,16 +4,17 @@ namespace App\View\Composers;
 
 use Roots\Acorn\View\Composer;
 
-class Header extends Composer
+class Contact extends Composer
 {
     protected static $views = [
-        'sections.header',
+        'sections.footer',
+        'components.search-panel',
     ];
 
     public function with()
     {
         return [
-            'navigation' => app('navigation.primary'),
+            'contact' => app('trivium.contact'),
         ];
     }
 }

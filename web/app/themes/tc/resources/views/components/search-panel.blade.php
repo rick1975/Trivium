@@ -11,15 +11,10 @@
 
   {{-- Balk met logo en sluitknop --}}
   <div class="flex items-center justify-between px-6 xl:px-20 min-h-[80px] shrink-0">
-    <div class="w-44 [&>svg]:w-full [&>svg]:h-auto">
-      {!! file_get_contents(get_template_directory() . '/resources/images/VMBO-Trivium-college.svg') !!}
-    </div>
+    <x-logo class="w-44" />
     <button type="button" @click="searchOpen = false"
       class="mr-8 w-9 h-9 rounded-full flex items-center justify-center border border-[#ddd8cc] bg-white text-[#1a1612] hover:bg-[#e56b6f] hover:border-[#e56b6f] hover:text-white transition-all duration-300 cursor-pointer" aria-label="Zoeken sluiten">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <line x1="4" y1="4" x2="20" y2="20"/>
-        <line x1="20" y1="4" x2="4" y2="20"/>
-      </svg>
+      <x-icon name="close" />
     </button>
   </div>
 
@@ -64,10 +59,7 @@
     <div class="max-w-lg mx-auto w-full">
       <form method="GET" action="{{ home_url('/') }}" x-ref="searchForm" class="flex items-center gap-3 bg-white border border-[#ddd8cc] rounded-full px-6 py-4 focus-within:border-[#004289] focus-within:shadow-[0_6px_28px_rgba(0,66,137,.12)] transition-all duration-200">
         <button type="submit" class="text-[#7a7060] hover:text-triv-blue transition-colors shrink-0 cursor-pointer" aria-label="Zoeken uitvoeren">
-          <svg width="18" height="18" viewBox="0 0 15 15" fill="none">
-            <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
-            <path d="M11 11l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
+          <x-icon name="search" :size="18" />
         </button>
         <input x-ref="searchInput" type="search" name="s" placeholder="Waar ben je naar op zoek?" aria-label="Zoeken" required
           x-model="query" @input="onInput()" autocomplete="off"
@@ -75,10 +67,7 @@
         <button type="button" x-show="query.length > 0" style="display: none;"
           @click="query = ''; results = []; $refs.searchInput.focus()"
           class="text-[#8b9098] hover:text-[#d14d51] transition-colors shrink-0 cursor-pointer" aria-label="Zoekopdracht wissen">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <line x1="4" y1="4" x2="20" y2="20"/>
-            <line x1="20" y1="4" x2="4" y2="20"/>
-          </svg>
+          <x-icon name="close" />
         </button>
       </form>
 
@@ -103,41 +92,34 @@
 
       {{-- Populaire pagina's: eenvoudige tekstlinks, geen buttons --}}
       <div x-show="query.trim().length < 2" class="mt-12" style="display: none;">
-        <p class="text-neutral-800 text-xs font-semibold uppercase tracking-widest px-1 mb-2">Populaire pagina's</p>
+        <p class="text-stone-500 text-xs font-semibold uppercase tracking-widest px-1 mb-2">Populaire pagina's</p>
         <ul class="flex flex-col">
           @foreach(['Aanmelden', 'Open dag', 'Rooster', 'Contact', 'Vakanties'] as $suggestion)
             <li class="border-b border-stone-300 last:border-b-0">
               <button type="button"
-                @click="$refs.searchInput.value = '{{ $suggestion }}'; $refs.searchForm.requestSubmit()"
+                @click="$refs.searchInput.value = @js($suggestion); $refs.searchForm.requestSubmit()"
                 class="group w-full flex items-center justify-between font-semibold gap-2 px-1 py-2.5 text-sm text-stone-500 hover:text-triv-pink transition-colors text-left cursor-pointer">
                 <span class="transition-transform duration-200 group-hover:translate-x-1.5">{{ $suggestion }}</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                </svg>
+                <x-icon name="chevron-right" class="size-3 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5" />
               </button>
             </li>
           @endforeach
         </ul>
 
-        {{-- Contactgegevens --}}
-        @php
-          $sp_adres = get_field('adres', 'option');
-          $sp_email = get_field('email', 'option');
-          $sp_telefoon = get_field('telefoonnummer', 'option');
-        @endphp
+        {{-- Contactgegevens (uit Trivium Settings, via de Contact-composer) --}}
         <div class="mt-10 pt-6 px-1 border-t border-stone-300">
-          <p class="text-neutral-800 text-xs font-semibold uppercase tracking-widest mb-3">Contact</p>
+          <p class="text-stone-500 text-xs font-semibold uppercase tracking-widest mb-3">Contact</p>
           <div class="text-sm text-stone-600 leading-relaxed">
-            @if($sp_adres)
-              <p>{!! nl2br(e($sp_adres)) !!}</p>
+            @if($contact->adres)
+              <p>{!! nl2br(e($contact->adres)) !!}</p>
             @endif
-            @if($sp_email || $sp_telefoon)
+            @if($contact->email || $contact->telefoon)
               <p class="mt-3">
-                @if($sp_email)
-                  <a href="mailto:{{ $sp_email }}" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">{{ $sp_email }}</a><br>
+                @if($contact->email)
+                  <a href="mailto:{{ $contact->email }}" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">{{ $contact->email }}</a><br>
                 @endif
-                @if($sp_telefoon)
-                  <a href="tel:{{ preg_replace('/[^0-9+]/', '', $sp_telefoon) }}" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">{{ $sp_telefoon }}</a>
+                @if($contact->telefoon)
+                  <a href="tel:{{ $contact->telefoonLink }}" class="font-semibold text-stone-700 hover:text-triv-pink transition-colors">{{ $contact->telefoon }}</a>
                   <span class="text-stone-400">(bereikbaar van 08.00 - 16.30u)</span>
                 @endif
               </p>

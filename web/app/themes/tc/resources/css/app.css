@@ -2,8 +2,6 @@
 @source "../views/";
 @source "../../app/";
 
-html { scroll-behavior: smooth; }
-
 html {
     scroll-behavior: smooth;
 }
@@ -17,6 +15,7 @@ html {
     --color-triv-green: #56af31;
     --color-triv-olive:#9b9e4b; 
     --color-triv-yellow: #fcbf00;
+    --color-triv-cream: #fbfaf4;
     --breakpoint-2xl: 1500px;
 }
 

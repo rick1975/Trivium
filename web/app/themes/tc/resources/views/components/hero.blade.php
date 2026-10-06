@@ -3,6 +3,7 @@
 
   {{-- Foto volledige breedte --}}
   <img src="{{ Vite::asset('resources/images/Jongen-roert-in-pan.avif') }}" alt="Leerlingen Trivium College"
+    fetchpriority="high" decoding="async"
     class="absolute inset-0 w-full h-full object-cover object-top"
   />
 
@@ -32,4 +33,3 @@
     </div>
   </div>
 </section>
-

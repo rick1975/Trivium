@@ -1,6 +1,7 @@
 <div class="future-animation">
     <svg
         id="future-svg"
+        aria-hidden="true"
         viewBox="0 0 1600 420"
         xmlns="http://www.w3.org/2000/svg"
     >
@@ -13,7 +14,7 @@
     .future-animation {
         width: 100%;
         max-width: 1600px;
-        margin: 8px 0 20px;
+        margin: 8px 0 8px;
         padding: 0;
     }
 
