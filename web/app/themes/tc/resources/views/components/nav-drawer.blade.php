@@ -54,12 +54,13 @@
                 <li>
                   <a href="{{ $child->url }}" @click="mobileOpen = false"
                     @class([
-                      'group/sub flex items-center justify-between gap-2 py-1.5 text-[0.95rem] transition-colors',
+                      'nav-link inline-block my-1.5 text-[0.95rem] transition-colors',
                       'text-triv-green font-semibold' => $child->active,
                       'text-stone-600 hover:text-triv-green' => ! $child->active,
                     ])
+                    @if($child->active) aria-current="page" @endif
                     @if($child->target) target="{{ $child->target }}" @endif>
-                    <span class="transition-transform duration-200 group-hover/sub:translate-x-1">{!! $child->label !!}</span>
+                    {!! $child->label !!}
                   </a>
                 </li>
               @endforeach

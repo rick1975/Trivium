@@ -175,6 +175,21 @@ html {
   }
 }
 
+/* Onderstreping die bij hover/focus van links naar rechts ingroeit; blijft staan op de huidige pagina
+   (overgenomen uit het kms-thema) */
+@utility nav-link {
+  @apply relative after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px
+       after:bg-current after:origin-left after:scale-x-0
+       after:transition-transform after:duration-500 after:ease-out
+       hover:after:scale-x-100
+       focus-visible:after:scale-x-100
+       motion-reduce:after:transition-none;
+
+  &[aria-current='page']::after {
+    scale: 1 1;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
