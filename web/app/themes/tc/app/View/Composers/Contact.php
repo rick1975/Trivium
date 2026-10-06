@@ -9,6 +9,7 @@ class Contact extends Composer
     protected static $views = [
         'sections.footer',
         'components.search-panel',
+        'components.nav-drawer',
     ];
 
     public function with()
