@@ -5,9 +5,6 @@
 
 html {
     scroll-behavior: smooth;
-    /* Vanaf tablet: kom je met scrollen dicht bij de footer, dan klikt die vanzelf schermvullend in beeld
-       (alleen elementen met snap-start, zoals .footer, zijn snappunten) */
-    @apply md:snap-y md:snap-proximity;
 }
 
 @theme {
@@ -170,9 +167,10 @@ html {
   }
 
   /* Footer: vanaf tablet schermvullend, net als de parallax-banner; inhoud in het midden.
+     Glijdt vanzelf in beeld via js/footer-snap.js.
      Mobiel: zo hoog als de inhoud, foto onderaan tot de rand (dus geen padding onder) */
   .footer {
-    @apply relative isolate overflow-hidden flex flex-col justify-center pt-12 md:min-h-svh md:py-16 xl:py-24 md:snap-start bg-triv-navy text-white;
+    @apply relative isolate overflow-hidden flex flex-col justify-center pt-12 md:min-h-svh md:py-16 xl:py-24 bg-triv-navy text-white;
   }
 
   .footer a {
