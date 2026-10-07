@@ -19,20 +19,13 @@ html {
     --color-triv-cream: #fbfaf4;
     --breakpoint-2xl: 1500px;
 
-    /* Scroll-gestuurd (zie scroll-driven-variant): foto schuift trager mee dan de sectie,
-       woorden van lopende tekst worden van gedimd helder. */
+    /* Scroll-gestuurd (zie scroll-driven-variant): foto schuift trager mee dan de sectie. */
     --animate-parallax-cover: parallax-cover linear both;
-    --animate-text-reveal: text-reveal linear both;
 
     @keyframes parallax-cover {
         from { translate: 0 -60%; }
         50% { translate: 0 0; }
         to { translate: 0 30%; }
-    }
-
-    @keyframes text-reveal {
-        from { opacity: 0.25; }
-        to { opacity: 1; }
     }
 }
 
