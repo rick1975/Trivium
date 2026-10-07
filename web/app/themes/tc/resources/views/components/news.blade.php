@@ -5,10 +5,7 @@
 
       {{-- Header --}}
       <div class="flex items-end justify-between mb-10">
-        <div>
-          <x-eyebrow>Actueel</x-eyebrow>
-          <h2 class="text-4xl font-bold text-gray-800">Laatste nieuws</h2>
-        </div>
+        <h2 class="text-4xl font-bold text-gray-800 mb-0">Laatste nieuws</h2>
         <a href="{{ $newsArchiveUrl }}" class="inline-flex items-center gap-2 text-sm font-semibold text-triv-blue border-b-2 border-triv-yellow pb-0.5 no-underline hover:text-triv-pink transition-colors">
           Alle berichten →
         </a>
