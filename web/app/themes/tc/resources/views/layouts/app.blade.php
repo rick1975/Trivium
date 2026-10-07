@@ -32,7 +32,6 @@
       {{-- Optionele blokken onder de inhoud (bv. nieuws op de voorpagina) --}}
       @yield('after-main')
 
-      @include('components.sitemap')
       @include('sections.footer')
     </div>
 
