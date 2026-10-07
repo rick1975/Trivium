@@ -17,8 +17,7 @@
 
   <x-quick-links />
 
-  <x-parallax-banner :image="Vite::asset('resources/images/Jongen-achter-microfoon.avif')" :href="App\page_url('over-de-school')">
-    <x-slot:title>Bij ons word je <br><span class="text-triv-pink">gehoord</span></x-slot:title>
+  <x-parallax-banner :image="Vite::asset('resources/images/Jongen-achter-microfoon.avif')" title="Bij ons word je" highlight="gehoord" :href="App\page_url('over-de-school')">
     Het VMBO Trivium College is een kleine school met ongeveer 300 leerlingen. In klassen van meestal niet meer dan 22 leerlingen kennen we elkaar en krijg je de ruimte om te laten horen wie je bent.
   </x-parallax-banner>
 @endsection

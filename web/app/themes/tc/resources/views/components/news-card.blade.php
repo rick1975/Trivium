@@ -25,7 +25,7 @@
       {{ $item['title'] }}
     </h3>
     @if($item['excerpt'])
-      <p class="text-white/70 text-xs my-1 leading-relaxed">
+      <p class="text-white/70 my-1 leading-relaxed">
         {{ $item['excerpt'] }}
       </p>
     @endif

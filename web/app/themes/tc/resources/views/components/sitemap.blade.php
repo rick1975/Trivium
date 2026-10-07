@@ -13,7 +13,7 @@
                 @foreach($item->children as $child)
                   <li>
                     <a href="{{ $child->url }}"
-                      class="nav-link inline-block text-gray-700 transition-opacity hover:opacity-90"
+                      class="inline-block text-gray-700 transition-opacity hover:text-gray-900"
                       @if($child->active) aria-current="page" @endif
                       @if($child->target) target="{{ $child->target }}" @endif>
                       {!! $child->label !!}

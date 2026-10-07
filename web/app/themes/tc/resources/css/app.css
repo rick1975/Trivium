@@ -23,11 +23,24 @@ html {
        tekst komt omhoog en fadet in. */
     --animate-parallax-cover: parallax-cover linear both;
     --animate-scroll-fade-up: scroll-fade-up ease-out both;
+    --animate-word-up: word-up ease-out both;
+    /* Equalizer-balkje; duur en vertraging per balkje via --eq-duration / --eq-delay */
+    --animate-equalizer: equalizer var(--eq-duration, 1s) ease-in-out var(--eq-delay, 0s) infinite alternate;
 
     @keyframes parallax-cover {
         from { translate: 0 -60%; }
         50% { translate: 0 0; }
         to { translate: 0 30%; }
+    }
+
+    @keyframes word-up {
+        from { translate: 0 110%; }
+        to { translate: 0 0; }
+    }
+
+    @keyframes equalizer {
+        from { scale: 1 0.25; }
+        to { scale: 1 1; }
     }
 
     @keyframes scroll-fade-up {
