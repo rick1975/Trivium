@@ -1,5 +1,5 @@
 <footer class="footer">
-  {{-- Foto die in het blauw opgaat: grijs gemaakt en met multiply door het footer-blauw gemengd;
+  {{-- Foto die in het blauw opgaat: met multiply door het footer-blauw gemengd;
        loopt via maskers onderaan (en vanaf tablet naar links) zacht weg in het effen blauw --}}
   <img src="{{ Vite::asset('resources/images/trivium-gebouw-buiten.avif') }}" alt="" loading="lazy" decoding="async"
     class="pointer-events-none absolute inset-0 size-full object-cover object-[center_70%] contrast-110 brightness-110 mix-blend-multiply opacity-60 mask-b-from-45% md:left-auto md:w-[65%] md:opacity-70 md:mask-b-from-40% md:mask-l-from-55% lg:opacity-95 lg:mask-b-from-60% lg:mask-l-from-70%">
