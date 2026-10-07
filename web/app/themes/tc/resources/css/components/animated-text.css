@@ -92,7 +92,7 @@
     transform-box: view-box;
 
     animation:
-        future-punch var(--punch-duration, .8s) var(--punch-delay, 0s) both;
+        future-punch var(--punch-duration, .55s) var(--punch-delay, 0s) both;
 }
 
 @keyframes future-punch {
