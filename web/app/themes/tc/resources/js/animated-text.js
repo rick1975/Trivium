@@ -24,8 +24,17 @@ export function initAnimatedText() {
     |--------------------------------------------------------------------------
     */
 
-    // Hoe snel de animatie door de letters loopt.
-    const LETTER_DELAY = 0.10;
+    // Hoe lang (in seconden) de kleurgolf erover doet om van de
+    // linker- naar de rechterkant van de tekst te lopen. De start
+    // van elke cirkel hangt af van zijn horizontale positie, zodat
+    // de golf gelijkmatig loopt, ongeacht hoe breed een letter is.
+    const SWEEP_DURATION = 1.3;
+
+    // Hoe lang een cirkel erover doet om tot volle grootte te
+    // groeien, en hoe lang hij in totaal zichtbaar is (opkomen,
+    // even blijven staan en weer naar wit vervagen).
+    const GROW_DURATION = 0.7;
+    const FADE_DURATION = 1.1;
 
     // In hoeveel rijen (boven naar onder) elke letter wordt
     // opgebouwd — elke rij krijgt zijn eigen kleur(en).
@@ -34,9 +43,6 @@ export function initAnimatedText() {
     // Vertraging per rij: bepaalt hoe duidelijk de vulling
     // van boven naar beneden "zakt" — zoals bij SAIC.
     const ROW_STAGGER = 0.09;
-
-    // Kleine extra vertraging per kolom binnen een rij.
-    const COL_STAGGER = 0.02;
 
     // Minimaal aantal kolommen cirkels per letter. Bredere
     // letters (w, m) krijgen er automatisch meer.
@@ -187,6 +193,9 @@ export function initAnimatedText() {
             (lines.length - 1) * lineHeight +
             bottomPad;
 
+        svg.style.setProperty("--grow-duration", `${GROW_DURATION}s`);
+        svg.style.setProperty("--fade-duration", `${FADE_DURATION}s`);
+
         svg.setAttribute(
             "viewBox",
             `0 0 ${viewBoxWidth} ${viewBoxHeight}`
@@ -240,6 +249,11 @@ export function initAnimatedText() {
                 .actualBoundingBoxLeft || 0;
 
         let x = firstCharBearing;
+
+        // Totale breedte van de regel, voor de positie-afhankelijke
+        // vertraging van de kleurgolf.
+        const lineWidth =
+            widths.reduce((sum, w) => sum + w, 0) || 1;
 
 
         /*
@@ -429,9 +443,8 @@ export function initAnimatedText() {
                         (Math.random() - 0.5) * colWidth * 0.4;
 
                     const delay =
-                        letterIndex * LETTER_DELAY +
-                        row * ROW_STAGGER +
-                        col * COL_STAGGER;
+                        Math.max(0, dotX - firstCharBearing) / lineWidth * SWEEP_DURATION +
+                        row * ROW_STAGGER;
 
                     const dot = create("circle", {
 

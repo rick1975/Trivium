@@ -30,39 +30,48 @@
  */
 .future-circle-fill {
     opacity: 0;
+    transform: scale(0);
     transform-box: fill-box;
     transform-origin: center;
 
+    /*
+     * Groeien en zichtbaarheid zijn twee losse animaties, elk met
+     * één doorlopende curve, zodat er geen haperingen ontstaan op
+     * de overgangen tussen keyframes. De duur zet animated-text.js
+     * (GROW_DURATION / FADE_DURATION).
+     */
     animation:
-        future-circle .62s cubic-bezier(.22, 1, .36, 1)
-        var(--delay) forwards;
+        future-circle-grow var(--grow-duration, .7s) cubic-bezier(.25, .8, .35, 1) var(--delay) forwards,
+        future-circle-fade var(--fade-duration, 1.1s) ease-in-out var(--delay) forwards;
 }
 
-@keyframes future-circle {
+@keyframes future-circle-grow {
 
-    0% {
-        opacity: 0;
+    from {
         transform: scale(0);
     }
 
-    8% {
-        opacity: 1;
-        transform: scale(.08);
-    }
-
-    62% {
-        opacity: 1;
+    to {
         transform: scale(1);
     }
+}
 
-    65% {
+@keyframes future-circle-fade {
+
+    0% {
+        opacity: 0;
+    }
+
+    25% {
         opacity: 1;
-        transform: scale(1);
+    }
+
+    55% {
+        opacity: 1;
     }
 
     100% {
         opacity: 0;
-        transform: scale(1);
     }
 }
 
