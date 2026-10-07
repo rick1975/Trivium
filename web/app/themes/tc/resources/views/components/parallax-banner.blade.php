@@ -19,7 +19,7 @@
         {{ $slot }}
       </p>
       @if($href)
-        <x-button :href="$href" variant="white">{{ $linkText }}</x-button>
+        <x-button :href="$href">{{ $linkText }}</x-button>
       @endif
     </div>
   </div>
