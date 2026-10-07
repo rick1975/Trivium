@@ -18,7 +18,7 @@
   <x-quick-links />
 
   <x-parallax-banner :image="Vite::asset('resources/images/Jongen-achter-microfoon.avif')" :href="App\page_url('over-de-school')">
-    <x-slot:title>Kleine school <br><span class="text-triv-yellow">grote betrokkenheid</span></x-slot:title>
-    Het VMBO Trivium College is een kleine school met ongeveer 300 leerlingen en grote betrokkenheid bij haar leerlingen. De klassen zijn klein, meestal niet groter dan 22 leerlingen.
+    <x-slot:title>Bij ons word je <br><span class="text-triv-pink">gehoord</span></x-slot:title>
+    Het VMBO Trivium College is een kleine school met ongeveer 300 leerlingen. In klassen van meestal niet meer dan 22 leerlingen kennen we elkaar en krijg je de ruimte om te laten horen wie je bent.
   </x-parallax-banner>
 @endsection
