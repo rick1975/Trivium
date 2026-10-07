@@ -75,7 +75,7 @@ export function initAnimatedText() {
         // Tekst komt uit de (visueel verborgen) h1, zodat die op één plek staat.
         {
             text: container.parentElement?.querySelector("h1")?.textContent.trim()
-                || "Leren met lef"
+                || "Leren met LEF"
         }
     ];
 
@@ -160,7 +160,7 @@ export function initAnimatedText() {
         defs.replaceChildren();
         textGroup.replaceChildren();
 
-        ctx.font = `700 ${FONT_SIZE}px Poppins`;
+        ctx.font = `italic 700 ${FONT_SIZE}px Poppins`;
 
 
         const capHeight =
@@ -284,6 +284,9 @@ export function initAnimatedText() {
                 "font-weight":
                     "700",
 
+                "font-style":
+                    "italic",
+
                 class:
                     "future-base"
 
@@ -337,6 +340,9 @@ export function initAnimatedText() {
 
                 "font-weight":
                     "700",
+
+                "font-style":
+                    "italic",
 
                 fill: "white"
 
@@ -463,8 +469,10 @@ export function initAnimatedText() {
     // harde refresh, wanneer Poppins nog niet in de cache zit), en
     // komen de posities niet meer overeen zodra Poppins alsnog
     // verschijnt — de tekst lijkt dan horizontaal in elkaar gedrukt.
-    if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(build);
+    // De cursieve variant wordt pas opgehaald als hij gebruikt wordt, dus
+    // die laden we hier expliciet voordat we gaan meten.
+    if (document.fonts && document.fonts.load) {
+        document.fonts.load("italic 700 48px Poppins").then(build, build);
     } else {
         build();
     }
