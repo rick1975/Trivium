@@ -4,7 +4,7 @@
   $kleuren = ['bg-triv-blue', 'bg-triv-pink', 'bg-triv-orange', 'bg-triv-green', 'bg-triv-yellow', 'bg-triv-lightblue'];
 @endphp
 
-<section class="relative z-20 -mt-[12vh]">
+<section class="relative z-20 -mt-[8vh]">
   {{-- Golfboog direct over de hero-foto: de section zelf heeft hier geen achtergrond, zodat er contrast is --}}
   @include('components.wave-divider', ['fill' => '#fbfaf4'])
 
