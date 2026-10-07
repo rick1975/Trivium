@@ -34,10 +34,10 @@
 
 @include('components.sitemap')
 
-{{-- Copyright Section (Outside primary color background) --}}
-<div class="bg-white py-6">
-  <div class="container">
-    <div class="text-center text-xs md:text-sm text-gray-600">
+{{-- Copyright: zelfde nachtblauw als footer en sitemap, op dezelfde lijn --}}
+<div class="py-6 bg-triv-navy border-t border-white/10">
+  <div class="max-w-[1280px] mx-auto px-6">
+    <div class="text-left text-xs md:text-sm text-white/60">
       &copy; {{ date('Y') }} {{ $siteName }}. Alle rechten voorbehouden.
     </div>
   </div>
