@@ -12,7 +12,7 @@
   
   {{-- Content --}}
   <div class="relative z-10 min-h-[85vh] flex flex-col justify-center 2xl:justify-end items-end px-[6vw] 2xl:pr-52 2xl:pb-24">
-    <div class="max-w-[30rem]" x-data="{ visible: false }" x-init="setTimeout(() => visible = true, 100)">
+    <div class="max-w-[30rem]">
 
       {{-- Titel (visueel verborgen, animated-text neemt de lettergrootte hiervan over) --}}
       <h1 class="sr-only text-5xl sm:text-6xl lg:text-7xl font-bold italic">Leren met LEF</h1>
@@ -21,11 +21,11 @@
       @include('components.animated-text')
 
       {{-- Subtitel --}}
-      <p class="text-white font-light text-base leading-relaxed mb-8 max-w-[38rem] transition-all duration-700 delay-150" :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'">
+      <p class="text-white font-light text-base leading-relaxed mb-8 max-w-[38rem]">
         Veel kiezen en doen en met elkaar heel veel uitproberen. Lef betekent dat je dit durft. Want we doen veel samen en helpen elkaar vooruit. We zijn een kleine school met vertrouwde docenten die er de hele dag voor je zijn. </p>
 
       {{-- Buttons --}}
-      <div class="flex flex-wrap gap-3 mb-8 transition-all duration-700 delay-300" :class="visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'">
+      <div class="flex flex-wrap gap-3 mb-8">
         <x-button :href="App\page_url('onze-school')">Ontdek onze school</x-button>
       </div>
     </div>

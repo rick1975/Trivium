@@ -54,6 +54,15 @@ export function initAnimatedText() {
     const FONT_FAMILY = "Fraunces";
     const FONT_WEIGHT = "900";
 
+    // "Knal" op het laatste woord (LEF): zodra het vol kleur staat,
+    // schiet het kort groter en veert het terug. PUNCH_SCALE is de
+    // grootte op het hoogtepunt (1.25 = 125%), PUNCH_DURATION de duur
+    // in seconden en PUNCH_OFFSET hoe lang na de start van de laatste
+    // kleurcirkel de knal valt. Uitzetten: PUNCH_SCALE op 1.
+    const PUNCH_SCALE = 1.25;
+    const PUNCH_DURATION = 0.5;
+    const PUNCH_OFFSET = 0.3;
+
 
     /*
     |--------------------------------------------------------------------------
@@ -255,6 +264,17 @@ export function initAnimatedText() {
         const lineWidth =
             widths.reduce((sum, w) => sum + w, 0) || 1;
 
+        // Letters van het laatste woord komen in een eigen groep,
+        // zodat dat woord als geheel kan "knallen" (zie PUNCH_*).
+        const lastWordStart =
+            line.text.trimEnd().lastIndexOf(" ") + 1;
+
+        const punchGroup = create("g", { class: "future-punch" });
+
+        let punchLeft = Infinity;
+        let punchRight = -Infinity;
+        let punchDelay = 0;
+
 
         /*
         |--------------------------------------------------------------------------
@@ -277,6 +297,15 @@ export function initAnimatedText() {
 
 
             const centerX = x + width / 2;
+
+            const isPunch = index >= lastWordStart;
+
+            const group = isPunch ? punchGroup : textGroup;
+
+            if (isPunch) {
+                punchLeft = Math.min(punchLeft, x);
+                punchRight = Math.max(punchRight, x + width);
+            }
 
             const maskId =
                 `letter-mask-${letterIndex}`;
@@ -314,7 +343,7 @@ export function initAnimatedText() {
 
             base.textContent = char;
 
-            textGroup.appendChild(base);
+            group.appendChild(base);
 
 
             /*
@@ -446,6 +475,10 @@ export function initAnimatedText() {
                         Math.max(0, dotX - firstCharBearing) / lineWidth * SWEEP_DURATION +
                         row * ROW_STAGGER;
 
+                    if (isPunch) {
+                        punchDelay = Math.max(punchDelay, delay);
+                    }
+
                     const dot = create("circle", {
 
                         cx: dotX,
@@ -469,7 +502,7 @@ export function initAnimatedText() {
 
             }
 
-            textGroup.appendChild(fillGroup);
+            group.appendChild(fillGroup);
 
 
             x += width;
@@ -477,6 +510,26 @@ export function initAnimatedText() {
             letterIndex++;
 
         });
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | KNAL OP HET LAATSTE WOORD
+        |--------------------------------------------------------------------------
+        */
+
+        if (punchGroup.childNodes.length) {
+
+            const originX = (punchLeft + punchRight) / 2;
+            const originY = line.y - capHeight / 2;
+
+            punchGroup.style.setProperty("--punch-scale", PUNCH_SCALE);
+            punchGroup.style.setProperty("--punch-duration", `${PUNCH_DURATION}s`);
+            punchGroup.style.setProperty("--punch-delay", `${punchDelay + PUNCH_OFFSET}s`);
+            punchGroup.style.transformOrigin = `${originX}px ${originY}px`;
+
+            textGroup.appendChild(punchGroup);
+        }
 
     });
 

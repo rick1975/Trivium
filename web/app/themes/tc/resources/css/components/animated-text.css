@@ -82,3 +82,43 @@
         opacity: 0;
     }
 }
+
+/*
+ * "Knal" op het laatste woord: zodra het vol kleur staat schiet
+ * het kort groter, veert iets te ver terug en komt dan tot rust.
+ * Schaal, duur, moment en transform-origin zet animated-text.js.
+ */
+.future-punch {
+    transform-box: view-box;
+
+    animation:
+        future-punch var(--punch-duration, .5s) var(--punch-delay, 0s) both;
+}
+
+@keyframes future-punch {
+
+    0% {
+        transform: scale(1);
+        animation-timing-function: cubic-bezier(.2, .9, .3, 1);
+    }
+
+    35% {
+        transform: scale(var(--punch-scale, 1.25));
+        animation-timing-function: ease-in-out;
+    }
+
+    68% {
+        transform: scale(.96);
+        animation-timing-function: ease-out;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .future-punch {
+        animation: none;
+    }
+}
