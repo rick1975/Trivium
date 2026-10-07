@@ -42,6 +42,12 @@ export function initAnimatedText() {
     // letters (w, m) krijgen er automatisch meer.
     const MIN_COLS_PER_LETTER = 1;
 
+    // Lettertype van de titel. Terug naar het oude font: zet
+    // FONT_FAMILY op "Poppins" en FONT_WEIGHT op "700".
+    // (Het font moet ook geladen worden in resources/js/fonts.js.)
+    const FONT_FAMILY = "Fraunces";
+    const FONT_WEIGHT = "900";
+
 
     /*
     |--------------------------------------------------------------------------
@@ -160,7 +166,7 @@ export function initAnimatedText() {
         defs.replaceChildren();
         textGroup.replaceChildren();
 
-        ctx.font = `italic 700 ${FONT_SIZE}px Poppins`;
+        ctx.font = `italic ${FONT_WEIGHT} ${FONT_SIZE}px ${FONT_FAMILY}`;
 
 
         const capHeight =
@@ -276,13 +282,13 @@ export function initAnimatedText() {
                 "text-anchor": "middle",
 
                 "font-family":
-                    "Poppins, sans-serif",
+                    `${FONT_FAMILY}, sans-serif`,
 
                 "font-size":
                     FONT_SIZE,
 
                 "font-weight":
-                    "700",
+                    FONT_WEIGHT,
 
                 "font-style":
                     "italic",
@@ -333,13 +339,13 @@ export function initAnimatedText() {
                 "text-anchor": "middle",
 
                 "font-family":
-                    "Poppins, sans-serif",
+                    `${FONT_FAMILY}, sans-serif`,
 
                 "font-size":
                     FONT_SIZE,
 
                 "font-weight":
-                    "700",
+                    FONT_WEIGHT,
 
                 "font-style":
                     "italic",
@@ -472,7 +478,7 @@ export function initAnimatedText() {
     // De cursieve variant wordt pas opgehaald als hij gebruikt wordt, dus
     // die laden we hier expliciet voordat we gaan meten.
     if (document.fonts && document.fonts.load) {
-        document.fonts.load("italic 700 48px Poppins").then(build, build);
+        document.fonts.load(`italic ${FONT_WEIGHT} 48px ${FONT_FAMILY}`).then(build, build);
     } else {
         build();
     }

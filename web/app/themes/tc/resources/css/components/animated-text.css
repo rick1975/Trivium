@@ -16,8 +16,7 @@
 
 .future-base {
     fill: #fff;
-    font-family: "Poppins", sans-serif;
-    font-weight: 700;
+    /* font-family en font-weight zet animated-text.js (FONT_FAMILY / FONT_WEIGHT) */
     font-style: italic;
 }
 
