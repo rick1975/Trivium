@@ -4,7 +4,7 @@
   <img src="{{ Vite::asset('resources/images/trivium-gebouw-buiten.avif') }}" alt="" loading="lazy" decoding="async"
     class="pointer-events-none absolute inset-0 size-full object-cover object-[center_80%] contrast-110 brightness-110 mix-blend-multiply opacity-60 mask-b-from-45% md:left-auto md:w-[65%] md:opacity-70 md:mask-b-from-40% md:mask-l-from-55% lg:opacity-95 lg:mask-b-from-60% lg:mask-l-from-70%">
 
-  <div class="container relative">
+  <div class="container relative w-full">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       {{-- Footer Column 1 --}}
       <div>
