@@ -1,5 +1,6 @@
 @import "tailwindcss" theme(static);
 @import "./components/animated-text.css";
+@import "./components/button.css";
 @source "../views/";
 @source "../../app/";
 
@@ -28,11 +29,9 @@ html {
 
 @layer base {
   body {
-    @apply bg-white text-gray-700 antialiased;
+    @apply bg-white text-gray-700 antialiased text-base;
     font-family: 'DM Sans', sans-serif;
     font-weight: 400;
-    line-height: 1.75;
-    font-size: 1.2rem;
   }
 
   /* Typography */
@@ -49,7 +48,7 @@ html {
   h6 { @apply text-base md:text-lg mb-2 font-semibold; }
 
   p {
-    @apply mb-4 text-gray-700;
+    @apply mb-4;
   }
 
   /* Links */

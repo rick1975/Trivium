@@ -6,7 +6,7 @@
 
 @php($large = $size === 'large')
 
-<a href="{{ $item['url'] }}" {{ $attributes->merge(['class' => 'group relative rounded-3xl overflow-hidden no-underline block ' . ($large ? 'min-h-[500px]' : 'flex-1 min-h-[235px]')]) }}>
+<a href="{{ $item['url'] }}" {{ $attributes->merge(['class' => 'group relative rounded-xl overflow-hidden no-underline block ' . ($large ? 'min-h-[500px]' : 'flex-1 min-h-[235px]')]) }}>
   <img
     src="{{ $item['image'] }}"
     alt="{{ $item['alt'] }}"

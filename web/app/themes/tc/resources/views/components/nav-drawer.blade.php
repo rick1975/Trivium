@@ -87,10 +87,7 @@
     style="transition-delay: {{ 120 + count($navigation) * 50 }}ms;">
     <div class="grid grid-cols-2 gap-2">
       <x-button :href="App\page_url('aanmelden')" class="justify-center">Aanmelden</x-button>
-      <a href="{{ App\page_url('open-dagen') }}"
-        class="inline-flex items-center justify-center font-semibold text-sm py-3 rounded-xl border-2 border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white transition-colors no-underline">
-        Open dagen
-      </a>
+      <x-button :href="App\page_url('open-dagen')" variant="outline" class="justify-center">Open dagen</x-button>
     </div>
   </div>
 </aside>

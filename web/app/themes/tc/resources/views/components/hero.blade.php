@@ -15,7 +15,7 @@
     <div class="max-w-[30rem]">
 
       {{-- Titel (visueel verborgen, animated-text neemt de lettergrootte hiervan over) --}}
-      <h1 class="sr-only text-5xl sm:text-6xl lg:text-7xl font-bold italic">Leren met LEF</h1>
+      <h1 class="sr-only text-5xl sm:text-6xl lg:text-7xl font-bold italic">Leren met Lef</h1>
 
       {{-- Geanimeerde titel --}}
       @include('components.animated-text')

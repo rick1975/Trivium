@@ -4,7 +4,7 @@
   $kleuren = ['bg-triv-blue', 'bg-triv-pink', 'bg-triv-orange', 'bg-triv-green', 'bg-triv-yellow', 'bg-triv-lightblue'];
 @endphp
 
-<section class="relative z-20 -mt-[12vh] lg:-mt-[22vh] px-6 xl:px-20">
+<section class="relative z-20 -mt-[12vh]">
   {{-- Golfboog direct over de hero-foto: de section zelf heeft hier geen achtergrond, zodat er contrast is --}}
   @include('components.wave-divider', ['fill' => '#fbfaf4'])
 
@@ -14,7 +14,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
         @foreach ($onderwerpen as $i => $item)
-          <div class="rounded-3xl bg-white p-7 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+          <div class="rounded-xl bg-white p-7 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
             <div class="{{ $kleuren[$i % count($kleuren)] }} w-11 h-11 rounded-2xl flex items-center justify-center text-white font-black text-lg mb-5">
               {{ $i + 1 }}
             </div>

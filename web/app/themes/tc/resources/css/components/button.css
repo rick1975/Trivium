@@ -1,0 +1,90 @@
+/* Knop in huisstijl (components/button.blade.php) */
+
+/*
+ * Bij hover loopt een iets donkerdere tint van links naar rechts over
+ * de knop: een cirkel die vanuit de witte stip uitdijt, terwijl de stip
+ * zelf kort opveert. De stip verwijst naar de stip in het logo.
+ */
+.btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+
+    /* Middelpunt van de stip: padding-links + halve stip (zie btn__dot). */
+    --btn-dot-x: calc(1.5rem + 4px);
+    --btn-fill: color-mix(in srgb, var(--color-triv-pink) 82%, black);
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--btn-fill);
+    clip-path: circle(0 at var(--btn-dot-x) 50%);
+    transition: clip-path .5s cubic-bezier(.3, .7, .3, 1);
+}
+
+.btn:hover::before,
+.btn:focus-visible::before {
+    clip-path: circle(150% at var(--btn-dot-x) 50%);
+}
+
+.btn__dot {
+    flex: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: currentColor;
+}
+
+.btn:hover .btn__dot,
+.btn:focus-visible .btn__dot {
+    animation: btn-dot-pop .45s cubic-bezier(.3, .7, .3, 1);
+}
+
+@keyframes btn-dot-pop {
+
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.7);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Varianten: alleen de tint van de vulling verschilt. */
+.btn--green {
+    --btn-fill: color-mix(in srgb, var(--color-triv-green) 82%, black);
+}
+
+.btn--white {
+    --btn-dot-x: calc(2rem + 4px);
+    --btn-fill: color-mix(in srgb, var(--color-triv-blue) 8%, white);
+}
+
+.btn--outline {
+    --btn-fill: var(--color-gray-800);
+}
+
+.btn--outline:hover,
+.btn--outline:focus-visible {
+    color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .btn::before {
+        transition: none;
+    }
+
+    .btn:hover .btn__dot,
+    .btn:focus-visible .btn__dot {
+        animation: none;
+    }
+}
