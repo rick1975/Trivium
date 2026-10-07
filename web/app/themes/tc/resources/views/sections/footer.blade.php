@@ -1,11 +1,11 @@
 <footer class="footer">
-  {{-- Foto die in het blauw opgaat: met multiply door het footer-blauw gemengd;
-       loopt via maskers onderaan (en vanaf tablet naar links) zacht weg in het effen blauw --}}
-  <img src="{{ Vite::asset('resources/images/trivium-gebouw-buiten.avif') }}" alt="" loading="lazy" decoding="async"
-    class="pointer-events-none absolute inset-0 size-full object-cover object-[center_80%] contrast-110 brightness-110 mix-blend-multiply opacity-60 mask-b-from-45% md:left-auto md:w-[65%] md:opacity-70 md:mask-b-from-40% md:mask-l-from-55% lg:opacity-95 lg:mask-b-from-60% lg:mask-l-from-70%">
+  {{-- Foto van de aula die in het blauw opgaat: met multiply door het footer-blauw gemengd;
+       loopt via maskers boven en onder zacht weg in het effen blauw --}}
+  <img src="{{ Vite::asset('resources/images/trivium-aula-trappen.avif') }}" alt="" loading="lazy" decoding="async"
+    class="pointer-events-none absolute inset-0 size-full object-cover object-center contrast-110 mix-blend-multiply opacity-60 mask-t-from-80% mask-b-from-60% lg:opacity-75">
 
   <div class="container relative w-full">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div class="max-w-xl mx-auto text-center">
       {{-- Footer Column 1 --}}
       <div>
         <h3 class="text-lg font-semibold mb-4 text-white">{{ $siteName }}</h3>
