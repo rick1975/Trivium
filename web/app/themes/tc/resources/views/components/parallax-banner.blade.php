@@ -20,7 +20,7 @@
 
   <div class="relative z-10 h-full max-w-[1280px] mx-auto flex items-center px-6">
     <div class="max-w-md">
-      <h2 class="text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-6">
+      <h2 class="text-5xl xl:text-6xl font-bold text-white leading-tight mb-6">
         {{ $title }}
         @if($highlight)
           <br><span class="text-triv-pink">{{ $highlight }}</span>
