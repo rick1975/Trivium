@@ -6,7 +6,7 @@
   <img src="{{ Vite::asset('resources/images/trivium-aula-trappen.avif') }}" alt="" loading="lazy" decoding="async"
     class="pointer-events-none absolute inset-0 size-full object-cover object-center contrast-110 mix-blend-multiply opacity-60 max-md:mask-t-from-80% max-md:mask-b-from-60% md:left-auto md:w-1/2 md:mix-blend-normal md:mask-l-from-60% md:-translate-x-1/3 md:opacity-0 md:transition-[translate,opacity] md:duration-1200 md:ease-out md:group-data-shown:translate-x-0 md:group-data-shown:opacity-100 md:motion-reduce:translate-x-0! md:motion-reduce:opacity-100! motion-reduce:transition-none">
 
-  <div class="container relative w-full">
+  <div class="relative w-full max-w-[1280px] mx-auto px-6">
     <div class="max-w-xl mx-auto text-center md:mx-0 md:w-1/2 md:pr-12 md:text-left">
       {{-- Footer Column 1 --}}
       <div>
