@@ -1,6 +1,7 @@
-{{-- Sitemap: volledige navigatie (met submenu's) als overzicht onder de footer; zelfde nachtblauw als de footer --}}
+{{-- Sitemap: volledige navigatie (met submenu's) als overzicht onder de footer; zelfde nachtblauw als de footer.
+     Scheidingslijn bovenaan loopt vanaf tablet alleen onder de tekstkant van de footer en vervaagt richting de foto. --}}
 @if($navigation)
-  <nav aria-label="Sitemap" class="py-12 md:py-16 xl:py-32 bg-triv-navy border-t border-white/10">
+  <nav aria-label="Sitemap" class="relative py-12 md:py-16 xl:py-32 bg-triv-navy border-t border-white/10 md:border-t-0 md:before:absolute md:before:top-0 md:before:left-0 md:before:w-1/2 md:before:h-px md:before:bg-linear-to-r md:before:from-white/10 md:before:via-white/10 md:before:via-60% md:before:to-transparent">
     <div class="max-w-[1280px] mx-auto px-6">
       <div class="flex flex-wrap justify-between gap-x-12 gap-y-10">
         @foreach($navigation as $item)

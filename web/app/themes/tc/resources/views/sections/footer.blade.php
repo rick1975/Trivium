@@ -1,4 +1,4 @@
-<footer class="footer group" x-data x-intersect.once.threshold.30="$el.dataset.shown = ''">
+<footer class="footer group" x-data x-intersect.once.threshold.60="$el.dataset.shown = ''">
   {{-- Foto van de aula. Mobiel: met multiply door het nachtblauw gemengd als achtergrond, boven en onder
        zacht weglopend. Vanaf tablet 50/50: foto in eigen kleuren op de rechterhelft, loopt naar links
        weg in het effen nachtblauw. Schuift daar eenmalig van links op zijn plek zodra de footer in beeld komt
