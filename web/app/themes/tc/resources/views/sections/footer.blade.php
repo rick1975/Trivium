@@ -1,7 +1,7 @@
-<footer class="footer group">
+<footer data-slide class="footer group">
   {{-- Foto van de aula. Mobiel: onder de tekst over de volle breedte, loopt bovenaan weg in het nachtblauw.
        Vanaf tablet 50/50: foto op de rechterhelft, loopt naar links weg in het effen nachtblauw. Schuift daar
-       van links op zijn plek zodra de footer in beeld is geschoven (js/footer-snap.js zet data-shown). --}}
+       van links op zijn plek zodra de footer in beeld is geschoven (js/slide-sections.js zet data-shown). --}}
   <img src="{{ Vite::asset('resources/images/trivium-aula-trappen.avif') }}" alt="" loading="lazy" decoding="async"
     class="pointer-events-none order-last mt-10 w-full aspect-[4/3] object-cover object-center contrast-110 mask-t-from-70% md:absolute md:inset-y-0 md:right-0 md:mt-0 md:h-full md:w-1/2 md:aspect-auto md:mask-t-from-100% md:mask-l-from-60% md:mask-b-from-80% md:-translate-x-1/3 md:opacity-0 md:transition-[translate,opacity] md:duration-1200 md:ease-out md:group-data-shown:translate-x-0 md:group-data-shown:opacity-100 md:motion-reduce:translate-x-0! md:motion-reduce:opacity-100! motion-reduce:transition-none">
 

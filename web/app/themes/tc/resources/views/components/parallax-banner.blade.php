@@ -13,7 +13,7 @@
 
 @php($words = preg_split('/\s+/', trim(strip_tags($slot))))
 
-<section class="relative h-svh overflow-hidden [view-timeline:--banner]">
+<section data-slide class="relative h-svh overflow-hidden [view-timeline:--banner]">
   <div class="absolute inset-0 bg-cover bg-center scroll-driven:animate-parallax-cover scroll-driven:[animation-timeline:--banner] scroll-driven:[animation-range:cover]" style="background-image: url('{{ $image }}');"></div>
 
   <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>

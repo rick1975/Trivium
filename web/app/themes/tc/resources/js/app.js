@@ -3,7 +3,7 @@ import Alpine from 'alpinejs'
 import intersect from '@alpinejs/intersect'
 import collapse from '@alpinejs/collapse'
 import { initAnimatedText } from './animated-text'
-import { initFooterSnap } from './footer-snap'
+import { initSlideSections } from './slide-sections'
 
 window.Alpine = Alpine
 
@@ -13,4 +13,4 @@ Alpine.plugin(collapse)
 Alpine.start()
 
 initAnimatedText()
-initFooterSnap()
+initSlideSections()

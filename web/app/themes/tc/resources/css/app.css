@@ -167,7 +167,7 @@ html {
   }
 
   /* Footer: vanaf tablet schermvullend, net als de parallax-banner; inhoud in het midden.
-     Glijdt vanzelf in beeld via js/footer-snap.js.
+     Glijdt als slide in beeld via js/slide-sections.js.
      Mobiel: zo hoog als de inhoud, foto onderaan tot de rand (dus geen padding onder) */
   .footer {
     @apply relative isolate overflow-hidden flex flex-col justify-center pt-12 md:min-h-svh md:py-16 xl:py-24 bg-triv-navy text-white;
