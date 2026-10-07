@@ -1,6 +1,8 @@
 <footer class="footer">
-  {{-- Foto die in het blauw opgaat (zie resources/css/components/footer.css) --}}
-  <img src="{{ Vite::asset('resources/images/trivium-gebouw-buiten.avif') }}" alt="" class="footer__photo" loading="lazy" decoding="async">
+  {{-- Foto die in het blauw opgaat: grijs gemaakt en met multiply door het footer-blauw gemengd;
+       loopt via maskers onderaan (en vanaf tablet naar links) zacht weg in het effen blauw --}}
+  <img src="{{ Vite::asset('resources/images/trivium-gebouw-buiten.avif') }}" alt="" loading="lazy" decoding="async"
+    class="pointer-events-none absolute inset-0 size-full object-cover object-[center_40%] grayscale contrast-110 brightness-110 mix-blend-multiply opacity-60 mask-b-from-45% md:left-auto md:w-[65%] md:opacity-85 md:mask-b-from-40% md:mask-l-from-55%">
 
   <div class="container relative">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
