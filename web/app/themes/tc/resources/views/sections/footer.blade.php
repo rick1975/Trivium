@@ -1,11 +1,12 @@
 <footer class="footer">
-  {{-- Foto van de aula die in het blauw opgaat: met multiply door het footer-blauw gemengd;
-       loopt via maskers boven en onder zacht weg in het effen blauw --}}
+  {{-- Foto van de aula. Mobiel: met multiply door het blauw gemengd als achtergrond, boven en onder
+       zacht weglopend. Vanaf tablet 50/50: foto in eigen kleuren op de rechterhelft, loopt naar links
+       weg in het effen blauw. --}}
   <img src="{{ Vite::asset('resources/images/trivium-aula-trappen.avif') }}" alt="" loading="lazy" decoding="async"
-    class="pointer-events-none absolute inset-0 size-full object-cover object-center contrast-110 mix-blend-multiply opacity-60 mask-t-from-80% mask-b-from-60% lg:opacity-75">
+    class="pointer-events-none absolute inset-0 size-full object-cover object-center contrast-110 mix-blend-multiply opacity-60 max-md:mask-t-from-80% max-md:mask-b-from-60% md:left-auto md:w-1/2 md:mix-blend-normal md:opacity-100 md:mask-l-from-60%">
 
   <div class="container relative w-full">
-    <div class="max-w-xl mx-auto text-center">
+    <div class="max-w-xl mx-auto text-center md:mx-0 md:w-1/2 md:pr-12 md:text-left">
       {{-- Footer Column 1 --}}
       <div>
         <h3 class="text-lg font-semibold mb-4 text-white">{{ $siteName }}</h3>
