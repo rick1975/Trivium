@@ -12,7 +12,7 @@
 
     /* Middelpunt van de stip: padding-links + halve stip (zie btn__dot). */
     --btn-dot-x: calc(1.5rem + 4px);
-    --btn-fill: color-mix(in srgb, var(--color-triv-pink) 82%, black);
+    --btn-fill: color-mix(in srgb, var(--color-triv-pink) 92%, black);
 }
 
 .btn::before {
@@ -50,7 +50,7 @@
     }
 
     40% {
-        transform: scale(1.25);
+        transform: scale(1.12);
     }
 
     100% {
@@ -60,7 +60,7 @@
 
 /* Varianten: alleen de tint van de vulling verschilt. */
 .btn--green {
-    --btn-fill: color-mix(in srgb, var(--color-triv-green) 82%, black);
+    --btn-fill: color-mix(in srgb, var(--color-triv-green) 92%, black);
 }
 
 .btn--white {

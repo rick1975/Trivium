@@ -12,7 +12,7 @@
   default => 'btn--pink bg-triv-pink text-white px-6',
 })
 
-<a href="{{ $href }}" {{ $attributes->merge(['class' => "btn inline-flex items-center gap-2.5 font-semibold text-sm py-3 rounded-xl hover:-translate-y-px hover:shadow-md transition-all duration-200 no-underline {$variantClass}"]) }}>
+<a href="{{ $href }}" {{ $attributes->merge(['class' => "btn inline-flex items-center gap-2.5 font-semibold text-sm py-3 rounded-xl transition-all duration-200 no-underline {$variantClass}"]) }}>
   <span class="btn__dot" aria-hidden="true"></span>
   {{ $slot }}
 </a>
