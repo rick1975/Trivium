@@ -122,3 +122,32 @@
         animation: none;
     }
 }
+
+/*
+ * Binnenkomst per letter: schuift omhoog en wordt zichtbaar op het
+ * moment dat de kleurgolf de letter bereikt. Duur, afstand en
+ * vertraging zet animated-text.js (ENTER_*).
+ */
+.future-letter {
+    animation:
+        future-letter-enter var(--enter-duration, .6s) cubic-bezier(.2, .8, .3, 1) var(--enter-delay, 0s) both;
+}
+
+@keyframes future-letter-enter {
+
+    from {
+        opacity: 0;
+        transform: translateY(var(--enter-rise, 20px));
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .future-letter {
+        animation: none;
+    }
+}

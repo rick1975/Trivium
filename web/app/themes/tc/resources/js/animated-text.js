@@ -63,6 +63,16 @@ export function initAnimatedText() {
     const PUNCH_DURATION = 0.55;
     const PUNCH_OFFSET = 0.3;
 
+    // Binnenkomst van de letters zelf: elke letter schuift omhoog en
+    // wordt zichtbaar op het moment dat de kleurgolf hem bereikt.
+    // ENTER_RISE is de afstand (als deel van de lettergrootte),
+    // ENTER_DURATION de duur in seconden en ENTER_LEAD hoeveel eerder
+    // dan de eerste kleurcirkel de letter al begint te bewegen.
+    // Uitzetten: ENTER_RISE op 0 en ENTER_DURATION op 0.
+    const ENTER_RISE = 0.35;
+    const ENTER_DURATION = 0.6;
+    const ENTER_LEAD = 0.1;
+
 
     /*
     |--------------------------------------------------------------------------
@@ -204,6 +214,8 @@ export function initAnimatedText() {
 
         svg.style.setProperty("--grow-duration", `${GROW_DURATION}s`);
         svg.style.setProperty("--fade-duration", `${FADE_DURATION}s`);
+        svg.style.setProperty("--enter-duration", `${ENTER_DURATION}s`);
+        svg.style.setProperty("--enter-rise", `${FONT_SIZE * ENTER_RISE}px`);
 
         svg.setAttribute(
             "viewBox",
@@ -243,8 +255,18 @@ export function initAnimatedText() {
 
         const characters = [...line.text];
 
-        const widths = characters.map(char =>
-            ctx.measureText(char).width
+        // Posities meten we over de tekst tot en met elke letter (en
+        // niet per losse letter), zodat de kerning van het font
+        // behouden blijft — anders staan paren als "Le" of "re"
+        // losser dan in gewone tekst.
+        const offsets = characters.map((_, index) =>
+            ctx.measureText(characters.slice(0, index).join("")).width
+        );
+
+        offsets.push(ctx.measureText(line.text).width);
+
+        const widths = characters.map((_, index) =>
+            offsets[index + 1] - offsets[index]
         );
 
         // De canvas-breedte van een letter is de "advance width" en
@@ -300,7 +322,11 @@ export function initAnimatedText() {
 
             const isPunch = index >= lastWordStart;
 
-            const group = isPunch ? punchGroup : textGroup;
+            // Eigen groep per letter, zodat de letter (met zijn
+            // kleurvulling en masker) als geheel kan binnenkomen.
+            const letterGroup = create("g", { class: "future-letter" });
+
+            const group = letterGroup;
 
             if (isPunch) {
                 punchLeft = Math.min(punchLeft, x);
@@ -319,10 +345,10 @@ export function initAnimatedText() {
 
             const base = create("text", {
 
-                x: centerX,
+                x,
                 y: line.y,
 
-                "text-anchor": "middle",
+                "text-anchor": "start",
 
                 "font-family":
                     `${FONT_FAMILY}, sans-serif`,
@@ -376,10 +402,10 @@ export function initAnimatedText() {
 
             const maskLetter = create("text", {
 
-                x: centerX,
+                x,
                 y: line.y,
 
-                "text-anchor": "middle",
+                "text-anchor": "start",
 
                 "font-family":
                     `${FONT_FAMILY}, sans-serif`,
@@ -447,6 +473,8 @@ export function initAnimatedText() {
             const dotRadius =
                 Math.max(colWidth, rowHeight) * 1.35;
 
+            let letterDelay = Infinity;
+
             const fillGroup = create("g", {
 
                 mask:
@@ -474,6 +502,8 @@ export function initAnimatedText() {
                     const delay =
                         Math.max(0, dotX - firstCharBearing) / lineWidth * SWEEP_DURATION +
                         row * ROW_STAGGER;
+
+                    letterDelay = Math.min(letterDelay, delay);
 
                     if (isPunch) {
                         punchDelay = Math.max(punchDelay, delay);
@@ -503,6 +533,13 @@ export function initAnimatedText() {
             }
 
             group.appendChild(fillGroup);
+
+            letterGroup.style.setProperty(
+                "--enter-delay",
+                `${Math.max(0, letterDelay - ENTER_LEAD)}s`
+            );
+
+            (isPunch ? punchGroup : textGroup).appendChild(letterGroup);
 
 
             x += width;
