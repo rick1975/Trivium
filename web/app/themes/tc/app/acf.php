@@ -1,13 +1,27 @@
 <?php
 
 /**
- * ACF-optiepagina "Trivium Settings" en bijbehorende velden.
+ * ACF-optiepagina "Trivium Settings" met een subpagina per onderdeel, en de bijbehorende velden.
+ *
+ * Alle subpagina's bewaren in dezelfde 'option'-opslag, dus uitlezen gaat overal met
+ * get_field('<naam>', 'option'). De veldsleutels zijn gelijk gebleven sinds de opsplitsing,
+ * zodat bestaande inhoud behouden blijft.
  */
 
 namespace App;
 
 /**
- * Registreer de optiepagina.
+ * Subpagina's onder "Trivium Settings": slug => titel.
+ */
+const OPTION_PAGES = [
+    'trivium-contact' => 'Contactgegevens',
+    'trivium-leren-met-lef' => 'Leren met lef',
+    'trivium-snelle-links' => 'Snelle links',
+    'trivium-fotobanner' => 'Fotobanner',
+];
+
+/**
+ * Registreer de optiepagina en de subpagina's.
  *
  * @return void
  */
@@ -21,14 +35,24 @@ add_action('acf/init', function () {
         'menu_title' => 'Trivium Settings',
         'menu_slug' => 'trivium-settings',
         'capability' => 'edit_theme_options',
-        'redirect' => false,
+        'redirect' => true,
         'icon_url' => 'dashicons-admin-generic',
         'position' => 80,
     ]);
+
+    foreach (OPTION_PAGES as $slug => $title) {
+        acf_add_options_sub_page([
+            'page_title' => $title,
+            'menu_title' => $title,
+            'menu_slug' => $slug,
+            'parent_slug' => 'trivium-settings',
+            'capability' => 'edit_theme_options',
+        ]);
+    }
 });
 
 /**
- * Registreer de velden voor de optiepagina.
+ * Registreer de velden per subpagina.
  *
  * @return void
  */
@@ -37,17 +61,22 @@ add_action('acf/init', function () {
         return;
     }
 
+    $location = fn (string $slug) => [[['param' => 'options_page', 'operator' => '==', 'value' => $slug]]];
+
+    $pageLink = fn (string $key, string $label = 'Pagina') => [
+        'key' => $key,
+        'label' => $label,
+        'name' => 'pagina',
+        'type' => 'page_link',
+        'post_type' => ['page'],
+        'allow_archives' => 0,
+        'required' => 1,
+    ];
+
     acf_add_local_field_group([
-        'key' => 'group_trivium_settings',
-        'title' => 'Trivium Settings',
+        'key' => 'group_trivium_contact',
+        'title' => 'Contactgegevens',
         'fields' => [
-            [
-                'key' => 'field_trivium_tab_contactgegevens',
-                'label' => 'Contactgegevens',
-                'name' => '',
-                'type' => 'tab',
-                'placement' => 'top',
-            ],
             [
                 'key' => 'field_trivium_adres',
                 'label' => 'Adres',
@@ -67,16 +96,17 @@ add_action('acf/init', function () {
                 'name' => 'telefoonnummer',
                 'type' => 'text',
             ],
-            [
-                'key' => 'field_trivium_tab_leren_met_lef',
-                'label' => 'Leren met lef',
-                'name' => '',
-                'type' => 'tab',
-                'placement' => 'top',
-            ],
+        ],
+        'location' => $location('trivium-contact'),
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_trivium_leren_met_lef',
+        'title' => 'Leren met lef',
+        'fields' => [
             [
                 'key' => 'field_trivium_leren_met_lef',
-                'label' => 'Leren met lef',
+                'label' => 'Kaarten',
                 'name' => 'leren_met_lef',
                 'type' => 'repeater',
                 'instructions' => 'Maximaal 6 kaarten.',
@@ -102,14 +132,147 @@ add_action('acf/init', function () {
                 ],
             ],
         ],
-        'location' => [
+        'location' => $location('trivium-leren-met-lef'),
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_trivium_snelle_links',
+        'title' => 'Snelle links',
+        'fields' => [
             [
-                [
-                    'param' => 'options_page',
-                    'operator' => '==',
-                    'value' => 'trivium-settings',
+                'key' => 'field_trivium_snelle_links_titel',
+                'label' => 'Titel',
+                'name' => 'snelle_links_titel',
+                'type' => 'text',
+                'wrapper' => ['width' => 50],
+            ],
+            [
+                'key' => 'field_trivium_snelle_links_highlight',
+                'label' => 'Roze tweede regel',
+                'name' => 'snelle_links_highlight',
+                'type' => 'text',
+                'wrapper' => ['width' => 50],
+            ],
+            [
+                'key' => 'field_trivium_snelle_links_blokken',
+                'label' => 'Gekleurde blokken',
+                'name' => 'snelle_links_blokken',
+                'type' => 'repeater',
+                'instructions' => 'Opvallende blokken naast de titel, bijvoorbeeld voor groep 8 of de open dag. Maximaal 2.',
+                'max' => 2,
+                'layout' => 'block',
+                'button_label' => 'Blok toevoegen',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_trivium_snelle_links_blok_titel',
+                        'label' => 'Titel',
+                        'name' => 'titel',
+                        'type' => 'text',
+                        'required' => 1,
+                        'wrapper' => ['width' => 50],
+                    ],
+                    [
+                        'key' => 'field_trivium_snelle_links_blok_tekst',
+                        'label' => 'Linktekst',
+                        'name' => 'tekst',
+                        'type' => 'text',
+                        'wrapper' => ['width' => 50],
+                    ],
+                    $pageLink('field_trivium_snelle_links_blok_pagina'),
+                    [
+                        'key' => 'field_trivium_snelle_links_blok_kleur',
+                        'label' => 'Kleur',
+                        'name' => 'kleur',
+                        'type' => 'select',
+                        'choices' => [
+                            'yellow' => 'Geel',
+                            'lightblue' => 'Lichtblauw',
+                            'pink' => 'Roze',
+                            'green' => 'Groen',
+                            'blue' => 'Blauw',
+                        ],
+                        'default_value' => 'yellow',
+                    ],
+                ],
+            ],
+            [
+                'key' => 'field_trivium_snelle_links_links',
+                'label' => 'Links',
+                'name' => 'snelle_links_links',
+                'type' => 'repeater',
+                'layout' => 'table',
+                'button_label' => 'Link toevoegen',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_trivium_snelle_links_link_titel',
+                        'label' => 'Titel',
+                        'name' => 'titel',
+                        'type' => 'text',
+                        'required' => 1,
+                    ],
+                    [
+                        'key' => 'field_trivium_snelle_links_link_tekst',
+                        'label' => 'Omschrijving',
+                        'name' => 'tekst',
+                        'type' => 'text',
+                    ],
+                    $pageLink('field_trivium_snelle_links_link_pagina'),
                 ],
             ],
         ],
+        'location' => $location('trivium-snelle-links'),
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_trivium_fotobanner',
+        'title' => 'Fotobanner',
+        'fields' => [
+            [
+                'key' => 'field_trivium_fotobanner_message',
+                'label' => '',
+                'name' => '',
+                'type' => 'message',
+                'message' => 'Schermvullende foto met titel, tekst en knop onderaan de voorpagina. Zonder titel wordt het blok niet getoond.',
+            ],
+            [
+                'key' => 'field_trivium_fotobanner_afbeelding',
+                'label' => 'Foto',
+                'name' => 'fotobanner_afbeelding',
+                'type' => 'image',
+                'instructions' => 'Liggende foto, minimaal 2000px breed. De tekst staat links, dus houd het onderwerp rechts. Leeg = standaardfoto.',
+                'return_format' => 'id',
+                'preview_size' => 'medium',
+            ],
+            [
+                'key' => 'field_trivium_fotobanner_titel',
+                'label' => 'Titel',
+                'name' => 'fotobanner_titel',
+                'type' => 'text',
+                'wrapper' => ['width' => 50],
+            ],
+            [
+                'key' => 'field_trivium_fotobanner_highlight',
+                'label' => 'Roze tweede regel',
+                'name' => 'fotobanner_highlight',
+                'type' => 'text',
+                'wrapper' => ['width' => 50],
+            ],
+            [
+                'key' => 'field_trivium_fotobanner_tekst',
+                'label' => 'Tekst',
+                'name' => 'fotobanner_tekst',
+                'type' => 'textarea',
+                'rows' => 3,
+            ],
+            [
+                'key' => 'field_trivium_fotobanner_link',
+                'label' => 'Knop',
+                'name' => 'fotobanner_link',
+                'type' => 'link',
+                'instructions' => 'Leeg = geen knop.',
+                'return_format' => 'array',
+            ],
+        ],
+        'location' => $location('trivium-fotobanner'),
     ]);
 });

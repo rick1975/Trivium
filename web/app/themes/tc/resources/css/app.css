@@ -19,25 +19,12 @@ html {
     --color-triv-yellow: #fcbf00;
     --color-triv-cream: #fbfaf4;
     --breakpoint-2xl: 1500px;
-
-    /* Scroll-gestuurd (zie scroll-driven-variant): foto schuift trager mee dan de sectie. */
-    --animate-parallax-cover: parallax-cover linear both;
-
-    @keyframes parallax-cover {
-        from { translate: 0 -60%; }
-        50% { translate: 0 0; }
-        to { translate: 0 30%; }
-    }
 }
 
-/* Alleen animeren op scroll als de browser animation-timeline kent (Firefox nog niet)
-   en de bezoeker geen "minder beweging" heeft ingesteld; anders blijft alles stilstaan. */
-@custom-variant scroll-driven {
-    @media (prefers-reduced-motion: no-preference) {
-        @supports (animation-timeline: view()) {
-            @slot;
-        }
-    }
+/* Vaste inhoudsbreedte van de site: alle blokken (nieuws, snelle links, fotobanner, footer, sitemap)
+   beginnen op dezelfde lijn */
+@utility page-container {
+  @apply w-full max-w-[1280px] mx-auto px-6;
 }
 
 /* Algemene merkkleuren voor links/knoppen (waren eerder nergens gedefinieerd) */
@@ -116,57 +103,10 @@ html {
   img {
     @apply max-w-full h-auto;
   }
-
-  /* Buttons */
-  .btn {
-    @apply inline-block px-6 py-3 rounded-lg font-medium transition-all duration-200;
-    background-color: var(--primary);
-    color: white;
-  }
-
-  .btn:hover {
-    background-color: var(--primary-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  }
-
-  .btn-outline {
-    @apply border-2 bg-transparent;
-    border-color: var(--primary);
-    color: var(--primary);
-  }
-
-  .btn-outline:hover {
-    background-color: var(--primary);
-    color: white;
-  }
-
-  .rainbow {
-    height: 5px;
-    background: linear-gradient(90deg,
-      #fcbf00 0%,
-      #f07f3c 20%,
-      #e4003a 30%,
-      #f08cb9 50%,
-      #3577bc 70%,
-      #56af31 85%,
-      #004289 100%
-    );
-  }
 }
 
 @layer components {
-  /* Container */
-  .container {
-    @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
-  }
-
-  /* Section spacing */
-  .section {
-    @apply py-12 md:py-16 lg:py-20;
-  }
-
-  /* Footer: vanaf tablet schermvullend, net als de parallax-banner; inhoud in het midden.
+  /* Footer: vanaf tablet schermvullend, net als de fotobanner; inhoud in het midden.
      Glijdt als slide in beeld via js/slide-sections.js.
      Mobiel: zo hoog als de inhoud, foto onderaan tot de rand (dus geen padding onder) */
   .footer {
@@ -183,15 +123,6 @@ html {
 
   .footer p {
     @apply text-white;
-  }
-
-  /* Card */
-  .card {
-    @apply bg-white rounded-lg shadow-md p-6 transition-shadow duration-200;
-  }
-
-  .card:hover {
-    @apply shadow-lg;
   }
 }
 
@@ -210,16 +141,6 @@ html {
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
-  .text-pretty {
-    text-wrap: pretty;
-  }
-}
-
 /* Header en zoekpaneel niet onder de WP-adminbalk laten schuiven (bewust buiten @layer:
    Tailwind's utilities-layer wint anders altijd van top-0, ongeacht specificiteit) */
 .admin-bar .banner.absolute,
@@ -234,24 +155,3 @@ html {
   }
 }
 
-
-/* animation */
-@keyframes ticker {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.animate-ticker {
-  animation: ticker 60s linear infinite;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}

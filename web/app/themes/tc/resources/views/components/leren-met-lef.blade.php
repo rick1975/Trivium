@@ -1,6 +1,5 @@
-{{-- ── LEREN MET LEF — repeater uit Trivium Settings (max 6, 3+3 op desktop) ── --}}
+{{-- ── LEREN MET LEF — kaarten uit Trivium Settings > Leren met lef (Composers\LerenMetLef; max 6, 3+3 op desktop) ── --}}
 @php
-  $onderwerpen = get_field('leren_met_lef', 'option') ?: [];
   $kleuren = ['bg-triv-blue', 'bg-triv-pink', 'bg-triv-orange', 'bg-triv-green', 'bg-triv-yellow', 'bg-triv-lightblue'];
 @endphp
 
@@ -9,7 +8,7 @@
   @include('components.wave-divider', ['fill' => '#fbfaf4'])
 
   <div class="bg-triv-cream pt-16 pb-20">
-    <div class="max-w-[1280px] mx-auto">
+    <div class="page-container">
        {{-- Grid: 1 kolom mobiel, 3+3 op desktop --}}
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 

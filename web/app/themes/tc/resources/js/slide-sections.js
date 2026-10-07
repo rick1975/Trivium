@@ -2,7 +2,7 @@
 |--------------------------------------------------------------------------
 | Schermvullende secties als "slides" (vanaf tablet), zoals restaurantazurite.nl
 |
-| Secties met data-slide (parallax-banner, footer) glijden rustig in beeld:
+| Secties met data-slide (fotobanner, footer) glijden rustig in beeld:
 | - Scrollwiel omlaag terwijl de volgende slide al deels in beeld is: de
 |   pagina glijdt meteen door tot die slide het scherm vult.
 | - Scrollwiel omhoog bovenaan een slide die direct op een andere slide

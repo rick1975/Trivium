@@ -2,8 +2,10 @@
      Scheidingslijn bovenaan loopt vanaf tablet tot tweederde en vervaagt onder de foto. Zodra de sitemap in beeld
      komt (bovenrand een kwart het scherm in), groeit de lijn eenmalig van links naar rechts (x-intersect zet data-shown). --}}
 @if($navigation)
-  <nav aria-label="Sitemap" x-data x-intersect.once.margin.0.0.-25%.0="$el.dataset.shown = ''" class="relative py-12 md:py-16 xl:py-32 bg-triv-navy border-t border-white/10 md:border-t-0 md:before:absolute md:before:top-0 md:before:left-0 md:before:w-2/3 md:before:h-px md:before:bg-linear-to-r md:before:from-white/15 md:before:via-white/15 md:before:via-50% md:before:to-transparent md:before:origin-left md:before:scale-x-0 md:before:transition-transform md:before:duration-1500 md:before:ease-out md:data-shown:before:scale-x-100 md:motion-reduce:before:scale-x-100 motion-reduce:before:transition-none">
-    <div class="max-w-[1280px] mx-auto px-6">
+  <nav aria-label="Sitemap" x-data x-intersect.once.margin.0.0.-25%.0="$el.dataset.shown = ''" class="group relative py-12 md:py-16 xl:py-32 bg-triv-navy border-t border-white/10 md:border-t-0">
+    {{-- Scheidingslijn vanaf tablet: groeit van links naar rechts en vervaagt richting de foto --}}
+    <span aria-hidden="true" class="hidden md:block absolute top-0 left-0 w-2/3 h-px bg-linear-to-r from-white/15 via-white/15 via-50% to-transparent origin-left scale-x-0 transition-transform duration-1500 ease-out group-data-shown:scale-x-100 motion-reduce:scale-x-100 motion-reduce:transition-none"></span>
+    <div class="page-container">
       <div class="flex flex-wrap justify-between gap-x-12 gap-y-10">
         @foreach($navigation as $item)
           <div class="w-full sm:w-auto">

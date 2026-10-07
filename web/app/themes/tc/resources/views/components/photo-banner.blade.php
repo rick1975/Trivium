@@ -1,24 +1,25 @@
-{{-- Parallax-foto met links uitgelijnde tekst. Gebruik:
-     <x-parallax-banner image="..." title="Bij ons word je" highlight="gehoord" href="...">Tekst</x-parallax-banner>
-     Bij het in beeld scrollen schuift de foto trager mee dan de sectie (zoals fullPage.js' "cover"-parallax)
-     (animation-timeline). Zodra de lopende tekst half in beeld is, schuiven de woorden eenmalig na elkaar
-     omhoog (zoals op nobears.com): Alpine's x-intersect zet data-shown, woord --i wacht --i × 30ms. --}}
+{{-- Fotobanner: schermvullende foto met links uitgelijnde titel (optioneel roze tweede regel), tekst en knop.
+     Gebruik: <x-photo-banner image="..." title="Bij ons word je" highlight="gehoord" href="...">Tekst</x-photo-banner>
+     Op de voorpagina gevuld vanuit Trivium Settings > Fotobanner (Composers\PhotoBanner).
+     Als slide (data-slide) glijdt hij vanaf tablet in beeld (js/slide-sections.js). Zodra de tekst half in beeld
+     is, schuiven de woorden eenmalig na elkaar omhoog: x-intersect zet data-shown, woord --i wacht --i × 30ms. --}}
 @props([
   'image',
   'title',
   'highlight' => null,
   'href' => null,
   'linkText' => 'Lees meer',
+  'target' => null,
 ])
 
 @php($words = preg_split('/\s+/', trim(strip_tags($slot))))
 
-<section data-slide class="relative h-svh overflow-hidden [view-timeline:--banner]">
-  <div class="absolute inset-0 bg-cover bg-center scroll-driven:animate-parallax-cover scroll-driven:[animation-timeline:--banner] scroll-driven:[animation-range:cover]" style="background-image: url('{{ $image }}');"></div>
+<section data-slide class="relative h-svh overflow-hidden">
+  <img src="{{ $image }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full max-w-none object-cover">
 
   <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>
 
-  <div class="relative z-10 h-full max-w-[1280px] mx-auto flex items-center px-6">
+  <div class="relative z-10 h-full page-container flex items-center">
     <div class="max-w-md">
       <h2 class="text-5xl xl:text-6xl font-bold text-white leading-tight mb-6">
         {{ $title }}
@@ -32,7 +33,7 @@
         @endforeach
       </p>
       @if($href)
-        <x-button :href="$href" :dot="false">{{ $linkText }}</x-button>
+        <x-button :href="$href" :target="$target ?: null" :dot="false">{{ $linkText }}</x-button>
       @endif
     </div>
   </div>

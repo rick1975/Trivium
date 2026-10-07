@@ -1,7 +1,7 @@
 {{-- ── NIEUWS — de drie nieuwste berichten (data uit de News-composer) ── --}}
 @if($newsItems)
-  <section class="pb-20 pt-10 px-6 xl:px-20 bg-triv-cream">
-    <div class="max-w-[1280px] mx-auto">
+  <section class="pb-20 pt-10 bg-triv-cream">
+    <div class="page-container">
 
       {{-- Header --}}
       <div class="flex items-end justify-between mb-10">
