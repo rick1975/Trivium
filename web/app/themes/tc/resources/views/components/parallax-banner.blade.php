@@ -2,7 +2,8 @@
      <x-parallax-banner image="..." title="Bij ons word je" highlight="gehoord" href="...">Tekst</x-parallax-banner>
      Bij het in beeld scrollen schuift de foto trager mee dan de sectie (zoals fullPage.js' "cover"-parallax)
      en wordt de lopende tekst woord voor woord helder (zoals op nobears.com). Beide hangen aan de
-     scrollpositie (animation-timeline); woord --i van --n krijgt een eigen stukje van het scrollbereik. --}}
+     scrollpositie (animation-timeline); woord --i van --n krijgt een eigen stukje van het scrollbereik; het laatste woord is helder
+     vóór de alinea het midden van het scherm bereikt (cover ±42%), dus als de banner het scherm vult. --}}
 @props([
   'image',
   'title',
@@ -28,11 +29,11 @@
       </h2>
       <p class="text-white leading-relaxed mb-8 [view-timeline:--text]" style="--n: {{ count($words) }}">
         @foreach($words as $i => $word)
-          <span class="scroll-driven:animate-text-reveal scroll-driven:[animation-timeline:--text] scroll-driven:[animation-range:cover_calc(20%+30%*var(--i)/var(--n))_cover_calc(28%+30%*var(--i)/var(--n))]" style="--i: {{ $i }}">{{ $word }}</span>
+          <span class="scroll-driven:animate-text-reveal scroll-driven:[animation-timeline:--text] scroll-driven:[animation-range:cover_calc(15%+22%*var(--i)/var(--n))_cover_calc(20%+22%*var(--i)/var(--n))]" style="--i: {{ $i }}">{{ $word }}</span>
         @endforeach
       </p>
       @if($href)
-        <x-button :href="$href">{{ $linkText }}</x-button>
+        <x-button :href="$href" :dot="false">{{ $linkText }}</x-button>
       @endif
     </div>
   </div>

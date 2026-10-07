@@ -1,10 +1,12 @@
 {{-- Knop/link in huisstijl. Gebruik: <x-button href="..." variant="pink|green|white|outline">Tekst</x-button>
+     Zonder stip: :dot="false".
      Bij hover loopt een iets donkerdere tint (::before) van links naar rechts over de knop:
      een cirkel die vanuit de witte stip uitdijt. De stip verwijst naar de stip in het logo.
      --btn-dot-x = middelpunt van de stip: padding-links + halve stip. --}}
 @props([
   'href' => '#',
   'variant' => 'pink',
+  'dot' => true,
 ])
 
 @php($variantClass = match ($variant) {
@@ -18,6 +20,8 @@
 @php($fillClass = 'relative isolate overflow-hidden before:absolute before:inset-0 before:-z-1 before:[clip-path:circle(0_at_var(--btn-dot-x)_50%)] before:transition-[clip-path] before:duration-500 before:ease-[cubic-bezier(.3,.7,.3,1)] hover:before:[clip-path:circle(120%_at_var(--btn-dot-x)_50%)] focus-visible:before:[clip-path:circle(120%_at_var(--btn-dot-x)_50%)] motion-reduce:before:transition-none')
 
 <a href="{{ $href }}" {{ $attributes->merge(['class' => "inline-flex items-center gap-2.5 font-semibold text-sm py-3 rounded-xl transition-all duration-200 no-underline {$fillClass} {$variantClass}"]) }}>
-  <span class="size-1.5 flex-none rounded-full bg-current" aria-hidden="true"></span>
+  @if($dot)
+    <span class="size-1.5 flex-none rounded-full bg-current" aria-hidden="true"></span>
+  @endif
   {{ $slot }}
 </a>
