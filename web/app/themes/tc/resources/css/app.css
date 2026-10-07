@@ -9,6 +9,7 @@ html {
 
 @theme {
     --color-triv-blue: #004289;
+    --color-triv-navy: #0b1f3a; /* diep nachtblauw, o.a. footer */
     --color-triv-lightblue: #3577bc;
     --color-triv-red: #e62733;
     --color-triv-orange: #f07f3c;
@@ -167,7 +168,7 @@ html {
 
   /* Footer: schermvullend, net als de parallax-banner; inhoud in het midden */
   .footer {
-    @apply relative isolate overflow-hidden min-h-svh flex flex-col justify-center py-12 md:py-16 xl:py-24 bg-triv-pink text-white;
+    @apply relative isolate overflow-hidden min-h-svh flex flex-col justify-center py-12 md:py-16 xl:py-24 bg-triv-navy text-white;
   }
 
   .footer a {
