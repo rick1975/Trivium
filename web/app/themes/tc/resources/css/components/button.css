@@ -13,7 +13,7 @@
     /* Middelpunt van de stip: padding-links + halve stip (zie btn__dot). */
     --btn-dot-x: calc(1.5rem + 4px);
     /* Een vleugje triv-red maakt het roze feller in plaats van doffer. */
-    --btn-fill: color-mix(in oklch, var(--color-triv-pink) 85%, var(--color-triv-red));
+    --btn-fill: color-mix(in oklch, var(--color-triv-pink) 65%, var(--color-triv-red));
 }
 
 .btn::before {
@@ -46,7 +46,12 @@
 
 .btn--white {
     --btn-dot-x: calc(2rem + 4px);
-    --btn-fill: color-mix(in srgb, var(--color-triv-blue) 8%, white);
+    --btn-fill: color-mix(in srgb, var(--color-triv-blue) 100%, white);
+}
+
+.btn--white:hover,
+.btn--white:focus-visible {
+    color: #fff;
 }
 
 .btn--outline {
