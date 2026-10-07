@@ -1,0 +1,51 @@
+/* Foto in de blauwe footer (sections/footer.blade.php) */
+
+/*
+ * De foto wordt grijs gemaakt en met mix-blend-mode: multiply met het
+ * blauw van de footer gemengd: licht (lucht, witte gevel) wordt puur
+ * footer-blauw, donker (ramen, bomen) wordt diep donkerblauw. Met een
+ * masker loopt de foto naar links en onderen zacht in het effen blauw
+ * over, zodat de tekst op een rustige achtergrond staat.
+ */
+.footer {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.footer__photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    pointer-events: none;
+
+    filter: grayscale(1) contrast(1.1) brightness(1.1);
+    mix-blend-mode: multiply;
+    opacity: .6;
+
+    --footer-photo-mask:
+        linear-gradient(to bottom, black 55%, transparent 100%);
+
+    -webkit-mask-image: var(--footer-photo-mask);
+    mask-image: var(--footer-photo-mask);
+}
+
+/* Vanaf tablet alleen rechts, naar links wegvloeiend achter de tekst. */
+@media (min-width: 768px) {
+
+    .footer__photo {
+        left: auto;
+        width: 65%;
+        opacity: .85;
+
+        --footer-photo-mask:
+            linear-gradient(to right, transparent 0%, black 45%),
+            linear-gradient(to bottom, black 60%, transparent 100%);
+
+        -webkit-mask-composite: source-in;
+        mask-composite: intersect;
+    }
+}

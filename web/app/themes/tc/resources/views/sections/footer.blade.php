@@ -1,5 +1,8 @@
 <footer class="footer">
-  <div class="container">
+  {{-- Foto die in het blauw opgaat (zie resources/css/components/footer.css) --}}
+  <img src="{{ Vite::asset('resources/images/trivium-gebouw-buiten.avif') }}" alt="" class="footer__photo" loading="lazy" decoding="async">
+
+  <div class="container relative">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
       {{-- Footer Column 1 --}}
       <div>
