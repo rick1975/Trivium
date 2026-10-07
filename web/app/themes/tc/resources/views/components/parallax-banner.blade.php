@@ -5,7 +5,7 @@
   'linkText' => 'Lees meer',
 ])
 
-<section class="relative h-[600px] overflow-hidden">
+<section class="relative h-svh overflow-hidden">
   <div class="absolute inset-0 bg-cover bg-center bg-fixed" style="background-image: url('{{ $image }}');"></div>
 
   <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-transparent"></div>
