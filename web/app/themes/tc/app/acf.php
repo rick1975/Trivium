@@ -18,6 +18,7 @@ const OPTION_PAGES = [
     'trivium-leren-met-lef' => 'Leren met lef',
     'trivium-snelle-links' => 'Snelle links',
     'trivium-fotobanner' => 'Fotobanner',
+    'trivium-footer' => 'Footer',
 ];
 
 /**
@@ -95,6 +96,13 @@ add_action('acf/init', function () {
                 'label' => 'Telefoonnummer',
                 'name' => 'telefoonnummer',
                 'type' => 'text',
+            ],
+            [
+                'key' => 'field_trivium_telefoon_bereikbaar',
+                'label' => 'Telefonisch bereikbaar',
+                'name' => 'telefoon_bereikbaar',
+                'type' => 'text',
+                'instructions' => 'Komt onder het telefoonnummer in de footer, bijvoorbeeld "bereikbaar van 08.00 - 16.30u".',
             ],
         ],
         'location' => $location('trivium-contact'),
@@ -274,5 +282,37 @@ add_action('acf/init', function () {
             ],
         ],
         'location' => $location('trivium-fotobanner'),
+    ]);
+
+    acf_add_local_field_group([
+        'key' => 'group_trivium_footer',
+        'title' => 'Footer',
+        'fields' => [
+            [
+                'key' => 'field_trivium_footer_titel',
+                'label' => 'Titel',
+                'name' => 'footer_titel',
+                'type' => 'text',
+                'instructions' => 'Leeg = naam van de website.',
+            ],
+            [
+                'key' => 'field_trivium_footer_tekst',
+                'label' => 'Tekst',
+                'name' => 'footer_tekst',
+                'type' => 'textarea',
+                'rows' => 3,
+                'instructions' => 'Korte introductie boven de contactgegevens. Adres, telefoon en e-mail komen uit Contactgegevens.',
+            ],
+            [
+                'key' => 'field_trivium_footer_afbeelding',
+                'label' => 'Foto',
+                'name' => 'footer_afbeelding',
+                'type' => 'image',
+                'instructions' => 'Staat vanaf tablet op de rechterhelft, op mobiel onder de tekst. Leeg = standaardfoto.',
+                'return_format' => 'id',
+                'preview_size' => 'medium',
+            ],
+        ],
+        'location' => $location('trivium-footer'),
     ]);
 });

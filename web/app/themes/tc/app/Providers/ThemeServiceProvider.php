@@ -41,6 +41,7 @@ class ThemeServiceProvider extends SageServiceProvider
                 'email' => function_exists('get_field') ? (string) get_field('email', 'option') : '',
                 'telefoon' => $telefoon,
                 'telefoonLink' => preg_replace('/[^0-9+]/', '', $telefoon),
+                'bereikbaar' => function_exists('get_field') ? (string) get_field('telefoon_bereikbaar', 'option') : '',
             ];
         });
     }
