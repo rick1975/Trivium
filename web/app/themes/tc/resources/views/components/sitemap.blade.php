@@ -1,6 +1,6 @@
 {{-- Sitemap: volledige navigatie (met submenu's) als overzicht boven de footer --}}
 @if($navigation)
-  <nav aria-label="Sitemap" class="py-12 md:py-16 bg-triv-cream">
+  <nav aria-label="Sitemap" class="py-12 md:py-16 xl:py-24 bg-triv-cream">
     <div class="px-6 xl:px-20">
       <div class="flex flex-wrap justify-between gap-8">
         @foreach($navigation as $item)

@@ -2,8 +2,8 @@
 
 /*
  * Bij hover loopt een iets donkerdere tint van links naar rechts over
- * de knop: een cirkel die vanuit de witte stip uitdijt, terwijl de stip
- * zelf kort opveert. De stip verwijst naar de stip in het logo.
+ * de knop: een cirkel die vanuit de witte stip uitdijt. De stip
+ * verwijst naar de stip in het logo.
  */
 .btn {
     position: relative;
@@ -38,26 +38,6 @@
     background: currentColor;
 }
 
-.btn:hover .btn__dot,
-.btn:focus-visible .btn__dot {
-    animation: btn-dot-pop .45s cubic-bezier(.3, .7, .3, 1);
-}
-
-@keyframes btn-dot-pop {
-
-    0% {
-        transform: scale(1);
-    }
-
-    40% {
-        transform: scale(1.12);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
-
 /* Varianten: alleen de tint van de vulling verschilt. */
 .btn--green {
     --btn-fill: color-mix(in srgb, var(--color-triv-green) 92%, black);
@@ -81,10 +61,5 @@
 
     .btn::before {
         transition: none;
-    }
-
-    .btn:hover .btn__dot,
-    .btn:focus-visible .btn__dot {
-        animation: none;
     }
 }
