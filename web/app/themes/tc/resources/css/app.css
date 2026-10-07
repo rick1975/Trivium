@@ -167,7 +167,7 @@ html {
 
   /* Footer: schermvullend, net als de parallax-banner; inhoud in het midden */
   .footer {
-    @apply relative isolate overflow-hidden min-h-svh flex flex-col justify-center py-12 md:py-16 xl:py-24 bg-triv-blue text-white;
+    @apply relative isolate overflow-hidden min-h-svh flex flex-col justify-center py-12 md:py-16 xl:py-24 bg-triv-pink text-white;
   }
 
   .footer a {
