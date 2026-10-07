@@ -60,7 +60,7 @@ export function initAnimatedText() {
     // in seconden en PUNCH_OFFSET hoe lang na de start van de laatste
     // kleurcirkel de knal valt. Uitzetten: PUNCH_SCALE op 1.
     const PUNCH_SCALE = 1.25;
-    const PUNCH_DURATION = 0.5;
+    const PUNCH_DURATION = 0.8;
     const PUNCH_OFFSET = 0.3;
 
 

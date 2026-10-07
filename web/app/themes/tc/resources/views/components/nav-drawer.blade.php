@@ -81,27 +81,16 @@
     </ul>
   </nav>
 
-  {{-- Voet: snelle acties + contact --}}
+  {{-- Voet: snelle acties --}}
   <div class="shrink-0 px-6 lg:px-8 pt-5 pb-6 border-t border-[#ece6d8] transition-all duration-500 ease-out"
     :class="mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'"
     style="transition-delay: {{ 120 + count($navigation) * 50 }}ms;">
     <div class="grid grid-cols-2 gap-2">
       <x-button :href="App\page_url('aanmelden')" class="justify-center">Aanmelden</x-button>
       <a href="{{ App\page_url('open-dagen') }}"
-        class="inline-flex items-center justify-center font-semibold text-sm py-3 rounded-xl border-2 border-triv-blue text-triv-blue hover:bg-triv-blue hover:text-white transition-colors no-underline">
+        class="inline-flex items-center justify-center font-semibold text-sm py-3 rounded-xl border-2 border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white transition-colors no-underline">
         Open dagen
       </a>
     </div>
-
-    @if($contact->telefoon || $contact->email)
-      <div class="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm">
-        @if($contact->telefoon)
-          <a href="tel:{{ $contact->telefoonLink }}" class="text-stone-600 hover:text-triv-pink transition-colors">{{ $contact->telefoon }}</a>
-        @endif
-        @if($contact->email)
-          <a href="mailto:{{ $contact->email }}" class="text-stone-600 hover:text-triv-pink transition-colors">{{ $contact->email }}</a>
-        @endif
-      </div>
-    @endif
   </div>
 </aside>
