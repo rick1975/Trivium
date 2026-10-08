@@ -231,6 +231,49 @@ add_action('acf/init', function () {
         'location' => $location('trivium-snelle-links'),
     ]);
 
+    // Twee fotobanners onder elkaar op de voorpagina, elk in een eigen tabblad. De onderste houdt de
+    // oorspronkelijke veldnamen (fotobanner_*), de bovenste krijgt fotobanner_boven_*.
+    $bannerFields = fn (string $prefix, string $defaultNote) => [
+        [
+            'key' => "field_trivium_{$prefix}_afbeelding",
+            'label' => 'Foto',
+            'name' => "{$prefix}_afbeelding",
+            'type' => 'image',
+            'instructions' => "Liggende foto, minimaal 2000px breed. De tekst staat links, dus houd het onderwerp rechts. Leeg = {$defaultNote}.",
+            'return_format' => 'id',
+            'preview_size' => 'medium',
+        ],
+        [
+            'key' => "field_trivium_{$prefix}_titel",
+            'label' => 'Titel',
+            'name' => "{$prefix}_titel",
+            'type' => 'text',
+            'wrapper' => ['width' => 50],
+        ],
+        [
+            'key' => "field_trivium_{$prefix}_highlight",
+            'label' => 'Roze tweede regel',
+            'name' => "{$prefix}_highlight",
+            'type' => 'text',
+            'wrapper' => ['width' => 50],
+        ],
+        [
+            'key' => "field_trivium_{$prefix}_tekst",
+            'label' => 'Tekst',
+            'name' => "{$prefix}_tekst",
+            'type' => 'textarea',
+            'rows' => 3,
+        ],
+        [
+            'key' => "field_trivium_{$prefix}_link",
+            'label' => 'Knop',
+            'name' => "{$prefix}_link",
+            'type' => 'link',
+            'instructions' => 'Leeg = geen knop.',
+            'return_format' => 'array',
+        ],
+    ];
+
     acf_add_local_field_group([
         'key' => 'group_trivium_fotobanner',
         'title' => 'Fotobanner',
@@ -240,46 +283,20 @@ add_action('acf/init', function () {
                 'label' => '',
                 'name' => '',
                 'type' => 'message',
-                'message' => 'Schermvullende foto met titel, tekst en knop onderaan de voorpagina. Zonder titel wordt het blok niet getoond.',
+                'message' => 'Twee schermvullende foto\'s met titel, tekst en knop onderaan de voorpagina, direct na elkaar. Zonder titel wordt een banner niet getoond.',
             ],
             [
-                'key' => 'field_trivium_fotobanner_afbeelding',
-                'label' => 'Foto',
-                'name' => 'fotobanner_afbeelding',
-                'type' => 'image',
-                'instructions' => 'Liggende foto, minimaal 2000px breed. De tekst staat links, dus houd het onderwerp rechts. Leeg = standaardfoto.',
-                'return_format' => 'id',
-                'preview_size' => 'medium',
+                'key' => 'field_trivium_fotobanner_tab_boven',
+                'label' => 'Bovenste banner',
+                'type' => 'tab',
             ],
+            ...$bannerFields('fotobanner_boven', 'tijdelijke foto'),
             [
-                'key' => 'field_trivium_fotobanner_titel',
-                'label' => 'Titel',
-                'name' => 'fotobanner_titel',
-                'type' => 'text',
-                'wrapper' => ['width' => 50],
+                'key' => 'field_trivium_fotobanner_tab_onder',
+                'label' => 'Onderste banner',
+                'type' => 'tab',
             ],
-            [
-                'key' => 'field_trivium_fotobanner_highlight',
-                'label' => 'Roze tweede regel',
-                'name' => 'fotobanner_highlight',
-                'type' => 'text',
-                'wrapper' => ['width' => 50],
-            ],
-            [
-                'key' => 'field_trivium_fotobanner_tekst',
-                'label' => 'Tekst',
-                'name' => 'fotobanner_tekst',
-                'type' => 'textarea',
-                'rows' => 3,
-            ],
-            [
-                'key' => 'field_trivium_fotobanner_link',
-                'label' => 'Knop',
-                'name' => 'fotobanner_link',
-                'type' => 'link',
-                'instructions' => 'Leeg = geen knop.',
-                'return_format' => 'array',
-            ],
+            ...$bannerFields('fotobanner', 'standaardfoto'),
         ],
         'location' => $location('trivium-fotobanner'),
     ]);

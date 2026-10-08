@@ -14,28 +14,43 @@ class PhotoBanner extends Composer
     public function with()
     {
         return [
-            'photoBanner' => $this->photoBanner(),
+            'photoBanners' => array_values(array_filter([
+                // Bovenste banner: valt terug op de Level UP-tekst zolang de velden nog nooit zijn opgeslagen
+                $this->photoBanner('fotobanner_boven', 'twee-meisjes-aan-het-bouwen.avif', [
+                    'titel' => 'Ontdek waar jij',
+                    'highlight' => 'goed in bent',
+                    'tekst' => 'Vier dagen per week kies je zelf wat je na de lessen gaat doen. Bij Level UP kun je boksen, breakdancen, koken, muziek maken, streetart maken of zelfs je eigen bedrijfje starten. Zo ontdek je wat je leuk vindt en waar je talent ligt.',
+                ]),
+                $this->photoBanner('fotobanner', 'Jongen-achter-microfoon.avif'),
+            ])),
         ];
     }
 
     /**
-     * Fotobanner uit Trivium Settings > Fotobanner; null (= niet tonen) zonder titel.
+     * Fotobanner uit Trivium Settings > Fotobanner (veldnamen {$prefix}_*); null (= niet tonen) zonder titel.
+     * $defaults geldt alleen voor velden die nog nooit zijn opgeslagen (null); een leeg opgeslagen titel verbergt de banner.
      */
-    protected function photoBanner(): ?array
+    protected function photoBanner(string $prefix, string $fallbackImage, array $defaults = []): ?array
     {
-        if (! function_exists('get_field') || ! ($title = get_field('fotobanner_titel', 'option'))) {
+        if (! function_exists('get_field')) {
             return null;
         }
 
-        $link = get_field('fotobanner_link', 'option') ?: [];
-        $imageId = get_field('fotobanner_afbeelding', 'option');
+        $field = fn (string $name) => get_field("{$prefix}_{$name}", 'option') ?? ($defaults[$name] ?? null);
+
+        if (! ($title = $field('titel'))) {
+            return null;
+        }
+
+        $link = $field('link') ?: [];
+        $imageId = $field('afbeelding');
 
         return [
             'image' => ($imageId ? wp_get_attachment_image_url($imageId, 'full') : null)
-                ?: Vite::asset('resources/images/Jongen-achter-microfoon.avif'),
+                ?: Vite::asset("resources/images/{$fallbackImage}"),
             'title' => $title,
-            'highlight' => get_field('fotobanner_highlight', 'option') ?: null,
-            'text' => (string) get_field('fotobanner_tekst', 'option'),
+            'highlight' => $field('highlight') ?: null,
+            'text' => (string) $field('tekst'),
             'href' => $link['url'] ?? null,
             'linkText' => ($link['title'] ?? '') ?: 'Lees meer',
             'target' => $link['target'] ?? '',

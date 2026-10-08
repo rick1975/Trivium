@@ -1,4 +1,4 @@
-{{-- Voorpagina: hero, Leren met lef, (optionele) pagina-inhoud, nieuws, snelle links en fotobanner --}}
+{{-- Voorpagina: hero, Leren met lef, (optionele) pagina-inhoud, nieuws, snelle links en twee fotobanners --}}
 @extends('layouts.app')
 
 @section('before-main')
@@ -17,10 +17,11 @@
 
   <x-quick-links />
 
-  @if($photoBanner)
+  {{-- Fotobanners (bovenste en onderste) uit Trivium Settings > Fotobanner --}}
+  @foreach($photoBanners as $photoBanner)
     <x-photo-banner :image="$photoBanner['image']" :title="$photoBanner['title']" :highlight="$photoBanner['highlight']"
       :href="$photoBanner['href']" :link-text="$photoBanner['linkText']" :target="$photoBanner['target']">
       {{ $photoBanner['text'] }}
     </x-photo-banner>
-  @endif
+  @endforeach
 @endsection
