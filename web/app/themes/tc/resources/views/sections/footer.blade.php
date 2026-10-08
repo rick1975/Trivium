@@ -23,11 +23,12 @@
     @mouseenter="hover = true" @mouseleave="hover = false"
     class="relative order-last mt-10 w-full aspect-4/3 md:absolute md:inset-y-0 md:right-0 md:mt-0 md:h-full md:w-1/2 md:aspect-auto md:-translate-x-1/3 md:opacity-0 md:transition-[translate,opacity] md:duration-1200 md:ease-out md:group-data-shown:translate-x-0 md:group-data-shown:opacity-100 md:motion-reduce:translate-x-0! md:motion-reduce:opacity-100! motion-reduce:transition-none">
     @foreach($footer->slides as $slide)
-      <figure aria-hidden="true" :class="current === {{ $loop->index }} ? 'opacity-100' : 'opacity-0'"
-        class="absolute inset-0 m-0 overflow-hidden transition-opacity duration-1500 ease-in-out motion-reduce:transition-none {{ $loop->first ? 'opacity-100' : 'opacity-0' }}">
+      {{-- Actieve slide via data-active (Alpine haalt het attribuut weg bij false), zodat er nooit twee
+           tegenstrijdige opacity/scale-classes tegelijk op staan --}}
+      <figure aria-hidden="true" :data-active="current === {{ $loop->index }}" @if($loop->first) data-active @endif
+        class="group/slide absolute inset-0 m-0 overflow-hidden opacity-0 transition-opacity duration-1500 ease-in-out data-active:opacity-100 motion-reduce:transition-none">
         <img src="{{ $slide->image }}" alt="" loading="lazy" decoding="async"
-          :class="current === {{ $loop->index }} ? 'scale-100' : 'scale-108'"
-          class="pointer-events-none size-full object-cover object-center contrast-110 mask-t-from-70% md:mask-t-from-100% md:mask-l-from-60% md:mask-b-from-80% transition-transform duration-7500 ease-out motion-reduce:scale-100! motion-reduce:transition-none {{ $loop->first ? 'scale-100' : 'scale-108' }}">
+          class="pointer-events-none size-full object-cover object-center contrast-110 mask-t-from-70% md:mask-t-from-100% md:mask-l-from-60% md:mask-b-from-80% scale-108 transition-transform duration-7500 ease-out group-data-active/slide:scale-100 motion-reduce:scale-100! motion-reduce:transition-none">
       </figure>
     @endforeach
 
