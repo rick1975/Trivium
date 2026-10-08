@@ -63,6 +63,12 @@ export function initAnimatedText() {
     const PUNCH_DURATION = 0.55;
     const PUNCH_OFFSET = 0.3;
 
+    // Soort knal: "stempel" (woord komt schuin omhoog, slaat neer en
+    // blijft licht gekanteld staan, met een stempelrand eromheen) of
+    // "knal" (alleen groter worden en terugveren). Terug naar de oude
+    // knal: zet PUNCH_STYLE op "knal".
+    const PUNCH_STYLE = "stempel";
+
     // Binnenkomst van de letters zelf: elke letter schuift omhoog en
     // wordt zichtbaar op het moment dat de kleurgolf hem bereikt.
     // ENTER_RISE is de afstand (als deel van de lettergrootte),
@@ -564,6 +570,24 @@ export function initAnimatedText() {
             punchGroup.style.setProperty("--punch-duration", `${PUNCH_DURATION}s`);
             punchGroup.style.setProperty("--punch-delay", `${punchDelay + PUNCH_OFFSET}s`);
             punchGroup.style.transformOrigin = `${originX}px ${originY}px`;
+
+            if (PUNCH_STYLE === "stempel") {
+                punchGroup.classList.add("future-stamp");
+
+                // Stempelrand: afgeronde rechthoek om het woord, verschijnt op het moment van neerslaan
+                const pad = FONT_SIZE * 0.14;
+                punchGroup.appendChild(create("rect", {
+                    class: "future-stamp-frame",
+                    x: punchLeft - pad,
+                    y: line.y - capHeight - pad,
+                    width: punchRight - punchLeft + pad * 2,
+                    height: capHeight + pad * 2,
+                    rx: FONT_SIZE * 0.08,
+                    fill: "none",
+                    stroke: "#fff",
+                    "stroke-width": FONT_SIZE * 0.05,
+                }));
+            }
 
             textGroup.appendChild(punchGroup);
         }

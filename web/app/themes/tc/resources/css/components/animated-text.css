@@ -117,9 +117,69 @@
     }
 }
 
+/*
+ * Stempel (PUNCH_STYLE = "stempel" in animated-text.js): het woord komt
+ * schuin omhoog, slaat hard neer (iets te klein, als een stempel op papier)
+ * en blijft licht gekanteld staan. De rand eromheen verschijnt bij de klap.
+ */
+.future-punch.future-stamp {
+    animation-name: future-stamp;
+}
+
+@keyframes future-stamp {
+
+    0% {
+        transform: scale(1) rotate(0deg);
+        animation-timing-function: cubic-bezier(.3, 0, .2, 1);
+    }
+
+    45% {
+        transform: scale(var(--punch-scale, 1.25)) rotate(-10deg);
+        animation-timing-function: cubic-bezier(.7, 0, 1, .6);
+    }
+
+    62% {
+        transform: scale(.9) rotate(-5deg);
+        animation-timing-function: cubic-bezier(.3, .7, .4, 1);
+    }
+
+    80% {
+        transform: scale(1.03) rotate(-5deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(-5deg);
+    }
+}
+
+.future-stamp-frame {
+    opacity: 0;
+    animation: future-stamp-frame calc(var(--punch-duration, .55s) * .4) ease-out calc(var(--punch-delay, 0s) + var(--punch-duration, .55s) * .6) forwards;
+}
+
+@keyframes future-stamp-frame {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .future-punch {
         animation: none;
+    }
+
+    .future-punch.future-stamp {
+        transform: rotate(-5deg);
+    }
+
+    .future-stamp-frame {
+        animation: none;
+        opacity: 1;
     }
 }
 
