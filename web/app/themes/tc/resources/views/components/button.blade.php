@@ -13,7 +13,7 @@
   'white' => 'bg-white text-triv-blue px-8 [--btn-dot-x:calc(2rem+4px)] before:bg-triv-blue hover:text-white focus-visible:text-white',
   'green' => 'bg-triv-green text-white px-6 [--btn-dot-x:calc(1.5rem+4px)] before:bg-[color-mix(in_srgb,var(--color-triv-green)_92%,black)]',
   // Donkerblauwe tekst: wit op geel is onleesbaar.
-  'yellow' => 'bg-triv-yellow text-triv-blue px-6 [--btn-dot-x:calc(1.5rem+4px)] before:bg-[color-mix(in_srgb,var(--color-triv-yellow)_55%,white)] hover:text-triv-blue focus-visible:text-triv-blue',
+  'yellow' => 'bg-triv-yellow text-triv-blue px-6 [--btn-dot-x:calc(1.5rem+4px)] before:bg-[color-mix(in_srgb,var(--color-triv-yellow)_85%,white)] hover:text-white focus-visible:text-white',
   'outline' => 'border-2 border-gray-800 text-gray-800 px-6 [--btn-dot-x:calc(1.5rem+4px)] before:bg-gray-800 hover:text-white focus-visible:text-white',
   // Een vleugje triv-red maakt het roze feller in plaats van doffer.
   default => 'bg-triv-pink text-white px-6 [--btn-dot-x:calc(1.5rem+4px)] before:bg-[color-mix(in_oklch,var(--color-triv-pink)_65%,var(--color-triv-red))]',
