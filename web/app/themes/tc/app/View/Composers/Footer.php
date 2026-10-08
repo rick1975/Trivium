@@ -13,6 +13,7 @@ class Footer extends Composer
 
     /**
      * Titel, tekst en foto uit Trivium Settings > Footer, met de sitenaam en standaardfoto als terugval.
+     * Het sitemap-label valt alleen terug op de standaardzin als het veld nog nooit is opgeslagen; leeg = geen label.
      */
     public function with()
     {
@@ -25,6 +26,7 @@ class Footer extends Composer
                 'text' => (string) $field('footer_tekst'),
                 'image' => ($imageId ? wp_get_attachment_image_url($imageId, 'full') : null)
                     ?: Vite::asset('resources/images/trivium-aula-trappen.avif'),
+                'sitemapLabel' => (string) ($field('footer_sitemap_label') ?? 'Gratis lunch en fruit, elke dag'),
             ],
         ];
     }

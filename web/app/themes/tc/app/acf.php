@@ -312,6 +312,14 @@ add_action('acf/init', function () {
                 'return_format' => 'id',
                 'preview_size' => 'medium',
             ],
+            [
+                'key' => 'field_trivium_footer_sitemap_label',
+                'label' => 'Label bij sitemap-lijn',
+                'name' => 'footer_sitemap_label',
+                'type' => 'text',
+                'default_value' => 'Gratis lunch en fruit, elke dag',
+                'instructions' => 'Korte zin met fruiticoontjes aan het eind van de lijn boven de sitemap (vanaf tablet). Leeg = geen label.',
+            ],
         ],
         'location' => $location('trivium-footer'),
     ]);
