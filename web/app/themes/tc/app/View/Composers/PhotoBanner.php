@@ -17,6 +17,8 @@ class PhotoBanner extends Composer
             'photoBanners' => array_values(array_filter([
                 // Bovenste banner: valt terug op de Level UP-tekst zolang de velden nog nooit zijn opgeslagen
                 $this->photoBanner('fotobanner_boven', 'twee-meisjes-aan-het-bouwen.avif', [
+                    'uitlijning' => 'rechts',
+                    'accent' => 'geel',
                     'titel' => 'Ontdek waar jij',
                     'highlight' => 'goed in bent',
                     'tekst' => 'Vier dagen per week kies je zelf wat je na de lessen gaat doen. Bij Level UP kun je boksen, breakdancen, koken, muziek maken, streetart maken of zelfs je eigen bedrijfje starten. Zo ontdek je wat je leuk vindt en waar je talent ligt.',
@@ -50,6 +52,8 @@ class PhotoBanner extends Composer
                 ?: Vite::asset("resources/images/{$fallbackImage}"),
             'title' => $title,
             'highlight' => $field('highlight') ?: null,
+            'align' => $field('uitlijning') === 'rechts' ? 'right' : 'left',
+            'accent' => $field('accent') ?: 'roze',
             'text' => (string) $field('tekst'),
             'href' => $link['url'] ?? null,
             'linkText' => ($link['title'] ?? '') ?: 'Lees meer',

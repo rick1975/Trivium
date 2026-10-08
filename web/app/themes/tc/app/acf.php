@@ -233,15 +233,33 @@ add_action('acf/init', function () {
 
     // Twee fotobanners onder elkaar op de voorpagina, elk in een eigen tabblad. De onderste houdt de
     // oorspronkelijke veldnamen (fotobanner_*), de bovenste krijgt fotobanner_boven_*.
-    $bannerFields = fn (string $prefix, string $defaultNote) => [
+    $bannerFields = fn (string $prefix, string $defaultNote, string $defaultAlign, string $defaultAccent) => [
         [
             'key' => "field_trivium_{$prefix}_afbeelding",
             'label' => 'Foto',
             'name' => "{$prefix}_afbeelding",
             'type' => 'image',
-            'instructions' => "Liggende foto, minimaal 2000px breed. De tekst staat links, dus houd het onderwerp rechts. Leeg = {$defaultNote}.",
+            'instructions' => "Liggende foto, minimaal 2000px breed. Houd het onderwerp aan de kant zonder tekst. Leeg = {$defaultNote}.",
             'return_format' => 'id',
             'preview_size' => 'medium',
+        ],
+        [
+            'key' => "field_trivium_{$prefix}_uitlijning",
+            'label' => 'Tekst',
+            'name' => "{$prefix}_uitlijning",
+            'type' => 'button_group',
+            'choices' => ['links' => 'Links', 'rechts' => 'Rechts'],
+            'default_value' => $defaultAlign,
+            'wrapper' => ['width' => 50],
+        ],
+        [
+            'key' => "field_trivium_{$prefix}_accent",
+            'label' => 'Kleur tweede regel',
+            'name' => "{$prefix}_accent",
+            'type' => 'select',
+            'choices' => ['roze' => 'Roze', 'geel' => 'Geel', 'groen' => 'Groen', 'oranje' => 'Oranje'],
+            'default_value' => $defaultAccent,
+            'wrapper' => ['width' => 50],
         ],
         [
             'key' => "field_trivium_{$prefix}_titel",
@@ -252,7 +270,7 @@ add_action('acf/init', function () {
         ],
         [
             'key' => "field_trivium_{$prefix}_highlight",
-            'label' => 'Roze tweede regel',
+            'label' => 'Tweede regel (in kleur)',
             'name' => "{$prefix}_highlight",
             'type' => 'text',
             'wrapper' => ['width' => 50],
@@ -290,13 +308,13 @@ add_action('acf/init', function () {
                 'label' => 'Bovenste banner',
                 'type' => 'tab',
             ],
-            ...$bannerFields('fotobanner_boven', 'tijdelijke foto'),
+            ...$bannerFields('fotobanner_boven', 'tijdelijke foto', 'rechts', 'geel'),
             [
                 'key' => 'field_trivium_fotobanner_tab_onder',
                 'label' => 'Onderste banner',
                 'type' => 'tab',
             ],
-            ...$bannerFields('fotobanner', 'standaardfoto'),
+            ...$bannerFields('fotobanner', 'standaardfoto', 'links', 'roze'),
         ],
         'location' => $location('trivium-fotobanner'),
     ]);

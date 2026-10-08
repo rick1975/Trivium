@@ -1,5 +1,6 @@
-{{-- Fotobanner: schermvullende foto met links uitgelijnde titel (optioneel roze tweede regel), tekst en knop.
+{{-- Fotobanner: schermvullende foto met titel (optioneel gekleurde tweede regel), tekst en knop.
      Gebruik: <x-photo-banner image="..." title="Bij ons word je" highlight="gehoord" href="...">Tekst</x-photo-banner>
+     align="left|right": kant van de tekst (het verloop loopt mee); accent="roze|geel|groen|oranje": kleur tweede regel.
      Op de voorpagina gevuld vanuit Trivium Settings > Fotobanner (Composers\PhotoBanner).
      Als slide (data-slide) glijdt hij vanaf tablet in beeld (js/slide-sections.js). Zodra de tekst half in beeld
      is, schuiven de woorden eenmalig na elkaar omhoog: x-intersect zet data-shown, woord --i wacht --i × 30ms.
@@ -12,21 +13,34 @@
   'href' => null,
   'linkText' => 'Lees meer',
   'target' => null,
+  'align' => 'left',
+  'accent' => 'roze',
 ])
 
 @php($words = preg_split('/\s+/', trim(strip_tags($slot))))
+@php($right = $align === 'right')
+@php($accentClass = match ($accent) {
+  'geel' => 'text-triv-yellow',
+  'groen' => 'text-triv-green',
+  'oranje' => 'text-triv-orange',
+  default => 'text-triv-pink',
+})
 
 <section data-slide class="relative h-svh overflow-hidden">
   <img src="{{ $image }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full max-w-none object-cover">
 
-  <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent lg:from-black/80 lg:via-black/50 lg:via-40%"></div>
+  <div @class([
+    'absolute inset-0 from-black/70 via-black/30 to-transparent lg:from-black/80 lg:via-black/50 lg:via-40%',
+    'bg-gradient-to-r' => ! $right,
+    'bg-gradient-to-l' => $right,
+  ])></div>
 
-  <div class="relative z-10 h-full page-container flex items-center">
+  <div @class(['relative z-10 h-full page-container flex items-center', 'justify-end' => $right])>
     <div class="max-w-md">
       <h2 class="text-5xl xl:text-6xl font-bold text-white leading-tight mb-6">
         {{ $title }}
         @if($highlight)
-          <br><span class="text-triv-pink">{{ $highlight }}</span>
+          <br><span class="{{ $accentClass }}">{{ $highlight }}</span>
         @endif
       </h2>
       <p class="sr-only">{{ implode(' ', $words) }}</p>
