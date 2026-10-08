@@ -128,14 +128,14 @@ html {
 
 /* Verloop van de footerfoto's naar het nachtblauw, met een zachte (ease) curve i.p.v. lineair: zo is er geen
    zichtbare rand waar het verloop begint, ook niet bij lichte foto's. Mobiel: alleen bovenaan.
-   Vanaf tablet: naar links (over 46%) en onderaan (over 30%); beide maskers worden gecombineerd (intersect). */
+   Vanaf tablet: naar links (over 36%) en onderaan (over 22%); beide maskers worden gecombineerd (intersect). */
 @utility footer-photo-mask {
   mask-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / 0.08) 8%, rgb(0 0 0 / 0.3) 16%, rgb(0 0 0 / 0.65) 25%, black 35%);
 
   @variant md {
     mask-image:
-      linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.04) 6%, rgb(0 0 0 / 0.15) 13%, rgb(0 0 0 / 0.36) 21%, rgb(0 0 0 / 0.62) 29%, rgb(0 0 0 / 0.85) 37%, black 46%),
-      linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.08) 6%, rgb(0 0 0 / 0.3) 13%, rgb(0 0 0 / 0.65) 21%, black 30%);
+      linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.04) 5%, rgb(0 0 0 / 0.15) 10%, rgb(0 0 0 / 0.36) 16%, rgb(0 0 0 / 0.62) 23%, rgb(0 0 0 / 0.85) 29%, black 36%),
+      linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.08) 4%, rgb(0 0 0 / 0.3) 10%, rgb(0 0 0 / 0.65) 15%, black 22%);
     mask-composite: intersect;
   }
 }
