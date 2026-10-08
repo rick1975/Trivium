@@ -119,67 +119,48 @@
 
 /*
  * Stempel (PUNCH_STYLE = "stempel" in animated-text.js): het woord komt
- * schuin omhoog, slaat hard neer (iets te klein, als een stempel op papier)
- * en blijft licht gekanteld staan. De rand eromheen verschijnt bij de klap.
+ * omhoog naar de kijker, hangt heel even stil en slaat dan hard neer
+ * (net iets te klein, als een stempel op papier) en eindigt zoals het was.
  */
 .future-punch.future-stamp {
     animation-name: future-stamp;
+    /* Iets langer dan de gewone knal, voor het korte stilhangen vóór de klap */
+    animation-duration: calc(var(--punch-duration, .55s) * 1.5);
 }
 
 @keyframes future-stamp {
 
     0% {
-        transform: scale(1) rotate(0deg);
-        animation-timing-function: cubic-bezier(.3, 0, .2, 1);
+        transform: translateY(0) scale(1);
+        animation-timing-function: cubic-bezier(.2, .8, .3, 1);
     }
 
-    45% {
-        transform: scale(var(--punch-scale, 1.25)) rotate(-10deg);
-        animation-timing-function: cubic-bezier(.7, 0, 1, .6);
+    40% {
+        transform: translateY(-4%) scale(var(--punch-scale, 1.25));
     }
 
-    62% {
-        transform: scale(.9) rotate(-5deg);
+    55% {
+        transform: translateY(-4%) scale(var(--punch-scale, 1.25));
+        animation-timing-function: cubic-bezier(.8, 0, 1, .5);
+    }
+
+    68% {
+        transform: translateY(0) scale(.92);
         animation-timing-function: cubic-bezier(.3, .7, .4, 1);
     }
 
-    80% {
-        transform: scale(1.03) rotate(-5deg);
+    84% {
+        transform: translateY(0) scale(1.02);
     }
 
     100% {
-        transform: scale(1) rotate(-5deg);
-    }
-}
-
-.future-stamp-frame {
-    opacity: 0;
-    animation: future-stamp-frame calc(var(--punch-duration, .55s) * .4) ease-out calc(var(--punch-delay, 0s) + var(--punch-duration, .55s) * .6) forwards;
-}
-
-@keyframes future-stamp-frame {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .future-punch {
         animation: none;
-    }
-
-    .future-punch.future-stamp {
-        transform: rotate(-5deg);
-    }
-
-    .future-stamp-frame {
-        animation: none;
-        opacity: 1;
     }
 }
 
