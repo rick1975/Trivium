@@ -51,8 +51,8 @@ export function initAnimatedText() {
     // Lettertype van de titel. Terug naar het oude font: zet
     // FONT_FAMILY op "Poppins" en FONT_WEIGHT op "700".
     // (Het font moet ook geladen worden in resources/js/fonts.js.)
-    const FONT_FAMILY = "Fraunces";
-    const FONT_WEIGHT = "900";
+    const FONT_FAMILY = "Poppins";
+    const FONT_WEIGHT = "700";
 
     // "Knal" op het laatste woord (LEF): zodra het vol kleur staat,
     // schiet het kort groter en veert het terug. PUNCH_SCALE is de
