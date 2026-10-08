@@ -10,8 +10,8 @@
     @if(! empty($footer->sitemapLabel))
     <p class="hidden md:flex absolute top-0 right-1/3 z-10 -translate-y-1/2 translate-x-4 opacity-0 items-center gap-3 rounded-full border border-white/15 bg-triv-navy px-4 py-2 text-sm font-medium text-white whitespace-nowrap transition-[translate,opacity] duration-500 ease-out delay-800 group-data-shown:translate-x-0 group-data-shown:opacity-100 motion-reduce:translate-x-0 motion-reduce:opacity-100 motion-reduce:transition-none">
       <span class="flex items-center gap-1">
-        @foreach(['apple' => 'text-triv-red', 'pear' => 'text-triv-olive', 'banana' => 'text-triv-yellow', 'orange' => 'text-triv-orange'] as $fruit => $color)
-          <x-icon :name="$fruit" :size="18" class="{{ $color }} scale-0 transition-transform duration-400 ease-[cubic-bezier(.34,1.56,.64,1)] delay-[calc(1100ms+var(--i)*120ms)] group-data-shown:scale-100 motion-reduce:scale-100 motion-reduce:transition-none" style="--i: {{ $loop->index }}" />
+        @foreach(['apple', 'watermelon', 'grapes', 'strawberry'] as $fruit)
+          <x-icon :name="$fruit" :size="20" class="scale-0 transition-transform duration-400 ease-[cubic-bezier(.34,1.56,.64,1)] delay-[calc(1100ms+var(--i)*120ms)] group-data-shown:scale-100 motion-reduce:scale-100 motion-reduce:transition-none" style="--i: {{ $loop->index }}" />
         @endforeach
       </span>
       {{ $footer->sitemapLabel }}
