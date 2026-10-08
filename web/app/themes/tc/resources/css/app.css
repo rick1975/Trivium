@@ -126,6 +126,12 @@ html {
   }
 }
 
+/* Voortgangsstreepje van de footerslider (sections/footer.blade.php): loopt van links naar rechts vol */
+@keyframes footer-progress {
+  from { scale: 0 1; }
+  to { scale: 1 1; }
+}
+
 /* Onderstreping die bij hover/focus van links naar rechts ingroeit; blijft staan op de huidige pagina
    (overgenomen uit het kms-thema) */
 @utility nav-link {

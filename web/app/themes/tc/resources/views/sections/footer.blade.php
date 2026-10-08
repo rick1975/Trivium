@@ -1,25 +1,26 @@
 {{-- Eén <footer> (contentinfo) om het slide-deel, de sitemap en de copyright heen --}}
 <footer>
 <div data-slide class="footer group">
-  {{-- Fotoslider: aula en fruitkrat; wisselt elke 6 s met een crossfade en een trage zoom.
-       Draait alleen in beeld, pauzeert bij hover en via de knop; bij "minder beweging" blijft de eerste foto staan.
+  {{-- Fotoslider: aula en fruitkrat; wisselt met een crossfade en een trage zoom.
+       Navigatie: voortgangsstreepjes rechtsonder. Het actieve streepje loopt in 6 s vol (CSS-animatie footer-progress);
+       aan het eind daarvan (animationend) volgt de volgende foto, dus pauzeren is de animatie stilzetten:
+       buiten beeld en bij hover. Klik op een streepje: naar die foto en het wisselen stopt (zo is het stil te zetten).
+       Bij "minder beweging" wisselt hij niet vanzelf; de streepjes werken dan als gewone knoppen.
        Mobiel: onder de tekst over de volle breedte, loopt bovenaan weg in het nachtblauw.
        Vanaf tablet 50/50: slider op de rechterhelft, loopt naar links weg in het effen nachtblauw. Schuift daar
        van links op zijn plek zodra de footer in beeld is geschoven (js/slide-sections.js zet data-shown).
-       Het verloop zit op de foto's zelf zodat de pauzeknop scherp blijft. --}}
+       Het verloop zit op de foto's zelf zodat de streepjes scherp blijven. --}}
   <div x-data="{
       current: 0,
       count: {{ count($footer->slides) }},
-      paused: false,
+      stopped: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+      inView: false,
       hover: false,
-      timer: null,
-      start() {
-        if (this.timer || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        this.timer = setInterval(() => { if (! this.paused && ! this.hover) this.current = (this.current + 1) % this.count }, 6000);
-      },
-      stop() { clearInterval(this.timer); this.timer = null },
+      get running() { return this.inView && ! this.hover && ! this.stopped },
+      next() { this.current = (this.current + 1) % this.count },
+      go(i) { this.current = i; this.stopped = true },
     }"
-    x-intersect:enter="start()" x-intersect:leave="stop()"
+    x-intersect:enter="inView = true" x-intersect:leave="inView = false"
     @mouseenter="hover = true" @mouseleave="hover = false"
     class="relative order-last mt-10 w-full aspect-4/3 md:absolute md:inset-y-0 md:right-0 md:mt-0 md:h-full md:w-1/2 md:aspect-auto md:-translate-x-1/3 md:opacity-0 md:transition-[translate,opacity] md:duration-1200 md:ease-out md:group-data-shown:translate-x-0 md:group-data-shown:opacity-100 md:motion-reduce:translate-x-0! md:motion-reduce:opacity-100! motion-reduce:transition-none">
     @foreach($footer->slides as $slide)
@@ -32,13 +33,21 @@
       </figure>
     @endforeach
 
-    {{-- Pauzeknop (bewegende inhoud moet stil te zetten zijn); niet nodig bij "minder beweging" --}}
-    <button type="button" @click="paused = ! paused" :aria-pressed="paused.toString()"
-      class="absolute bottom-4 right-4 md:bottom-8 md:right-8 grid size-10 place-items-center rounded-full border border-white/15 bg-triv-navy/70 text-white backdrop-blur-sm transition-colors hover:bg-triv-navy motion-reduce:hidden">
-      <span class="sr-only">Fotowisseling pauzeren</span>
-      <svg x-show="! paused" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" rx="1"/><rect x="8.5" y="1" width="3.5" height="12" rx="1"/></svg>
-      <svg x-show="paused" style="display: none" width="14" height="14" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M3 1.5v11a1 1 0 0 0 1.5.86l9-5.5a1 1 0 0 0 0-1.72l-9-5.5A1 1 0 0 0 3 1.5Z"/></svg>
-    </button>
+    {{-- Voortgangsstreepjes: eerdere foto's vol, actieve loopt vol (of staat vol als het wisselen stopt), latere leeg --}}
+    <div class="absolute bottom-3 right-4 md:bottom-7 md:right-8 flex gap-1">
+      @foreach($footer->slides as $slide)
+        <button type="button" @click="go({{ $loop->index }})" :aria-current="current === {{ $loop->index }}"
+          :data-state="current > {{ $loop->index }} || (stopped && current === {{ $loop->index }}) ? 'done' : (current === {{ $loop->index }} ? 'active' : null)"
+          @if($loop->first) data-state="active" @endif
+          class="group/bar py-3 px-0.5 cursor-pointer">
+          <span class="sr-only">Toon foto {{ $loop->iteration }}</span>
+          <span class="block h-0.5 w-10 md:w-12 overflow-hidden rounded-full bg-white/35 transition-colors group-hover/bar:bg-white/55">
+            <span @animationend="next()" :style="{ animationPlayState: running ? 'running' : 'paused' }"
+              class="block size-full origin-left scale-x-0 bg-white group-data-[state=done]/bar:scale-x-100 group-data-[state=active]/bar:animate-[footer-progress_6s_linear_forwards]"></span>
+          </span>
+        </button>
+      @endforeach
+    </div>
   </div>
 
   <div class="relative page-container">
