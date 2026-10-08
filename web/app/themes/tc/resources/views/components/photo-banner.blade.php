@@ -43,11 +43,11 @@
   <div @class(['relative z-10 h-full page-container flex items-center', 'justify-end' => $right])>
     <div class="max-w-md lg:max-w-2xl">
       @if($animate === 'title')
-        @php($unroll = 'block w-fit [clip-path:inset(0_100%_0_0)] transition-[clip-path] duration-1000 ease-[cubic-bezier(.65,0,.25,1)] group-data-shown:[clip-path:inset(0)] motion-reduce:[clip-path:inset(0)] motion-reduce:transition-none')
+        @php($unroll = 'block w-fit [clip-path:inset(0_100%_0_0)] transition-[clip-path] duration-1800 ease-[cubic-bezier(.65,0,.25,1)] group-data-shown:[clip-path:inset(0)] motion-reduce:[clip-path:inset(0)] motion-reduce:transition-none')
         <h2 class="group text-5xl xl:text-6xl font-bold text-white leading-tight mb-6" x-data x-intersect.once.half="$el.dataset.shown = ''">
           <span class="{{ $unroll }}">{{ $title }}</span>
           @if($highlight)
-            <span class="{{ $unroll }} delay-400 {{ $accentClass }}">{{ $highlight }}</span>
+            <span class="{{ $unroll }} delay-700 {{ $accentClass }}">{{ $highlight }}</span>
           @endif
         </h2>
         <p class="text-white font-medium leading-relaxed mb-8 max-w-xl">{{ implode(' ', $words) }}</p>
