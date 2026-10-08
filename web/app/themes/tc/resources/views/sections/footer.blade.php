@@ -1,12 +1,12 @@
 {{-- Eén <footer> (contentinfo) om het slide-deel, de sitemap en de copyright heen --}}
 <footer>
 <div data-slide class="footer group">
-  {{-- Fotoslider: aula, daarna twee fruitfoto's met onderschrift; wisselt elke 6 s met een crossfade en een trage zoom.
+  {{-- Fotoslider: aula en fruitkrat; wisselt elke 6 s met een crossfade en een trage zoom.
        Draait alleen in beeld, pauzeert bij hover en via de knop; bij "minder beweging" blijft de eerste foto staan.
        Mobiel: onder de tekst over de volle breedte, loopt bovenaan weg in het nachtblauw.
        Vanaf tablet 50/50: slider op de rechterhelft, loopt naar links weg in het effen nachtblauw. Schuift daar
        van links op zijn plek zodra de footer in beeld is geschoven (js/slide-sections.js zet data-shown).
-       Het verloop zit op de foto's zelf, zodat onderschrift en knop scherp blijven. --}}
+       Het verloop zit op de foto's zelf zodat de pauzeknop scherp blijft. --}}
   <div x-data="{
       current: 0,
       count: {{ count($footer->slides) }},
@@ -28,18 +28,6 @@
         <img src="{{ $slide->image }}" alt="" loading="lazy" decoding="async"
           :class="current === {{ $loop->index }} ? 'scale-100' : 'scale-108'"
           class="pointer-events-none size-full object-cover object-center contrast-110 mask-t-from-70% md:mask-t-from-100% md:mask-l-from-60% md:mask-b-from-80% transition-transform duration-7500 ease-out motion-reduce:scale-100! motion-reduce:transition-none {{ $loop->first ? 'scale-100' : 'scale-108' }}">
-        @if($slide->caption)
-          {{-- Onderschrift in de stijl van het sitemaplabel; schuift iets omhoog als de foto in beeld komt --}}
-          <figcaption :class="current === {{ $loop->index }} ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'"
-            class="absolute bottom-6 left-6 md:bottom-[24%] md:left-[30%] flex items-center gap-3 rounded-full border border-white/15 bg-triv-navy px-5 py-2.5 text-base font-medium text-white whitespace-nowrap translate-y-3 opacity-0 transition-[translate,opacity] duration-700 ease-out delay-700 motion-reduce:transition-none">
-            <span class="flex items-center gap-1">
-              @foreach(['apple', 'banana'] as $fruit)
-                <x-icon :name="$fruit" :size="28" class="text-white [&_.fruit-outline]:stroke-6 [&_.fruit-outline]:text-[color-mix(in_oklab,var(--color-white)_93%,var(--color-triv-navy))]" />
-              @endforeach
-            </span>
-            {{ $slide->caption }}
-          </figcaption>
-        @endif
       </figure>
     @endforeach
 

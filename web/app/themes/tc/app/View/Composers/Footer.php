@@ -13,14 +13,13 @@ class Footer extends Composer
 
     /**
      * Titel, tekst en foto uit Trivium Settings > Footer, met de sitenaam en standaardfoto als terugval.
-     * De foto is de eerste slide; daarna volgen twee vaste fruitfoto's met het fruitlabel als onderschrift.
+     * De foto is de eerste slide; daarna volgt een vaste fruitfoto.
      * Het sitemap-label valt alleen terug op de standaardzin als het veld nog nooit is opgeslagen; leeg = geen label.
      */
     public function with()
     {
         $field = fn (string $name) => function_exists('get_field') ? get_field($name, 'option') : null;
         $imageId = $field('footer_afbeelding');
-        $fruitCaption = 'Gratis fruit, elke dag';
 
         return [
             'footer' => (object) [
@@ -30,15 +29,9 @@ class Footer extends Composer
                     (object) [
                         'image' => ($imageId ? wp_get_attachment_image_url($imageId, 'full') : null)
                             ?: Vite::asset('resources/images/aula-zittrap-daklicht-leerlingen.avif'),
-                        'caption' => null,
-                    ],
-                    (object) [
-                        'image' => Vite::asset('resources/images/leerling-pakt-banaan-uit-fruitkrat.avif'),
-                        'caption' => $fruitCaption,
                     ],
                     (object) [
                         'image' => Vite::asset('resources/images/leerlingen-bij-de-fruitkrat.avif'),
-                        'caption' => $fruitCaption,
                     ],
                 ],
                 'sitemapLabel' => (string) ($field('footer_sitemap_label') ?? 'Gratis lunch en fruit, elke dag'),
