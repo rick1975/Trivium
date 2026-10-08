@@ -31,6 +31,12 @@
   'oranje' => 'text-triv-orange',
   default => 'text-triv-pink',
 })
+{{-- Knop in dezelfde kleur als de tweede titelregel (geen oranje knopvariant: dan roze) --}}
+@php($buttonVariant = match ($accent) {
+  'geel' => 'yellow',
+  'groen' => 'green',
+  default => 'pink',
+})
 
 <section data-slide class="relative h-svh overflow-hidden">
   <img src="{{ $image }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full max-w-none object-cover">
@@ -67,7 +73,7 @@
         </p>
       @endif
       @if($href)
-        <x-button :href="$href" :target="$target ?: null" :dot="false">{{ $linkText }}</x-button>
+        <x-button :href="$href" :target="$target ?: null" :variant="$buttonVariant" :dot="false">{{ $linkText }}</x-button>
       @endif
     </div>
   </div>

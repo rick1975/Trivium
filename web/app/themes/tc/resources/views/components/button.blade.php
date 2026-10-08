@@ -1,4 +1,4 @@
-{{-- Knop/link in huisstijl. Gebruik: <x-button href="..." variant="pink|green|white|outline">Tekst</x-button>
+{{-- Knop/link in huisstijl. Gebruik: <x-button href="..." variant="pink|green|yellow|white|outline">Tekst</x-button>
      Zonder stip: :dot="false".
      Bij hover loopt een iets donkerdere tint (::before) van links naar rechts over de knop:
      een cirkel die vanuit de witte stip uitdijt. De stip verwijst naar de stip in het logo.
@@ -12,6 +12,8 @@
 @php($variantClass = match ($variant) {
   'white' => 'bg-white text-triv-blue px-8 [--btn-dot-x:calc(2rem+4px)] before:bg-triv-blue hover:text-white focus-visible:text-white',
   'green' => 'bg-triv-green text-white px-6 [--btn-dot-x:calc(1.5rem+4px)] before:bg-[color-mix(in_srgb,var(--color-triv-green)_92%,black)]',
+  // Donkerblauwe tekst: wit op geel is onleesbaar.
+  'yellow' => 'bg-triv-yellow text-triv-blue px-6 [--btn-dot-x:calc(1.5rem+4px)] before:bg-[color-mix(in_srgb,var(--color-triv-yellow)_88%,black)] hover:text-triv-blue focus-visible:text-triv-blue',
   'outline' => 'border-2 border-gray-800 text-gray-800 px-6 [--btn-dot-x:calc(1.5rem+4px)] before:bg-gray-800 hover:text-white focus-visible:text-white',
   // Een vleugje triv-red maakt het roze feller in plaats van doffer.
   default => 'bg-triv-pink text-white px-6 [--btn-dot-x:calc(1.5rem+4px)] before:bg-[color-mix(in_oklch,var(--color-triv-pink)_65%,var(--color-triv-red))]',
