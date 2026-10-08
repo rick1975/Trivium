@@ -13,7 +13,7 @@
 
       {{-- Logo --}}
       <a href="{{ home_url('/') }}" aria-label="{{ $siteName }} – home">
-        <x-logo class="w-44" />
+        <x-logo class="w-44" aria-hidden="true" />
       </a>
 
       {{-- Zoek-icoon + hamburger, altijd gegroepeerd rechts --}}
@@ -30,13 +30,14 @@
             : @js($searchIdleClass)"
           @click="searchOpen = !searchOpen; mobileOpen = false"
           :aria-expanded="searchOpen.toString()"
+          aria-controls="search-panel"
           aria-label="Zoeken">
           <x-icon name="search" />
         </button>
 
         {{-- Hamburger --}}
         @php($barColor = $isFront ? 'bg-white' : 'bg-[#1a1612]')
-        <button type="button" class="-m-2.5 p-2.5 cursor-pointer" @click="mobileOpen = !mobileOpen; searchOpen = false" :aria-expanded="mobileOpen.toString()" aria-label="Menu openen of sluiten">
+        <button type="button" class="-m-2.5 p-2.5 cursor-pointer" @click="mobileOpen = !mobileOpen; searchOpen = false" :aria-expanded="mobileOpen.toString()" aria-controls="nav-drawer" aria-label="Menu openen of sluiten">
           <span class="block relative w-6 h-4">
             <span class="absolute left-0 top-0 block h-[2px] w-6 {{ $barColor }} transition-transform duration-300" :class="mobileOpen ? 'translate-y-[7px] rotate-45' : ''"></span>
             <span class="absolute left-0 top-1/2 block h-[2px] w-6 {{ $barColor }} -translate-y-1/2 transition-opacity duration-200" :class="mobileOpen ? 'opacity-0' : 'opacity-100'"></span>

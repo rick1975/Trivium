@@ -3,9 +3,11 @@
      ruim in beeld is (bovenrand 40% het scherm in), groeit de lijn eenmalig van links naar rechts (x-intersect zet data-shown).
      Aan het eind van de lijn verschijnt daarna het label uit Trivium Settings > Footer ($footer->sitemapLabel, via Composers\Footer); de fruiticoontjes ploppen na elkaar op (--i × 120ms)
      als witte outline en kleuren zo'n 3 seconden later na elkaar in (.fruit-fill, --i × 250ms); de witte lijn wordt dan dunner en zachter (.fruit-outline;
-     dekkende mengkleur wit/nachtblauw i.p.v. transparant wit, anders overlappen vulling en lijn zichtbaar). --}}
+     dekkende mengkleur wit/nachtblauw i.p.v. transparant wit, anders overlappen vulling en lijn zichtbaar).
+     Semantiek: het label is geen navigatie en staat daarom naast de <nav>, niet erin; de sitemap zelf is één
+     geneste lijst (hoofdpunt als link, met daaronder de subpagina's). --}}
 @if($navigation)
-  <nav aria-label="Sitemap" x-data x-intersect.once.margin.0.0.-40%.0="$el.dataset.shown = ''" class="group relative py-12 md:py-16 xl:py-32 bg-triv-navy border-t border-white/10 md:border-t-0">
+  <div x-data x-intersect.once.margin.0.0.-40%.0="$el.dataset.shown = ''" class="group relative py-12 md:py-16 xl:py-32 bg-triv-navy border-t border-white/10 md:border-t-0">
     {{-- Scheidingslijn vanaf tablet: groeit van links naar rechts en vervaagt richting de foto --}}
     <span aria-hidden="true" class="hidden md:block absolute top-0 left-0 w-2/3 h-px bg-linear-to-r from-white/15 via-white/15 via-50% to-transparent origin-left scale-x-0 transition-transform duration-1000 ease-out group-data-shown:scale-x-100 motion-reduce:scale-x-100 motion-reduce:transition-none"></span>
     {{-- Label op het eind van de lijn (rechterkant op 2/3): schuift in beeld als de lijn bijna klaar is --}}
@@ -19,13 +21,16 @@
       {{ $footer->sitemapLabel }}
     </p>
     @endif
-    <div class="page-container">
-      <div class="flex flex-wrap justify-between gap-x-12 gap-y-10">
+    <nav aria-label="Sitemap" class="page-container">
+      <ul class="flex flex-wrap justify-between gap-x-12 gap-y-10">
         @foreach($navigation as $item)
-          <div class="w-full sm:w-auto">
-            <span id="sitemap-{{ $loop->index }}" class="block font-bold text-white mb-3">
+          <li class="w-full sm:w-auto">
+            <a href="{{ $item->url }}" id="sitemap-{{ $loop->index }}"
+              class="inline-block font-bold text-white mb-3 transition-colors hover:text-white/80"
+              @if($item->active) aria-current="page" @endif
+              @if($item->target) target="{{ $item->target }}" @endif>
               {!! $item->label !!}
-            </span>
+            </a>
             @if($item->children)
               <ul class="space-y-2" aria-labelledby="sitemap-{{ $loop->index }}">
                 @foreach($item->children as $child)
@@ -40,9 +45,9 @@
                 @endforeach
               </ul>
             @endif
-          </div>
+          </li>
         @endforeach
-      </div>
-    </div>
-  </nav>
+      </ul>
+    </nav>
+  </div>
 @endif

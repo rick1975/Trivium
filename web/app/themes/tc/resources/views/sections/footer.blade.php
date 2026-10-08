@@ -1,4 +1,6 @@
-<footer data-slide class="footer group">
+{{-- Eén <footer> (contentinfo) om het slide-deel, de sitemap en de copyright heen --}}
+<footer>
+<div data-slide class="footer group">
   {{-- Foto van de aula. Mobiel: onder de tekst over de volle breedte, loopt bovenaan weg in het nachtblauw.
        Vanaf tablet 50/50: foto op de rechterhelft, loopt naar links weg in het effen nachtblauw. Schuift daar
        van links op zijn plek zodra de footer in beeld is geschoven (js/slide-sections.js zet data-shown). --}}
@@ -13,34 +15,39 @@
         @if($footer->text)
           <p class="text-white">{!! nl2br(e($footer->text)) !!}</p>
         @endif
-        @if($contact->adres)
-          <p>{!! nl2br(e($contact->adres)) !!}</p>
-        @endif
-        @if($contact->telefoon || $contact->email)
-          <p>
-            @if($contact->telefoon)
-              {{ $contact->telefoon }}<br/>
-              @if($contact->bereikbaar)
-                ({{ $contact->bereikbaar }})<br/>
-              @endif
+        @if($contact->adres || $contact->telefoon || $contact->email)
+          <address class="not-italic">
+            @if($contact->adres)
+              <p>{!! nl2br(e($contact->adres)) !!}</p>
             @endif
-            @if($contact->email)
-              {{ $contact->email }}
+            @if($contact->telefoon || $contact->email)
+              <p>
+                @if($contact->telefoon)
+                  <a href="tel:{{ $contact->telefoonLink }}">{{ $contact->telefoon }}</a><br/>
+                  @if($contact->bereikbaar)
+                    ({{ $contact->bereikbaar }})<br/>
+                  @endif
+                @endif
+                @if($contact->email)
+                  <a href="mailto:{{ $contact->email }}">{{ $contact->email }}</a>
+                @endif
+              </p>
             @endif
-          </p>
+          </address>
         @endif
       </div>
     </div>
   </div>
-</footer>
+</div>
 
 @include('components.sitemap')
 
 {{-- Copyright: zelfde nachtblauw als footer en sitemap, op dezelfde lijn --}}
 <div class="py-6 bg-triv-navy border-t border-white/10">
   <div class="page-container">
-    <div class="text-left text-xs md:text-sm text-white/60">
+    <p class="mb-0 text-left text-xs md:text-sm text-white/60">
       &copy; {{ date('Y') }} {{ $siteName }}. Alle rechten voorbehouden.
-    </div>
+    </p>
   </div>
 </div>
+</footer>

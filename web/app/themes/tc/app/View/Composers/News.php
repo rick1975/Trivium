@@ -57,6 +57,7 @@ class News extends Composer
                 'category' => $category?->name,
                 'categoryClass' => $this->categoryClasses[$i % count($this->categoryClasses)],
                 'date' => get_the_date('j F Y', $post),
+                'datetime' => get_the_date('Y-m-d', $post),
                 'title' => get_the_title($post),
                 'excerpt' => has_excerpt($post)
                     ? $post->post_excerpt
@@ -89,6 +90,7 @@ class News extends Composer
                 'category' => 'Levensecht leren',
                 'categoryClass' => $this->categoryClasses[0],
                 'date' => '28 maart 2026',
+                'datetime' => '2026-03-28',
                 'title' => 'Leerlingen koken voor echte gasten in ons schoolrestaurant',
                 'excerpt' => 'Een driegangenmenu voor ouders en docenten. Levensecht leren in de keuken een avond om nooit te vergeten.',
             ],
@@ -99,6 +101,7 @@ class News extends Composer
                 'category' => 'Nieuws',
                 'categoryClass' => $this->categoryClasses[1],
                 'date' => '15 maart 2026',
+                'datetime' => '2026-03-15',
                 'title' => 'Trivium wint regionale vakwedstrijd techniek',
                 'excerpt' => 'Eerste prijs bij de regionale skills-wedstrijd!',
             ],
@@ -109,6 +112,7 @@ class News extends Composer
                 'category' => 'Agenda',
                 'categoryClass' => $this->categoryClasses[2],
                 'date' => '5 maart 2026',
+                'datetime' => '2026-03-05',
                 'title' => 'Open dag > 18 april > kom langs!',
                 'excerpt' => 'Groep 8 leerlingen en ouders zijn van harte welkom.',
             ],

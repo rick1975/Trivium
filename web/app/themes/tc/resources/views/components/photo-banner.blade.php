@@ -3,6 +3,7 @@
      Op de voorpagina gevuld vanuit Trivium Settings > Fotobanner (Composers\PhotoBanner).
      Als slide (data-slide) glijdt hij vanaf tablet in beeld (js/slide-sections.js). Zodra de tekst half in beeld
      is, schuiven de woorden eenmalig na elkaar omhoog: x-intersect zet data-shown, woord --i wacht --i × 30ms.
+     Screenreaders krijgen de tekst als één zin (sr-only); de opgeknipte, geanimeerde woorden zijn aria-hidden.
      Leesbaarheid: vanaf desktop blijft het verloop donker tot voorbij de tekst; broodtekst krijgt een zachte schaduw. --}}
 @props([
   'image',
@@ -28,7 +29,8 @@
           <br><span class="text-triv-pink">{{ $highlight }}</span>
         @endif
       </h2>
-      <p class="group text-white font-medium leading-relaxed mb-8 text-shadow-md text-shadow-black/50" x-data x-intersect.once.half="$el.dataset.shown = ''">
+      <p class="sr-only">{{ implode(' ', $words) }}</p>
+      <p aria-hidden="true" class="group text-white font-medium leading-relaxed mb-8 text-shadow-md text-shadow-black/50" x-data x-intersect.once.half="$el.dataset.shown = ''">
         @foreach($words as $i => $word)
           <span class="inline-block overflow-clip -my-1 py-1 align-bottom"><span class="inline-block translate-y-2/3 opacity-0 transition-[translate,opacity] duration-700 ease-out delay-[calc(var(--i)*30ms)] group-data-shown:translate-y-0 group-data-shown:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none" style="--i: {{ $i }}">{{ $word }}</span></span>
         @endforeach

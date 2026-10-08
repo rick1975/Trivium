@@ -7,6 +7,10 @@
 
     {{-- Titel + gekleurde CTA-blokken --}}
     <div>
+      {{-- Zonder ingevulde titel toch een (onzichtbare) h2, zodat de h3's eronder niet los hangen --}}
+      @if(! $title)
+        <h2 class="sr-only">Snelle links</h2>
+      @endif
       @if($title)
         <h2 class="text-4xl lg:text-5xl font-bold text-triv-blue leading-tight mb-8">
           {{ $title }}
@@ -15,27 +19,30 @@
           @endif
         </h2>
       @endif
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-0">
         @foreach($ctas as $cta)
-          <a href="{{ $cta['url'] }}" class="{{ $cta['classes']['block'] }} rounded-xl p-5 no-underline block hover:-translate-y-1 transition-transform duration-200">
+          <li class="mb-0"><a href="{{ $cta['url'] }}" class="{{ $cta['classes']['block'] }} rounded-xl p-5 no-underline block h-full hover:-translate-y-1 transition-transform duration-200">
             <h3 class="text-base font-bold {{ $cta['classes']['title'] }} mb-1">{{ $cta['title'] }}</h3>
             <span class="text-sm font-semibold {{ $cta['classes']['text'] }}">{{ $cta['text'] }}</span>
-          </a>
+          </a></li>
         @endforeach
-      </div>
+      </ul>
     </div>
 
-    {{-- Ga direct naar --}}
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 lg:self-end">
-      @foreach($links as $link)
-        <a href="{{ $link['url'] }}" class="group flex items-center justify-between gap-4 py-4 border-b border-gray-200 no-underline">
-          <span class="flex flex-col">
-            <span class="text-lg font-bold text-triv-blue group-hover:text-triv-pink transition-colors">{{ $link['title'] }}</span>
-            <span class="text-sm text-gray-600 mt-0.5">{{ $link['text'] }}</span>
-          </span>
-          <span class="text-triv-pink text-xl transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
-        </a>
-      @endforeach
+    {{-- Ga direct naar-links (kop "Snelle links" alleen voor screenreaders) --}}
+    <div class="lg:self-end">
+      <h3 id="quick-links-direct" class="sr-only">Snelle links</h3>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 mb-0" aria-labelledby="quick-links-direct">
+        @foreach($links as $link)
+          <li class="mb-0"><a href="{{ $link['url'] }}" class="group flex h-full items-center justify-between gap-4 py-4 border-b border-gray-200 no-underline">
+            <span class="flex flex-col">
+              <span class="text-lg font-bold text-triv-blue group-hover:text-triv-pink transition-colors">{{ $link['title'] }}</span>
+              <span class="text-sm text-gray-600 mt-0.5">{{ $link['text'] }}</span>
+            </span>
+            <span class="text-triv-pink text-xl transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a></li>
+        @endforeach
+      </ul>
     </div>
   </div>
 </section>

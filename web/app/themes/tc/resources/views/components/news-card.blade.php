@@ -6,7 +6,7 @@
 
 @php($large = $size === 'large')
 
-<a href="{{ $item['url'] }}" {{ $attributes->merge(['class' => 'group relative rounded-xl overflow-hidden no-underline block ' . ($large ? 'min-h-[500px]' : 'flex-1 min-h-[235px]')]) }}>
+<a href="{{ $item['url'] }}" {{ $attributes->merge(['class' => 'group relative rounded-xl overflow-hidden no-underline block ' . ($large ? 'min-h-[500px]' : 'min-h-[235px]')]) }}>
   <img
     src="{{ $item['image'] }}"
     alt="{{ $item['alt'] }}"
@@ -19,7 +19,7 @@
       @if($item['category'])
         <span class="{{ $item['categoryClass'] }} text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">{{ $item['category'] }}</span>
       @endif
-      <span class="text-white/60 text-xs">{{ $item['date'] }}</span>
+      <time @if(! empty($item['datetime'])) datetime="{{ $item['datetime'] }}" @endif class="text-white/60 text-xs">{{ $item['date'] }}</time>
     </div>
     <h3 class="{{ $large ? 'text-2xl' : 'text-base' }} mb-1 font-black text-white leading-snug group-hover:text-triv-yellow transition-colors">
       {{ $item['title'] }}

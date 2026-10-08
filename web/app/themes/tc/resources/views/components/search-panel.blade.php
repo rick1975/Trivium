@@ -1,5 +1,7 @@
-{{-- Zoekpaneel: volledig-scherm overlay met live zoekresultaten --}}
-<div x-show="searchOpen"
+{{-- Zoekpaneel: volledig-scherm overlay met live zoekresultaten. Modale dialoog: x-trap houdt de focus erin
+     (het zoekveld krijgt focus via x-init hieronder) en zet hem bij sluiten terug op de zoekknop.
+     De onzichtbare statusregel (aria-live) meldt aan screenreaders hoeveel resultaten er zijn. --}}
+<div id="search-panel" x-show="searchOpen" x-trap.noautofocus="searchOpen"
   x-transition:enter="transition ease-out duration-500"
   x-transition:enter-start="-translate-y-full"
   x-transition:enter-end="translate-y-0"
@@ -12,7 +14,7 @@
 
   {{-- Balk met logo en sluitknop --}}
   <div class="flex items-center justify-between px-6 xl:px-20 min-h-[80px] shrink-0">
-    <x-logo class="w-44" />
+    <x-logo class="w-44" aria-hidden="true" />
     <button type="button" @click="searchOpen = false"
       class="mr-8 w-9 h-9 rounded-full flex items-center justify-center border border-[#ddd8cc] bg-white text-[#1a1612] hover:bg-[#e56b6f] hover:border-[#e56b6f] hover:text-white transition-all duration-300 cursor-pointer" aria-label="Zoeken sluiten">
       <x-icon name="close" />
@@ -72,11 +74,14 @@
         </button>
       </form>
 
+      <p class="sr-only" aria-live="polite" aria-atomic="true"
+        x-text="query.trim().length < 2 ? '' : (loading ? 'Zoeken...' : (results.length ? `${results.length} resultaten gevonden` : 'Geen resultaten gevonden.'))"></p>
+
       {{-- Live zoekresultaten tijdens het typen --}}
       <div x-show="query.trim().length >= 2" class="mt-4" style="display: none;">
-        <p x-show="loading" class="text-stone-400 text-xs px-1">Zoeken...</p>
-        <p x-show="!loading && results.length === 0" class="text-stone-400 text-xs px-1">Geen resultaten gevonden.</p>
-        <p x-show="!loading && results.length > 0" class="text-neutral-800 text-xs font-semibold uppercase tracking-widest px-1 mb-2" x-text="`${results.length} resultaten voor &quot;${query}&quot;`"></p>
+        <p x-show="loading" aria-hidden="true" class="text-stone-400 text-xs px-1">Zoeken...</p>
+        <p x-show="!loading && results.length === 0" aria-hidden="true" class="text-stone-400 text-xs px-1">Geen resultaten gevonden.</p>
+        <p x-show="!loading && results.length > 0" aria-hidden="true" class="text-neutral-800 text-xs font-semibold uppercase tracking-widest px-1 mb-2" x-text="`${results.length} resultaten voor &quot;${query}&quot;`"></p>
         <ul x-show="!loading && results.length > 0">
           <template x-for="result in results" :key="result.id">
             <li class="border-b border-stone-200 last:border-b-0">
@@ -93,7 +98,7 @@
 
       {{-- Populaire pagina's: eenvoudige tekstlinks, geen buttons --}}
       <div x-show="query.trim().length < 2" class="mt-12" style="display: none;">
-        <p class="text-stone-500 text-xs font-semibold uppercase tracking-widest px-1 mb-2">Populaire pagina's</p>
+        <h2 class="text-stone-500 text-xs md:text-xs font-semibold uppercase tracking-widest leading-normal [font-family:inherit] px-1 mb-2">Populaire pagina's</h2>
         <ul class="flex flex-col">
           @foreach(['Aanmelden', 'Open dag', 'Rooster', 'Contact', 'Vakanties'] as $suggestion)
             <li class="border-b border-stone-300 last:border-b-0">
@@ -109,8 +114,8 @@
 
         {{-- Contactgegevens (uit Trivium Settings, via de Contact-composer) --}}
         <div class="mt-10 pt-6 px-1 border-t border-stone-300">
-          <p class="text-stone-500 text-xs font-semibold uppercase tracking-widest mb-3">Contact</p>
-          <div class="text-sm text-stone-600 leading-relaxed">
+          <h2 class="text-stone-500 text-xs md:text-xs font-semibold uppercase tracking-widest leading-normal [font-family:inherit] mb-3">Contact</h2>
+          <address class="not-italic text-sm text-stone-600 leading-relaxed">
             @if($contact->adres)
               <p>{!! nl2br(e($contact->adres)) !!}</p>
             @endif
@@ -125,7 +130,7 @@
                 @endif
               </p>
             @endif
-          </div>
+          </address>
         </div>
       </div>
     </div>

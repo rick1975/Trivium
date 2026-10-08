@@ -77,11 +77,12 @@ export function initSlideSections() {
         return top > 4 && top < window.innerHeight;
     });
 
-    // Slide die precies bovenaan staat en direct na een andere slide komt
+    // Slide die precies bovenaan staat en direct aansluit op de vorige slide (onderrand vorige = bovenrand huidige).
+    // Geen DOM-buren nodig: de fotobanner staat in <main>, de footer-slide in <footer>.
     const previousSlide = () => {
         const current = slides.find((el) => Math.abs(topOf(el)) <= 4);
-        const previous = current?.previousElementSibling;
-        return previous && previous.hasAttribute('data-slide') ? previous : null;
+        const previous = current && slides[slides.indexOf(current) - 1];
+        return previous && Math.abs(previous.getBoundingClientRect().bottom - topOf(current)) <= 4 ? previous : null;
     };
 
     window.addEventListener('wheel', (event) => {

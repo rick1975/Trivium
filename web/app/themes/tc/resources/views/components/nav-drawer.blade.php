@@ -1,13 +1,15 @@
 {{--
   Uitschuifmenu (hoofdnavigatie). Wordt geopend via `mobileOpen` uit de header.
   Mobiel: volledig scherm. Desktop: smal zwevend paneel rechts.
+  Als modale dialoog: x-trap houdt de focus in het paneel (eerst op de sluitknop) en zet hem bij
+  sluiten terug op de hamburgerknop.
 --}}
 {{-- Backdrop --}}
 <div x-show="mobileOpen" x-transition.opacity.duration.300ms
   class="fixed inset-0 bg-triv-blue/30 backdrop-blur-sm z-40"
   style="display: none;" @click="mobileOpen = false" aria-hidden="true"></div>
 
-<aside x-show="mobileOpen"
+<div id="nav-drawer" x-show="mobileOpen" x-trap="mobileOpen"
   x-transition:enter="transition ease-out duration-400"
   x-transition:enter-start="opacity-0 translate-x-8"
   x-transition:enter-end="opacity-100 translate-x-0"
@@ -16,7 +18,7 @@
   x-transition:leave-end="opacity-0 translate-x-8"
   class="fixed inset-0 lg:inset-auto lg:top-3 lg:right-3 lg:bottom-3 lg:w-[440px] bg-triv-cream lg:rounded-3xl shadow-2xl z-50 flex flex-col overflow-hidden"
   style="display: none;"
-  aria-label="Hoofdmenu">
+  role="dialog" aria-modal="true" aria-label="Hoofdmenu">
 
   {{-- Kop: sluiten --}}
   <div class="flex items-center justify-end px-6 lg:px-8 pt-6 pb-4 shrink-0">
@@ -28,7 +30,7 @@
   </div>
 
   {{-- Navigatie --}}
-  <nav class="flex-1 overflow-y-auto px-3 lg:px-5 py-2">
+  <nav aria-label="Hoofdmenu" class="flex-1 overflow-y-auto px-3 lg:px-5 py-2">
     <ul class="flex flex-col gap-0.5">
       @foreach($navigation as $item)
         <li x-data="{ subOpen: {{ $item->activeAncestor || $item->activeParent ? 'true' : 'false' }} }"
@@ -68,6 +70,7 @@
           @else
             <a href="{{ $item->url }}" @click="mobileOpen = false"
               class="group flex items-center gap-3 px-3 py-3 rounded-2xl hover:bg-white/70 transition-colors"
+              @if($item->active) aria-current="page" @endif
               @if($item->target) target="{{ $item->target }}" @endif>
               <span @class([
                 'flex-1 font-bold text-lg leading-snug transition-colors',
@@ -90,4 +93,4 @@
       <x-button :href="App\page_url('open-dagen')" variant="outline" class="justify-center">Open dagen</x-button>
     </div>
   </div>
-</aside>
+</div>

@@ -20,17 +20,22 @@
 
       @include('sections.header')
 
-      {{-- Optionele blokken boven de inhoud (bv. hero op de voorpagina) --}}
-      @yield('before-main')
+      {{-- Alle pagina-inhoud staat binnen <main>, ook de blokken boven en onder de gewone inhoud --}}
+      <main id="main">
+        {{-- Optionele blokken boven de inhoud (bv. hero op de voorpagina) --}}
+        @yield('before-main')
 
-      {{-- Zonder inhoud (bv. een lege voorpagina) geen lege witruimte tonen --}}
-      @php($mainContent = trim($__env->yieldContent('content')))
-      <main id="main" @class(['main mx-auto max-w-4xl px-6 py-10 md:py-16' => $mainContent !== ''])>
-        {!! $mainContent !!}
+        {{-- Zonder inhoud (bv. een lege voorpagina) geen lege witruimte tonen --}}
+        @php($mainContent = trim($__env->yieldContent('content')))
+        @if($mainContent !== '')
+          <div class="main mx-auto max-w-4xl px-6 py-10 md:py-16">
+            {!! $mainContent !!}
+          </div>
+        @endif
+
+        {{-- Optionele blokken onder de inhoud (bv. nieuws op de voorpagina) --}}
+        @yield('after-main')
       </main>
-
-      {{-- Optionele blokken onder de inhoud (bv. nieuws op de voorpagina) --}}
-      @yield('after-main')
 
       @include('sections.footer')
     </div>
