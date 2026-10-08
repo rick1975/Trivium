@@ -9,7 +9,7 @@
        Mobiel: onder de tekst over de volle breedte, loopt bovenaan weg in het nachtblauw.
        Vanaf tablet 50/50: slider op de rechterhelft, loopt naar links weg in het effen nachtblauw. Schuift daar
        van links op zijn plek zodra de footer in beeld is geschoven (js/slide-sections.js zet data-shown).
-       Het verloop zit op de foto's zelf zodat de streepjes scherp blijven. --}}
+       Het verloop zit op de foto's zelf (.footer-photo-mask in app.css) zodat de streepjes scherp blijven. --}}
   <div x-data="{
       current: 0,
       count: {{ count($footer->slides) }},
@@ -28,8 +28,8 @@
            tegenstrijdige opacity/scale-classes tegelijk op staan --}}
       <figure aria-hidden="true" :data-active="current === {{ $loop->index }}" @if($loop->first) data-active @endif
         class="group/slide absolute inset-0 m-0 overflow-hidden opacity-0 transition-opacity duration-1500 ease-in-out data-active:opacity-100 motion-reduce:transition-none">
-        <img src="{{ $slide->image }}" alt="" loading="lazy" decoding="async"
-          class="pointer-events-none size-full object-cover object-center contrast-110 mask-t-from-70% md:mask-t-from-100% md:mask-l-from-60% md:mask-b-from-80% scale-108 transition-transform duration-7500 ease-out group-data-active/slide:scale-100 motion-reduce:scale-100! motion-reduce:transition-none">
+        <img src="{{ $slide->image }}" alt="" loading="lazy" decoding="async" style="object-position: {{ $slide->position ?? '50% 50%' }}"
+          class="footer-photo-mask pointer-events-none size-full object-cover contrast-110 scale-108 transition-transform duration-7500 ease-out group-data-active/slide:scale-100 motion-reduce:scale-100! motion-reduce:transition-none">
       </figure>
     @endforeach
 

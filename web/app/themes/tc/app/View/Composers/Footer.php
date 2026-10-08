@@ -32,6 +32,7 @@ class Footer extends Composer
                     ],
                     (object) [
                         'image' => Vite::asset('resources/images/leerlingen-bij-de-fruitkrat.avif'),
+                        'position' => '30% 50%', // krat staat links in de foto: zo blijft hij uit het verloop
                     ],
                 ],
                 'sitemapLabel' => (string) ($field('footer_sitemap_label') ?? 'Gratis lunch en fruit, elke dag'),
