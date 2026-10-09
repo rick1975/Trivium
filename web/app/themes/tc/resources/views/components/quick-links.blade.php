@@ -3,8 +3,12 @@
      foto, donker verloop van onder, witte titel en roze chevron (zoals in het zoekpaneel). Bij hover zoomt de foto iets in.
      Mobiel alles onder elkaar, vanaf lg twee gelijke kolommen (fotokaarten dan ± 290 × 390 px). ── --}}
 @if($links || $ctas)
-<section class="bg-white py-16 md:py-24 xl:py-32">
-  <div class="page-container grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 xl:gap-24">
+<section class="relative overflow-hidden bg-white py-16 md:py-24 xl:py-32">
+  {{-- Decoratieve lijnen (resources/images/shape-stripes.svg), rechtsboven verankerd; op smalle schermen niet kleiner dan 1000px --}}
+  <img src="{{ Vite::asset('resources/images/shape-stripes.svg') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
+    class="pointer-events-none absolute top-0 right-0 w-full min-w-[1000px] max-w-none h-auto select-none">
+
+  <div class="relative page-container grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 xl:gap-24">
 
     {{-- Titel + fotoblokken (ook op mobiel naast elkaar) --}}
     <div>
