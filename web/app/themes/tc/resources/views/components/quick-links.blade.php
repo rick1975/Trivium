@@ -1,10 +1,10 @@
 {{-- ── SNELLE LINKS — fotoblokken en "Ga direct naar"-links uit Trivium Settings > Snelle links
      (Composers\QuickLinks), in de stijl van de fotobanner: grote titel met roze tweede regel, en kaarten met
      foto, donker verloop van onder, witte titel en roze chevron (zoals in het zoekpaneel). Bij hover zoomt de foto iets in.
-     Mobiel alles onder elkaar, vanaf lg twee kolommen. ── --}}
+     Mobiel alles onder elkaar, vanaf lg twee gelijke kolommen (fotokaarten dan ± 290 × 390 px). ── --}}
 @if($links || $ctas)
-<section class="bg-white py-12 md:py-16 xl:py-32">
-  <div class="page-container grid gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-20">
+<section class="bg-white py-16 md:py-24 xl:py-32">
+  <div class="page-container grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 xl:gap-24">
 
     {{-- Titel + fotoblokken (ook op mobiel naast elkaar) --}}
     <div>
@@ -13,14 +13,14 @@
         <h2 class="sr-only">Snelle links</h2>
       @endif
       @if($title)
-        <h2 class="text-4xl md:text-5xl xl:text-6xl font-bold text-triv-navy leading-tight mb-8">
+        <h2 class="text-5xl md:text-6xl xl:text-7xl font-bold text-triv-navy leading-[1.05] mb-10">
           {{ $title }}
           @if($highlight)
             <br><span class="text-triv-pink">{{ $highlight }}</span>
           @endif
         </h2>
       @endif
-      <ul class="grid grid-cols-2 gap-3 mb-0">
+      <ul class="grid grid-cols-2 gap-4 mb-0">
         @foreach($ctas as $cta)
           <li class="mb-0"><a href="{{ $cta['url'] }}" class="group relative flex aspect-[3/4] items-end overflow-hidden rounded-xl no-underline">
             <img src="{{ $cta['image'] }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full max-w-none object-cover transition-transform duration-500 group-hover:scale-105">
@@ -42,12 +42,12 @@
       <h3 id="quick-links-direct" class="sr-only">Snelle links</h3>
       <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 mb-0" aria-labelledby="quick-links-direct">
         @foreach($links as $link)
-          <li class="mb-0"><a href="{{ $link['url'] }}" class="group flex h-full items-center justify-between gap-4 py-4 border-b border-gray-200 no-underline">
+          <li class="mb-0"><a href="{{ $link['url'] }}" class="group flex h-full items-center justify-between gap-4 py-5 border-b border-gray-100 no-underline">
             <span class="flex flex-col">
-              <span class="text-lg font-bold text-triv-navy group-hover:text-triv-pink transition-colors">{{ $link['title'] }}</span>
-              <span class="text-sm text-gray-600 mt-0.5">{{ $link['text'] }}</span>
+              <span class="text-xl font-bold text-triv-navy group-hover:text-triv-pink transition-colors">{{ $link['title'] }}</span>
+              <span class="text-base text-gray-600 mt-1">{{ $link['text'] }}</span>
             </span>
-            <x-icon name="chevron-right" class="size-3.5 shrink-0 text-triv-pink transition-transform duration-200 group-hover:translate-x-1.5" />
+            <x-icon name="chevron-right" class="size-4 shrink-0 text-triv-pink transition-transform duration-200 group-hover:translate-x-1.5" />
           </a></li>
         @endforeach
       </ul>
