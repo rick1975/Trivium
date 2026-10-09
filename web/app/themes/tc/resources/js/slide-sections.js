@@ -13,6 +13,8 @@
 |   Aanraken tijdens het glijden stopt het meteen.
 | - Vegen (mobiel): niet wachten op de uitloop. Bij loslaten, of zodra de
 |   uitloop een slide in beeld brengt, glijdt die meteen door (0,7 s).
+| - Omhoog werkt hetzelfde, gespiegeld: komt de onderrand van een slide ver
+|   genoeg in beeld, dan glijdt die helemaal terug in beeld.
 | Na aankomst krijgt de slide data-shown (de footerfoto schuift dan in).
 | Gewone inhoud ertussen scrollt vrij. Bij "minder beweging" gebeurt er
 | niets, behalve data-shown zetten.
@@ -146,13 +148,25 @@ export function initSlideSections() {
         if (target) glideTo(target, touch.matches ? DURATION_TOUCH : DURATION);
     };
 
-    // Omlaag bezig en een slide waarvan de bovenrand in de snapzone staat
+    // Omlaag: slide waarvan de bovenrand in de snapzone staat.
+    // Omhoog (spiegelbeeld): slide die boven uit beeld steekt en waarvan de onderrand ver genoeg in beeld is.
     function snapTarget() {
         const viewport = window.innerHeight;
-        return direction > 0 && slides.find((el) => {
-            const top = topOf(el);
-            return top > 4 && top < viewport * (touch.matches ? SNAP_ZONE_TOUCH : SNAP_ZONE);
-        });
+        const zone = touch.matches ? SNAP_ZONE_TOUCH : SNAP_ZONE;
+
+        if (direction > 0) {
+            return slides.find((el) => {
+                const top = topOf(el);
+                return top > 4 && top < viewport * zone;
+            });
+        }
+
+        if (direction < 0) {
+            return slides.find((el) => {
+                const { top, bottom } = el.getBoundingClientRect();
+                return top < -4 && bottom > viewport * (1 - zone);
+            });
+        }
     }
 
     // Na een veeg direct doorglijden (bij loslaten of tijdens de uitloop) i.p.v. wachten op stilstand
