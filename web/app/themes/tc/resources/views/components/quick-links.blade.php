@@ -25,7 +25,7 @@
         <h2 class="text-5xl md:text-6xl xl:text-7xl font-bold text-triv-navy leading-[1.05] mb-10">
           {{ $title }}
           @if($highlight)
-            <br><span class="text-triv-pink">{{ $highlight }}</span>
+            <br><span class="text-white">{{ $highlight }}</span>
           @endif
         </h2>
       @endif
