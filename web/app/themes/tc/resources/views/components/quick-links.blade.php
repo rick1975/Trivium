@@ -3,7 +3,7 @@
      foto, donker verloop van onder, witte titel en roze chevron (zoals in het zoekpaneel). Bij hover zoomt de foto iets in.
      Mobiel alles onder elkaar, vanaf lg twee kolommen. ── --}}
 @if($links || $ctas)
-<section class="bg-white py-16 md:py-24">
+<section class="bg-white py-12 md:py-16 xl:py-32">
   <div class="page-container grid gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-20">
 
     {{-- Titel + fotoblokken (ook op mobiel naast elkaar) --}}
@@ -13,7 +13,7 @@
         <h2 class="sr-only">Snelle links</h2>
       @endif
       @if($title)
-        <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-8">
+        <h2 class="text-4xl md:text-5xl xl:text-6xl font-bold text-triv-navy leading-tight mb-8">
           {{ $title }}
           @if($highlight)
             <br><span class="text-triv-pink">{{ $highlight }}</span>
@@ -44,7 +44,7 @@
         @foreach($links as $link)
           <li class="mb-0"><a href="{{ $link['url'] }}" class="group flex h-full items-center justify-between gap-4 py-4 border-b border-gray-200 no-underline">
             <span class="flex flex-col">
-              <span class="text-lg font-bold text-gray-900 group-hover:text-triv-pink transition-colors">{{ $link['title'] }}</span>
+              <span class="text-lg font-bold text-triv-navy group-hover:text-triv-pink transition-colors">{{ $link['title'] }}</span>
               <span class="text-sm text-gray-600 mt-0.5">{{ $link['text'] }}</span>
             </span>
             <x-icon name="chevron-right" class="size-3.5 shrink-0 text-triv-pink transition-transform duration-200 group-hover:translate-x-1.5" />
