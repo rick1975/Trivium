@@ -4,14 +4,17 @@
      Mobiel alles onder elkaar, vanaf lg twee gelijke kolommen (fotokaarten dan ± 290 × 390 px). ── --}}
 @if($links || $ctas)
 <section class="relative overflow-hidden bg-triv-olive py-16 md:py-24 xl:py-32">
-  {{-- Lichte achtergrondfoto (TEST: fotostudio-leerlingen / eerder jongen-achter-laptop, gespiegeld — bij livegang testfoto's opruimen), rechts uitgelijnd en naar links
-       uitfadend via een mask; 6rem boven de sectie laten beginnen (wordt weggeknipt) zodat het beeld iets hoger staat; pas vanaf md, op mobiel zou hij achter de kaarten verdwijnen --}}
+  {{-- Lichte achtergrondfoto (TEST: fotostudio-leerlingen — bij livegang testfoto's opruimen), rechts uitgelijnd en naar links
+       uitfadend via een mask; 6rem boven de sectie laten beginnen (wordt weggeknipt) zodat het beeld iets hoger staat; pas vanaf md,
+       op mobiel zou hij achter de kaarten verdwijnen. object-position 50% 31% = het hoofd van de jongen, dat daardoor altijd op
+       50% / 31% van dit vlak staat, hoe de foto ook bijgesneden wordt (daar richten de rimpelingen hieronder zich op). --}}
   <img src="{{ Vite::asset('resources/images/fotostudio-leerlingen.avif') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
-    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-2/3 max-w-none object-cover object-center opacity-30 select-none [mask-image:linear-gradient(to_left,black_60%,transparent)]">
-  {{-- Decoratieve rimpelingen vanuit een roze stip (verwijst naar de stip in het logo), rechtsboven verankerd;
-       op smalle schermen niet kleiner dan 1000px en 400px naar rechts (stip buiten beeld, alleen de bogen). Bron: resources/images/shape-ripples.svg --}}
+    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-2/3 max-w-none object-cover object-[50%_31%] opacity-30 select-none [mask-image:linear-gradient(to_left,black_60%,transparent)]">
+  {{-- Decoratieve rimpelingen; het middelpunt van de SVG is het middelpunt van de cirkels. Vanaf md gecentreerd op het hoofd in de foto
+       (x = midden van het fotovlak, y = 31% van het fotovlak), zodat de kleinste cirkel om het hoofd ligt. Op mobiel (geen foto)
+       net rechts buiten beeld, zodat alleen de bogen zichtbaar zijn. Bron: resources/images/shape-ripples.svg --}}
   <img src="{{ Vite::asset('resources/images/shape-ripples.svg') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
-    class="pointer-events-none absolute top-0 -right-[400px] md:right-0 w-full min-w-[1000px] max-w-none h-auto select-none">
+    class="pointer-events-none absolute left-[calc(100%+138px)] top-[106px] w-[1562px] md:left-[62.5%] lg:left-[66.667%] md:top-[calc(-6rem+0.31*(100%+6rem))] md:w-[260%] max-w-none h-auto -translate-x-1/2 -translate-y-1/2 select-none">
 
   <div class="relative page-container grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 xl:gap-24">
 

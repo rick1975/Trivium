@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" fill="none">
-<defs><radialGradient id="fade" cx="1180" cy="170" r="1250" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="m"><rect width="1600" height="900" fill="url(#fade)"/></mask></defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-70 -1080 2500 2500" fill="none">
+<defs><radialGradient id="fade" cx="1180" cy="170" r="1250" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="m"><rect x="-70" y="-1080" width="2500" height="2500" fill="url(#fade)"/></mask></defs>
 <g mask="url(#m)" stroke-linecap="round">
 <circle cx="1180" cy="170" r="46" stroke="#0b1f3a" stroke-opacity="0.160" stroke-width="1" stroke-dasharray="289 17" transform="rotate(54 1180 170)"/>
 <circle cx="1180" cy="170" r="84" stroke="#0b1f3a" stroke-opacity="0.156" stroke-width="1" stroke-dasharray="222 19 200 33 106 40" transform="rotate(13 1180 170)"/>
@@ -22,5 +22,4 @@
 <circle cx="1180" cy="170" r="1067" stroke="#0b1f3a" stroke-opacity="0.088" stroke-width="1" stroke-dasharray="6702 369" transform="rotate(150 1180 170)"/>
 <circle cx="1180" cy="170" r="1144" stroke="#0b1f3a" stroke-opacity="0.084" stroke-width="1" stroke-dasharray="2248 788 3842 313" transform="rotate(63 1180 170)"/>
 <circle cx="1180" cy="170" r="1224" stroke="#0b1f3a" stroke-opacity="0.080" stroke-width="1" stroke-dasharray="2044 392 2764 638 2132 234" transform="rotate(151 1180 170)"/>
-<circle cx="1180" cy="170" r="7" fill="#e56b6f"/>
 </g></svg>
