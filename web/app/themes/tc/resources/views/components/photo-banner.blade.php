@@ -62,7 +62,7 @@
     <div class="max-w-md lg:max-w-2xl">
       @if($animate === 'title')
         @php($unroll = ($right ? 'max-md:ml-auto max-md:text-right ' : '') . 'block w-fit [clip-path:inset(0_100%_0_0)] transition-[clip-path] duration-1800 ease-[cubic-bezier(.65,0,.25,1)] group-data-shown:[clip-path:inset(0)] motion-reduce:[clip-path:inset(0)] motion-reduce:transition-none')
-        <h2 class="group text-5xl xl:text-6xl font-bold text-white leading-tight mb-6" x-data x-intersect.once.half="$el.dataset.shown = ''">
+        <h2 class="group text-4xl md:text-5xl xl:text-6xl font-bold text-white leading-tight mb-6" x-data x-intersect.once.half="$el.dataset.shown = ''">
           <span class="{{ $unroll }}">{{ $title }}</span>
           @if($highlight)
             <span class="{{ $unroll }} delay-700 {{ $accentClass }}">{{ $highlight }}</span>
@@ -70,7 +70,7 @@
         </h2>
         <p class="text-white font-medium leading-relaxed mb-8 max-w-xl">{{ implode(' ', $words) }}</p>
       @else
-        <h2 @class(['text-5xl xl:text-6xl font-bold text-white leading-tight mb-6', 'max-md:text-right' => $right])>
+        <h2 @class(['text-4xl md:text-5xl xl:text-6xl font-bold text-white leading-tight mb-6', 'max-md:text-right' => $right])>
           {{ $title }}
           @if($highlight)
             <br><span class="{{ $accentClass }}">{{ $highlight }}</span>
