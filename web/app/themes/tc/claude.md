@@ -44,4 +44,4 @@
 - Stel voor om te committen na afgeronde wijzigingen
 ## Livegang-checklist
 - Alle testmateriaal verwijderen of vervangen door definitieve content, o.a.:
-  - Testfoto's achtergrond Snelle links (`resources/images/jongen-achter-laptop.avif`, `resources/images/fotostudio-leerlingen.avif`, gebruikt in `resources/views/components/quick-links.blade.php`)
+  - Testfoto's achtergrond Snelle links (`resources/images/jongen-achter-laptop.avif`, `resources/images/fotostudio-leerlingen.avif`, gebruikt in `resources/views/components/quick-links.blade.php`; jongen-achter-laptop ook bij het voorbeeldbericht Open dag in `app/View/Composers/News.php`)
