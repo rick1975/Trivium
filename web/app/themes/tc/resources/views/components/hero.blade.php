@@ -1,17 +1,17 @@
 {{-- ── HERO — volledige breedte foto met tekst erop ── --}}
 <section class="relative min-h-[95vh] overflow-hidden">
 
-  {{-- Foto volledige breedte --}}
-  <img src="{{ Vite::asset('resources/images/Jongen-roert-in-pan.avif') }}" alt="Leerling van Trivium College roert in een pan tijdens de kookles"
+  {{-- Foto volledige breedte; op mobiel iets naar links uitgesneden zodat het lachende meisje in beeld blijft --}}
+  <img src="{{ Vite::asset('resources/images/leerlingen-aan-tafel-meisje-lacht.avif') }}" alt="Lachende leerling aan een tafel met klasgenoten van Trivium College"
     fetchpriority="high" decoding="async"
-    class="absolute inset-0 w-full h-full object-cover object-top"
+    class="absolute inset-0 w-full h-full object-cover object-[22%_0%] md:object-top"
   />
 
-  {{-- Overlay --}}
-  <div class="absolute inset-0 bg-gradient-to-l from-black/60 via-black/30 to-transparent"></div>
-  
-  {{-- Content --}}
-  <div class="relative z-10 min-h-[85vh] flex flex-col justify-center 2xl:justify-end items-end px-[6vw] 2xl:pr-52 2xl:pb-24">
+  {{-- Overlay (mobiel van onder, onder de tekst; vanaf tablet van rechts) --}}
+  <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-black/70 md:from-black/60 via-black/30 to-transparent"></div>
+
+  {{-- Content: mobiel onderaan (anders valt de tekst over het gezicht op de foto), vanaf tablet rechts in het midden --}}
+  <div class="relative z-10 min-h-[85vh] flex flex-col justify-end pb-12 md:pb-0 md:justify-center 2xl:justify-end items-end px-[6vw] 2xl:pr-52 2xl:pb-24">
     <div class="max-w-[30rem]">
 
       {{-- Titel (visueel verborgen, animated-text neemt de lettergrootte hiervan over) --}}

@@ -9,6 +9,7 @@
      animate="title": de titelregels rollen eenmalig van links naar rechts uit (clip-path), de tweede regel iets later;
      de broodtekst staat stil.
      mobile-bottom: tekst op mobiel onderaan (verloop dan van onder) i.p.v. in het midden, zodat hij niet over een gezicht loopt.
+     De ruimte onderin telt het verschil lvh − svh mee: zo valt de knop niet achter een uitgeklapte adresbalk.
      align="right": op mobiel staat de titel ook rechts (broodtekst en knop blijven links).
      Leesbaarheid: vanaf desktop blijft het verloop donker tot voorbij de tekst.
      Vlak vanaf lg breder (max-w-2xl) zodat de witte titelregel op één regel past; de broodtekst blijft smaller
@@ -57,7 +58,7 @@
   <div @class([
     'relative z-10 h-full page-container flex',
     'items-center' => ! $mobileBottom,
-    'items-end pb-16 md:items-center md:pb-0' => $mobileBottom,
+    'items-end pb-[calc(4rem_+_100lvh_-_100svh)] md:items-center md:pb-0' => $mobileBottom,
     'justify-end' => $right,
   ])>
     <div class="max-w-md lg:max-w-2xl">
