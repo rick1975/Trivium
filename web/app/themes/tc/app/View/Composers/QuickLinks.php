@@ -15,7 +15,7 @@ class QuickLinks extends Composer
      * Standaardfoto per fotoblok (Trivium Settings > Snelle links), zolang er geen eigen foto gekozen is.
      */
     protected array $fallbackImages = [
-        'trivium-aula-trappen.avif',
+        'meisje-lacht-aan-tafel.avif', // TEST: foto bij "Zit je in groep 8?" (zie livegang-checklist in claude.md)
         'jongen-met-krullen-laptop.avif', // TEST: foto bij "Open dag 18 april" (zie livegang-checklist in claude.md)
     ];
 

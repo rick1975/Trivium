@@ -46,3 +46,4 @@
 - Alle testmateriaal verwijderen of vervangen door definitieve content, o.a.:
   - Testfoto's achtergrond Snelle links (`resources/images/jongen-achter-laptop.avif` (niet meer in gebruik), `resources/images/fotostudio-leerlingen.avif`, gebruikt in `resources/views/components/quick-links.blade.php`)
   - Foto fotoblok "Open dag 18 april" in Snelle links (`resources/images/jongen-met-krullen-laptop.avif`, als standaardfoto in `app/View/Composers/QuickLinks.php`; definitief via Trivium Settings > Snelle links een eigen foto kiezen)
+  - Foto fotoblok "Zit je in groep 8?" in Snelle links (`resources/images/meisje-lacht-aan-tafel.avif`, als standaardfoto in `app/View/Composers/QuickLinks.php`; definitief via Trivium Settings > Snelle links een eigen foto kiezen)
