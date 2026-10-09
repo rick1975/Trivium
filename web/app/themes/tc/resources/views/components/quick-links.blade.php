@@ -45,13 +45,12 @@
     {{-- Ga direct naar-links (kop "Snelle links" alleen voor screenreaders) --}}
     <div class="lg:self-end">
       <h3 id="quick-links-direct" class="sr-only">Snelle links</h3>
-      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 mb-0" aria-labelledby="quick-links-direct">
+      {{-- Witte knoppen (alleen titel + chevron; de omschrijving uit Settings wordt hier niet getoond),
+           zodat ze los op het rimpelpatroon liggen --}}
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-0" aria-labelledby="quick-links-direct">
         @foreach($links as $link)
-          <li class="mb-0"><a href="{{ $link['url'] }}" class="group flex h-full items-center justify-between gap-4 py-5 border-b border-gray-100 no-underline">
-            <span class="flex flex-col">
-              <span class="text-xl font-bold text-triv-navy group-hover:text-triv-pink transition-colors">{{ $link['title'] }}</span>
-              <span class="text-base text-gray-600 mt-1">{{ $link['text'] }}</span>
-            </span>
+          <li class="mb-0"><a href="{{ $link['url'] }}" class="group flex h-full items-center justify-between gap-4 rounded-xl bg-white border border-gray-200 px-5 py-4 no-underline shadow-[0_1px_2px_rgb(11_31_58/0.04)] transition-colors duration-200 hover:border-triv-pink">
+            <span class="text-lg font-bold text-triv-navy group-hover:text-triv-pink transition-colors">{{ $link['title'] }}</span>
             <x-icon name="chevron-right" class="size-4 shrink-0 text-triv-pink transition-transform duration-200 group-hover:translate-x-1.5" />
           </a></li>
         @endforeach
