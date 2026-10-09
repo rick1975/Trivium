@@ -5,7 +5,7 @@
 <circle cx="1180" cy="170" r="84" stroke="#0b1f3a" stroke-opacity="0.156" stroke-width="1" stroke-dasharray="222 19 200 33 106 40" transform="rotate(13 1180 170)"/>
 <circle cx="1180" cy="170" r="124" stroke="#0b1f3a" stroke-opacity="0.152" stroke-width="1" stroke-dasharray="266 28 167 53 379 32" transform="rotate(80 1180 170)"/>
 <circle cx="1180" cy="170" r="167" stroke="#0b1f3a" stroke-opacity="0.148" stroke-width="1" stroke-dasharray="1047 91" transform="rotate(341 1180 170)"/>
-<circle cx="1180" cy="170" r="211" stroke="#e56b6f" stroke-opacity=".55" stroke-width="1.5" stroke-dasharray="522 87 718 45" transform="rotate(309 1180 170)"/>
+<circle cx="1180" cy="170" r="211" stroke="#fff" stroke-opacity=".8" stroke-width="1.5" stroke-dasharray="522 87 718 45" transform="rotate(309 1180 170)"/>
 <circle cx="1180" cy="170" r="258" stroke="#0b1f3a" stroke-opacity="0.140" stroke-width="1" stroke-dasharray="465 70 362 94 781 75" transform="rotate(209 1180 170)"/>
 <circle cx="1180" cy="170" r="307" stroke="#0b1f3a" stroke-opacity="0.136" stroke-width="1" stroke-dasharray="1929 169" transform="rotate(134 1180 170)"/>
 <circle cx="1180" cy="170" r="358" stroke="#0b1f3a" stroke-opacity="0.132" stroke-width="1" stroke-dasharray="861 80 455 109 972 154" transform="rotate(113 1180 170)"/>
@@ -22,5 +22,5 @@
 <circle cx="1180" cy="170" r="1067" stroke="#0b1f3a" stroke-opacity="0.088" stroke-width="1" stroke-dasharray="6702 369" transform="rotate(150 1180 170)"/>
 <circle cx="1180" cy="170" r="1144" stroke="#0b1f3a" stroke-opacity="0.084" stroke-width="1" stroke-dasharray="2248 788 3842 313" transform="rotate(63 1180 170)"/>
 <circle cx="1180" cy="170" r="1224" stroke="#0b1f3a" stroke-opacity="0.080" stroke-width="1" stroke-dasharray="2044 392 2764 638 2132 234" transform="rotate(151 1180 170)"/>
-<circle cx="1180" cy="170" r="7" fill="#e56b6f"/>
+<circle cx="1180" cy="170" r="7" fill="#fff"/>
 </g></svg>

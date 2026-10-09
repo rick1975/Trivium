@@ -7,8 +7,8 @@
   {{-- Lichte achtergrondfoto (TEST: fotostudio-leerlingen / eerder jongen-achter-laptop, gespiegeld — bij livegang testfoto's opruimen), rechts uitgelijnd en naar links
        uitfadend via een mask; 6rem boven de sectie laten beginnen (wordt weggeknipt) zodat het beeld iets hoger staat; pas vanaf md, op mobiel zou hij achter de kaarten verdwijnen --}}
   <img src="{{ Vite::asset('resources/images/fotostudio-leerlingen.avif') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
-    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-3/5 max-w-none object-cover object-center opacity-25 select-none [mask-image:linear-gradient(to_left,black_45%,transparent)]">
-  {{-- Decoratieve rimpelingen vanuit een roze stip (verwijst naar de stip in het logo), rechtsboven verankerd;
+    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-2/3 max-w-none object-cover object-center opacity-40 select-none [mask-image:linear-gradient(to_left,black_60%,transparent)]">
+  {{-- Decoratieve rimpelingen vanuit een witte stip (verwijst naar de stip in het logo), rechtsboven verankerd;
        op smalle schermen niet kleiner dan 1000px en 400px naar rechts (stip buiten beeld, alleen de bogen). Bron: resources/images/shape-ripples.svg --}}
   <img src="{{ Vite::asset('resources/images/shape-ripples.svg') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
     class="pointer-events-none absolute top-0 -right-[400px] md:right-0 w-full min-w-[1000px] max-w-none h-auto select-none">
