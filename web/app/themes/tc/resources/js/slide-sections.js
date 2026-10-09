@@ -1,23 +1,24 @@
 /*
 |--------------------------------------------------------------------------
-| Schermvullende secties als "slides" (vanaf tablet), zoals restaurantazurite.nl
+| Schermvullende secties als "slides", zoals restaurantazurite.nl
 |
 | Secties met data-slide (fotobanner, footer) glijden rustig in beeld:
 | - Scrollwiel omlaag terwijl de volgende slide al deels in beeld is: de
 |   pagina glijdt meteen door tot die slide het scherm vult.
 | - Scrollwiel omhoog bovenaan een slide die direct op een andere slide
 |   volgt: terug naar die vorige slide.
-| - Trackpad-uitloop, scrollbalk of toetsen: als het scrollen stopt met de
-|   bovenrand van een slide in de onderste helft, glijdt die alsnog in beeld.
+| - Trackpad-uitloop, scrollbalk, toetsen of vegen (mobiel): als het scrollen
+|   stopt met de bovenrand van een slide in de bovenste helft, glijdt die
+|   alsnog in beeld. Aanraken tijdens het glijden stopt het meteen.
 | Na aankomst krijgt de slide data-shown (de footerfoto schuift dan in).
-| Gewone inhoud ertussen scrollt vrij. Mobiel en bij "minder beweging"
-| gebeurt er niets, behalve data-shown zetten.
+| Gewone inhoud ertussen scrollt vrij. Bij "minder beweging" gebeurt er
+| niets, behalve data-shown zetten.
 |--------------------------------------------------------------------------
 */
 
 const DURATION = 1000;
 const COOLDOWN = 500; // wiel-uitloop na het glijden negeren
-const SNAP_ZONE = 0.5; // bij stilstand: bovenrand in de onderste helft
+const SNAP_ZONE = 0.5; // bij stilstand: bovenrand in de bovenste helft (slide al voor meer dan de helft in beeld)
 const SHOWN_ZONE = 0.1; // bovenrand bijna bovenaan: slide geldt als in beeld
 
 const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -26,9 +27,8 @@ export function initSlideSections() {
     const slides = [...document.querySelectorAll('[data-slide]')];
     if (!slides.length) return;
 
-    const desktop = window.matchMedia('(min-width: 48rem)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const active = () => desktop.matches && !reducedMotion.matches;
+    const active = () => !reducedMotion.matches;
 
     let lastY = window.scrollY;
     let direction = 0;

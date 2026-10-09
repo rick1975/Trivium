@@ -2,7 +2,7 @@
      Gebruik: <x-photo-banner image="..." title="Bij ons word je" highlight="gehoord" href="...">Tekst</x-photo-banner>
      align="left|right": kant van de tekst (het verloop loopt mee); accent="roze|geel|groen|oranje": kleur tweede regel.
      Op de voorpagina gevuld vanuit Trivium Settings > Fotobanner (Composers\PhotoBanner).
-     Als slide (data-slide) glijdt hij vanaf tablet in beeld (js/slide-sections.js).
+     Als slide (data-slide) glijdt hij in beeld (js/slide-sections.js), op mobiel na het loslaten van een veeg.
      animate="text" (standaard): zodra de tekst half in beeld is, schuiven de woorden eenmalig na elkaar omhoog
      (x-intersect zet data-shown, woord --i wacht --i × 30ms). Screenreaders krijgen de tekst als één zin (sr-only);
      de opgeknipte, geanimeerde woorden zijn aria-hidden.
