@@ -13,7 +13,7 @@
 
       {{-- Logo --}}
       <a href="{{ home_url('/') }}" aria-label="{{ $siteName }} – home">
-        <x-logo class="w-44" aria-hidden="true" />
+        <x-logo @class(["w-44", "[--logo-letters:#fff]" => $isFront]) aria-hidden="true" />
       </a>
 
       {{-- Zoek-icoon + hamburger, altijd gegroepeerd rechts --}}
