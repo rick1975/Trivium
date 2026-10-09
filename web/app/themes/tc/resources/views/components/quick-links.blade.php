@@ -1,9 +1,11 @@
 {{-- ── SNELLE LINKS — fotoblokken en "Ga direct naar"-links uit Trivium Settings > Snelle links
      (Composers\QuickLinks), in de stijl van de fotobanner: grote titel met witte tweede regel (op olijfgroen), en kaarten met
      foto, donker verloop van onder, witte titel en roze chevron (zoals in het zoekpaneel). Bij hover zoomt de foto iets in.
-     Mobiel alles onder elkaar, vanaf lg twee gelijke kolommen (fotokaarten dan ± 290 × 390 px). ── --}}
+     Mobiel alles onder elkaar, vanaf lg twee gelijke kolommen (fotokaarten dan ± 290 × 390 px).
+     Net als de fotobanner een schermvullende slide (data-slide, js/slide-sections.js): minstens schermhoog met de inhoud
+     verticaal gecentreerd, en de pagina glijdt ernaartoe. Past de inhoud niet (mobiel), dan groeit de sectie gewoon mee. ── --}}
 @if($links || $ctas)
-<section class="relative overflow-hidden bg-triv-olive py-16 md:py-24 xl:py-32">
+<section data-slide class="group/slide relative flex min-h-lvh items-center overflow-hidden bg-triv-olive py-16 md:py-24 lg:py-20">
   {{-- Lichte achtergrondfoto (TEST: fotostudio-leerlingen — bij livegang testfoto's opruimen), rechts uitgelijnd en naar links
        uitfadend via een mask; 6rem boven de sectie laten beginnen (wordt weggeknipt) zodat het beeld iets hoger staat; pas vanaf md,
        op mobiel zou hij achter de kaarten verdwijnen. object-position 50% 31% = het hoofd van de jongen, dat daardoor altijd op
@@ -24,11 +26,11 @@
       @if(! $title)
         <h2 class="sr-only">Snelle links</h2>
       @endif
-      {{-- Titel komt eenmalig in beeld zodra hij 30% het scherm in is (x-intersect zet data-shown): elke regel glijdt in 1,2s
-           van onder uit een masker omhoog, de witte tweede regel 300ms later. Zonder animatievoorkeur staat hij gewoon stil. --}}
+      {{-- Titel komt eenmalig in beeld zodra de slide aangekomen is (slide-sections.js zet data-shown op de sectie): elke regel
+           glijdt in 1,2s van onder uit een masker omhoog, de witte tweede regel 300ms later. Zonder animatievoorkeur staat hij gewoon stil. --}}
       @if($title)
-        @php($line = 'inline-block translate-y-full transition-transform duration-1200 ease-[cubic-bezier(.2,.8,.2,1)] group-data-shown:translate-y-0 motion-reduce:translate-y-0 motion-reduce:transition-none')
-        <h2 class="group text-5xl md:text-6xl xl:text-7xl font-bold text-triv-navy leading-[1.05] mb-10" x-data x-intersect.once.margin.0.0.-30%.0="$el.dataset.shown = ''">
+        @php($line = 'inline-block translate-y-full transition-transform duration-1200 ease-[cubic-bezier(.2,.8,.2,1)] group-data-shown/slide:translate-y-0 motion-reduce:translate-y-0 motion-reduce:transition-none')
+        <h2 class="text-5xl md:text-6xl xl:text-7xl font-bold text-triv-navy leading-[1.05] mb-10">
           <span class="block overflow-clip -mb-[.1em] pb-[.1em]"><span class="{{ $line }}">{{ $title }}</span></span>
           @if($highlight)
             <span class="block overflow-clip -mb-[.1em] pb-[.1em]"><span class="{{ $line }} delay-300 text-white">{{ $highlight }}</span></span>
