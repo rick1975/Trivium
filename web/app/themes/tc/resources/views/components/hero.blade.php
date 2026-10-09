@@ -10,8 +10,9 @@
   {{-- Overlay (mobiel van onder, onder de tekst; vanaf tablet van rechts) --}}
   <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-black/70 md:from-black/60 via-black/30 to-transparent"></div>
 
-  {{-- Content: mobiel onderaan (anders valt de tekst over het gezicht op de foto), vanaf tablet rechts in het midden --}}
-  <div class="relative z-10 min-h-[85vh] flex flex-col justify-end pb-12 md:pb-0 md:justify-center 2xl:justify-end items-end px-[6vw] 2xl:pr-52 2xl:pb-24">
+  {{-- Content: mobiel onderaan (anders valt de tekst over het gezicht op de foto), vanaf tablet rechts in het midden.
+       Dat midden ligt tussen de header (pt-20 = 80px) en de golf van Leren met lef (die valt 8vh over de hero: 95 − 8 = 87vh) --}}
+  <div class="relative z-10 min-h-[85vh] md:min-h-[87vh] flex flex-col justify-end pb-12 md:pt-20 md:pb-0 md:justify-center 2xl:justify-end items-end px-[6vw] 2xl:pr-52 2xl:pb-24">
     <div class="max-w-[30rem]">
 
       {{-- Titel (visueel verborgen, animated-text neemt de lettergrootte hiervan over) --}}
