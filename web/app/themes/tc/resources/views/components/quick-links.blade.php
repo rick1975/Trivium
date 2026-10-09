@@ -4,9 +4,9 @@
      Mobiel alles onder elkaar, vanaf lg twee gelijke kolommen (fotokaarten dan ± 290 × 390 px). ── --}}
 @if($links || $ctas)
 <section class="relative overflow-hidden bg-triv-olive py-16 md:py-24 xl:py-32">
-  {{-- Lichte achtergrondfoto (gespiegeld, zodat de jongen naar de inhoud kijkt), rechts uitgelijnd en naar links
+  {{-- Lichte achtergrondfoto (TEST: fotostudio-leerlingen / eerder jongen-achter-laptop, gespiegeld — bij livegang testfoto's opruimen), rechts uitgelijnd en naar links
        uitfadend via een mask; 6rem boven de sectie laten beginnen (wordt weggeknipt) zodat het beeld iets hoger staat; pas vanaf md, op mobiel zou hij achter de kaarten verdwijnen --}}
-  <img src="{{ Vite::asset('resources/images/jongen-achter-laptop.avif') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
+  <img src="{{ Vite::asset('resources/images/fotostudio-leerlingen.avif') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
     class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-3/5 max-w-none object-cover object-center opacity-25 select-none [mask-image:linear-gradient(to_left,black_45%,transparent)]">
   {{-- Decoratieve rimpelingen vanuit een roze stip (verwijst naar de stip in het logo), rechtsboven verankerd;
        op smalle schermen niet kleiner dan 1000px en 400px naar rechts (stip buiten beeld, alleen de bogen). Bron: resources/images/shape-ripples.svg --}}
