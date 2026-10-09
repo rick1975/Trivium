@@ -1,6 +1,6 @@
 {{-- ── SNELLE LINKS — fotoblokken en "Ga direct naar"-links uit Trivium Settings > Snelle links
      (Composers\QuickLinks), in de stijl van de fotobanner: grote titel met roze tweede regel, en kaarten met
-     foto, donker verloop van onder, witte titel en roze pijl. Bij hover zoomt de foto iets in.
+     foto, donker verloop van onder, witte titel en roze chevron (zoals in het zoekpaneel). Bij hover zoomt de foto iets in.
      Mobiel alles onder elkaar, vanaf lg twee kolommen. ── --}}
 @if($links || $ctas)
 <section class="bg-white py-16 md:py-24">
@@ -29,7 +29,7 @@
               <h3 class="text-lg sm:text-2xl font-bold text-white leading-tight mb-2">{{ $cta['title'] }}</h3>
               <span class="flex items-center gap-2 text-xs sm:text-sm font-semibold text-white/90">
                 {{ $cta['text'] }}
-                <span class="text-triv-pink text-lg transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+                <x-icon name="chevron-right" class="size-3 shrink-0 text-triv-pink transition-transform duration-200 group-hover:translate-x-1.5" />
               </span>
             </div>
           </a></li>
@@ -47,7 +47,7 @@
               <span class="text-lg font-bold text-gray-900 group-hover:text-triv-pink transition-colors">{{ $link['title'] }}</span>
               <span class="text-sm text-gray-600 mt-0.5">{{ $link['text'] }}</span>
             </span>
-            <span class="text-triv-pink text-xl transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+            <x-icon name="chevron-right" class="size-3.5 shrink-0 text-triv-pink transition-transform duration-200 group-hover:translate-x-1.5" />
           </a></li>
         @endforeach
       </ul>
