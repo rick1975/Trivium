@@ -8,6 +8,8 @@
      de opgeknipte, geanimeerde woorden zijn aria-hidden.
      animate="title": de titelregels rollen eenmalig van links naar rechts uit (clip-path), de tweede regel iets later;
      de broodtekst staat stil.
+     mobile-bottom: tekst op mobiel onderaan (verloop dan van onder) i.p.v. in het midden, zodat hij niet over een gezicht loopt.
+     align="right": op mobiel staat de titel ook rechts (broodtekst en knop blijven links).
      Leesbaarheid: vanaf desktop blijft het verloop donker tot voorbij de tekst.
      Vlak vanaf lg breder (max-w-2xl) zodat de witte titelregel op één regel past; de broodtekst blijft smaller
      (max-w-xl; bij animate="text" max-w-md, zodat hij op de foto van de onderste banner niet tot de mond van de jongen loopt). --}}
@@ -21,6 +23,7 @@
   'align' => 'left',
   'accent' => 'roze',
   'animate' => 'text',
+  'mobileBottom' => false,
 ])
 
 @php($words = preg_split('/\s+/', trim(strip_tags($slot))))
@@ -42,15 +45,23 @@
   <img src="{{ $image }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full max-w-none object-cover">
 
   <div @class([
-    'absolute inset-0 from-black/70 via-black/30 to-transparent lg:from-black/80 lg:via-black/50 lg:via-40%',
-    'bg-gradient-to-r' => ! $right,
+    'absolute inset-0 to-transparent lg:from-black/80 lg:via-black/50 lg:via-40%',
+    'from-black/70 via-black/30' => ! $mobileBottom,
+    'bg-gradient-to-t from-black/80 via-black/40 md:from-black/70 md:via-black/30' => $mobileBottom,
+    'bg-gradient-to-r' => ! $right && ! $mobileBottom,
+    'md:bg-gradient-to-r' => ! $right && $mobileBottom,
     'bg-gradient-to-l' => $right,
   ])></div>
 
-  <div @class(['relative z-10 h-full page-container flex items-center', 'justify-end' => $right])>
+  <div @class([
+    'relative z-10 h-full page-container flex',
+    'items-center' => ! $mobileBottom,
+    'items-end pb-16 md:items-center md:pb-0' => $mobileBottom,
+    'justify-end' => $right,
+  ])>
     <div class="max-w-md lg:max-w-2xl">
       @if($animate === 'title')
-        @php($unroll = 'block w-fit [clip-path:inset(0_100%_0_0)] transition-[clip-path] duration-1800 ease-[cubic-bezier(.65,0,.25,1)] group-data-shown:[clip-path:inset(0)] motion-reduce:[clip-path:inset(0)] motion-reduce:transition-none')
+        @php($unroll = ($right ? 'max-md:ml-auto max-md:text-right ' : '') . 'block w-fit [clip-path:inset(0_100%_0_0)] transition-[clip-path] duration-1800 ease-[cubic-bezier(.65,0,.25,1)] group-data-shown:[clip-path:inset(0)] motion-reduce:[clip-path:inset(0)] motion-reduce:transition-none')
         <h2 class="group text-5xl xl:text-6xl font-bold text-white leading-tight mb-6" x-data x-intersect.once.half="$el.dataset.shown = ''">
           <span class="{{ $unroll }}">{{ $title }}</span>
           @if($highlight)
@@ -59,7 +70,7 @@
         </h2>
         <p class="text-white font-medium leading-relaxed mb-8 max-w-xl">{{ implode(' ', $words) }}</p>
       @else
-        <h2 class="text-5xl xl:text-6xl font-bold text-white leading-tight mb-6">
+        <h2 @class(['text-5xl xl:text-6xl font-bold text-white leading-tight mb-6', 'max-md:text-right' => $right])>
           {{ $title }}
           @if($highlight)
             <br><span class="{{ $accentClass }}">{{ $highlight }}</span>

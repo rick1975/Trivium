@@ -20,7 +20,7 @@
   {{-- Fotobanners (bovenste en onderste) uit Trivium Settings > Fotobanner --}}
   @foreach($photoBanners as $photoBanner)
     <x-photo-banner :image="$photoBanner['image']" :title="$photoBanner['title']" :highlight="$photoBanner['highlight']"
-      :align="$photoBanner['align']" :accent="$photoBanner['accent']" :animate="$photoBanner['animate']" :href="$photoBanner['href']" :link-text="$photoBanner['linkText']" :target="$photoBanner['target']">
+      :align="$photoBanner['align']" :accent="$photoBanner['accent']" :animate="$photoBanner['animate']" :mobile-bottom="$photoBanner['mobileBottom']" :href="$photoBanner['href']" :link-text="$photoBanner['linkText']" :target="$photoBanner['target']">
       {{ $photoBanner['text'] }}
     </x-photo-banner>
   @endforeach

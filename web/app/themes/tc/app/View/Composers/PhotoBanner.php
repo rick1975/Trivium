@@ -23,7 +23,8 @@ class PhotoBanner extends Composer
                     'highlight' => 'goed in bent',
                     'tekst' => 'Vier dagen per week kies je zelf wat je na de lessen gaat doen. Bij Level UP kun je boksen, breakdancen, koken, muziek maken, streetart maken of zelfs je eigen bedrijfje starten. Zo ontdek je wat je leuk vindt en waar je talent ligt.',
                 ]),
-                $this->photoBanner('fotobanner', 'Jongen-achter-microfoon.avif', 'text'),
+                // Onderste banner: tekst op mobiel onderaan, anders loopt hij door het hoofd van de jongen
+                $this->photoBanner('fotobanner', 'Jongen-achter-microfoon.avif', 'text', mobileBottom: true),
             ])),
         ];
     }
@@ -32,8 +33,9 @@ class PhotoBanner extends Composer
      * Fotobanner uit Trivium Settings > Fotobanner (veldnamen {$prefix}_*); null (= niet tonen) zonder titel.
      * $animate: 'title' (titel rolt uit) of 'text' (woorden schuiven omhoog), zodat de banners van elkaar verschillen.
      * $defaults geldt alleen voor velden die nog nooit zijn opgeslagen (null); een leeg opgeslagen titel verbergt de banner.
+     * $mobileBottom: tekst op mobiel onderaan i.p.v. in het midden.
      */
-    protected function photoBanner(string $prefix, string $fallbackImage, string $animate, array $defaults = []): ?array
+    protected function photoBanner(string $prefix, string $fallbackImage, string $animate, array $defaults = [], bool $mobileBottom = false): ?array
     {
         if (! function_exists('get_field')) {
             return null;
@@ -56,6 +58,7 @@ class PhotoBanner extends Composer
             'align' => $field('uitlijning') === 'rechts' ? 'right' : 'left',
             'accent' => $field('accent') ?: 'roze',
             'animate' => $animate,
+            'mobileBottom' => $mobileBottom,
             'text' => (string) $field('tekst'),
             'href' => $link['url'] ?? null,
             'linkText' => ($link['title'] ?? '') ?: 'Lees meer',
