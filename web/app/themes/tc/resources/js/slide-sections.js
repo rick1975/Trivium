@@ -9,7 +9,10 @@
 |   volgt: terug naar die vorige slide.
 | - Trackpad-uitloop, scrollbalk, toetsen of vegen (mobiel): als het scrollen
 |   stopt met de bovenrand van een slide in de bovenste helft (aanraakscherm:
-|   zodra er een stukje van in beeld is), glijdt die alsnog in beeld. Aanraken tijdens het glijden stopt het meteen.
+|   zodra er een stukje van in beeld is), glijdt die alsnog in beeld.
+|   Aanraken tijdens het glijden stopt het meteen.
+| - Vegen (mobiel): niet wachten op de uitloop. Bij loslaten, of zodra de
+|   uitloop een slide in beeld brengt, glijdt die meteen door (0,7 s).
 | Na aankomst krijgt de slide data-shown (de footerfoto schuift dan in).
 | Gewone inhoud ertussen scrollt vrij. Bij "minder beweging" gebeurt er
 | niets, behalve data-shown zetten.
@@ -17,6 +20,7 @@
 */
 
 const DURATION = 1000;
+const DURATION_TOUCH = 700; // na een veeg: korter, anders voelt het traag
 const COOLDOWN = 500; // wiel-uitloop na het glijden negeren
 const SNAP_ZONE = 0.5; // bij stilstand: bovenrand in de bovenste helft (slide al voor meer dan de helft in beeld)
 const SNAP_ZONE_TOUCH = 0.9; // aanraakscherm (geen scrollwiel): al glijden zodra de slide een stukje in beeld is
@@ -41,7 +45,7 @@ export function initSlideSections() {
         el.dataset.shown = '';
     };
 
-    const glideTo = (slide) => {
+    const glideTo = (slide, duration = DURATION) => {
         const startY = window.scrollY;
         const distance = topOf(slide);
         const start = performance.now();
@@ -59,7 +63,7 @@ export function initSlideSections() {
         ['touchstart', 'keydown', 'mousedown'].forEach((type) => window.addEventListener(type, stop, { passive: true }));
 
         const step = (now) => {
-            const progress = Math.min((now - start) / DURATION, 1);
+            const progress = Math.min((now - start) / duration, 1);
             window.scrollTo({ top: startY + distance * easeInOutCubic(progress), behavior: 'instant' });
 
             if (progress < 1) {
@@ -103,8 +107,10 @@ export function initSlideSections() {
         }
     }, { passive: false });
 
-    // Vinger op het scherm: nooit gaan glijden (iOS meldt soms "stilstand" terwijl je nog vasthoudt)
+    // Vinger op het scherm: nooit gaan glijden (iOS meldt soms "stilstand" terwijl je nog vasthoudt).
+    // flinging: vinger los, pagina rolt nog uit
     let touching = false;
+    let flinging = false;
 
     // Tijdelijke diagnose op de telefoon: voeg ?slidedebug toe aan de url
     const debug = new URLSearchParams(location.search).has('slidedebug') && document.body.appendChild(Object.assign(document.createElement('pre'), {
@@ -134,13 +140,30 @@ export function initSlideSections() {
             return log('uit (minder beweging)');
         }
 
-        const target = direction > 0 && slides.find((el) => {
+        flinging = false;
+        const target = snapTarget();
+        log(target ? `glijden naar slide ${slides.indexOf(target) + 1}` : 'geen slide in de buurt');
+        if (target) glideTo(target, touch.matches ? DURATION_TOUCH : DURATION);
+    };
+
+    // Omlaag bezig en een slide waarvan de bovenrand in de snapzone staat
+    function snapTarget() {
+        const viewport = window.innerHeight;
+        return direction > 0 && slides.find((el) => {
             const top = topOf(el);
             return top > 4 && top < viewport * (touch.matches ? SNAP_ZONE_TOUCH : SNAP_ZONE);
         });
+    }
 
-        log(target ? `glijden naar slide ${slides.indexOf(target) + 1}` : 'geen slide in de buurt');
-        if (target) glideTo(target);
+    // Na een veeg direct doorglijden (bij loslaten of tijdens de uitloop) i.p.v. wachten op stilstand
+    const catchFling = (moment) => {
+        if (!active() || busyUntil === Infinity || performance.now() < busyUntil) return;
+        const target = snapTarget();
+        if (!target) return;
+        flinging = false;
+        clearTimeout(settleTimer);
+        log(`glijden naar slide ${slides.indexOf(target) + 1} (${moment})`);
+        glideTo(target, DURATION_TOUCH);
     };
 
     // Stilstand = even geen scroll-event meer en geen vinger op het scherm. Bewust geen scrollend: dat
@@ -155,17 +178,21 @@ export function initSlideSections() {
         const y = window.scrollY;
         if (y !== lastY) direction = Math.sign(y - lastY);
         lastY = y;
+        if (flinging) catchFling('tijdens uitloop');
         settleSoon();
     }, { passive: true });
 
     window.addEventListener('touchstart', () => {
         touching = true;
+        flinging = false;
         clearTimeout(settleTimer);
     }, { passive: true });
 
     ['touchend', 'touchcancel'].forEach((type) => window.addEventListener(type, () => {
         touching = false;
+        flinging = true;
         settleSoon();
+        catchFling('bij loslaten');
     }, { passive: true }));
 
     onSettle();
