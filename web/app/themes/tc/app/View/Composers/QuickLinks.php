@@ -2,6 +2,7 @@
 
 namespace App\View\Composers;
 
+use Illuminate\Support\Facades\Vite;
 use Roots\Acorn\View\Composer;
 
 class QuickLinks extends Composer
@@ -11,29 +12,29 @@ class QuickLinks extends Composer
     ];
 
     /**
-     * Classes per kleurkeuze van een gekleurd blok (Trivium Settings > Snelle links).
+     * Standaardfoto per fotoblok (Trivium Settings > Snelle links), zolang er geen eigen foto gekozen is.
      */
-    protected array $colorClasses = [
-        'yellow' => ['block' => 'bg-triv-yellow', 'title' => 'text-gray-900', 'text' => 'text-gray-900'],
-        'lightblue' => ['block' => 'bg-triv-lightblue', 'title' => 'text-white', 'text' => 'text-white/80'],
-        'pink' => ['block' => 'bg-triv-pink', 'title' => 'text-white', 'text' => 'text-white/80'],
-        'green' => ['block' => 'bg-triv-green', 'title' => 'text-white', 'text' => 'text-white/80'],
-        'blue' => ['block' => 'bg-triv-blue', 'title' => 'text-white', 'text' => 'text-white/80'],
+    protected array $fallbackImages = [
+        'trivium-aula-trappen.avif',
+        'Twee-dames-op-groene-achtergrond.avif',
     ];
 
     public function with()
     {
         $field = fn (string $name) => function_exists('get_field') ? get_field($name, 'option') : null;
+        $blocks = $field('snelle_links_blokken') ?: [];
 
         return [
             'title' => (string) $field('snelle_links_titel'),
             'highlight' => (string) $field('snelle_links_highlight'),
-            'ctas' => array_map(fn ($cta) => [
+            'ctas' => array_map(fn ($cta, $i) => [
                 'title' => $cta['titel'],
-                'text' => $cta['tekst'],
+                // Pijl zit al in de kaart: een getypte "→" vooraan weglaten
+                'text' => preg_replace('/^[→\s]+/u', '', (string) $cta['tekst']),
                 'url' => $cta['pagina'] ?: '#',
-                'classes' => $this->colorClasses[$cta['kleur']] ?? $this->colorClasses['yellow'],
-            ], $field('snelle_links_blokken') ?: []),
+                'image' => (! empty($cta['afbeelding']) ? wp_get_attachment_image_url($cta['afbeelding'], 'large') : null)
+                    ?: Vite::asset('resources/images/'.$this->fallbackImages[$i % count($this->fallbackImages)]),
+            ], $blocks, array_keys($blocks)),
             'links' => array_map(fn ($link) => [
                 'title' => $link['titel'],
                 'text' => $link['tekst'],
