@@ -8,8 +8,8 @@
 | - Scrollwiel omhoog bovenaan een slide die direct op een andere slide
 |   volgt: terug naar die vorige slide.
 | - Trackpad-uitloop, scrollbalk, toetsen of vegen (mobiel): als het scrollen
-|   stopt met de bovenrand van een slide in de bovenste helft, glijdt die
-|   alsnog in beeld. Aanraken tijdens het glijden stopt het meteen.
+|   stopt met de bovenrand van een slide in de bovenste helft (aanraakscherm:
+|   zodra er een stukje van in beeld is), glijdt die alsnog in beeld. Aanraken tijdens het glijden stopt het meteen.
 | Na aankomst krijgt de slide data-shown (de footerfoto schuift dan in).
 | Gewone inhoud ertussen scrollt vrij. Bij "minder beweging" gebeurt er
 | niets, behalve data-shown zetten.
@@ -19,6 +19,7 @@
 const DURATION = 1000;
 const COOLDOWN = 500; // wiel-uitloop na het glijden negeren
 const SNAP_ZONE = 0.5; // bij stilstand: bovenrand in de bovenste helft (slide al voor meer dan de helft in beeld)
+const SNAP_ZONE_TOUCH = 0.9; // aanraakscherm (geen scrollwiel): al glijden zodra de slide een stukje in beeld is
 const SHOWN_ZONE = 0.1; // bovenrand bijna bovenaan: slide geldt als in beeld
 
 const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -29,6 +30,7 @@ export function initSlideSections() {
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const active = () => !reducedMotion.matches;
+    const touch = window.matchMedia('(pointer: coarse)');
 
     let lastY = window.scrollY;
     let direction = 0;
@@ -117,7 +119,7 @@ export function initSlideSections() {
 
         const target = direction > 0 && slides.find((el) => {
             const top = topOf(el);
-            return top > 4 && top < viewport * SNAP_ZONE;
+            return top > 4 && top < viewport * (touch.matches ? SNAP_ZONE_TOUCH : SNAP_ZONE);
         });
 
         if (target) glideTo(target);
