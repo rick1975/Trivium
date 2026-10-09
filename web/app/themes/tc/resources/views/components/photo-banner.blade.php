@@ -50,7 +50,8 @@
     'bg-gradient-to-t from-black/80 via-black/40 md:from-black/70 md:via-black/30' => $mobileBottom,
     'bg-gradient-to-r' => ! $right && ! $mobileBottom,
     'md:bg-gradient-to-r' => ! $right && $mobileBottom,
-    'bg-gradient-to-l' => $right,
+    'bg-gradient-to-l' => $right && ! $mobileBottom,
+    'md:bg-gradient-to-l' => $right && $mobileBottom,
   ])></div>
 
   <div @class([

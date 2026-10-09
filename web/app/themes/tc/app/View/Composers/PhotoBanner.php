@@ -14,6 +14,7 @@ class PhotoBanner extends Composer
     public function with()
     {
         return [
+            // Beide banners: tekst op mobiel onderaan (mobileBottom), zodat hij niet over de gezichten loopt
             'photoBanners' => array_values(array_filter([
                 // Bovenste banner: valt terug op de Level UP-tekst zolang de velden nog nooit zijn opgeslagen
                 $this->photoBanner('fotobanner_boven', 'twee-meisjes-aan-het-bouwen.avif', 'title', [
@@ -22,8 +23,7 @@ class PhotoBanner extends Composer
                     'titel' => 'Ontdek waar jij',
                     'highlight' => 'goed in bent',
                     'tekst' => 'Vier dagen per week kies je zelf wat je na de lessen gaat doen. Bij Level UP kun je boksen, breakdancen, koken, muziek maken, streetart maken of zelfs je eigen bedrijfje starten. Zo ontdek je wat je leuk vindt en waar je talent ligt.',
-                ]),
-                // Onderste banner: tekst op mobiel onderaan, anders loopt hij door het hoofd van de jongen
+                ], mobileBottom: true),
                 $this->photoBanner('fotobanner', 'Jongen-achter-microfoon.avif', 'text', mobileBottom: true),
             ])),
         ];
