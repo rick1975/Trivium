@@ -38,7 +38,7 @@
   default => 'pink',
 })
 
-<section data-slide class="relative h-svh overflow-hidden">
+<section data-slide class="relative h-lvh overflow-hidden">
   <img src="{{ $image }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full max-w-none object-cover">
 
   <div @class([

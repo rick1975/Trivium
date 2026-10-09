@@ -126,7 +126,7 @@
                 @endif
                 @if($contact->telefoon)
                   <a href="tel:{{ $contact->telefoonLink }}" class="text-stone-600 hover:text-triv-pink transition-colors">{{ $contact->telefoon }}</a>
-                  <span class="text-stone-400">(bereikbaar van 08.00 - 16.30u)</span>
+                  <span class="text-stone-400">(bereikbaar van 08.00 - 16.30 uur)</span>
                 @endif
               </p>
             @endif
