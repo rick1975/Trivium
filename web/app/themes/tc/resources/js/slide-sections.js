@@ -103,8 +103,25 @@ export function initSlideSections() {
         }
     }, { passive: false });
 
+    // Vinger op het scherm: nooit gaan glijden (iOS meldt soms "stilstand" terwijl je nog vasthoudt)
+    let touching = false;
+
+    // Tijdelijke diagnose op de telefoon: voeg ?slidedebug toe aan de url
+    const debug = new URLSearchParams(location.search).has('slidedebug') && document.body.appendChild(Object.assign(document.createElement('pre'), {
+        style: 'position:fixed;left:8px;bottom:8px;z-index:9999;margin:0;padding:6px 8px;font:11px/1.4 monospace;color:#fff;background:rgb(0 0 0/.75);border-radius:6px;pointer-events:none',
+    }));
+    const log = (result) => {
+        if (!debug) return;
+        debug.textContent = [
+            `coarse ${touch.matches} · reduced ${reducedMotion.matches} · scrollend ${'onscrollend' in window}`,
+            `richting ${direction} · vinger ${touching} · hoogte ${window.innerHeight}`,
+            `slides ${slides.map((el) => Math.round(topOf(el))).join(' / ')}`,
+            `laatste: ${result}`,
+        ].join('\n');
+    };
+
     const onSettle = () => {
-        if (busyUntil === Infinity) return;
+        if (busyUntil === Infinity || touching) return log(touching ? 'vinger nog op scherm' : 'bezig met glijden');
 
         const viewport = window.innerHeight;
 
@@ -114,7 +131,7 @@ export function initSlideSections() {
 
         if (!active()) {
             slides.forEach((el) => topOf(el) < viewport && show(el));
-            return;
+            return log('uit (minder beweging)');
         }
 
         const target = direction > 0 && slides.find((el) => {
@@ -122,25 +139,34 @@ export function initSlideSections() {
             return top > 4 && top < viewport * (touch.matches ? SNAP_ZONE_TOUCH : SNAP_ZONE);
         });
 
+        log(target ? `glijden naar slide ${slides.indexOf(target) + 1}` : 'geen slide in de buurt');
         if (target) glideTo(target);
     };
 
-    // scrollend waar beschikbaar, anders wachten tot er even niet gescrold is
+    // Stilstand = even geen scroll-event meer en geen vinger op het scherm. Bewust geen scrollend: dat
+    // bestaat niet overal (Safari, Chrome op iOS) en vuurt op Android soms al vóór de uitloop van een veeg.
     let settleTimer;
+    const settleSoon = () => {
+        clearTimeout(settleTimer);
+        settleTimer = setTimeout(onSettle, 150);
+    };
+
     window.addEventListener('scroll', () => {
         const y = window.scrollY;
         if (y !== lastY) direction = Math.sign(y - lastY);
         lastY = y;
-
-        if (!('onscrollend' in window)) {
-            clearTimeout(settleTimer);
-            settleTimer = setTimeout(onSettle, 150);
-        }
+        settleSoon();
     }, { passive: true });
 
-    if ('onscrollend' in window) {
-        window.addEventListener('scrollend', onSettle);
-    }
+    window.addEventListener('touchstart', () => {
+        touching = true;
+        clearTimeout(settleTimer);
+    }, { passive: true });
+
+    ['touchend', 'touchcancel'].forEach((type) => window.addEventListener(type, () => {
+        touching = false;
+        settleSoon();
+    }, { passive: true }));
 
     onSettle();
 }
