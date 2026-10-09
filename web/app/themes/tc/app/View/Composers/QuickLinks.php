@@ -16,7 +16,7 @@ class QuickLinks extends Composer
      */
     protected array $fallbackImages = [
         'trivium-aula-trappen.avif',
-        'Twee-dames-op-groene-achtergrond.avif',
+        'jongen-met-krullen-laptop.avif', // TEST: foto bij "Open dag 18 april" (zie livegang-checklist in claude.md)
     ];
 
     public function with()

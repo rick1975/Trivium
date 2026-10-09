@@ -107,8 +107,8 @@ class News extends Composer
             ],
             [
                 'url' => \App\page_url('open-dagen'),
-                'image' => Vite::asset('resources/images/jongen-met-krullen-laptop.avif'),
-                'alt' => 'Jongen met krullen werkt op een laptop in de klas',
+                'image' => $images[2],
+                'alt' => 'Drie leerlingen kijken samen op een laptop',
                 'category' => 'Agenda',
                 'categoryClass' => $this->categoryClasses[2],
                 'date' => '5 maart 2026',
