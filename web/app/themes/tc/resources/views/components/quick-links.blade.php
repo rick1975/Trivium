@@ -3,7 +3,7 @@
      foto, donker verloop van onder, witte titel en roze chevron (zoals in het zoekpaneel). Bij hover zoomt de foto iets in.
      Mobiel alles onder elkaar, vanaf lg twee gelijke kolommen (fotokaarten dan ± 290 × 390 px). ── --}}
 @if($links || $ctas)
-<section class="relative overflow-hidden bg-white py-16 md:py-24 xl:py-32">
+<section class="relative overflow-hidden bg-triv-olive py-16 md:py-24 xl:py-32">
   {{-- Lichte achtergrondfoto (gespiegeld, zodat de jongen naar de inhoud kijkt), rechts uitgelijnd en naar links
        uitfadend via een mask; 6rem boven de sectie laten beginnen (wordt weggeknipt) zodat het beeld iets hoger staat; pas vanaf md, op mobiel zou hij achter de kaarten verdwijnen --}}
   <img src="{{ Vite::asset('resources/images/jongen-achter-laptop.avif') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
