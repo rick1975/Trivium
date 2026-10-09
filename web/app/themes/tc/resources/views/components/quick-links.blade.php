@@ -4,9 +4,10 @@
      Mobiel alles onder elkaar, vanaf lg twee gelijke kolommen (fotokaarten dan ± 290 × 390 px). ── --}}
 @if($links || $ctas)
 <section class="relative overflow-hidden bg-white py-16 md:py-24 xl:py-32">
-  {{-- Decoratieve lijnen (resources/images/shape-stripes.svg), rechtsboven verankerd; op smalle schermen niet kleiner dan 1000px --}}
-  <img src="{{ Vite::asset('resources/images/shape-stripes.svg') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
-    class="pointer-events-none absolute top-0 right-0 w-full min-w-[1000px] max-w-none h-auto select-none">
+  {{-- Decoratieve rimpelingen vanuit een roze stip (verwijst naar de stip in het logo), rechtsboven verankerd;
+       op smalle schermen niet kleiner dan 1000px en 400px naar rechts (stip buiten beeld, alleen de bogen). Bron: resources/images/shape-ripples.svg --}}
+  <img src="{{ Vite::asset('resources/images/shape-ripples.svg') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
+    class="pointer-events-none absolute top-0 -right-[400px] md:right-0 w-full min-w-[1000px] max-w-none h-auto select-none">
 
   <div class="relative page-container grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 xl:gap-24">
 
