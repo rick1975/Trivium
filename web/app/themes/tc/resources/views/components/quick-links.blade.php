@@ -24,11 +24,14 @@
       @if(! $title)
         <h2 class="sr-only">Snelle links</h2>
       @endif
+      {{-- Titel schiet eenmalig in beeld zodra hij half zichtbaar is (x-intersect zet data-shown): elke regel glijdt snel
+           van onder uit een masker omhoog, de witte tweede regel 120ms later. Zonder animatievoorkeur staat hij gewoon stil. --}}
       @if($title)
-        <h2 class="text-5xl md:text-6xl xl:text-7xl font-bold text-triv-navy leading-[1.05] mb-10">
-          {{ $title }}
+        @php($line = 'inline-block translate-y-full transition-transform duration-600 ease-[cubic-bezier(.2,.8,.2,1)] group-data-shown:translate-y-0 motion-reduce:translate-y-0 motion-reduce:transition-none')
+        <h2 class="group text-5xl md:text-6xl xl:text-7xl font-bold text-triv-navy leading-[1.05] mb-10" x-data x-intersect.once.half="$el.dataset.shown = ''">
+          <span class="block overflow-clip -mb-[.1em] pb-[.1em]"><span class="{{ $line }}">{{ $title }}</span></span>
           @if($highlight)
-            <br><span class="text-white">{{ $highlight }}</span>
+            <span class="block overflow-clip -mb-[.1em] pb-[.1em]"><span class="{{ $line }} delay-120 text-white">{{ $highlight }}</span></span>
           @endif
         </h2>
       @endif
