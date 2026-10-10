@@ -58,7 +58,7 @@
   <div @class([
     'relative z-10 h-full page-container flex',
     'items-center' => ! $mobileBottom,
-    'items-end pb-[calc(2rem_+_100lvh_-_100svh)] md:items-center md:pb-0' => $mobileBottom,
+    'items-end pb-[calc(1.5rem_+_100lvh_-_100svh)] md:items-center md:pb-0' => $mobileBottom,
     'justify-end' => $right,
   ])>
     <div class="max-w-md lg:max-w-2xl">
