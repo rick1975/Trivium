@@ -14,7 +14,6 @@ class PhotoBanner extends Composer
     public function with()
     {
         return [
-            // Beide banners: tekst op mobiel onderaan (mobileBottom), zodat hij niet over de gezichten loopt
             'photoBanners' => array_values(array_filter([
                 // Bovenste banner: valt terug op de Level UP-tekst zolang de velden nog nooit zijn opgeslagen
                 $this->photoBanner('fotobanner_boven', 'twee-meisjes-aan-het-bouwen.avif', 'title', [
@@ -23,8 +22,8 @@ class PhotoBanner extends Composer
                     'titel' => 'Ontdek waar jij',
                     'highlight' => 'goed in bent',
                     'tekst' => 'Vier dagen per week kies je zelf wat je na de lessen gaat doen. Bij Level UP kun je boksen, breakdancen, koken, muziek maken, streetart maken of zelfs je eigen bedrijfje starten. Zo ontdek je wat je leuk vindt en waar je talent ligt.',
-                ], mobileBottom: true),
-                $this->photoBanner('fotobanner', 'Jongen-achter-microfoon.avif', 'text', mobileBottom: true),
+                ]),
+                $this->photoBanner('fotobanner', 'Jongen-achter-microfoon.avif', 'text'),
             ])),
         ];
     }
@@ -33,9 +32,10 @@ class PhotoBanner extends Composer
      * Fotobanner uit Trivium Settings > Fotobanner (veldnamen {$prefix}_*); null (= niet tonen) zonder titel.
      * $animate: 'title' (titel rolt uit) of 'text' (woorden schuiven omhoog), zodat de banners van elkaar verschillen.
      * $defaults geldt alleen voor velden die nog nooit zijn opgeslagen (null); een leeg opgeslagen titel verbergt de banner.
-     * $mobileBottom: tekst op mobiel onderaan i.p.v. in het midden.
+     * Tekst op mobiel (boven/midden/onder, standaard onder) en focuspunt van de foto (links/midden/rechts) per banner,
+     * zodat de tekst per foto naast de gezichten kan staan.
      */
-    protected function photoBanner(string $prefix, string $fallbackImage, string $animate, array $defaults = [], bool $mobileBottom = false): ?array
+    protected function photoBanner(string $prefix, string $fallbackImage, string $animate, array $defaults = []): ?array
     {
         if (! function_exists('get_field')) {
             return null;
@@ -58,7 +58,16 @@ class PhotoBanner extends Composer
             'align' => $field('uitlijning') === 'rechts' ? 'right' : 'left',
             'accent' => $field('accent') ?: 'roze',
             'animate' => $animate,
-            'mobileBottom' => $mobileBottom,
+            'mobileText' => match ($field('mobiel_tekst')) {
+                'boven' => 'top',
+                'midden' => 'center',
+                default => 'bottom',
+            },
+            'mobileFocus' => match ($field('mobiel_focus')) {
+                'links' => 'left',
+                'rechts' => 'right',
+                default => 'center',
+            },
             'text' => (string) $field('tekst'),
             'href' => $link['url'] ?? null,
             'linkText' => ($link['title'] ?? '') ?: 'Lees meer',
