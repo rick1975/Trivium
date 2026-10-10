@@ -8,7 +8,7 @@
   @keydown.escape.window="mobileOpen = false; searchOpen = false"
   x-effect="document.body.classList.toggle('overflow-hidden', mobileOpen || searchOpen)">
 
-  <div class="px-6 xl:px-20">
+  <div class="px-4 md:px-6 xl:px-20">
     <div class="flex items-center justify-between min-h-[80px]">
 
       {{-- Logo --}}
