@@ -301,6 +301,19 @@ html {
   }
 }
 
+/* Fotoheader "half": het crème van de header loopt vanaf desktop door achter de intro en vervaagt daarna naar wit.
+   De header is minstens min(72svh, 780px) hoog; ± 10rem daaronder (de intro) blijft crème, daarna 18rem overloop. */
+.page.has-hero-half #main {
+  @variant lg {
+    --hero-hoogte: min(72svh, 780px);
+    background-image: linear-gradient(
+      to bottom,
+      var(--color-triv-cream) calc(var(--hero-hoogte) + 10rem),
+      var(--color-white) calc(var(--hero-hoogte) + 28rem)
+    );
+  }
+}
+
 /* Fotoheader "half": de kenmerken staan vanaf desktop in de header, niet nog eens in de inhoud */
 .page.has-hero-half .main > .is-style-kenmerken {
   @apply lg:hidden;
