@@ -615,7 +615,7 @@ html {
 
   /* Afsluiter: tekst met een knop eronder op wit, bv. "Vragen? Neem contact op" */
   .wp-block-group.is-style-afsluiter {
-    @apply mt-16 flex flex-col items-start gap-6 bg-white py-12 md:py-16;
+    @apply mt-16 flex flex-col items-start gap-6 bg-white py-16 md:py-24 lg:py-28;
     padding-inline: max(1.5rem, calc(50vw - 21rem)); /* inhoud even breed als de tekstkolom (max-w-2xl) */
 
     h2,
