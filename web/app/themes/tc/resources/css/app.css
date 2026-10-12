@@ -346,6 +346,11 @@ html {
   }
 }
 
+/* Fotoheader "half": hamburger vanaf desktop wit, op de foto (zoals op de voorpagina) */
+.has-hero-half .banner [aria-controls='nav-drawer'] span span {
+  @apply lg:bg-white;
+}
+
 /* Ingelogd: de WordPress-balk (vanaf 783px 32px hoog) staat bovenaan; een header die over de pagina ligt (voorpagina,
    fotoheader "half") schuift eronder vandaan. Op smallere schermen is de balk 46px en scrolt hij mee. */
 .admin-bar .banner.absolute {
