@@ -241,8 +241,9 @@ html {
     @apply max-w-none text-base;
   }
 
-  /* Kaarten mogen de volle breedte van het inhoudsvlak gebruiken, het groene vlak de hele schermbreedte */
-  > .wp-block-columns {
+  /* Kolommen mogen de volle breedte van het inhoudsvlak gebruiken (kaarten staan onder elkaar in de tekstkolom),
+     het groene vlak en de afsluiter de hele schermbreedte */
+  > .wp-block-columns:not(.is-style-kaarten) {
     @apply max-w-none;
   }
 
@@ -345,9 +346,9 @@ html {
     }
   }
 
-  /* Kaarten: kolommen als crème kaarten */
+  /* Kaarten: kolommen als crème kaarten, onder elkaar (leest prettiger dan smalle kolommen naast elkaar) */
   .wp-block-columns.is-style-kaarten {
-    @apply mb-0 gap-4;
+    @apply mb-0 gap-4 grid-flow-row md:grid-flow-row;
 
     > .wp-block-column {
       @apply rounded-2xl bg-triv-cream p-6 text-base;
@@ -492,7 +493,7 @@ html {
   /* Afsluiter: tekst met een knop eronder, bv. "Vragen? Neem contact op" */
   .wp-block-group.is-style-afsluiter {
     @apply mt-16 flex flex-col items-start gap-6 bg-triv-cream py-12 md:py-16;
-    padding-inline: max(1.5rem, calc(50vw - 28rem));
+    padding-inline: max(1.5rem, calc(50vw - 21rem)); /* inhoud even breed als de tekstkolom (max-w-2xl) */
 
     h2,
     h3 {
