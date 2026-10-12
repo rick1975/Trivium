@@ -35,7 +35,7 @@ html {
     --color-triv-section: #8fa68e;
     /* Lichte achtergrond van het schermbrede vlak in de pagina-inhoud (blokstijl "Gekleurd vlak").
        Eerder: var(--color-triv-section) (salie, zoals Snelle links) */
-    --color-triv-vlak: #e8f0f8;
+    --color-triv-vlak: #eaf1f6;
     --color-triv-yellow: #fcbf00;
     --color-triv-cream: #fbfaf4;
     --breakpoint-2xl: 1500px;
