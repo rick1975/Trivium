@@ -13,7 +13,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    @apply font-bold text-pretty text-gray-800 leading-tight;
+    @apply font-bold text-pretty text-triv-navy leading-tight;
 }
 
 h1 { @apply text-4xl md:text-5xl mb-6; }

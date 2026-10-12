@@ -59,7 +59,7 @@ html {
 
   /* Typography */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold text-pretty text-triv-blue leading-tight;
+    @apply font-bold text-pretty text-triv-navy leading-tight;
     font-family: 'Poppins', sans-serif;
   }
 
