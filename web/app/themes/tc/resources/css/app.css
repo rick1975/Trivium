@@ -123,6 +123,26 @@ html {
 }
 
 @layer components {
+  /* Vervolgpagina's (gewone pagina's, niet de voorpagina en niet pagina's met een eigen template zoals Documenten):
+     grotere letter en een smallere tekstkolom (± 65-70 tekens per regel) voor rustig lezen. Tabellen mogen de volle
+     breedte van het inhoudsvlak gebruiken. De eerste alinea (de intro, ook na een openingskop) is groter. */
+  .page:not(.home):not(.page-template) .main {
+    @apply text-lg leading-[1.7];
+
+    > * {
+      @apply mx-auto max-w-2xl;
+    }
+
+    > .wp-block-table {
+      @apply max-w-none text-base;
+    }
+
+    > .page-header + p,
+    > .page-header + h2 + p {
+      @apply text-xl md:text-[1.375rem] leading-relaxed text-triv-navy;
+    }
+  }
+
   /* Pagina-inhoud uit de blokeditor (the_content). De blokstijlen van WordPress worden niet geladen,
      dus koppen, lijsten, tabellen en links in de tekst krijgen hier hun opmaak. */
   .wp-block-heading {
