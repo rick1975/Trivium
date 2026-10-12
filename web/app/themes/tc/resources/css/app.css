@@ -322,7 +322,7 @@ html {
    De header is minstens min(84svh, 900px) hoog (de intro staat erin); daarna 16rem overloop naar wit. */
 .page.has-hero-half #main {
   @variant lg {
-    --hero-hoogte: min(84svh, 900px);
+    --hero-hoogte: calc(min(84svh, 900px) + 5rem); /* inclusief de header die erover ligt */
     background-image: linear-gradient(
       to bottom,
       var(--color-triv-cream) var(--hero-hoogte),
@@ -333,6 +333,19 @@ html {
 
 /* Fotoheader "half": vanaf desktop staat alles links uitgelijnd in plaats van gecentreerd. De intro, het gekleurde vlak
    en de afsluiter beginnen op de lijn van de tekst in de kaarten (2rem binnen --rand) */
+/* Fotoheader "half": geen grijze lijn onder de header; vanaf desktop ligt de header transparant over de fotoheader,
+   zodat de foto doorloopt tot de bovenrand (logo op het crème, knoppen hebben zelf een witte achtergrond) */
+.has-hero-half .banner {
+  border-bottom: 0;
+
+  @variant lg {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    background-color: transparent;
+  }
+}
+
 /* De intro staat vanaf desktop in de header onder de titel (components/page-hero), niet nog eens in de inhoud */
 .page.has-hero-half .main > p:first-child {
   @apply lg:hidden;

@@ -6,9 +6,11 @@
        van de inhoud) eronder, alles op crème. Achter de foto komen de rimpelcirkels van Snelle links vandaan,
        zichtbaar in het uitgelopen deel. De kenmerken-labels uit de inhoud staan onderaan over de foto (en zijn dan in de
        inhoud verborgen, zie .has-hero-half in css/app.css). Onder lg gelijk aan "breed".
+     Vanaf lg ligt de header (80px) transparant over deze variant (zie .has-hero-half .banner in css/app.css): de foto
+     loopt door tot de bovenrand van het scherm en de inhoud links schuift 5rem omlaag.
      Bij het laden komt de foto zacht in beeld en schuiven label en titel omhoog (niet bij "minder beweging"). ── --}}
 @php($half = $layout === 'half')
-<div @class(['relative', 'lg:flex lg:min-h-[min(84svh,900px)] lg:items-center lg:overflow-hidden lg:bg-triv-cream' => $half])>
+<div @class(['relative', 'lg:flex lg:min-h-[calc(min(84svh,900px)+5rem)] lg:items-center lg:overflow-hidden lg:bg-triv-cream lg:pt-20' => $half])>
   @if($half)
     <img src="{{ Vite::asset('resources/images/shape-ripples.svg') }}" alt="" aria-hidden="true" decoding="async"
       class="pointer-events-none absolute left-[62%] top-[42%] hidden w-[1500px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none lg:block motion-safe:animate-[hero-photo_1.6s_ease-out_both]">
