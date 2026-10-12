@@ -416,7 +416,7 @@ html {
     }
   }
 
-  /* Kaarten: witte kaarten met roze titel en dezelfde warme schaduw als de uitklapblokken; tot desktop onder elkaar, vanaf lg naast elkaar (breedte: zie hierboven) */
+  /* Kaarten: witte kaarten met navy titel en dezelfde warme schaduw als de uitklapblokken; tot desktop onder elkaar, vanaf lg naast elkaar (breedte: zie hierboven) */
   .wp-block-columns.is-style-kaarten {
     @apply mb-0 gap-4 grid-flow-row md:grid-flow-row lg:grid-flow-col lg:auto-cols-fr lg:gap-6;
 
@@ -426,7 +426,7 @@ html {
 
     h2,
     h3 {
-      @apply mt-0 mb-3 text-xl text-triv-pink md:text-2xl;
+      @apply mt-0 mb-3 text-xl md:text-2xl;
     }
   }
 
@@ -559,9 +559,14 @@ html {
         display: none;
       }
 
+      /* Plus getekend met twee balkjes (een "+"-teken uit het lettertype staat nooit precies in het midden) */
       &::after {
-        @apply flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-triv-navy pb-0.5 text-2xl font-normal leading-none text-triv-navy transition-[rotate,background-color,border-color,color] duration-300;
-        content: '+';
+        @apply size-8 shrink-0 rounded-full border-2 border-triv-navy text-triv-navy transition-[rotate,background-color,border-color,color] duration-300;
+        content: '';
+        background-image: linear-gradient(currentColor, currentColor), linear-gradient(currentColor, currentColor);
+        background-size: 0.75rem 2px, 2px 0.75rem;
+        background-position: center;
+        background-repeat: no-repeat;
       }
     }
 
