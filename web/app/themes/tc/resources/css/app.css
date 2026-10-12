@@ -303,6 +303,11 @@ html {
     }
   }
 
+  /* Paginatitel op vervolgpagina's iets lichter dan de andere koppen (600 i.p.v. 700), net als in de fotoheader */
+  > .page-header h1 {
+    @apply font-semibold;
+  }
+
   /* Intro: met paginakop de alinea erna, met fotoheader (geen paginakop) de eerste alinea */
   > p:first-child,
   > .page-header + p,
@@ -312,10 +317,10 @@ html {
 }
 
 /* Fotoheader "half": het crème van de header loopt vanaf desktop door achter de intro en vervaagt daarna naar wit.
-   De header is minstens min(72svh, 780px) hoog; ± 10rem daaronder (de intro) blijft crème, daarna 18rem overloop. */
+   De header is minstens min(84svh, 900px) hoog; ± 10rem daaronder (de intro) blijft crème, daarna 18rem overloop. */
 .page.has-hero-half #main {
   @variant lg {
-    --hero-hoogte: min(72svh, 780px);
+    --hero-hoogte: min(84svh, 900px);
     background-image: linear-gradient(
       to bottom,
       var(--color-triv-cream) calc(var(--hero-hoogte) + 10rem),
@@ -324,8 +329,8 @@ html {
   }
 }
 
-/* Fotoheader "half": vanaf desktop begint alles op dezelfde lijn als de titel in de header (.page-container): de intro
-   en de inhoud van de afsluiter staan links uitgelijnd in plaats van gecentreerd */
+/* Fotoheader "half": vanaf desktop staat alles links uitgelijnd in plaats van gecentreerd. De intro, het gekleurde vlak
+   en de afsluiter beginnen op de lijn van de tekst in de kaarten (2rem binnen de rand van .page-container) */
 .page.has-hero-half .main > p:first-child {
   /* Optisch gelijk met de tekst ín de kaarten eronder (die hebben 2rem binnenruimte), met ruimte tot de kaarten */
   @variant lg {
@@ -337,6 +342,7 @@ html {
 .page.has-hero-half .main > .is-style-afsluiter {
   @variant lg {
     padding-inline: max(1.5rem, calc(50vw - 38.5rem));
+    padding-left: calc(max(1.5rem, calc(50vw - 38.5rem)) + 2rem);
 
     > .wp-block-group {
       @apply max-w-2xl;
@@ -459,6 +465,7 @@ html {
         column-gap: 4rem;
         align-items: start;
         padding-inline: max(1.5rem, calc(50vw - 38.5rem));
+        padding-left: calc(max(1.5rem, calc(50vw - 38.5rem)) + 2rem); /* links op de lijn van de intro */
 
         > * {
           max-width: none;

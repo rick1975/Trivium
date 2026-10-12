@@ -7,7 +7,7 @@
        inhoud verborgen, zie .has-hero-half in css/app.css). Onder lg gelijk aan "breed".
      Bij het laden komt de foto zacht in beeld en schuiven label en titel omhoog (niet bij "minder beweging"). ── --}}
 @php($half = $layout === 'half')
-<div @class(['relative', 'lg:flex lg:min-h-[min(72svh,780px)] lg:items-center lg:overflow-hidden lg:bg-triv-cream' => $half])>
+<div @class(['relative', 'lg:flex lg:min-h-[min(84svh,900px)] lg:items-center lg:overflow-hidden lg:bg-triv-cream' => $half])>
   @if($half)
     <img src="{{ Vite::asset('resources/images/shape-ripples.svg') }}" alt="" aria-hidden="true" decoding="async"
       class="pointer-events-none absolute left-[62%] top-[42%] hidden w-[1500px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none lg:block motion-safe:animate-[hero-photo_1.6s_ease-out_both]">
@@ -42,7 +42,7 @@
         </a>
       @endif
       <h1 @class([
-        'mb-0 text-4xl md:text-5xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]',
+        'mb-0 text-4xl font-semibold md:text-5xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]',
         'lg:text-6xl lg:leading-[1.05]' => $half,
       ])>{!! $title !!}</h1>
     </div>
