@@ -52,7 +52,7 @@
               <h3 class="text-lg sm:text-2xl font-bold text-white leading-tight mb-2">{{ $cta['title'] }}</h3>
               <span class="flex items-center gap-2 text-xs sm:text-sm font-semibold text-white/90">
                 {{ $cta['text'] }}
-                <x-icon name="chevron-right" class="size-3 shrink-0 text-triv-pink transition-transform duration-200 group-hover:translate-x-1.5" />
+                <x-icon name="chevron-right" class="size-3 shrink-0 stroke-[2.5] text-triv-pink transition-transform duration-200 group-hover:translate-x-1.5" />
               </span>
             </div>
           </a></li>
@@ -69,7 +69,7 @@
         @foreach($links as $link)
           <li class="mb-0"><a href="{{ $link['url'] }}" class="group flex h-full items-center justify-between gap-4 rounded-xl bg-white border border-gray-200 px-5 py-4 no-underline shadow-[0_1px_2px_rgb(11_31_58/0.04)] transition-colors duration-200 hover:border-triv-pink">
             <span class="text-lg font-bold text-triv-navy group-hover:text-triv-pink transition-colors">{{ $link['title'] }}</span>
-            <x-icon name="chevron-right" class="size-4 shrink-0 text-triv-pink transition-transform duration-200 group-hover:translate-x-1.5" />
+            <x-icon name="chevron-right" class="size-4 shrink-0 stroke-[2.5] text-triv-pink transition-transform duration-200 group-hover:translate-x-1.5" />
           </a></li>
         @endforeach
       </ul>
