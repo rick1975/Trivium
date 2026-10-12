@@ -123,6 +123,11 @@ html {
 }
 
 @layer components {
+  /* Paginatemplate Documenten (template-documenten.blade.php): hele inhoudsvlak in het sectiegroen van Snelle links */
+  .page-template-template-documenten #main {
+    @apply bg-triv-section;
+  }
+
   /* Footer: vanaf tablet schermvullend, net als de fotobanner; inhoud in het midden.
      Glijdt als slide in beeld via js/slide-sections.js.
      Mobiel: zo hoog als de inhoud, foto onderaan tot de rand (dus geen padding onder) */
