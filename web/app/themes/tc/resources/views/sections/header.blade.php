@@ -9,11 +9,11 @@
   x-effect="document.body.classList.toggle('overflow-hidden', mobileOpen || searchOpen)">
 
   <div class="px-4 md:px-6 xl:px-20">
-    <div class="flex items-center justify-between min-h-[80px]">
+    <div class="flex items-center justify-between min-h-[80px] xl:min-h-[104px]">
 
       {{-- Logo --}}
       <a href="{{ home_url('/') }}" aria-label="{{ $siteName }} – home">
-        <x-logo @class(["w-44", "[--logo-letters:#fff]" => $isFront]) aria-hidden="true" />
+        <x-logo @class(["w-48 md:w-56 xl:w-60", "[--logo-letters:#fff]" => $isFront]) aria-hidden="true" />
       </a>
 
       {{-- Zoek-icoon + hamburger, altijd gegroepeerd rechts --}}
