@@ -327,8 +327,10 @@ html {
 /* Fotoheader "half": vanaf desktop begint alles op dezelfde lijn als de titel in de header (.page-container): de intro
    en de inhoud van de afsluiter staan links uitgelijnd in plaats van gecentreerd */
 .page.has-hero-half .main > p:first-child {
+  /* Optisch gelijk met de tekst ín de kaarten eronder (die hebben 2rem binnenruimte), met ruimte tot de kaarten */
   @variant lg {
-    margin-inline: calc(50% - min(50vw - 1.5rem, 38.5rem)) auto;
+    margin-inline: calc(50% - min(50vw - 1.5rem, 38.5rem) + 2rem) auto;
+    margin-bottom: 4rem;
   }
 }
 

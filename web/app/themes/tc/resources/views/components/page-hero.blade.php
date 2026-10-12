@@ -32,7 +32,11 @@
       'lg:m-0 lg:max-w-[42%] lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none' => $half,
     ])>
       @if($parent)
-        <a href="{{ $parent['url'] }}" class="mb-2 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-triv-pink no-underline hover:text-triv-navy motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.15s_both]">
+        {{-- In de stijl "half" iets naar rechts: de grote titel eronder begint optisch iets later (witruimte vóór de letter) --}}
+        <a href="{{ $parent['url'] }}" @class([
+          'mb-2 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-triv-pink no-underline hover:text-triv-navy motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.15s_both]',
+          'lg:ml-1' => $half,
+        ])>
           <span class="size-1.5 rounded-full bg-current" aria-hidden="true"></span>
           {!! $parent['title'] !!}
         </a>
