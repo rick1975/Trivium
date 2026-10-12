@@ -137,6 +137,35 @@ add_action('after_setup_theme', function () {
 }, 20);
 
 /**
+ * Eigen blokstijlen voor de pagina-inhoud (opmaak in css/app.css, de PM-trap wordt klikbaar via js/steps.js).
+ * In de editor te kiezen onder Blok > Stijlen.
+ *
+ * @return void
+ */
+add_action('init', function () {
+    $styles = [
+        'core/list' => [
+            'kenmerken' => 'Kenmerken (labels)',
+            'trap' => 'Stappen (trap)',
+        ],
+        'core/columns' => [
+            'kaarten' => 'Kaarten',
+        ],
+        'core/group' => [
+            'sectie' => 'Groen vlak (schermbreed)',
+            'uitgelicht' => 'Uitgelicht',
+            'afsluiter' => 'Afsluiter met knop',
+        ],
+    ];
+
+    foreach ($styles as $block => $variants) {
+        foreach ($variants as $name => $label) {
+            register_block_style($block, ['name' => $name, 'label' => $label]);
+        }
+    }
+});
+
+/**
  * Register the theme sidebars.
  *
  * @return void

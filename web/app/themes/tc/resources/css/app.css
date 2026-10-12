@@ -137,6 +137,18 @@ html {
       @apply max-w-none text-base;
     }
 
+    /* Kaarten mogen de volle breedte van het inhoudsvlak gebruiken, het groene vlak de hele schermbreedte */
+    > .wp-block-columns {
+      @apply max-w-none;
+    }
+
+    > .is-style-sectie {
+      @apply my-16 max-w-none;
+      margin-inline: calc(50% - 50vw);
+    }
+
+    /* Intro: met paginakop de alinea erna, met fotoheader (geen paginakop) de eerste alinea */
+    > p:first-child,
     > .page-header + p,
     > .page-header + h2 + p {
       @apply text-xl md:text-[1.375rem] leading-relaxed text-triv-navy;
@@ -170,6 +182,213 @@ html {
 
     td {
       @apply border-t border-gray-200 px-4 py-2.5;
+    }
+  }
+
+  /* Brede elementen (schermbreed groen vlak) mogen geen horizontale scrollbalk geven */
+  #main {
+    overflow-x: clip;
+  }
+
+  .wp-block-columns {
+    @apply mb-8 grid gap-6 md:grid-flow-col md:auto-cols-fr;
+  }
+
+  .wp-block-column > :last-child,
+  .wp-block-group > :last-child {
+    @apply mb-0;
+  }
+
+  /* Blokstijlen (app/setup.php) ------------------------------------------------------------------------- */
+
+  /* Kenmerken: korte punten als labels met een roze stip */
+  .wp-block-list.is-style-kenmerken {
+    @apply mb-10 flex flex-wrap gap-2 pl-0 list-none;
+
+    > li {
+      @apply mb-0 inline-flex items-center gap-2 rounded-full bg-triv-cream px-4 py-2 text-base font-semibold text-triv-navy;
+
+      &::before {
+        @apply size-2 rounded-full bg-triv-pink;
+        content: '';
+      }
+    }
+  }
+
+  /* Kaarten: kolommen als crème kaarten */
+  .wp-block-columns.is-style-kaarten {
+    @apply mb-0 gap-4;
+
+    > .wp-block-column {
+      @apply rounded-2xl bg-triv-cream p-6 text-base;
+    }
+
+    h2,
+    h3 {
+      @apply mt-0 mb-3 text-xl md:text-2xl;
+    }
+  }
+
+  /* Groen vlak over de hele schermbreedte (sectiegroen van Snelle links); inhoud in de tekstkolom,
+     stappen en uitgelicht blok iets breder */
+  .wp-block-group.is-style-sectie {
+    @apply bg-triv-section px-6 py-16 md:py-20 text-triv-navy;
+
+    > * {
+      @apply mx-auto max-w-2xl;
+    }
+
+    > .trap-tabs,
+    > .is-style-trap,
+    > .is-style-uitgelicht {
+      @apply max-w-4xl;
+    }
+  }
+
+  /* Stappen (trap). Zonder JavaScript: genummerde stappen onder elkaar, verbonden door een lijn.
+     Met js/steps.js: knoppenrij met oplopende balkjes (.trap-tabs) en per keer één stap in een witte kaart. */
+  .wp-block-list.is-style-trap {
+    @apply pl-0 list-none;
+    counter-reset: trap -1;
+
+    > li {
+      @apply relative mb-0 pb-8 pl-14 text-base;
+      counter-increment: trap;
+
+      &::before {
+        @apply absolute left-0 top-0 flex size-10 items-center justify-center rounded-full bg-white font-bold text-triv-navy;
+        content: counter(trap);
+      }
+
+      &:not(:last-child)::after {
+        @apply absolute left-5 top-12 bottom-2 w-px bg-triv-navy/25;
+        content: '';
+      }
+    }
+
+    strong {
+      @apply mb-1 block text-xl text-triv-navy;
+    }
+
+    strong + br {
+      display: none;
+    }
+
+    &.is-enhanced > li {
+      @apply rounded-2xl bg-white p-6 md:p-8 shadow-[0_10px_30px_-15px_rgb(11_31_58/0.3)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-triv-navy;
+
+      &::before,
+      &::after {
+        content: none;
+      }
+    }
+  }
+
+  .trap-tabs {
+    @apply mb-4 grid items-end gap-2 md:gap-3;
+    grid-template-columns: repeat(var(--trap-stappen), minmax(0, 1fr));
+
+    [role='tab'] {
+      @apply flex cursor-pointer flex-col gap-2 rounded-xl text-center text-triv-navy focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-triv-navy;
+    }
+
+    .trap-balk {
+      @apply block rounded-xl bg-white/45 transition-colors duration-300;
+      height: calc(var(--trap-fractie) * 7rem);
+
+      @variant md {
+        height: calc(var(--trap-fractie) * 10rem);
+      }
+    }
+
+    [role='tab']:hover .trap-balk {
+      @apply bg-white/80;
+    }
+
+    [aria-selected='true'] .trap-balk {
+      @apply bg-triv-pink;
+    }
+
+    .trap-code {
+      @apply text-base font-bold leading-none md:text-lg;
+    }
+
+    .trap-titel {
+      @apply hidden text-sm leading-snug md:block;
+    }
+  }
+
+  /* Uitklapblokken (core/details), bv. als veelgestelde vragen: witte kaarten onder elkaar, roze plus die bij
+     openen een kruisje wordt */
+  .wp-block-details {
+    @apply mb-3 rounded-2xl bg-white text-base shadow-[0_10px_30px_-18px_rgb(11_31_58/0.35)];
+
+    > summary {
+      @apply flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-6 py-5 font-bold text-lg leading-snug text-triv-navy transition-colors md:px-8 md:text-xl hover:text-triv-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-triv-navy;
+
+      &::-webkit-details-marker {
+        display: none;
+      }
+
+      &::after {
+        @apply flex size-8 shrink-0 items-center justify-center rounded-full bg-triv-pink pb-0.5 text-2xl font-normal leading-none text-white transition-transform duration-300;
+        content: '+';
+      }
+    }
+
+    &[open] > summary::after {
+      rotate: 45deg;
+    }
+
+    > :not(summary) {
+      @apply px-6 md:px-8;
+    }
+
+    > :last-child:not(summary) {
+      @apply pb-6;
+    }
+  }
+
+  /* Uitgelicht: witte kaart met gele rand (bv. De Spotlight) */
+  .wp-block-group.is-style-uitgelicht {
+    @apply mt-8 rounded-2xl border-l-8 border-triv-yellow bg-white p-6 md:p-8 text-base;
+
+    h2,
+    h3 {
+      @apply mt-0 mb-2;
+    }
+  }
+
+  /* Afsluiter: tekst met een knop ernaast, bv. "Vragen? Neem contact op" */
+  .wp-block-group.is-style-afsluiter {
+    @apply mt-16 flex flex-col gap-6 rounded-2xl bg-triv-cream p-6 md:flex-row md:items-center md:justify-between md:p-8;
+
+    h2,
+    h3 {
+      @apply mt-0 mb-2 text-2xl md:text-3xl;
+    }
+
+    p {
+      @apply text-base;
+    }
+  }
+
+  /* Knoppen uit de editor, in de stijl van <x-button> (roze, met stip) */
+  .wp-block-buttons {
+    @apply flex flex-wrap gap-3;
+  }
+
+  .wp-block-button__link {
+    @apply inline-flex shrink-0 items-center gap-2.5 rounded-xl bg-triv-pink px-6 py-3 text-sm font-semibold text-white no-underline transition-colors duration-200;
+
+    &::before {
+      @apply size-1.5 rounded-full bg-current;
+      content: '';
+    }
+
+    &:hover {
+      @apply text-white;
+      background-color: color-mix(in oklch, var(--color-triv-pink) 65%, var(--color-triv-red));
     }
   }
 

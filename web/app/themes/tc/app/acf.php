@@ -374,6 +374,25 @@ add_action('acf/init', function () {
         'location' => $location('trivium-footer'),
     ]);
 
+    // Fotoheader op gewone pagina's (uitgelichte afbeelding, components/page-hero.blade.php)
+    acf_add_local_field_group([
+        'key' => 'group_trivium_pagina_foto',
+        'title' => 'Fotoheader',
+        'fields' => [
+            [
+                'key' => 'field_trivium_pagina_foto_focus',
+                'label' => 'Focuspunt foto',
+                'name' => 'foto_focus',
+                'type' => 'button_group',
+                'instructions' => 'Met een uitgelichte afbeelding krijgt de pagina een fotoheader. Kies welk deel van de foto in beeld blijft als hij wordt bijgesneden (vooral op mobiel).',
+                'choices' => ['links' => 'Links', 'midden' => 'Midden', 'rechts' => 'Rechts'],
+                'default_value' => 'midden',
+            ],
+        ],
+        'location' => [[['param' => 'post_type', 'operator' => '==', 'value' => 'page']]],
+        'position' => 'side',
+    ]);
+
     // Paginatemplate "Documenten" (template-documenten.blade.php): downloadlijst per rubriek
     acf_add_local_field_group([
         'key' => 'group_trivium_documenten',
