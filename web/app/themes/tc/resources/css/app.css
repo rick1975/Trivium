@@ -33,6 +33,9 @@ html {
     /* Achtergrondgroen van o.a. Snelle links. Alternatieven: salie #8fa68e, zeegroen #5fa39a, mos #8a9a5b.
        Terug naar het originele olijfgroen: var(--color-triv-olive) */
     --color-triv-section: #8fa68e;
+    /* Lichte achtergrond van het schermbrede vlak in de pagina-inhoud (blokstijl "Gekleurd vlak").
+       Eerder: var(--color-triv-section) (salie, zoals Snelle links) */
+    --color-triv-vlak: #e8f0f8;
     --color-triv-yellow: #fcbf00;
     --color-triv-cream: #fbfaf4;
     --breakpoint-2xl: 1500px;
@@ -242,7 +245,7 @@ html {
   }
 
   /* Kolommen mogen de volle breedte van het inhoudsvlak gebruiken (kaarten staan onder elkaar in de tekstkolom),
-     het groene vlak en de afsluiter de hele schermbreedte */
+     het gekleurde vlak en de afsluiter de hele schermbreedte */
   > .wp-block-columns:not(.is-style-kaarten) {
     @apply max-w-none;
   }
@@ -253,7 +256,7 @@ html {
     margin-inline: calc(50% - 50vw);
   }
 
-  /* Groen vlak direct gevolgd door de afsluiter: zonder witruimte ertussen */
+  /* Gekleurd vlak direct gevolgd door de afsluiter: zonder witruimte ertussen */
   > .is-style-sectie:has(+ .is-style-afsluiter) {
     @apply mb-0;
   }
@@ -279,7 +282,7 @@ html {
   }
 }
 
-/* Brede elementen (schermbreed groen vlak) mogen geen horizontale scrollbalk geven */
+/* Brede elementen (schermbreed gekleurd vlak) mogen geen horizontale scrollbalk geven */
 #main {
   overflow-x: clip;
 }
@@ -360,10 +363,10 @@ html {
     }
   }
 
-  /* Groen vlak over de hele schermbreedte (sectiegroen van Snelle links); inhoud in de tekstkolom,
+  /* Gekleurd vlak over de hele schermbreedte (lichtblauw, --color-triv-vlak); inhoud in de tekstkolom,
      stappen en uitgelicht blok iets breder */
   .wp-block-group.is-style-sectie {
-    @apply bg-triv-section px-6 py-16 md:py-20 text-triv-navy;
+    @apply bg-triv-vlak px-6 py-16 md:py-20 text-triv-navy;
 
     > * {
       @apply mx-auto max-w-2xl;

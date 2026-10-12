@@ -152,7 +152,7 @@ add_action('init', function () {
             'kaarten' => 'Kaarten',
         ],
         'core/group' => [
-            'sectie' => 'Groen vlak (schermbreed)',
+            'sectie' => 'Gekleurd vlak (schermbreed)',
             'uitgelicht' => 'Uitgelicht',
             'afsluiter' => 'Afsluiter met knop',
         ],
