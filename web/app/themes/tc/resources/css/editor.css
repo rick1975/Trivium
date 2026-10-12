@@ -13,7 +13,8 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    @apply font-bold text-pretty text-triv-navy leading-tight;
+    @apply font-bold text-pretty leading-tight;
+    color: #0b1f3a; /* triv-navy (editor.css kent de @theme-kleuren van app.css niet) */
 }
 
 h1 { @apply text-4xl md:text-5xl mb-6; }
