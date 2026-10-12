@@ -270,6 +270,15 @@ html {
     @apply max-w-none;
   }
 
+  /* Kaarten: tot desktop onder elkaar in de tekstkolom, vanaf lg naast elkaar en breder dan het inhoudsvlak
+     (tot 80rem, met 1,5rem marge tot de schermrand) */
+  > .is-style-kaarten {
+    @variant lg {
+      max-width: none;
+      margin-inline: calc(50% - min(50vw - 1.5rem, 40rem));
+    }
+  }
+
   > .is-style-sectie,
   > .is-style-afsluiter {
     @apply my-16 max-w-none;
@@ -387,17 +396,17 @@ html {
     }
   }
 
-  /* Kaarten: kolommen als crème kaarten, onder elkaar (leest prettiger dan smalle kolommen naast elkaar) */
+  /* Kaarten: witte kaarten met roze titel; tot desktop onder elkaar, vanaf lg naast elkaar (breedte: zie hierboven) */
   .wp-block-columns.is-style-kaarten {
-    @apply mb-0 gap-4 grid-flow-row md:grid-flow-row;
+    @apply mb-0 gap-4 grid-flow-row md:grid-flow-row lg:grid-flow-col lg:auto-cols-fr lg:gap-6;
 
     > .wp-block-column {
-      @apply rounded-2xl border border-[#ddd8cc] bg-triv-cream p-6;
+      @apply rounded-2xl border border-[#ddd8cc] bg-white p-6 lg:p-8;
     }
 
     h2,
     h3 {
-      @apply mt-0 mb-3 text-xl md:text-2xl;
+      @apply mt-0 mb-3 text-xl text-triv-pink md:text-2xl;
     }
   }
 
