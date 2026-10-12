@@ -339,16 +339,17 @@ html {
   }
 }
 
-/* De afsluiter ("Vragen?") lijnt uit op de rechterkolom van het gekleurde vlak erboven (de uitklapblokken). Zelfde
-   rekensom als dat vlak: rand + 2rem, dan 5/12 van de rest (na 4rem tussenruimte), dan de tussenruimte. */
+/* De afsluiter ("Vragen?") lijnt uit op de tekst in de vraagkaarten van het gekleurde vlak erboven. Zelfde rekensom
+   als dat vlak: rand + 2rem, dan 5/12 van de rest (na 4rem tussenruimte), de tussenruimte, en 2rem binnenruimte van
+   de kaart. Tekst smaller (max-w-xl). */
 .page.has-hero-half .main > .is-style-afsluiter {
   @variant lg {
     --rand: max(1.5rem, calc(50vw - 38.5rem));
-    padding-inline: var(--rand);
-    padding-left: calc(var(--rand) + 2rem + (100vw - 2 * var(--rand) - 6rem) * 5 / 12 + 4rem);
+    padding-inline: calc(var(--rand) + 2rem); /* rechts: tot het eind van de tekst in de vraagkaarten */
+    padding-left: calc(var(--rand) + 2rem + (100vw - 2 * var(--rand) - 6rem) * 5 / 12 + 4rem + 2rem);
 
     > .wp-block-group {
-      @apply max-w-2xl;
+      @apply max-w-xl;
     }
   }
 }
