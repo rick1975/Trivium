@@ -339,10 +339,13 @@ html {
   }
 }
 
+/* De afsluiter ("Vragen?") lijnt uit op de rechterkolom van het gekleurde vlak erboven (de uitklapblokken). Zelfde
+   rekensom als dat vlak: rand + 2rem, dan 5/12 van de rest (na 4rem tussenruimte), dan de tussenruimte. */
 .page.has-hero-half .main > .is-style-afsluiter {
   @variant lg {
-    padding-inline: max(1.5rem, calc(50vw - 38.5rem));
-    padding-left: calc(max(1.5rem, calc(50vw - 38.5rem)) + 2rem);
+    --rand: max(1.5rem, calc(50vw - 38.5rem));
+    padding-inline: var(--rand);
+    padding-left: calc(var(--rand) + 2rem + (100vw - 2 * var(--rand) - 6rem) * 5 / 12 + 4rem);
 
     > .wp-block-group {
       @apply max-w-2xl;
