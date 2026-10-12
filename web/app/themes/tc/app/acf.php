@@ -380,6 +380,15 @@ add_action('acf/init', function () {
         'title' => 'Fotoheader',
         'fields' => [
             [
+                'key' => 'field_trivium_pagina_foto_stijl',
+                'label' => 'Stijl',
+                'name' => 'foto_stijl',
+                'type' => 'button_group',
+                'instructions' => 'Half: vanaf desktop staat de foto rechts en loopt hij uit in het wit, met de titel links. Op mobiel zijn beide gelijk.',
+                'choices' => ['breed' => 'Schermbreed', 'half' => 'Half'],
+                'default_value' => 'breed',
+            ],
+            [
                 'key' => 'field_trivium_pagina_foto_focus',
                 'label' => 'Focuspunt foto',
                 'name' => 'foto_focus',
