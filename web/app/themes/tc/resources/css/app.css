@@ -33,10 +33,10 @@ html {
     /* Achtergrondgroen van o.a. Snelle links. Alternatieven: salie #8fa68e, zeegroen #5fa39a, mos #8a9a5b.
        Terug naar het originele olijfgroen: var(--color-triv-olive) */
     --color-triv-section: #8fa68e;
-    /* Achtergrond van het schermbrede vlak in de pagina-inhoud (blokstijl "Gekleurd vlak"): het roze accent zelf, met
-       navy tekst (wit is op dit roze niet goed genoeg leesbaar). Eerder geprobeerd: zachte roze tint #fbe6e3,
-       perzik #f5e9de, warm zand #f2ebdf, lichtblauw #eaf1f6, salie var(--color-triv-section) */
-    --color-triv-vlak: var(--color-triv-pink);
+    /* Achtergrond van het schermbrede vlak in de pagina-inhoud (blokstijl "Gekleurd vlak"): gedempt roze, tussen de
+       zachte tint en het roze accent in, met navy tekst. Eerder geprobeerd: triv-pink zelf (te sterk), zachte roze
+       tint #fbe6e3, perzik #f5e9de, warm zand #f2ebdf, lichtblauw #eaf1f6, salie var(--color-triv-section) */
+    --color-triv-vlak: #f6cbc8;
     --color-triv-yellow: #fcbf00;
     --color-triv-cream: #fbfaf4;
     --breakpoint-2xl: 1500px;
@@ -430,7 +430,7 @@ html {
     }
   }
 
-  /* Gekleurd vlak over de hele schermbreedte (triv-pink, --color-triv-vlak); inhoud in de tekstkolom,
+  /* Gekleurd vlak over de hele schermbreedte (gedempt roze, --color-triv-vlak); inhoud in de tekstkolom,
      stappen en uitgelicht blok iets breder.
      Bestaat het vlak uit precies twee groepen (bv. kop + intro en de uitklapblokken), dan staan die vanaf lg naast
      elkaar, even breed als de kaarten (tot 77rem): links smal en blijvend in beeld bij scrollen, rechts breed. */
@@ -602,9 +602,9 @@ html {
     }
   }
 
-  /* Afsluiter: tekst met een knop eronder, bv. "Vragen? Neem contact op" */
+  /* Afsluiter: tekst met een knop eronder op wit, bv. "Vragen? Neem contact op" */
   .wp-block-group.is-style-afsluiter {
-    @apply mt-16 flex flex-col items-start gap-6 bg-triv-cream py-12 md:py-16;
+    @apply mt-16 flex flex-col items-start gap-6 bg-white py-12 md:py-16;
     padding-inline: max(1.5rem, calc(50vw - 21rem)); /* inhoud even breed als de tekstkolom (max-w-2xl) */
 
     h2,
