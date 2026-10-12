@@ -33,9 +33,10 @@ html {
     /* Achtergrondgroen van o.a. Snelle links. Alternatieven: salie #8fa68e, zeegroen #5fa39a, mos #8a9a5b.
        Terug naar het originele olijfgroen: var(--color-triv-olive) */
     --color-triv-section: #8fa68e;
-    /* Lichte achtergrond van het schermbrede vlak in de pagina-inhoud (blokstijl "Gekleurd vlak").
-       Eerder: var(--color-triv-section) (salie, zoals Snelle links) */
-    --color-triv-vlak: #eaf1f6;
+    /* Achtergrond van het schermbrede vlak in de pagina-inhoud (blokstijl "Gekleurd vlak"): warm zand, dieper dan
+       triv-cream. Alternatieven: lichter zand #f6f1e7, warmer/perzik #f5e9de. Eerder: lichtblauw #eaf1f6,
+       salie var(--color-triv-section) */
+    --color-triv-vlak: #f2ebdf;
     --color-triv-yellow: #fcbf00;
     --color-triv-cream: #fbfaf4;
     --breakpoint-2xl: 1500px;
@@ -391,7 +392,7 @@ html {
     @apply mb-0 gap-4 grid-flow-row md:grid-flow-row;
 
     > .wp-block-column {
-      @apply rounded-2xl bg-triv-cream p-6;
+      @apply rounded-2xl border border-[#ddd8cc] bg-triv-cream p-6;
     }
 
     h2,
@@ -400,7 +401,7 @@ html {
     }
   }
 
-  /* Gekleurd vlak over de hele schermbreedte (lichtblauw, --color-triv-vlak); inhoud in de tekstkolom,
+  /* Gekleurd vlak over de hele schermbreedte (warm zand, --color-triv-vlak); inhoud in de tekstkolom,
      stappen en uitgelicht blok iets breder */
   .wp-block-group.is-style-sectie {
     @apply bg-triv-vlak px-6 py-16 md:py-20 text-triv-navy;
