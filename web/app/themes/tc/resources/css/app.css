@@ -411,9 +411,11 @@ html {
   }
 
   /* Gekleurd vlak over de hele schermbreedte (zacht perzik, --color-triv-vlak); inhoud in de tekstkolom,
-     stappen en uitgelicht blok iets breder */
+     stappen en uitgelicht blok iets breder.
+     Bestaat het vlak uit precies twee groepen (bv. kop + intro en de uitklapblokken), dan staan die vanaf lg naast
+     elkaar, even breed als de kaarten (tot 80rem): links smal en blijvend in beeld bij scrollen, rechts breed. */
   .wp-block-group.is-style-sectie {
-    @apply bg-triv-vlak px-6 py-16 md:py-20 text-triv-navy;
+    @apply bg-triv-vlak px-6 py-16 md:py-24 text-triv-navy;
 
     > * {
       @apply mx-auto max-w-2xl;
@@ -423,6 +425,31 @@ html {
     > .is-style-trap,
     > .is-style-uitgelicht {
       @apply max-w-4xl;
+    }
+
+    /* Intro en de eerste vraag niet tegen elkaar aan */
+    > .wp-block-group:first-child:nth-last-child(2) {
+      @apply mb-10;
+    }
+
+    &:has(> .wp-block-group:first-child:nth-last-child(2)) {
+      @variant lg {
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        column-gap: 4rem;
+        align-items: start;
+        padding-inline: max(1.5rem, calc(50vw - 40rem));
+
+        > * {
+          max-width: none;
+          margin: 0;
+        }
+
+        > :first-child {
+          position: sticky;
+          top: 2rem;
+        }
+      }
     }
   }
 
@@ -499,13 +526,14 @@ html {
     }
   }
 
-  /* Uitklapblokken (core/details), bv. als veelgestelde vragen: witte kaarten onder elkaar, navy omlijnde plus (bij hover roze gevuld) die bij
-     openen een kruisje wordt */
+  /* Uitklapblokken (core/details), bv. als veelgestelde vragen: witte kaarten onder elkaar met warme schaduw, vraag in Poppins, antwoord in grijs. Navy omlijnde plus (bij hover
+     roze gevuld) die bij openen een navy gevuld kruisje wordt */
   .wp-block-details {
-    @apply mb-3 rounded-2xl bg-white shadow-[0_10px_30px_-18px_rgb(11_31_58/0.35)];
+    @apply mb-4 rounded-2xl bg-white text-gray-700 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.45)];
 
     > summary {
-      @apply flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-6 py-5 font-bold text-lg leading-snug text-triv-navy transition-colors md:px-8 md:text-xl hover:text-triv-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-triv-navy;
+      @apply flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-6 py-5 font-semibold text-lg leading-snug text-triv-navy transition-colors md:px-8 md:py-6 md:text-xl hover:text-triv-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-triv-navy;
+      font-family: 'Poppins', sans-serif;
 
       &::-webkit-details-marker {
         display: none;
@@ -522,7 +550,12 @@ html {
     }
 
     &[open]:not([data-state='closing']) > summary::after {
+      @apply bg-triv-navy text-white;
       rotate: 45deg;
+    }
+
+    &[open]:not([data-state='closing']) > summary:hover::after {
+      @apply border-triv-pink bg-triv-pink;
     }
 
     > :not(summary) {
@@ -530,7 +563,7 @@ html {
     }
 
     > :last-child:not(summary) {
-      @apply mb-0 pb-6;
+      @apply mb-0 pb-6 md:pb-8;
     }
   }
 
