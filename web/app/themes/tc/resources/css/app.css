@@ -339,26 +339,23 @@ html {
 }
 
 /* Fotoheader "half": het crème van de header loopt vanaf desktop door achter de intro en vervaagt daarna naar wit.
-   De header is minstens min(84svh, 900px) hoog; ± 10rem daaronder (de intro) blijft crème, daarna 18rem overloop. */
+   De header is minstens min(84svh, 900px) hoog (de intro staat erin); daarna 16rem overloop naar wit. */
 .page.has-hero-half #main {
   @variant lg {
     --hero-hoogte: min(84svh, 900px);
     background-image: linear-gradient(
       to bottom,
-      var(--color-triv-cream) calc(var(--hero-hoogte) + 10rem),
-      var(--color-white) calc(var(--hero-hoogte) + 28rem)
+      var(--color-triv-cream) var(--hero-hoogte),
+      var(--color-white) calc(var(--hero-hoogte) + 16rem)
     );
   }
 }
 
 /* Fotoheader "half": vanaf desktop staat alles links uitgelijnd in plaats van gecentreerd. De intro, het gekleurde vlak
    en de afsluiter beginnen op de lijn van de tekst in de kaarten (2rem binnen --rand) */
+/* De intro staat vanaf desktop in de header onder de titel (components/page-hero), niet nog eens in de inhoud */
 .page.has-hero-half .main > p:first-child {
-  /* Optisch gelijk met de tekst ín de kaarten eronder (die hebben 2rem binnenruimte), met ruimte tot de kaarten */
-  @variant lg {
-    margin-inline: calc(50% - 50vw + var(--rand) + 2rem) auto;
-    margin-bottom: 4rem;
-  }
+  @apply lg:hidden;
 }
 
 /* De afsluiter ("Vragen?") lijnt uit op de tekst in de vraagkaarten van het gekleurde vlak erboven. Zelfde rekensom

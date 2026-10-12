@@ -2,7 +2,8 @@
      - breed: schermbrede foto met de titel in een witte kaart die half over de onderrand valt; vanaf md rechts (zodat de
        kaart niet over de mensen links/midden valt), op mobiel over de volle breedte.
      - half: vanaf lg staat de foto rechts op 55% van de breedte en loopt naar links en onderen uit in het wit (hero-fade-mask);
-       de titel staat groot links (2rem ingesprongen, op de lijn van de intro eronder), alles op crème. Achter de foto komen de rimpelcirkels van Snelle links vandaan,
+       de titel staat groot links (2rem ingesprongen, op de lijn van de kaarttekst eronder) met de intro (eerste alinea
+       van de inhoud) eronder, alles op crème. Achter de foto komen de rimpelcirkels van Snelle links vandaan,
        zichtbaar in het uitgelopen deel. De kenmerken-labels uit de inhoud staan onderaan over de foto (en zijn dan in de
        inhoud verborgen, zie .has-hero-half in css/app.css). Onder lg gelijk aan "breed".
      Bij het laden komt de foto zacht in beeld en schuiven label en titel omhoog (niet bij "minder beweging"). ── --}}
@@ -46,6 +47,10 @@
         'mb-0 text-4xl font-semibold md:text-5xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]',
         'lg:text-6xl lg:leading-[1.05]' => $half,
       ])>{!! $title !!}</h1>
+
+      @if($half && $intro)
+        <p class="mt-6 mb-0 hidden text-xl leading-relaxed text-triv-navy lg:block xl:text-[1.375rem] motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.45s_both]">{!! $intro !!}</p>
+      @endif
     </div>
   </div>
 

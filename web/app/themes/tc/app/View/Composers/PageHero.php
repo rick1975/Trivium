@@ -26,6 +26,7 @@ class PageHero extends Composer
             'title' => get_the_title($id),
             'parent' => $parent ? ['title' => get_the_title($parent), 'url' => get_permalink($parent)] : null,
             'features' => $this->features($id),
+            'intro' => $this->intro($id),
             'layout' => (function_exists('get_field') ? get_field('foto_stijl', $id) : null) ?: 'breed',
             'position' => match ($focus) {
                 'links' => '35% 40%',
@@ -33,6 +34,26 @@ class PageHero extends Composer
                 default => '50% 40%',
             },
         ];
+    }
+
+    /**
+     * De intro: de eerste alinea, als de inhoud daarmee begint (HTML van de alinea, met eventuele links). De fotoheader
+     * "half" toont hem vanaf desktop onder de titel; in de inhoud is hij dan verborgen (zie css/app.css).
+     */
+    protected function intro(int $id): ?string
+    {
+        $blocks = array_values(array_filter(
+            parse_blocks(get_post_field('post_content', $id)),
+            fn ($block) => $block['blockName'] !== null
+        ));
+
+        if (($blocks[0]['blockName'] ?? null) !== 'core/paragraph') {
+            return null;
+        }
+
+        $html = trim(preg_replace('#^\s*<p[^>]*>|</p>\s*$#', '', $blocks[0]['innerHTML']));
+
+        return $html !== '' ? $html : null;
     }
 
     /**
