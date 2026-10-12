@@ -123,6 +123,42 @@ html {
 }
 
 @layer components {
+  /* Pagina-inhoud uit de blokeditor (the_content). De blokstijlen van WordPress worden niet geladen,
+     dus koppen, lijsten, tabellen en links in de tekst krijgen hier hun opmaak. */
+  .wp-block-heading {
+    @apply mt-10 first:mt-0;
+  }
+
+  h3.wp-block-heading {
+    @apply mt-8 text-xl md:text-2xl;
+  }
+
+  .wp-block-list {
+    @apply mb-6 pl-6 list-disc marker:text-triv-pink;
+  }
+
+  .wp-block-table {
+    @apply mb-8 overflow-x-auto rounded-xl border border-gray-200 bg-white;
+
+    table {
+      @apply w-full border-collapse text-left;
+    }
+
+    th {
+      @apply bg-triv-cream px-4 py-3 font-semibold text-triv-navy;
+    }
+
+    td {
+      @apply border-t border-gray-200 px-4 py-2.5;
+    }
+  }
+
+  .main > p > a,
+  .wp-block-list a,
+  .wp-block-table a {
+    @apply font-semibold underline! underline-offset-2 decoration-triv-pink/60 hover:text-triv-pink;
+  }
+
   /* Paginatemplate Documenten (template-documenten.blade.php): hele inhoudsvlak in het sectiegroen van Snelle links */
   .page-template-template-documenten #main {
     @apply bg-triv-section;
