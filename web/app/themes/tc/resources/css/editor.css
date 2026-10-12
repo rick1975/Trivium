@@ -1,29 +1,43 @@
+/* Opmaak van de blokeditor (in het editorvenster, setup.php laadt dit via block_editor_settings_all).
+   Zelfde kleuren (theme.css) en blokstijlen (content.css) als de site, zodat de school ziet wat er op de pagina komt.
+   Geen preflight/utilities: alleen de standaardwaarden van Tailwind (theme) voor @apply en de variabelen. */
+@import "@fontsource/dm-sans/latin-400.css";
+@import "@fontsource/dm-sans/latin-600.css";
 @import "@fontsource/poppins/latin-400.css";
 @import "@fontsource/poppins/latin-500.css";
 @import "@fontsource/poppins/latin-600.css";
 @import "@fontsource/poppins/latin-700.css";
-@reference "tailwindcss";
+@import "tailwindcss/theme.css" theme(static);
+@import "./theme.css";
+@import "./content.css";
 
-body {
-    @apply bg-white text-gray-700 antialiased;
+/* Basis zoals op vervolgpagina's: DM Sans 18px, koppen in Poppins */
+.editor-styles-wrapper {
+  @apply bg-white text-lg text-gray-700 antialiased;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.7;
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-pretty leading-tight text-triv-navy;
     font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-    line-height: 1.75;
-    font-size: 1rem;
-}
+  }
 
-h1, h2, h3, h4, h5, h6 {
-    @apply font-bold text-pretty leading-tight;
-    color: #0b1f3a; /* triv-navy (editor.css kent de @theme-kleuren van app.css niet) */
-}
+  h1 { @apply text-4xl md:text-5xl mb-6 font-semibold; }
+  h2 { @apply text-3xl md:text-4xl mb-5; }
+  h3 { @apply text-2xl md:text-3xl mb-4; }
+  h4 { @apply text-xl md:text-2xl mb-3 font-semibold; }
+  h5 { @apply text-lg md:text-xl mb-2 font-semibold; }
+  h6 { @apply text-base md:text-lg mb-2 font-semibold; }
 
-h1 { @apply text-4xl md:text-5xl mb-6; }
-h2 { @apply text-3xl md:text-4xl mb-5; }
-h3 { @apply text-2xl md:text-3xl mb-4; }
-h4 { @apply text-xl md:text-2xl mb-3 font-semibold; }
-h5 { @apply text-lg md:text-xl mb-2 font-semibold; }
-h6 { @apply text-base md:text-lg mb-2 font-semibold; }
+  p {
+    @apply mb-4;
+  }
 
-p {
-    @apply mb-4 text-gray-700;
+  /* Op de site lopen deze vlakken over de hele schermbreedte en rekenen ze met de schermrand (--rand);
+     in het smallere editorvenster gewoon vaste binnenruimte */
+  .wp-block-group.is-style-sectie,
+  .wp-block-group.is-style-afsluiter,
+  .wp-block-group.is-style-sectie:has(> .wp-block-group:first-child:nth-last-child(2)) {
+    padding-inline: 2rem;
+  }
 }

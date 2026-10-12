@@ -1,5 +1,7 @@
 @import "tailwindcss" theme(static);
 @import "./components/animated-text.css";
+@import "./theme.css";
+@import "./content.css";
 @source "../views/";
 @source "../../app/";
 
@@ -21,26 +23,6 @@ html {
   }
 }
 
-@theme {
-    --color-triv-blue: #004289;
-    --color-triv-navy: #0b1f3a; /* diep nachtblauw, o.a. footer */
-    --color-triv-lightblue: #3577bc;
-    --color-triv-red: #e62733;
-    --color-triv-orange: #f07f3c;
-    --color-triv-pink: #E56B6F;
-    --color-triv-green: #56af31;
-    --color-triv-olive: #9b9e4b;
-    /* Achtergrondgroen van o.a. Snelle links. Alternatieven: salie #8fa68e, zeegroen #5fa39a, mos #8a9a5b.
-       Terug naar het originele olijfgroen: var(--color-triv-olive) */
-    --color-triv-section: #8fa68e;
-    /* Achtergrond van het schermbrede vlak in de pagina-inhoud (blokstijl "Gekleurd vlak"): gedempt roze, tussen de
-       zachte tint en het roze accent in, met navy tekst. Eerder geprobeerd: triv-pink zelf (te sterk), zachte roze
-       tint #fbe6e3, perzik #f5e9de, warm zand #f2ebdf, lichtblauw #eaf1f6, salie var(--color-triv-section) */
-    --color-triv-vlak: #f6cbc8;
-    --color-triv-yellow: #fcbf00;
-    --color-triv-cream: #fbfaf4;
-    --breakpoint-2xl: 1500px;
-}
 
 /* Vaste inhoudsbreedte van de site: alle blokken (nieuws, snelle links, fotobanner, footer, sitemap)
    beginnen op dezelfde lijn */
@@ -48,13 +30,6 @@ html {
   @apply w-full max-w-[1280px] mx-auto px-6;
 }
 
-/* Brede inhoud op vervolgpagina's (desktop): kaarten, gekleurd vlak, afsluiter, en bij de fotoheader "half" ook de
-   titel en de intro, lijnen allemaal uit op deze breedte. --rand = afstand van de schermrand tot het begin van de
-   inhoud (minstens 1,5rem). Breder of smaller: alleen --inhoud-breed aanpassen (was 77rem, gelijk aan .page-container). */
-:root {
-  --inhoud-breed: 90rem;
-  --rand: max(1.5rem, calc(50vw - var(--inhoud-breed) / 2));
-}
 
 /* Algemene merkkleuren voor links/knoppen (waren eerder nergens gedefinieerd) */
 :root {
@@ -268,7 +243,8 @@ html {
 | de pagina, zoals .is-layout-flex { display: flex; align-items: center },
 | .is-layout-flow > * { margin: 0 } en een donkere standaardknop. CSS in een
 | @layer verliest daar altijd van, ongeacht de specificiteit. De blokstijlen
-| staan daarom hier, onder .main, zodat ze alleen in de inhoud gelden.
+| zelf staan in content.css (ook geladen in de editor); hier de regels die
+| alleen op de site gelden (breedtes, fotoheader).
 |--------------------------------------------------------------------------
 */
 
@@ -386,278 +362,4 @@ html {
 .wp-block-list a,
 .wp-block-table a {
   @apply font-semibold underline! underline-offset-2 decoration-triv-pink/60 hover:text-triv-pink;
-}
-
-.main {
-  /* Pagina-inhoud uit de blokeditor (the_content). De blokstijlen van WordPress worden niet geladen,
-     dus koppen, lijsten, tabellen en links in de tekst krijgen hier hun opmaak. */
-  .wp-block-heading {
-    @apply mt-10 first:mt-0;
-  }
-
-  h3.wp-block-heading {
-    @apply mt-8 text-xl md:text-2xl;
-  }
-
-  .wp-block-list {
-    @apply mb-6 pl-6 list-disc marker:text-triv-pink;
-  }
-
-  .wp-block-table {
-    @apply mb-8 overflow-x-auto rounded-xl border border-gray-200 bg-white;
-
-    table {
-      @apply w-full border-collapse text-left;
-    }
-
-    th {
-      @apply bg-triv-cream px-4 py-3 font-semibold text-triv-navy;
-    }
-
-    td {
-      @apply border-t border-gray-200 px-4 py-2.5;
-    }
-  }
-
-  .wp-block-columns {
-    @apply mb-8 grid items-stretch gap-6 md:grid-flow-col md:auto-cols-fr;
-  }
-
-  .wp-block-column > :last-child,
-  .wp-block-group > :last-child {
-    @apply mb-0;
-  }
-
-  /* Blokstijlen (app/setup.php) ------------------------------------------------------------------------- */
-
-  /* Kenmerken: korte punten als labels met een roze stip */
-  .wp-block-list.is-style-kenmerken {
-    @apply mb-10 flex flex-wrap gap-2 pl-0 list-none;
-
-    > li {
-      @apply mb-0 inline-flex items-center gap-2 rounded-full border border-[#ddd8cc] bg-triv-cream px-4 py-2 text-base font-semibold text-triv-navy;
-
-      &::before {
-        @apply size-2 rounded-full bg-triv-pink;
-        content: '';
-      }
-    }
-  }
-
-  /* Kaarten: witte kaarten met navy titel en dezelfde warme schaduw als de uitklapblokken; tot desktop onder elkaar, vanaf lg naast elkaar (breedte: zie hierboven) */
-  .wp-block-columns.is-style-kaarten {
-    @apply mb-0 gap-4 grid-flow-row md:grid-flow-row lg:grid-flow-col lg:auto-cols-fr lg:gap-6;
-
-    > .wp-block-column {
-      @apply rounded-2xl bg-white p-6 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.45)] lg:p-8;
-    }
-
-    h2,
-    h3 {
-      @apply mt-0 mb-3 text-xl md:text-2xl;
-    }
-  }
-
-  /* Gekleurd vlak over de hele schermbreedte (gedempt roze, --color-triv-vlak); inhoud in de tekstkolom,
-     stappen en uitgelicht blok iets breder.
-     Bestaat het vlak uit precies twee groepen (bv. kop + intro en de uitklapblokken), dan staan die vanaf lg naast
-     elkaar, even breed als de kaarten (tot --inhoud-breed): links smal en blijvend in beeld bij scrollen, rechts breed. */
-  .wp-block-group.is-style-sectie {
-    @apply bg-triv-vlak px-6 py-16 md:py-24 text-triv-navy;
-
-    > * {
-      @apply mx-auto max-w-2xl;
-    }
-
-    > .trap-tabs,
-    > .is-style-trap,
-    > .is-style-uitgelicht {
-      @apply max-w-4xl;
-    }
-
-    /* Intro en de eerste vraag niet tegen elkaar aan */
-    > .wp-block-group:first-child:nth-last-child(2) {
-      @apply mb-10;
-    }
-
-    &:has(> .wp-block-group:first-child:nth-last-child(2)) {
-      @variant lg {
-        display: grid;
-        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-        column-gap: 4rem;
-        align-items: start;
-        padding-inline: var(--rand);
-        padding-left: calc(var(--rand) + 2rem); /* links op de lijn van de intro */
-
-        > * {
-          max-width: none;
-          margin: 0;
-        }
-
-        > :first-child {
-          position: sticky;
-          top: 2rem;
-        }
-      }
-    }
-  }
-
-  /* Stappen (trap). Zonder JavaScript: genummerde stappen onder elkaar, verbonden door een lijn.
-     Met js/steps.js: knoppenrij met oplopende balkjes (.trap-tabs) en per keer één stap in een witte kaart. */
-  .wp-block-list.is-style-trap {
-    @apply pl-0 list-none;
-    counter-reset: trap -1;
-
-    > li {
-      @apply relative mb-0 pb-8 pl-14;
-      counter-increment: trap;
-
-      &::before {
-        @apply absolute left-0 top-0 flex size-10 items-center justify-center rounded-full bg-white font-bold text-triv-navy;
-        content: counter(trap);
-      }
-
-      &:not(:last-child)::after {
-        @apply absolute left-5 top-12 bottom-2 w-px bg-triv-navy/25;
-        content: '';
-      }
-    }
-
-    strong {
-      @apply mb-1 block text-xl text-triv-navy;
-    }
-
-    strong + br {
-      display: none;
-    }
-
-    &.is-enhanced > li {
-      @apply rounded-2xl bg-white p-6 md:p-8 shadow-[0_10px_30px_-15px_rgb(11_31_58/0.3)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-triv-navy;
-
-      &::before,
-      &::after {
-        content: none;
-      }
-    }
-  }
-
-  .trap-tabs {
-    @apply mb-4 grid items-end gap-2 md:gap-3;
-    grid-template-columns: repeat(var(--trap-stappen), minmax(0, 1fr));
-
-    [role='tab'] {
-      @apply flex cursor-pointer flex-col gap-2 rounded-xl text-center text-triv-navy focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-triv-navy;
-    }
-
-    .trap-balk {
-      @apply block rounded-xl bg-white/45 transition-colors duration-300;
-      height: calc(var(--trap-fractie) * 7rem);
-
-      @variant md {
-        height: calc(var(--trap-fractie) * 10rem);
-      }
-    }
-
-    [role='tab']:hover .trap-balk {
-      @apply bg-white/80;
-    }
-
-    [aria-selected='true'] .trap-balk {
-      @apply bg-triv-pink;
-    }
-
-    .trap-code {
-      @apply text-base font-bold leading-none md:text-lg;
-    }
-
-    .trap-titel {
-      @apply hidden text-sm leading-snug md:block;
-    }
-  }
-
-  /* Uitklapblokken (core/details), bv. als veelgestelde vragen: witte kaarten onder elkaar met warme schaduw, vraag in Poppins, antwoord in grijs. Navy omlijnde plus (bij hover
-     roze gevuld) die bij openen een navy gevuld kruisje wordt */
-  .wp-block-details {
-    @apply mb-4 rounded-2xl bg-white text-gray-700 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.45)];
-
-    > summary {
-      @apply flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-6 py-5 font-semibold text-lg leading-snug text-triv-navy transition-colors md:px-8 md:py-6 md:text-xl hover:text-triv-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-triv-navy;
-      font-family: 'Poppins', sans-serif;
-
-      &::-webkit-details-marker {
-        display: none;
-      }
-
-      /* Plus getekend met twee balkjes (een "+"-teken uit het lettertype staat nooit precies in het midden) */
-      &::after {
-        @apply size-8 shrink-0 rounded-full border-2 border-triv-navy text-triv-navy transition-[rotate,background-color,border-color,color] duration-300;
-        content: '';
-        background-image: linear-gradient(currentColor, currentColor), linear-gradient(currentColor, currentColor);
-        background-size: 0.75rem 2px, 2px 0.75rem;
-        background-position: center;
-        background-repeat: no-repeat;
-      }
-    }
-
-    > summary:hover::after {
-      @apply border-triv-pink bg-triv-pink text-white;
-    }
-
-    &[open]:not([data-state='closing']) > summary::after {
-      @apply bg-triv-navy text-white;
-      rotate: 45deg;
-    }
-
-    &[open]:not([data-state='closing']) > summary:hover::after {
-      @apply border-triv-pink bg-triv-pink;
-    }
-
-    > :not(summary) {
-      @apply px-6 md:px-8;
-    }
-
-    > :last-child:not(summary) {
-      @apply mb-0 pb-6 md:pb-8;
-    }
-  }
-
-  /* Uitgelicht: witte kaart met gele rand (bv. De Spotlight) */
-  .wp-block-group.is-style-uitgelicht {
-    @apply mt-8 rounded-2xl border-l-8 border-triv-yellow bg-white p-6 md:p-8;
-
-    h2,
-    h3 {
-      @apply mt-0 mb-2;
-    }
-  }
-
-  /* Afsluiter: tekst met een knop eronder op wit, bv. "Vragen? Neem contact op" */
-  .wp-block-group.is-style-afsluiter {
-    @apply mt-16 flex flex-col items-start gap-6 bg-white py-16 md:py-24 lg:py-28;
-    padding-inline: max(1.5rem, calc(50vw - 21rem)); /* inhoud even breed als de tekstkolom (max-w-2xl) */
-
-    h2,
-    h3 {
-      @apply mt-0 mb-2 text-2xl md:text-3xl;
-    }
-  }
-
-  /* Knoppen uit de editor, in de stijl van <x-button> (roze, met stip) */
-  .wp-block-buttons {
-    @apply flex flex-wrap gap-3;
-  }
-
-  .wp-block-button__link {
-    @apply inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-xl bg-triv-pink px-6 py-3 text-sm font-semibold text-white no-underline transition-colors duration-200;
-
-    &::before {
-      @apply size-1.5 rounded-full bg-current;
-      content: '';
-    }
-
-    &:hover {
-      @apply text-white;
-      background-color: color-mix(in oklch, var(--color-triv-pink) 65%, var(--color-triv-red));
-    }
-  }
 }

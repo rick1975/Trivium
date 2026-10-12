@@ -1,0 +1,31 @@
+/* Kleuren en maten van het thema. Geladen door app.css (site) én editor.css (blokeditor), zodat beide dezelfde
+   waarden gebruiken. */
+
+@theme {
+    --color-triv-blue: #004289;
+    --color-triv-navy: #0b1f3a; /* diep nachtblauw, o.a. footer */
+    --color-triv-lightblue: #3577bc;
+    --color-triv-red: #e62733;
+    --color-triv-orange: #f07f3c;
+    --color-triv-pink: #E56B6F;
+    --color-triv-green: #56af31;
+    --color-triv-olive: #9b9e4b;
+    /* Achtergrondgroen van o.a. Snelle links. Alternatieven: salie #8fa68e, zeegroen #5fa39a, mos #8a9a5b.
+       Terug naar het originele olijfgroen: var(--color-triv-olive) */
+    --color-triv-section: #8fa68e;
+    /* Achtergrond van het schermbrede vlak in de pagina-inhoud (blokstijl "Gekleurd vlak"): gedempt roze, tussen de
+       zachte tint en het roze accent in, met navy tekst. Eerder geprobeerd: triv-pink zelf (te sterk), zachte roze
+       tint #fbe6e3, perzik #f5e9de, warm zand #f2ebdf, lichtblauw #eaf1f6, salie var(--color-triv-section) */
+    --color-triv-vlak: #f6cbc8;
+    --color-triv-yellow: #fcbf00;
+    --color-triv-cream: #fbfaf4;
+    --breakpoint-2xl: 1500px;
+}
+
+/* Brede inhoud op vervolgpagina's (desktop): kaarten, gekleurd vlak, afsluiter, en bij de fotoheader "half" ook de
+   titel en de intro, lijnen allemaal uit op deze breedte. --rand = afstand van de schermrand tot het begin van de
+   inhoud (minstens 1,5rem). Breder of smaller: alleen --inhoud-breed aanpassen (was 77rem, gelijk aan .page-container). */
+:root {
+  --inhoud-breed: 90rem;
+  --rand: max(1.5rem, calc(50vw - var(--inhoud-breed) / 2));
+}
