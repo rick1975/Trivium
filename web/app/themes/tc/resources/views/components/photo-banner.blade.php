@@ -82,7 +82,7 @@
             <span class="{{ $unroll }} delay-700 {{ $accentClass }}">{{ $highlight }}</span>
           @endif
         </h2>
-        <p class="text-white font-medium leading-relaxed mb-8 max-w-xl">{{ implode(' ', $words) }}</p>
+        <p class="text-white font-medium leading-relaxed mb-6 lg:mb-8 max-w-xl">{{ implode(' ', $words) }}</p>
       @else
         <h2 @class(['text-[2.5rem] md:text-5xl xl:text-6xl font-bold text-white leading-tight mb-6', 'max-md:text-right' => $right])>
           {{ $title }}
@@ -91,7 +91,7 @@
           @endif
         </h2>
         <p class="sr-only">{{ implode(' ', $words) }}</p>
-        <p aria-hidden="true" class="group text-white font-medium leading-relaxed mb-8 max-w-md" x-data x-intersect.once.half="$el.dataset.shown = ''">
+        <p aria-hidden="true" class="group text-white font-medium leading-relaxed mb-6 lg:mb-8 max-w-md" x-data x-intersect.once.half="$el.dataset.shown = ''">
           @foreach($words as $i => $word)
             <span class="inline-block overflow-clip -my-1 py-1 align-bottom"><span class="inline-block translate-y-2/3 opacity-0 transition-[translate,opacity] duration-700 ease-out delay-[calc(var(--i)*30ms)] group-data-shown:translate-y-0 group-data-shown:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none" style="--i: {{ $i }}">{{ $word }}</span></span>
           @endforeach

@@ -46,8 +46,9 @@
       <ul class="grid grid-cols-2 gap-4 mb-0">
         @foreach($ctas as $cta)
           <li class="mb-0"><a href="{{ $cta['url'] }}" class="group relative flex aspect-[3/4] items-end overflow-hidden rounded-xl no-underline">
-            <img src="{{ $cta['image'] }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full max-w-none object-cover transition-transform duration-500 group-hover:scale-105">
-            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" aria-hidden="true"></span>
+            <img src="{{ $cta['image'] }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full max-w-none object-cover brightness-110 transition-transform duration-500 group-hover:scale-105">
+            {{-- Verloop alleen onder de tekst (onderste ~60%), zodat de gezichten in het bovenste deel licht blijven --}}
+            <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 via-35% to-transparent to-60%" aria-hidden="true"></span>
             <div class="relative z-10 p-4 sm:p-5">
               <h3 class="text-lg sm:text-2xl font-bold text-white leading-tight mb-2">{{ $cta['title'] }}</h3>
               <span class="flex items-center gap-2 text-xs sm:text-sm font-semibold text-white/90">
