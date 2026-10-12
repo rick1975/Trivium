@@ -373,4 +373,57 @@ add_action('acf/init', function () {
         ],
         'location' => $location('trivium-footer'),
     ]);
+
+    // Paginatemplate "Documenten" (template-documenten.blade.php): downloadlijst per rubriek
+    acf_add_local_field_group([
+        'key' => 'group_trivium_documenten',
+        'title' => 'Documenten',
+        'fields' => [
+            [
+                'key' => 'field_trivium_documenten_rubrieken',
+                'label' => 'Rubrieken',
+                'name' => 'documenten_rubrieken',
+                'type' => 'repeater',
+                'instructions' => 'Komen onder de paginatekst, elk met een kop en de documenten als downloadlijst.',
+                'layout' => 'block',
+                'button_label' => 'Rubriek toevoegen',
+                'collapsed' => 'field_trivium_documenten_rubriek_titel',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_trivium_documenten_rubriek_titel',
+                        'label' => 'Titel',
+                        'name' => 'titel',
+                        'type' => 'text',
+                        'required' => 1,
+                    ],
+                    [
+                        'key' => 'field_trivium_documenten_rubriek_documenten',
+                        'label' => 'Documenten',
+                        'name' => 'documenten',
+                        'type' => 'repeater',
+                        'layout' => 'table',
+                        'button_label' => 'Document toevoegen',
+                        'sub_fields' => [
+                            [
+                                'key' => 'field_trivium_documenten_document_bestand',
+                                'label' => 'Bestand',
+                                'name' => 'bestand',
+                                'type' => 'file',
+                                'return_format' => 'id',
+                                'required' => 1,
+                            ],
+                            [
+                                'key' => 'field_trivium_documenten_document_titel',
+                                'label' => 'Titel',
+                                'name' => 'titel',
+                                'type' => 'text',
+                                'instructions' => 'Leeg = titel van het bestand in de mediabibliotheek.',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+        'location' => [[['param' => 'page_template', 'operator' => '==', 'value' => 'template-documenten.blade.php']]],
+    ]);
 });
