@@ -490,22 +490,26 @@ html {
     }
   }
 
-  /* Uitklapblokken (core/details), bv. als veelgestelde vragen: witte kaarten onder elkaar, blauwe plus die bij
+  /* Uitklapblokken (core/details), bv. als veelgestelde vragen: witte kaarten onder elkaar, navy omlijnde plus (bij hover roze gevuld) die bij
      openen een kruisje wordt */
   .wp-block-details {
     @apply mb-3 rounded-2xl bg-white shadow-[0_10px_30px_-18px_rgb(11_31_58/0.35)];
 
     > summary {
-      @apply flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-6 py-5 font-bold text-lg leading-snug text-triv-navy transition-colors md:px-8 md:text-xl hover:text-triv-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-triv-navy;
+      @apply flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-6 py-5 font-bold text-lg leading-snug text-triv-navy transition-colors md:px-8 md:text-xl hover:text-triv-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-triv-navy;
 
       &::-webkit-details-marker {
         display: none;
       }
 
       &::after {
-        @apply flex size-8 shrink-0 items-center justify-center rounded-full bg-triv-blue pb-0.5 text-2xl font-normal leading-none text-white transition-transform duration-300;
+        @apply flex size-8 shrink-0 items-center justify-center rounded-full border-2 border-triv-navy pb-0.5 text-2xl font-normal leading-none text-triv-navy transition-[rotate,background-color,border-color,color] duration-300;
         content: '+';
       }
+    }
+
+    > summary:hover::after {
+      @apply border-triv-pink bg-triv-pink text-white;
     }
 
     &[open]:not([data-state='closing']) > summary::after {
