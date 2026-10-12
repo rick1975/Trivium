@@ -74,7 +74,7 @@
     @apply mb-0 gap-4 grid-flow-row md:grid-flow-row lg:grid-flow-col lg:auto-cols-fr lg:gap-6;
 
     > .wp-block-column {
-      @apply rounded-2xl border border-[#efe9dd] bg-white p-6 lg:p-8; /* geen schaduw; een haarlijn houdt de vorm op wit */
+      @apply rounded-2xl border border-[#f4f0e8] bg-white p-6 lg:p-8; /* geen schaduw; een haarlijn houdt de vorm op wit */
     }
 
     h2,
