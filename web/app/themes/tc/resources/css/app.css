@@ -319,10 +319,10 @@ html {
 }
 
 /* Fotoheader "half": het crème van de header loopt vanaf desktop door achter de intro en vervaagt daarna naar wit.
-   De header is minstens min(84svh, 900px) hoog (de intro staat erin); daarna 16rem overloop naar wit. */
+   De header is minstens min(90svh, 960px) + 5rem hoog (de intro staat erin); daarna 16rem overloop naar wit. */
 .page.has-hero-half #main {
   @variant lg {
-    --hero-hoogte: calc(min(84svh, 900px) + 5rem); /* inclusief de header die erover ligt */
+    --hero-hoogte: calc(min(90svh, 960px) + 5rem); /* inclusief de header die erover ligt */
     background-image: linear-gradient(
       to bottom,
       var(--color-triv-cream) var(--hero-hoogte),
@@ -343,6 +343,22 @@ html {
     inset-inline: 0;
     top: 0;
     background-color: transparent;
+  }
+}
+
+/* Ingelogd: de WordPress-balk (vanaf 783px 32px hoog) staat bovenaan; een header die over de pagina ligt (voorpagina,
+   fotoheader "half") schuift eronder vandaan. Op smallere schermen is de balk 46px en scrolt hij mee. */
+.admin-bar .banner.absolute {
+  top: 46px;
+
+  @media (min-width: 783px) {
+    top: 32px;
+  }
+}
+
+.admin-bar.has-hero-half .banner {
+  @variant lg {
+    top: 32px;
   }
 }
 

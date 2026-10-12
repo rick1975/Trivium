@@ -10,7 +10,7 @@
      loopt door tot de bovenrand van het scherm en de inhoud links schuift 5rem omlaag.
      Bij het laden komt de foto zacht in beeld en schuiven label en titel omhoog (niet bij "minder beweging"). ── --}}
 @php($half = $layout === 'half')
-<div @class(['relative', 'lg:flex lg:min-h-[calc(min(84svh,900px)+5rem)] lg:items-center lg:overflow-hidden lg:bg-triv-cream lg:pt-20' => $half])>
+<div @class(['relative', 'lg:flex lg:min-h-[calc(min(90svh,960px)+5rem)] lg:items-center lg:overflow-hidden lg:bg-triv-cream lg:pt-20' => $half])>
   @if($half)
     <img src="{{ Vite::asset('resources/images/shape-ripples.svg') }}" alt="" aria-hidden="true" decoding="async"
       class="pointer-events-none absolute left-[62%] top-[42%] hidden w-[1500px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none lg:block motion-safe:animate-[hero-photo_1.6s_ease-out_both]">
