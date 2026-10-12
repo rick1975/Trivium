@@ -270,7 +270,11 @@ html {
 
   /* Kaarten: tot desktop onder elkaar in de tekstkolom, vanaf lg naast elkaar en breder dan het inhoudsvlak
      (tot --inhoud-breed, met minstens 1,5rem marge tot de schermrand) */
+  /* Ruimte rond de kaarten: boven komt de binnenruimte van de pagina erbij, onder valt de marge samen met die van
+     het gekleurde vlak (4rem), dus die is hier ruimer */
   > .is-style-kaarten {
+    @apply mt-12 mb-16 md:mb-24 lg:mb-28;
+
     @variant lg {
       max-width: none;
       margin-inline: calc(50% - 50vw + var(--rand));

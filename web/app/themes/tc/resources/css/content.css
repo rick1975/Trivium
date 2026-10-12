@@ -69,12 +69,12 @@
     }
   }
 
-  /* Kaarten: witte kaarten met navy titel en dezelfde warme schaduw als de uitklapblokken; tot desktop onder elkaar, vanaf lg naast elkaar (breedte: zie hierboven) */
+  /* Kaarten: witte kaarten met navy titel en een haarlijn (geen schaduw); tot desktop onder elkaar, vanaf lg naast elkaar (breedte: zie hierboven) */
   .wp-block-columns.is-style-kaarten {
     @apply mb-0 gap-4 grid-flow-row md:grid-flow-row lg:grid-flow-col lg:auto-cols-fr lg:gap-6;
 
     > .wp-block-column {
-      @apply rounded-2xl bg-white p-6 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.45)] lg:p-8;
+      @apply rounded-2xl border border-[#efe9dd] bg-white p-6 lg:p-8; /* geen schaduw; een haarlijn houdt de vorm op wit */
     }
 
     h2,
