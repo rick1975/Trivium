@@ -7,6 +7,20 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Hover ook op touch: Tailwind v4 zet hover: standaard in @media (hover: hover), waardoor hover-effecten op mobiel nooit
+   zichtbaar zijn. Hier geldt hover: (en group-hover:) daarnaast bij :active, dus zolang de vinger op het element ligt:
+   tikfeedback zonder "plakkende" hover na de tik. Op iOS werkt :active pas met een touch-listener (zie js/app.js). */
+@custom-variant hover {
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+  &:active {
+    @slot;
+  }
+}
+
 @theme {
     --color-triv-blue: #004289;
     --color-triv-navy: #0b1f3a; /* diep nachtblauw, o.a. footer */

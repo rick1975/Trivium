@@ -16,3 +16,6 @@ Alpine.start()
 
 initAnimatedText()
 initSlideSections()
+
+// iOS Safari past :active (en daarmee de hover-stijlen bij een tik, zie css/app.css) alleen toe als er een touch-listener is
+document.addEventListener('touchstart', () => {}, { passive: true })

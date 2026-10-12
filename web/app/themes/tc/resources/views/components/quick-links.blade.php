@@ -15,7 +15,7 @@
   {{-- Cameraflits ("klik") zodra de rimpelingen scherpgesteld zijn: zelfde vlak en masker als de foto, wit verloop vanuit het hoofd.
        Eenmalig na aankomst van de slide (data-shown), alleen vanaf md (waar de foto staat) en niet bij "minder beweging". --}}
   <span aria-hidden="true"
-    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-2/3 opacity-0 bg-[radial-gradient(circle_at_50%_31%,white,transparent_55%)] [mask-image:linear-gradient(to_left,black_60%,transparent)] motion-safe:group-data-shown/slide:animate-[camera-flash_350ms_ease-out_1300ms]"></span>
+    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-2/3 opacity-0 bg-[radial-gradient(circle_at_50%_31%,white,transparent_55%)] [mask-image:linear-gradient(to_left,black_60%,transparent)] motion-safe:group-data-shown/slide:animate-[camera-flash_350ms_ease-out_1500ms]"></span>
   {{-- Decoratieve rimpelingen; het middelpunt van de SVG is het middelpunt van de cirkels. Vanaf md gecentreerd op het hoofd in de foto
        (x = midden van het fotovlak, y = 35% van het fotovlak: iets onder 31% zodat de cirkels om het gezicht vallen), zodat de kleinste cirkel om het hoofd ligt. Op mobiel (geen foto)
        net rechts buiten beeld, zodat alleen de bogen zichtbaar zijn. Bron: resources/images/shape-ripples.svg
