@@ -351,7 +351,7 @@ html {
     @apply mb-0 gap-4 grid-flow-row md:grid-flow-row;
 
     > .wp-block-column {
-      @apply rounded-2xl bg-triv-cream p-6 text-base;
+      @apply rounded-2xl bg-triv-cream p-6;
     }
 
     h2,
@@ -383,7 +383,7 @@ html {
     counter-reset: trap -1;
 
     > li {
-      @apply relative mb-0 pb-8 pl-14 text-base;
+      @apply relative mb-0 pb-8 pl-14;
       counter-increment: trap;
 
       &::before {
@@ -452,7 +452,7 @@ html {
   /* Uitklapblokken (core/details), bv. als veelgestelde vragen: witte kaarten onder elkaar, roze plus die bij
      openen een kruisje wordt */
   .wp-block-details {
-    @apply mb-3 rounded-2xl bg-white text-base shadow-[0_10px_30px_-18px_rgb(11_31_58/0.35)];
+    @apply mb-3 rounded-2xl bg-white shadow-[0_10px_30px_-18px_rgb(11_31_58/0.35)];
 
     > summary {
       @apply flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-6 py-5 font-bold text-lg leading-snug text-triv-navy transition-colors md:px-8 md:text-xl hover:text-triv-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-triv-navy;
@@ -482,7 +482,7 @@ html {
 
   /* Uitgelicht: witte kaart met gele rand (bv. De Spotlight) */
   .wp-block-group.is-style-uitgelicht {
-    @apply mt-8 rounded-2xl border-l-8 border-triv-yellow bg-white p-6 md:p-8 text-base;
+    @apply mt-8 rounded-2xl border-l-8 border-triv-yellow bg-white p-6 md:p-8;
 
     h2,
     h3 {
@@ -498,10 +498,6 @@ html {
     h2,
     h3 {
       @apply mt-0 mb-2 text-2xl md:text-3xl;
-    }
-
-    p {
-      @apply text-base;
     }
   }
 
