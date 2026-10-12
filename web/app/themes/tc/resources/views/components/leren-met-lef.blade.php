@@ -27,7 +27,7 @@
         @if(count($onderwerpen) < 6)
           {{-- Placeholder: content volgt later --}}
           <li aria-hidden="true" class="mb-0 rounded-3xl border-2 border-dashed border-[#ddd8cc] p-7 flex flex-col items-center justify-center text-center min-h-[180px]">
-            <span class="text-sm font-semibold text-[#9b9e4b]">Binnenkort meer</span>
+            <span class="text-sm font-semibold text-triv-section">Binnenkort meer</span>
           </li>
         @endif
 

@@ -30,6 +30,9 @@ html {
     --color-triv-pink: #E56B6F;
     --color-triv-green: #56af31;
     --color-triv-olive: #9b9e4b;
+    /* Achtergrondgroen van o.a. Snelle links. Alternatieven: salie #8fa68e, zeegroen #5fa39a, mos #8a9a5b.
+       Terug naar het originele olijfgroen: var(--color-triv-olive) */
+    --color-triv-section: #8fa68e;
     --color-triv-yellow: #fcbf00;
     --color-triv-cream: #fbfaf4;
     --breakpoint-2xl: 1500px;

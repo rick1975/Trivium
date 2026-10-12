@@ -1,11 +1,11 @@
 {{-- ── SNELLE LINKS — fotoblokken en "Ga direct naar"-links uit Trivium Settings > Snelle links
-     (Composers\QuickLinks), in de stijl van de fotobanner: grote titel met witte tweede regel (op olijfgroen), en kaarten met
+     (Composers\QuickLinks), in de stijl van de fotobanner: grote titel met witte tweede regel (op het sectiegroen, triv-section), en kaarten met
      foto, donker verloop van onder, witte titel en roze chevron (zoals in het zoekpaneel). Bij hover zoomt de foto iets in.
      Mobiel alles onder elkaar, vanaf lg twee gelijke kolommen (fotokaarten dan ± 290 × 390 px).
      Net als de fotobanner een schermvullende slide (data-slide, js/slide-sections.js): minstens schermhoog met de inhoud
      verticaal gecentreerd, en de pagina glijdt ernaartoe. Past de inhoud niet (mobiel), dan groeit de sectie gewoon mee. ── --}}
 @if($links || $ctas)
-<section data-slide class="group/slide relative flex min-h-lvh items-center overflow-hidden bg-triv-olive py-16 md:py-24 lg:py-20">
+<section data-slide class="group/slide relative flex min-h-lvh items-center overflow-hidden bg-triv-section py-16 md:py-24 lg:py-20">
   {{-- Lichte achtergrondfoto (TEST: fotostudio-leerlingen — bij livegang testfoto's opruimen), rechts uitgelijnd en naar links
        uitfadend via een mask; 6rem boven de sectie laten beginnen (wordt weggeknipt) zodat het beeld iets hoger staat; pas vanaf md,
        op mobiel zou hij achter de kaarten verdwijnen. object-position 50% 31% = het hoofd van de jongen, dat daardoor altijd op
