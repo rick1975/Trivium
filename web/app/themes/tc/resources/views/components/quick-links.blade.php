@@ -11,11 +11,11 @@
        op mobiel zou hij achter de kaarten verdwijnen. object-position 50% 31% = het hoofd van de jongen, dat daardoor altijd op
        50% / 31% van dit vlak staat, hoe de foto ook bijgesneden wordt (daar richten de rimpelingen hieronder zich op). --}}
   <img src="{{ Vite::asset('resources/images/fotostudio-leerlingen.avif') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
-    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-2/3 max-w-none object-cover object-[50%_31%] opacity-30 select-none [mask-image:linear-gradient(to_left,black_60%,transparent)] motion-safe:group-data-shown/slide:animate-[photo-flash_350ms_ease-out_900ms]">
+    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-2/3 max-w-none object-cover object-[50%_31%] opacity-30 select-none [mask-image:linear-gradient(to_left,black_60%,transparent)] motion-safe:group-data-shown/slide:animate-[photo-flash_350ms_ease-out_1300ms]">
   {{-- Cameraflits ("klik") zodra de rimpelingen scherpgesteld zijn: zelfde vlak en masker als de foto, wit verloop vanuit het hoofd.
        Eenmalig na aankomst van de slide (data-shown), alleen vanaf md (waar de foto staat) en niet bij "minder beweging". --}}
   <span aria-hidden="true"
-    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-2/3 opacity-0 bg-[radial-gradient(circle_at_50%_31%,white,transparent_55%)] [mask-image:linear-gradient(to_left,black_60%,transparent)] motion-safe:group-data-shown/slide:animate-[camera-flash_350ms_ease-out_900ms]"></span>
+    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-2/3 opacity-0 bg-[radial-gradient(circle_at_50%_31%,white,transparent_55%)] [mask-image:linear-gradient(to_left,black_60%,transparent)] motion-safe:group-data-shown/slide:animate-[camera-flash_350ms_ease-out_1300ms]"></span>
   {{-- Decoratieve rimpelingen; het middelpunt van de SVG is het middelpunt van de cirkels. Vanaf md gecentreerd op het hoofd in de foto
        (x = midden van het fotovlak, y = 35% van het fotovlak: iets onder 31% zodat de cirkels om het gezicht vallen), zodat de kleinste cirkel om het hoofd ligt. Op mobiel (geen foto)
        net rechts buiten beeld, zodat alleen de bogen zichtbaar zijn. Bron: resources/images/shape-ripples.svg
