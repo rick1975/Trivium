@@ -17,7 +17,7 @@
       @if($parent)
         <a href="{{ $parent['url'] }}" class="mb-2 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-triv-pink no-underline hover:text-triv-navy">
           <span class="size-1.5 rounded-full bg-current" aria-hidden="true"></span>
-          {{ $parent['title'] }}
+          {!! $parent['title'] !!}
         </a>
       @endif
       <h1 class="mb-0 text-4xl md:text-5xl">{!! $title !!}</h1>

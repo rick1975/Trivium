@@ -489,9 +489,9 @@ html {
     }
   }
 
-  /* Afsluiter: tekst met een knop ernaast, bv. "Vragen? Neem contact op" */
+  /* Afsluiter: tekst met een knop eronder, bv. "Vragen? Neem contact op" */
   .wp-block-group.is-style-afsluiter {
-    @apply mt-16 flex flex-col gap-6 bg-triv-cream py-12 md:flex-row md:items-center md:justify-between md:gap-12 md:py-16;
+    @apply mt-16 flex flex-col items-start gap-6 bg-triv-cream py-12 md:py-16;
     padding-inline: max(1.5rem, calc(50vw - 28rem));
 
     h2,
