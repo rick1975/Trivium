@@ -346,6 +346,11 @@ html {
   }
 }
 
+/* Pagina's (niet de voorpagina): koppen h2 en h3 in 600, net als de paginatitel */
+.page:not(.home) .main :is(h2, h3) {
+  @apply font-semibold;
+}
+
 /* Fotoheader "half": hamburger vanaf desktop wit, op de foto (zoals op de voorpagina) */
 .has-hero-half .banner [aria-controls='nav-drawer'] span span {
   @apply lg:bg-white;
