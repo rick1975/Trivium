@@ -33,10 +33,10 @@ html {
     /* Achtergrondgroen van o.a. Snelle links. Alternatieven: salie #8fa68e, zeegroen #5fa39a, mos #8a9a5b.
        Terug naar het originele olijfgroen: var(--color-triv-olive) */
     --color-triv-section: #8fa68e;
-    /* Achtergrond van het schermbrede vlak in de pagina-inhoud (blokstijl "Gekleurd vlak"): zacht perzik, dieper dan
-       triv-cream. Alternatieven: warm zand #f2ebdf, lichter zand #f6f1e7. Eerder: lichtblauw #eaf1f6,
-       salie var(--color-triv-section) */
-    --color-triv-vlak: #f5e9de;
+    /* Achtergrond van het schermbrede vlak in de pagina-inhoud (blokstijl "Gekleurd vlak"): zachte tint van het roze
+       accent, duidelijk anders dan triv-cream. Eerder geprobeerd: perzik #f5e9de, warm zand #f2ebdf,
+       lichtblauw #eaf1f6, salie var(--color-triv-section) */
+    --color-triv-vlak: #fbe6e3;
     --color-triv-yellow: #fcbf00;
     --color-triv-cream: #fbfaf4;
     --breakpoint-2xl: 1500px;
@@ -271,11 +271,11 @@ html {
   }
 
   /* Kaarten: tot desktop onder elkaar in de tekstkolom, vanaf lg naast elkaar en breder dan het inhoudsvlak
-     (tot 80rem, met 1,5rem marge tot de schermrand) */
+     (even breed als .page-container: tot 77rem, met 1,5rem marge tot de schermrand) */
   > .is-style-kaarten {
     @variant lg {
       max-width: none;
-      margin-inline: calc(50% - min(50vw - 1.5rem, 40rem));
+      margin-inline: calc(50% - min(50vw - 1.5rem, 38.5rem));
     }
   }
 
@@ -321,6 +321,24 @@ html {
       var(--color-triv-cream) calc(var(--hero-hoogte) + 10rem),
       var(--color-white) calc(var(--hero-hoogte) + 28rem)
     );
+  }
+}
+
+/* Fotoheader "half": vanaf desktop begint alles op dezelfde lijn als de titel in de header (.page-container): de intro
+   en de inhoud van de afsluiter staan links uitgelijnd in plaats van gecentreerd */
+.page.has-hero-half .main > p:first-child {
+  @variant lg {
+    margin-inline: calc(50% - min(50vw - 1.5rem, 38.5rem)) auto;
+  }
+}
+
+.page.has-hero-half .main > .is-style-afsluiter {
+  @variant lg {
+    padding-inline: max(1.5rem, calc(50vw - 38.5rem));
+
+    > .wp-block-group {
+      @apply max-w-2xl;
+    }
   }
 }
 
@@ -396,12 +414,12 @@ html {
     }
   }
 
-  /* Kaarten: witte kaarten met roze titel; tot desktop onder elkaar, vanaf lg naast elkaar (breedte: zie hierboven) */
+  /* Kaarten: witte kaarten met roze titel en dezelfde warme schaduw als de uitklapblokken; tot desktop onder elkaar, vanaf lg naast elkaar (breedte: zie hierboven) */
   .wp-block-columns.is-style-kaarten {
     @apply mb-0 gap-4 grid-flow-row md:grid-flow-row lg:grid-flow-col lg:auto-cols-fr lg:gap-6;
 
     > .wp-block-column {
-      @apply rounded-2xl border border-[#ddd8cc] bg-white p-6 lg:p-8;
+      @apply rounded-2xl bg-white p-6 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.45)] lg:p-8;
     }
 
     h2,
@@ -410,10 +428,10 @@ html {
     }
   }
 
-  /* Gekleurd vlak over de hele schermbreedte (zacht perzik, --color-triv-vlak); inhoud in de tekstkolom,
+  /* Gekleurd vlak over de hele schermbreedte (zachte roze tint, --color-triv-vlak); inhoud in de tekstkolom,
      stappen en uitgelicht blok iets breder.
      Bestaat het vlak uit precies twee groepen (bv. kop + intro en de uitklapblokken), dan staan die vanaf lg naast
-     elkaar, even breed als de kaarten (tot 80rem): links smal en blijvend in beeld bij scrollen, rechts breed. */
+     elkaar, even breed als de kaarten (tot 77rem): links smal en blijvend in beeld bij scrollen, rechts breed. */
   .wp-block-group.is-style-sectie {
     @apply bg-triv-vlak px-6 py-16 md:py-24 text-triv-navy;
 
@@ -438,7 +456,7 @@ html {
         grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
         column-gap: 4rem;
         align-items: start;
-        padding-inline: max(1.5rem, calc(50vw - 40rem));
+        padding-inline: max(1.5rem, calc(50vw - 38.5rem));
 
         > * {
           max-width: none;
