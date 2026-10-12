@@ -11,12 +11,18 @@
        op mobiel zou hij achter de kaarten verdwijnen. object-position 50% 31% = het hoofd van de jongen, dat daardoor altijd op
        50% / 31% van dit vlak staat, hoe de foto ook bijgesneden wordt (daar richten de rimpelingen hieronder zich op). --}}
   <img src="{{ Vite::asset('resources/images/fotostudio-leerlingen.avif') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
-    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-2/3 max-w-none object-cover object-[50%_31%] opacity-30 select-none [mask-image:linear-gradient(to_left,black_60%,transparent)]">
+    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-2/3 max-w-none object-cover object-[50%_31%] opacity-30 select-none [mask-image:linear-gradient(to_left,black_60%,transparent)] motion-safe:group-data-shown/slide:animate-[photo-flash_350ms_ease-out_900ms]">
+  {{-- Cameraflits ("klik") zodra de rimpelingen scherpgesteld zijn: zelfde vlak en masker als de foto, wit verloop vanuit het hoofd.
+       Eenmalig na aankomst van de slide (data-shown), alleen vanaf md (waar de foto staat) en niet bij "minder beweging". --}}
+  <span aria-hidden="true"
+    class="pointer-events-none absolute -top-24 bottom-0 right-0 hidden md:block h-[calc(100%+6rem)] w-3/4 lg:w-2/3 opacity-0 bg-[radial-gradient(circle_at_50%_31%,white,transparent_55%)] [mask-image:linear-gradient(to_left,black_60%,transparent)] motion-safe:group-data-shown/slide:animate-[camera-flash_350ms_ease-out_900ms]"></span>
   {{-- Decoratieve rimpelingen; het middelpunt van de SVG is het middelpunt van de cirkels. Vanaf md gecentreerd op het hoofd in de foto
        (x = midden van het fotovlak, y = 35% van het fotovlak: iets onder 31% zodat de cirkels om het gezicht vallen), zodat de kleinste cirkel om het hoofd ligt. Op mobiel (geen foto)
-       net rechts buiten beeld, zodat alleen de bogen zichtbaar zijn. Bron: resources/images/shape-ripples.svg --}}
+       net rechts buiten beeld, zodat alleen de bogen zichtbaar zijn. Bron: resources/images/shape-ripples.svg
+       Bij aankomst van de slide "stellen ze scherp" als een autofocus: van iets te groot en wazig naar hun plek (met kleine
+       overshoot), waarna de cameraflits volgt. Tot dan onzichtbaar; bij "minder beweging" staan ze gewoon stil. --}}
   <img src="{{ Vite::asset('resources/images/shape-ripples.svg') }}" alt="" aria-hidden="true" loading="lazy" decoding="async"
-    class="pointer-events-none absolute left-[calc(100%+138px)] top-[106px] w-[1562px] md:left-[62.5%] lg:left-[66.667%] md:top-[calc(-6rem+0.35*(100%+6rem))] md:w-[260%] max-w-none h-auto -translate-x-1/2 -translate-y-1/2 select-none">
+    class="pointer-events-none absolute left-[calc(100%+138px)] top-[106px] w-[1562px] md:left-[62.5%] lg:left-[66.667%] md:top-[calc(-6rem+0.35*(100%+6rem))] md:w-[260%] max-w-none h-auto -translate-x-1/2 -translate-y-1/2 select-none motion-safe:opacity-0 motion-safe:group-data-shown/slide:animate-[ripple-focus_900ms_cubic-bezier(.2,.8,.2,1)_both]">
 
   <div class="relative page-container grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16 xl:gap-24">
 
