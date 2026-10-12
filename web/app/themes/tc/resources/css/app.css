@@ -33,10 +33,10 @@ html {
     /* Achtergrondgroen van o.a. Snelle links. Alternatieven: salie #8fa68e, zeegroen #5fa39a, mos #8a9a5b.
        Terug naar het originele olijfgroen: var(--color-triv-olive) */
     --color-triv-section: #8fa68e;
-    /* Achtergrond van het schermbrede vlak in de pagina-inhoud (blokstijl "Gekleurd vlak"): zachte tint van het roze
-       accent, duidelijk anders dan triv-cream. Eerder geprobeerd: perzik #f5e9de, warm zand #f2ebdf,
-       lichtblauw #eaf1f6, salie var(--color-triv-section) */
-    --color-triv-vlak: #fbe6e3;
+    /* Achtergrond van het schermbrede vlak in de pagina-inhoud (blokstijl "Gekleurd vlak"): het roze accent zelf, met
+       navy tekst (wit is op dit roze niet goed genoeg leesbaar). Eerder geprobeerd: zachte roze tint #fbe6e3,
+       perzik #f5e9de, warm zand #f2ebdf, lichtblauw #eaf1f6, salie var(--color-triv-section) */
+    --color-triv-vlak: var(--color-triv-pink);
     --color-triv-yellow: #fcbf00;
     --color-triv-cream: #fbfaf4;
     --breakpoint-2xl: 1500px;
@@ -430,7 +430,7 @@ html {
     }
   }
 
-  /* Gekleurd vlak over de hele schermbreedte (zachte roze tint, --color-triv-vlak); inhoud in de tekstkolom,
+  /* Gekleurd vlak over de hele schermbreedte (triv-pink, --color-triv-vlak); inhoud in de tekstkolom,
      stappen en uitgelicht blok iets breder.
      Bestaat het vlak uit precies twee groepen (bv. kop + intro en de uitklapblokken), dan staan die vanaf lg naast
      elkaar, even breed als de kaarten (tot 77rem): links smal en blijvend in beeld bij scrollen, rechts breed. */
