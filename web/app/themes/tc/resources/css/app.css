@@ -449,7 +449,7 @@ html {
     }
   }
 
-  /* Uitklapblokken (core/details), bv. als veelgestelde vragen: witte kaarten onder elkaar, roze plus die bij
+  /* Uitklapblokken (core/details), bv. als veelgestelde vragen: witte kaarten onder elkaar, blauwe plus die bij
      openen een kruisje wordt */
   .wp-block-details {
     @apply mb-3 rounded-2xl bg-white shadow-[0_10px_30px_-18px_rgb(11_31_58/0.35)];
