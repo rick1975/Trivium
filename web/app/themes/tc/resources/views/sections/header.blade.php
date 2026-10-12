@@ -12,7 +12,7 @@
     <div class="flex items-center justify-between min-h-[80px]">
 
       {{-- Logo --}}
-      <a href="{{ home_url('/') }}" aria-label="{{ $siteName }} – home">
+      <a href="{{ home_url('/') }}" class="block" aria-label="{{ $siteName }} – home">
         <x-logo @class(["w-48 md:w-56", "[--logo-letters:#fff]" => $isFront]) aria-hidden="true" />
       </a>
 

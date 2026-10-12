@@ -6,6 +6,6 @@
   $svg = preg_replace('/\bid="([^"]+)"/', 'id="$1' . $suffix . '"', $svg);
   $svg = preg_replace('/(url\(#|href="#)([^)"]+)/', '$1$2' . $suffix, $svg);
 @endphp
-<div {{ $attributes->merge(['class' => '[&>svg]:w-full [&>svg]:h-auto']) }}>
+<div {{ $attributes->merge(['class' => '[&>svg]:block [&>svg]:w-full [&>svg]:h-auto']) }}>
   {!! $svg !!}
 </div>
