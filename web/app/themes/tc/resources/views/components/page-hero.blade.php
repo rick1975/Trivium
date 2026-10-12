@@ -2,7 +2,7 @@
      - breed: schermbrede foto met de titel in een witte kaart die half over de onderrand valt; vanaf md rechts (zodat de
        kaart niet over de mensen links/midden valt), op mobiel over de volle breedte.
      - half: vanaf lg staat de foto rechts op 55% van de breedte en loopt naar links en onderen uit in het wit (hero-fade-mask);
-       de titel staat groot links, alles op crème. Achter de foto komen de rimpelcirkels van Snelle links vandaan,
+       de titel staat groot links (2rem ingesprongen, op de lijn van de intro eronder), alles op crème. Achter de foto komen de rimpelcirkels van Snelle links vandaan,
        zichtbaar in het uitgelopen deel. De kenmerken-labels uit de inhoud staan onderaan over de foto (en zijn dan in de
        inhoud verborgen, zie .has-hero-half in css/app.css). Onder lg gelijk aan "breed".
      Bij het laden komt de foto zacht in beeld en schuiven label en titel omhoog (niet bij "minder beweging"). ── --}}
@@ -29,7 +29,7 @@
   <div @class(['page-container', 'lg:relative' => $half])>
     <div @class([
       'relative -mt-16 md:-mt-28 md:ml-auto md:max-w-xl rounded-2xl bg-white p-6 md:p-10 shadow-[0_20px_50px_-20px_rgb(11_31_58/0.35)]',
-      'lg:m-0 lg:max-w-[42%] lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none' => $half,
+      'lg:my-0 lg:mr-0 lg:ml-8 lg:max-w-[42%] lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none' => $half,
     ])>
       @if($parent)
         {{-- In de stijl "half" iets naar rechts: de grote titel eronder begint optisch iets later (witruimte vóór de letter) --}}
