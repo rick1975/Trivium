@@ -123,38 +123,173 @@ html {
 }
 
 @layer components {
-  /* Vervolgpagina's (gewone pagina's, niet de voorpagina en niet pagina's met een eigen template zoals Documenten):
-     grotere letter en een smallere tekstkolom (± 65-70 tekens per regel) voor rustig lezen. Tabellen mogen de volle
-     breedte van het inhoudsvlak gebruiken. De eerste alinea (de intro, ook na een openingskop) is groter. */
-  .page:not(.home):not(.page-template) .main {
-    @apply text-lg leading-[1.7];
+  /* Paginatemplate Documenten (template-documenten.blade.php): hele inhoudsvlak in het sectiegroen van Snelle links */
+  .page-template-template-documenten #main {
+    @apply bg-triv-section;
+  }
 
-    > * {
-      @apply mx-auto max-w-2xl;
-    }
+  /* Footer: vanaf tablet schermvullend, net als de fotobanner; inhoud in het midden.
+     Glijdt als slide in beeld via js/slide-sections.js.
+     Mobiel: zo hoog als de inhoud, foto onderaan tot de rand (dus geen padding onder) */
+  .footer {
+    @apply relative isolate overflow-hidden flex flex-col justify-center pt-12 md:min-h-svh md:py-16 xl:py-24 bg-triv-navy text-white;
+  }
 
-    > .wp-block-table {
-      @apply max-w-none text-base;
-    }
+  .footer a {
+    @apply text-white hover:text-gray-100;
+  }
 
-    /* Kaarten mogen de volle breedte van het inhoudsvlak gebruiken, het groene vlak de hele schermbreedte */
-    > .wp-block-columns {
-      @apply max-w-none;
-    }
+  .footer h3 {
+    @apply text-white mb-4;
+  }
 
-    > .is-style-sectie {
-      @apply my-16 max-w-none;
-      margin-inline: calc(50% - 50vw);
-    }
+  .footer p {
+    @apply text-white;
+  }
+}
 
-    /* Intro: met paginakop de alinea erna, met fotoheader (geen paginakop) de eerste alinea */
-    > p:first-child,
-    > .page-header + p,
-    > .page-header + h2 + p {
-      @apply text-xl md:text-[1.375rem] leading-relaxed text-triv-navy;
+/* Verloop van de footerfoto's naar het nachtblauw, met een zachte (ease) curve i.p.v. lineair: zo is er geen
+   zichtbare rand waar het verloop begint, ook niet bij lichte foto's. Mobiel: alleen bovenaan.
+   Vanaf tablet: naar links (over 28%) en onderaan (over 16%); beide maskers worden gecombineerd (intersect). */
+@utility footer-photo-mask {
+  mask-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / 0.08) 8%, rgb(0 0 0 / 0.3) 16%, rgb(0 0 0 / 0.65) 25%, black 35%);
+
+  @variant md {
+    mask-image:
+      linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.04) 4%, rgb(0 0 0 / 0.15) 8%, rgb(0 0 0 / 0.36) 12%, rgb(0 0 0 / 0.62) 18%, rgb(0 0 0 / 0.85) 23%, black 28%),
+      linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.08) 3%, rgb(0 0 0 / 0.3) 7%, rgb(0 0 0 / 0.65) 11%, black 16%);
+    mask-composite: intersect;
+  }
+}
+
+/* Voortgangsstreepje van de footerslider (sections/footer.blade.php): loopt van links naar rechts vol */
+@keyframes footer-progress {
+  from { scale: 0 1; }
+  to { scale: 1 1; }
+}
+
+/* Snelle links (components/quick-links.blade.php): "foto maken" bij aankomst van de slide. Eerst stellen de rimpelingen
+   scherp als een autofocus (iets te groot en wazig → scherp, kleine overshoot), daarna een korte cameraflits over de foto. */
+@keyframes ripple-focus {
+  0% { opacity: 0; scale: 1.15; filter: blur(6px); }
+  60% { opacity: 1; scale: 0.985; filter: blur(0); }
+  100% { opacity: 1; scale: 1; filter: none; }
+}
+
+@keyframes camera-flash {
+  0%, 100% { opacity: 0; }
+  15% { opacity: 0.55; }
+}
+
+@keyframes photo-flash {
+  0%, 100% { opacity: 0.3; }
+  15% { opacity: 0.6; }
+}
+
+/* Onderstreping die bij hover/focus van links naar rechts ingroeit; blijft staan op de huidige pagina
+   (overgenomen uit het kms-thema) */
+@utility nav-link {
+  @apply relative after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px
+       after:bg-current after:origin-left after:scale-x-0
+       after:transition-transform after:duration-500 after:ease-out
+       hover:after:scale-x-100
+       focus-visible:after:scale-x-100
+       motion-reduce:after:transition-none;
+
+  &[aria-current='page']::after {
+    scale: 1 1;
+  }
+}
+
+/* Header en zoekpaneel niet onder de WP-adminbalk laten schuiven (bewust buiten @layer:
+   Tailwind's utilities-layer wint anders altijd van top-0, ongeacht specificiteit) */
+.admin-bar .banner.absolute,
+.admin-bar .search-overlay {
+  top: 32px;
+}
+
+@media (max-width: 782px) {
+  .admin-bar .banner.absolute,
+  .admin-bar .search-overlay {
+    top: 46px;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Pagina-inhoud uit de blokeditor
+|
+| Bewust buiten @layer: WordPress zet eigen (niet-gelaagde) layoutstijlen in
+| de pagina, zoals .is-layout-flex { display: flex; align-items: center },
+| .is-layout-flow > * { margin: 0 } en een donkere standaardknop. CSS in een
+| @layer verliest daar altijd van, ongeacht de specificiteit. De blokstijlen
+| staan daarom hier, onder .main, zodat ze alleen in de inhoud gelden.
+|--------------------------------------------------------------------------
+*/
+
+/* Vervolgpagina's (gewone pagina's, niet de voorpagina en niet pagina's met een eigen template zoals Documenten):
+   grotere letter en een smallere tekstkolom (± 65-70 tekens per regel) voor rustig lezen. Tabellen mogen de volle
+   breedte van het inhoudsvlak gebruiken. De eerste alinea (de intro, ook na een openingskop) is groter. */
+.page:not(.home):not(.page-template) .main {
+  @apply text-lg leading-[1.7];
+
+  > * {
+    @apply mx-auto max-w-2xl;
+  }
+
+  > .wp-block-table {
+    @apply max-w-none text-base;
+  }
+
+  /* Kaarten mogen de volle breedte van het inhoudsvlak gebruiken, het groene vlak de hele schermbreedte */
+  > .wp-block-columns {
+    @apply max-w-none;
+  }
+
+  > .is-style-sectie,
+  > .is-style-afsluiter {
+    @apply my-16 max-w-none;
+    margin-inline: calc(50% - 50vw);
+  }
+
+  /* Groen vlak direct gevolgd door de afsluiter: zonder witruimte ertussen */
+  > .is-style-sectie:has(+ .is-style-afsluiter) {
+    @apply mb-0;
+  }
+
+  > .is-style-sectie + .is-style-afsluiter {
+    @apply mt-0;
+  }
+
+  /* Afsluiter als laatste blok: crème band loopt door tot de footer */
+  &:has(> .is-style-afsluiter:last-child) {
+    @apply pb-0;
+
+    > .is-style-afsluiter:last-child {
+      @apply mb-0;
     }
   }
 
+  /* Intro: met paginakop de alinea erna, met fotoheader (geen paginakop) de eerste alinea */
+  > p:first-child,
+  > .page-header + p,
+  > .page-header + h2 + p {
+    @apply text-xl md:text-[1.375rem] leading-relaxed text-triv-navy;
+  }
+}
+
+/* Brede elementen (schermbreed groen vlak) mogen geen horizontale scrollbalk geven */
+#main {
+  overflow-x: clip;
+}
+
+.main > p > a,
+.wp-block-list a,
+.wp-block-table a {
+  @apply font-semibold underline! underline-offset-2 decoration-triv-pink/60 hover:text-triv-pink;
+}
+
+.main {
   /* Pagina-inhoud uit de blokeditor (the_content). De blokstijlen van WordPress worden niet geladen,
      dus koppen, lijsten, tabellen en links in de tekst krijgen hier hun opmaak. */
   .wp-block-heading {
@@ -185,13 +320,8 @@ html {
     }
   }
 
-  /* Brede elementen (schermbreed groen vlak) mogen geen horizontale scrollbalk geven */
-  #main {
-    overflow-x: clip;
-  }
-
   .wp-block-columns {
-    @apply mb-8 grid gap-6 md:grid-flow-col md:auto-cols-fr;
+    @apply mb-8 grid items-stretch gap-6 md:grid-flow-col md:auto-cols-fr;
   }
 
   .wp-block-column > :last-child,
@@ -336,7 +466,7 @@ html {
       }
     }
 
-    &[open] > summary::after {
+    &[open]:not([data-state='closing']) > summary::after {
       rotate: 45deg;
     }
 
@@ -345,7 +475,7 @@ html {
     }
 
     > :last-child:not(summary) {
-      @apply pb-6;
+      @apply mb-0 pb-6;
     }
   }
 
@@ -361,7 +491,8 @@ html {
 
   /* Afsluiter: tekst met een knop ernaast, bv. "Vragen? Neem contact op" */
   .wp-block-group.is-style-afsluiter {
-    @apply mt-16 flex flex-col gap-6 rounded-2xl bg-triv-cream p-6 md:flex-row md:items-center md:justify-between md:p-8;
+    @apply mt-16 flex flex-col gap-6 bg-triv-cream py-12 md:flex-row md:items-center md:justify-between md:gap-12 md:py-16;
+    padding-inline: max(1.5rem, calc(50vw - 28rem));
 
     h2,
     h3 {
@@ -379,7 +510,7 @@ html {
   }
 
   .wp-block-button__link {
-    @apply inline-flex shrink-0 items-center gap-2.5 rounded-xl bg-triv-pink px-6 py-3 text-sm font-semibold text-white no-underline transition-colors duration-200;
+    @apply inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-xl bg-triv-pink px-6 py-3 text-sm font-semibold text-white no-underline transition-colors duration-200;
 
     &::before {
       @apply size-1.5 rounded-full bg-current;
@@ -391,102 +522,4 @@ html {
       background-color: color-mix(in oklch, var(--color-triv-pink) 65%, var(--color-triv-red));
     }
   }
-
-  .main > p > a,
-  .wp-block-list a,
-  .wp-block-table a {
-    @apply font-semibold underline! underline-offset-2 decoration-triv-pink/60 hover:text-triv-pink;
-  }
-
-  /* Paginatemplate Documenten (template-documenten.blade.php): hele inhoudsvlak in het sectiegroen van Snelle links */
-  .page-template-template-documenten #main {
-    @apply bg-triv-section;
-  }
-
-  /* Footer: vanaf tablet schermvullend, net als de fotobanner; inhoud in het midden.
-     Glijdt als slide in beeld via js/slide-sections.js.
-     Mobiel: zo hoog als de inhoud, foto onderaan tot de rand (dus geen padding onder) */
-  .footer {
-    @apply relative isolate overflow-hidden flex flex-col justify-center pt-12 md:min-h-svh md:py-16 xl:py-24 bg-triv-navy text-white;
-  }
-
-  .footer a {
-    @apply text-white hover:text-gray-100;
-  }
-
-  .footer h3 {
-    @apply text-white mb-4;
-  }
-
-  .footer p {
-    @apply text-white;
-  }
 }
-
-/* Verloop van de footerfoto's naar het nachtblauw, met een zachte (ease) curve i.p.v. lineair: zo is er geen
-   zichtbare rand waar het verloop begint, ook niet bij lichte foto's. Mobiel: alleen bovenaan.
-   Vanaf tablet: naar links (over 28%) en onderaan (over 16%); beide maskers worden gecombineerd (intersect). */
-@utility footer-photo-mask {
-  mask-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / 0.08) 8%, rgb(0 0 0 / 0.3) 16%, rgb(0 0 0 / 0.65) 25%, black 35%);
-
-  @variant md {
-    mask-image:
-      linear-gradient(to right, transparent 0%, rgb(0 0 0 / 0.04) 4%, rgb(0 0 0 / 0.15) 8%, rgb(0 0 0 / 0.36) 12%, rgb(0 0 0 / 0.62) 18%, rgb(0 0 0 / 0.85) 23%, black 28%),
-      linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.08) 3%, rgb(0 0 0 / 0.3) 7%, rgb(0 0 0 / 0.65) 11%, black 16%);
-    mask-composite: intersect;
-  }
-}
-
-/* Voortgangsstreepje van de footerslider (sections/footer.blade.php): loopt van links naar rechts vol */
-@keyframes footer-progress {
-  from { scale: 0 1; }
-  to { scale: 1 1; }
-}
-
-/* Snelle links (components/quick-links.blade.php): "foto maken" bij aankomst van de slide. Eerst stellen de rimpelingen
-   scherp als een autofocus (iets te groot en wazig → scherp, kleine overshoot), daarna een korte cameraflits over de foto. */
-@keyframes ripple-focus {
-  0% { opacity: 0; scale: 1.15; filter: blur(6px); }
-  60% { opacity: 1; scale: 0.985; filter: blur(0); }
-  100% { opacity: 1; scale: 1; filter: none; }
-}
-
-@keyframes camera-flash {
-  0%, 100% { opacity: 0; }
-  15% { opacity: 0.55; }
-}
-
-@keyframes photo-flash {
-  0%, 100% { opacity: 0.3; }
-  15% { opacity: 0.6; }
-}
-
-/* Onderstreping die bij hover/focus van links naar rechts ingroeit; blijft staan op de huidige pagina
-   (overgenomen uit het kms-thema) */
-@utility nav-link {
-  @apply relative after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px
-       after:bg-current after:origin-left after:scale-x-0
-       after:transition-transform after:duration-500 after:ease-out
-       hover:after:scale-x-100
-       focus-visible:after:scale-x-100
-       motion-reduce:after:transition-none;
-
-  &[aria-current='page']::after {
-    scale: 1 1;
-  }
-}
-
-/* Header en zoekpaneel niet onder de WP-adminbalk laten schuiven (bewust buiten @layer:
-   Tailwind's utilities-layer wint anders altijd van top-0, ongeacht specificiteit) */
-.admin-bar .banner.absolute,
-.admin-bar .search-overlay {
-  top: 32px;
-}
-
-@media (max-width: 782px) {
-  .admin-bar .banner.absolute,
-  .admin-bar .search-overlay {
-    top: 46px;
-  }
-}
-
