@@ -337,7 +337,7 @@ html {
     @apply mb-10 flex flex-wrap gap-2 pl-0 list-none;
 
     > li {
-      @apply mb-0 inline-flex items-center gap-2 rounded-full bg-triv-cream px-4 py-2 text-base font-semibold text-triv-navy;
+      @apply mb-0 inline-flex items-center gap-2 rounded-full border border-[#ddd8cc] bg-triv-cream px-4 py-2 text-base font-semibold text-triv-navy;
 
       &::before {
         @apply size-2 rounded-full bg-triv-pink;
