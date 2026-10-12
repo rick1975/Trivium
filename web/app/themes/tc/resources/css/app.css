@@ -48,6 +48,14 @@ html {
   @apply w-full max-w-[1280px] mx-auto px-6;
 }
 
+/* Brede inhoud op vervolgpagina's (desktop): kaarten, gekleurd vlak, afsluiter, en bij de fotoheader "half" ook de
+   titel en de intro, lijnen allemaal uit op deze breedte. --rand = afstand van de schermrand tot het begin van de
+   inhoud (minstens 1,5rem). Breder of smaller: alleen --inhoud-breed aanpassen (was 77rem, gelijk aan .page-container). */
+:root {
+  --inhoud-breed: 90rem;
+  --rand: max(1.5rem, calc(50vw - var(--inhoud-breed) / 2));
+}
+
 /* Algemene merkkleuren voor links/knoppen (waren eerder nergens gedefinieerd) */
 :root {
     --primary: var(--color-triv-blue);
@@ -174,6 +182,20 @@ html {
   mask-composite: intersect;
 }
 
+/* Verschijnen bij scrollen (js/reveal.js zet data-reveal en daarna is-visible): omhoog schuiven en invagen, met een
+   kleine vertraging per element in dezelfde rij (--reveal-index) */
+[data-reveal] {
+  opacity: 0;
+  translate: 0 2rem;
+  transition: opacity 0.7s ease-out, translate 0.9s cubic-bezier(.2, .8, .2, 1);
+  transition-delay: calc(var(--reveal-index, 0) * 120ms);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
 /* Fotoheader: foto komt zacht in beeld, label en titel schuiven omhoog */
 @keyframes hero-photo {
   from { opacity: 0; scale: 1.04; }
@@ -271,11 +293,11 @@ html {
   }
 
   /* Kaarten: tot desktop onder elkaar in de tekstkolom, vanaf lg naast elkaar en breder dan het inhoudsvlak
-     (even breed als .page-container: tot 77rem, met 1,5rem marge tot de schermrand) */
+     (tot --inhoud-breed, met minstens 1,5rem marge tot de schermrand) */
   > .is-style-kaarten {
     @variant lg {
       max-width: none;
-      margin-inline: calc(50% - min(50vw - 1.5rem, 38.5rem));
+      margin-inline: calc(50% - 50vw + var(--rand));
     }
   }
 
@@ -330,11 +352,11 @@ html {
 }
 
 /* Fotoheader "half": vanaf desktop staat alles links uitgelijnd in plaats van gecentreerd. De intro, het gekleurde vlak
-   en de afsluiter beginnen op de lijn van de tekst in de kaarten (2rem binnen de rand van .page-container) */
+   en de afsluiter beginnen op de lijn van de tekst in de kaarten (2rem binnen --rand) */
 .page.has-hero-half .main > p:first-child {
   /* Optisch gelijk met de tekst ín de kaarten eronder (die hebben 2rem binnenruimte), met ruimte tot de kaarten */
   @variant lg {
-    margin-inline: calc(50% - min(50vw - 1.5rem, 38.5rem) + 2rem) auto;
+    margin-inline: calc(50% - 50vw + var(--rand) + 2rem) auto;
     margin-bottom: 4rem;
   }
 }
@@ -344,7 +366,6 @@ html {
    de kaart. Tekst smaller (max-w-xl). */
 .page.has-hero-half .main > .is-style-afsluiter {
   @variant lg {
-    --rand: max(1.5rem, calc(50vw - 38.5rem));
     padding-inline: calc(var(--rand) + 2rem); /* rechts: tot het eind van de tekst in de vraagkaarten */
     padding-left: calc(var(--rand) + 2rem + (100vw - 2 * var(--rand) - 6rem) * 5 / 12 + 4rem + 2rem);
 
@@ -443,7 +464,7 @@ html {
   /* Gekleurd vlak over de hele schermbreedte (gedempt roze, --color-triv-vlak); inhoud in de tekstkolom,
      stappen en uitgelicht blok iets breder.
      Bestaat het vlak uit precies twee groepen (bv. kop + intro en de uitklapblokken), dan staan die vanaf lg naast
-     elkaar, even breed als de kaarten (tot 77rem): links smal en blijvend in beeld bij scrollen, rechts breed. */
+     elkaar, even breed als de kaarten (tot --inhoud-breed): links smal en blijvend in beeld bij scrollen, rechts breed. */
   .wp-block-group.is-style-sectie {
     @apply bg-triv-vlak px-6 py-16 md:py-24 text-triv-navy;
 
@@ -468,8 +489,8 @@ html {
         grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
         column-gap: 4rem;
         align-items: start;
-        padding-inline: max(1.5rem, calc(50vw - 38.5rem));
-        padding-left: calc(max(1.5rem, calc(50vw - 38.5rem)) + 2rem); /* links op de lijn van de intro */
+        padding-inline: var(--rand);
+        padding-left: calc(var(--rand) + 2rem); /* links op de lijn van de intro */
 
         > * {
           max-width: none;

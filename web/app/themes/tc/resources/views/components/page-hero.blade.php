@@ -26,7 +26,8 @@
     ]) !!}
   </div>
 
-  <div @class(['page-container', 'lg:relative' => $half])>
+  {{-- In de stijl "half" even breed als de brede inhoud eronder (--inhoud-breed in css/app.css) --}}
+  <div @class(['page-container', 'lg:relative lg:max-w-[calc(var(--inhoud-breed)+3rem)]' => $half])>
     <div @class([
       'relative -mt-16 md:-mt-28 md:ml-auto md:max-w-xl rounded-2xl bg-white p-6 md:p-10 shadow-[0_20px_50px_-20px_rgb(11_31_58/0.35)]',
       'lg:my-0 lg:mr-0 lg:ml-8 lg:max-w-[42%] lg:rounded-none lg:bg-transparent lg:p-0 lg:shadow-none' => $half,
