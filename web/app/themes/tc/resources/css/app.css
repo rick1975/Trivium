@@ -301,6 +301,11 @@ html {
   }
 }
 
+/* Fotoheader "half": de kenmerken staan vanaf desktop in de header, niet nog eens in de inhoud */
+.page.has-hero-half .main > .is-style-kenmerken {
+  @apply lg:hidden;
+}
+
 /* Brede elementen (schermbreed gekleurd vlak) mogen geen horizontale scrollbalk geven */
 #main {
   overflow-x: clip;

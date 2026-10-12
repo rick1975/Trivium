@@ -2,11 +2,12 @@
      - breed: schermbrede foto met de titel in een witte kaart die half over de onderrand valt; vanaf md rechts (zodat de
        kaart niet over de mensen links/midden valt), op mobiel over de volle breedte.
      - half: vanaf lg staat de foto rechts op 55% van de breedte en loopt naar links en onderen uit in het wit (hero-fade-mask);
-       de titel staat groot links. Achter de foto komen de rimpelcirkels van Snelle links vandaan, zichtbaar in het
-       uitgelopen deel. Onder lg gelijk aan "breed".
+       de titel staat groot links, alles op crème. Achter de foto komen de rimpelcirkels van Snelle links vandaan,
+       zichtbaar in het uitgelopen deel. De kenmerken-labels uit de inhoud staan onderaan over de foto (en zijn dan in de
+       inhoud verborgen, zie .has-hero-half in css/app.css). Onder lg gelijk aan "breed".
      Bij het laden komt de foto zacht in beeld en schuiven label en titel omhoog (niet bij "minder beweging"). ── --}}
 @php($half = $layout === 'half')
-<div @class(['relative', 'lg:flex lg:min-h-[min(72svh,780px)] lg:items-center lg:overflow-hidden' => $half])>
+<div @class(['relative', 'lg:flex lg:min-h-[min(72svh,780px)] lg:items-center lg:overflow-hidden lg:bg-triv-cream' => $half])>
   @if($half)
     <img src="{{ Vite::asset('resources/images/shape-ripples.svg') }}" alt="" aria-hidden="true" decoding="async"
       class="pointer-events-none absolute left-[62%] top-[42%] hidden w-[1500px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none lg:block motion-safe:animate-[hero-photo_1.6s_ease-out_both]">
@@ -42,4 +43,15 @@
       ])>{!! $title !!}</h1>
     </div>
   </div>
+
+  @if($half && $features)
+    <ul class="absolute bottom-10 right-0 mb-0 hidden w-[55%] flex-wrap justify-center gap-2 px-8 lg:flex motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.5s_both]">
+      @foreach($features as $feature)
+        <li class="mb-0 inline-flex items-center gap-2 rounded-full border border-[#ddd8cc] bg-white px-4 py-2 font-semibold text-triv-navy shadow-[0_8px_20px_-12px_rgb(11_31_58/0.4)]">
+          <span class="size-2 rounded-full bg-triv-pink" aria-hidden="true"></span>
+          {{ $feature }}
+        </li>
+      @endforeach
+    </ul>
+  @endif
 </div>

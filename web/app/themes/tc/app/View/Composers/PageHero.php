@@ -25,6 +25,7 @@ class PageHero extends Composer
             'image' => get_post_thumbnail_id($id),
             'title' => get_the_title($id),
             'parent' => $parent ? ['title' => get_the_title($parent), 'url' => get_permalink($parent)] : null,
+            'features' => $this->features($id),
             'layout' => (function_exists('get_field') ? get_field('foto_stijl', $id) : null) ?: 'breed',
             'position' => match ($focus) {
                 'links' => '35% 40%',
@@ -32,5 +33,23 @@ class PageHero extends Composer
                 default => '50% 40%',
             },
         ];
+    }
+
+    /**
+     * Teksten van de eerste lijst met blokstijl "Kenmerken" in de inhoud; de fotoheader "half" toont ze vanaf
+     * desktop onderaan over de foto.
+     */
+    protected function features(int $id): array
+    {
+        foreach (parse_blocks(get_post_field('post_content', $id)) as $block) {
+            if ($block['blockName'] === 'core/list' && str_contains($block['attrs']['className'] ?? '', 'is-style-kenmerken')) {
+                return array_values(array_filter(array_map(
+                    fn ($item) => trim(wp_strip_all_tags($item['innerHTML'])),
+                    $block['innerBlocks']
+                )));
+            }
+        }
+
+        return [];
     }
 }
