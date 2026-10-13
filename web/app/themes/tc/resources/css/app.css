@@ -110,9 +110,9 @@ html {
 }
 
 @layer components {
-  /* Paginatemplate Documenten (template-documenten.blade.php): hele inhoudsvlak in het sectiegroen van Snelle links */
-  .page-template-template-documenten #main {
-    @apply bg-triv-section;
+  /* Paginatemplate Documenten (template-documenten.blade.php): titel in 600 zoals op de andere vervolgpagina's */
+  .page-template-template-documenten .page-header h1 {
+    @apply font-semibold;
   }
 
   /* Footer: vanaf tablet schermvullend, net als de fotobanner; inhoud in het midden.
@@ -400,6 +400,13 @@ html {
     top: 0;
     background-color: transparent;
   }
+}
+
+/* Paginatemplate Documenten: header in het crème van de pagina (zonder lijn), zodat het crème doorloopt tot bovenin.
+   Buiten @layer, anders winnen de utility-klassen op de header (bg-white, border-b) */
+.page-template-template-documenten .banner {
+  border-bottom: 0;
+  background-color: var(--color-triv-cream);
 }
 
 /* Pagina's (niet de voorpagina): koppen h2 en h3 in 600, net als de paginatitel */
