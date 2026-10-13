@@ -47,16 +47,16 @@
         <a href="{{ $parent['url'] }}" @class([
           'mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest no-underline motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.15s_both]',
           'text-triv-pink hover:text-triv-navy' => ! $half,
-          'text-triv-navy/55 hover:text-triv-oudroze md:ml-1' => $half,
+          'text-triv-navy/55 hover:text-(--accent) md:ml-1' => $half,
         ])>
           <span class="size-1.5 rounded-full bg-current" aria-hidden="true"></span>
           {!! $parent['title'] !!}
         </a>
       @endif
-      {{-- Stijl "half": titel in oudroze, het label erboven zacht navy (bij hover oudroze) --}}
+      {{-- Stijl "half": titel in de rubriekskleur (--accent, zie css/app.css), het label erboven zacht navy --}}
       <h1 @class([
         'mb-0 text-4xl font-semibold md:text-5xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]',
-        'text-triv-oudroze md:leading-[1.05] lg:text-6xl' => $half,
+        'text-(--accent) md:leading-[1.05] lg:text-6xl' => $half,
       ])>{!! $title !!}</h1>
 
       @if($half && $intro)
@@ -69,7 +69,7 @@
     <ul class="absolute bottom-10 right-0 mb-0 hidden w-[55%] flex-wrap justify-center gap-2 px-4 md:flex lg:px-8 motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.5s_both]">
       @foreach($features as $feature)
         <li class="mb-0 inline-flex items-center gap-2 rounded-full border border-[#ddd8cc] bg-white px-4 py-2 font-semibold text-triv-navy shadow-[0_8px_20px_-12px_rgb(11_31_58/0.4)]">
-          <span class="size-2 rounded-full bg-triv-oudroze" aria-hidden="true"></span>
+          <span class="size-2 rounded-full bg-(--accent)" aria-hidden="true"></span>
           {{ $feature }}
         </li>
       @endforeach

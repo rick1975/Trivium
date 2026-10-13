@@ -8,7 +8,9 @@
     --color-triv-red: #e62733;
     --color-triv-orange: #f07f3c;
     --color-triv-pink: #E56B6F;
-    --color-triv-oudroze: #c25e78; /* gedempt roze: titel en accenten bij de fotoheader "half" (contrast op crème ca. 3,9:1) */
+    --color-triv-oudroze: #c25e78; /* gedempt roze, accent van Leerlingen & ouders (contrast op crème ca. 3,9:1) */
+    --color-triv-oranje-diep: #bd632b; /* oranje uit het logo, verdiept voor tekst (ca. 4:1), accent van Groep 8 */
+    --color-triv-groen-diep: #418a28; /* groen uit het logo, verdiept voor tekst (ca. 4:1), accent van Ons onderwijs */
     --color-triv-green: #56af31;
     --color-triv-olive: #9b9e4b;
     /* Achtergrondgroen van o.a. Snelle links. Alternatieven: salie #8fa68e, zeegroen #5fa39a, mos #8a9a5b.

@@ -25,7 +25,7 @@
   }
 
   .wp-block-list {
-    @apply mb-6 pl-6 list-disc marker:text-triv-pink;
+    @apply mb-6 pl-6 list-disc marker:text-(--accent);
   }
 
   .wp-block-table {
@@ -64,7 +64,7 @@
       @apply mb-0 inline-flex items-center gap-1.5 rounded-full border border-[#ddd8cc] bg-white px-3 py-1.5 text-sm font-semibold text-triv-navy shadow-[0_8px_20px_-12px_rgb(11_31_58/0.4)] md:gap-2 md:px-4 md:py-2 md:text-base;
 
       &::before {
-        @apply size-1.5 rounded-full bg-triv-oudroze md:size-2;
+        @apply size-1.5 rounded-full bg-(--accent) md:size-2;
         content: '';
       }
     }
@@ -90,12 +90,12 @@
     }
   }
 
-  /* Gekleurd vlak over de hele schermbreedte (gedempt roze, --color-triv-vlak); inhoud in de tekstkolom,
+  /* Gekleurd vlak over de hele schermbreedte (lichte tint van de rubriekskleur, --accent-vlak in css/app.css); inhoud in de tekstkolom,
      stappen en uitgelicht blok iets breder.
      Bestaat het vlak uit precies twee groepen (bv. kop + intro en de uitklapblokken), dan staan die vanaf md naast
      elkaar, even breed als de kaarten (tot --inhoud-breed): links smal en blijvend in beeld bij scrollen, rechts breed. */
   .wp-block-group.is-style-sectie {
-    @apply bg-triv-vlak px-6 py-16 md:py-24 text-triv-navy;
+    @apply bg-(--accent-vlak) px-6 py-16 md:py-24 text-triv-navy;
 
     > * {
       @apply mx-auto max-w-2xl;
@@ -195,7 +195,7 @@
     }
 
     [aria-selected='true'] .trap-balk {
-      @apply bg-triv-pink;
+      @apply bg-(--accent);
     }
 
     .trap-code {
@@ -213,7 +213,7 @@
     @apply mb-4 rounded-2xl bg-white text-gray-700 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.45)];
 
     > summary {
-      @apply flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-6 py-5 font-semibold text-lg leading-snug text-triv-navy transition-colors md:px-8 md:py-6 md:text-xl hover:text-triv-pink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-triv-navy;
+      @apply flex cursor-pointer list-none items-center justify-between gap-4 rounded-2xl px-6 py-5 font-semibold text-lg leading-snug text-triv-navy transition-colors md:px-8 md:py-6 md:text-xl hover:text-(--accent) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-triv-navy;
       font-family: 'Poppins', sans-serif;
 
       &::-webkit-details-marker {
@@ -232,7 +232,7 @@
     }
 
     > summary:hover::after {
-      @apply border-triv-pink bg-triv-pink text-white;
+      @apply border-(--accent) bg-(--accent) text-white;
     }
 
     &[open]:not([data-state='closing']) > summary::after {
@@ -241,7 +241,7 @@
     }
 
     &[open]:not([data-state='closing']) > summary:hover::after {
-      @apply border-triv-pink bg-triv-pink;
+      @apply border-(--accent) bg-(--accent);
     }
 
     > :not(summary) {
@@ -284,9 +284,9 @@
     @apply flex flex-wrap gap-3;
   }
 
-  /* Knop (core/button), bv. in de afsluiter: oudroze, net als de titel en de bolletjes bij de fotoheader "half" */
+  /* Knop (core/button), bv. in de afsluiter: in de rubriekskleur (--accent, zie css/app.css) */
   .wp-block-button__link {
-    @apply inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-xl bg-triv-oudroze px-6 py-3 text-sm font-semibold text-white no-underline transition-colors duration-200;
+    @apply inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-xl bg-(--accent) px-6 py-3 text-sm font-semibold text-white no-underline transition-colors duration-200;
 
     &::before {
       @apply size-1.5 rounded-full bg-current;
@@ -295,7 +295,7 @@
 
     &:hover {
       @apply text-white;
-      background-color: color-mix(in oklch, var(--color-triv-oudroze) 80%, var(--color-triv-navy)); /* oudroze, iets donkerder */
+      background-color: color-mix(in oklch, var(--accent) 80%, var(--color-triv-navy)); /* rubriekskleur, iets donkerder */
     }
   }
 }

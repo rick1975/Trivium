@@ -105,5 +105,12 @@ add_filter('body_class', function ($classes) {
         $classes[] = 'has-hero-achtergrond';
     }
 
+    // Hoofdrubriek (bovenste voorouder, of de pagina zelf): rubriek-{slug}, voor de rubriekskleur (zie css/app.css)
+    if (is_page() && ! is_front_page()) {
+        $ancestors = get_post_ancestors(get_queried_object_id());
+        $top = $ancestors ? end($ancestors) : get_queried_object_id();
+        $classes[] = 'rubriek-' . get_post_field('post_name', $top);
+    }
+
     return $classes;
 });
