@@ -318,6 +318,12 @@ html {
   }
 }
 
+/* Fotoheader "half": het crème van de header loopt door achter de intro en de kaarten, tot het gekleurde vlak
+   (dat zijn eigen achtergrond heeft); de afsluiter is zelf ook crème */
+.page.has-hero-half #main {
+  @apply bg-triv-cream;
+}
+
 /* Fotoheader "half": vanaf desktop staat alles links uitgelijnd in plaats van gecentreerd. De intro, het gekleurde vlak
    en de afsluiter beginnen op de lijn van de tekst in de kaarten (2rem binnen --rand) */
 /* Fotoheader "half": geen grijze lijn onder de header; vanaf desktop ligt de header transparant over de fotoheader,
