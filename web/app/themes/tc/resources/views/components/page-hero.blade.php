@@ -45,17 +45,18 @@
       @if($parent)
         {{-- In de stijl "half" iets naar rechts: de grote titel eronder begint optisch iets later (witruimte vóór de letter) --}}
         <a href="{{ $parent['url'] }}" @class([
-          'mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-triv-pink no-underline hover:text-triv-navy motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.15s_both]',
-          'md:ml-1' => $half,
+          'mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest no-underline motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.15s_both]',
+          'text-triv-pink hover:text-triv-navy' => ! $half,
+          'text-triv-navy hover:text-triv-pink md:ml-1' => $half,
         ])>
           <span class="size-1.5 rounded-full bg-current" aria-hidden="true"></span>
           {!! $parent['title'] !!}
         </a>
       @endif
-      {{-- Stijl "half": titel in 70% navy, zachter naast de grote foto --}}
+      {{-- Stijl "half": titel roze, het label erboven navy (omgekeerd aan "breed") --}}
       <h1 @class([
         'mb-0 text-4xl font-semibold md:text-5xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]',
-        'text-triv-navy/70 md:leading-[1.05] lg:text-6xl' => $half,
+        'text-triv-pink md:leading-[1.05] lg:text-6xl' => $half,
       ])>{!! $title !!}</h1>
 
       @if($half && $intro)
