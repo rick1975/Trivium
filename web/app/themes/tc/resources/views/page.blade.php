@@ -1,17 +1,23 @@
 @extends('layouts.app')
 
-{{-- Met een uitgelichte afbeelding: fotoheader met de titel erin (components/page-hero), anders de gewone paginakop --}}
+{{-- Met een uitgelichte afbeelding: fotoheader met de titel erin (components/page-hero), anders de gewone paginakop.
+     Stijl "achter de inhoud": de foto ligt achter de pagina (components/page-backdrop) en de gewone paginakop staat
+     in het witte vlak. --}}
+@php($backdrop = has_post_thumbnail(get_queried_object_id()) && function_exists('get_field') && get_field('foto_stijl', get_queried_object_id()) === 'achtergrond')
+
 @section('before-main')
-  @if(has_post_thumbnail(get_queried_object_id()))
+  @if($backdrop)
+    <x-page-backdrop />
+  @elseif(has_post_thumbnail(get_queried_object_id()))
     <x-page-hero />
   @endif
 @endsection
 
 @section('content')
   @while(have_posts()) @php(the_post())
-    @unless(has_post_thumbnail())
+    @if($backdrop || ! has_post_thumbnail())
       @include('partials.page-header')
-    @endunless
+    @endif
     @includeFirst(['partials.content-page', 'partials.content'])
   @endwhile
 @endsection

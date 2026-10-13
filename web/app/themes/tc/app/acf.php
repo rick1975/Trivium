@@ -384,8 +384,8 @@ add_action('acf/init', function () {
                 'label' => 'Stijl',
                 'name' => 'foto_stijl',
                 'type' => 'button_group',
-                'instructions' => 'Half: vanaf desktop staat de foto rechts en loopt hij uit in het wit, met de titel links. Op mobiel zijn beide gelijk.',
-                'choices' => ['breed' => 'Schermbreed', 'half' => 'Half'],
+                'instructions' => 'Half: vanaf desktop staat de foto rechts en loopt hij uit in het wit, met de titel links. Op mobiel zijn beide gelijk. Achter de inhoud: de foto ligt bovenaan achter de pagina en vervaagt naar beneden; titel en inhoud staan in een wit vlak in het midden.',
+                'choices' => ['breed' => 'Schermbreed', 'half' => 'Half', 'achtergrond' => 'Achter de inhoud'],
                 'default_value' => 'breed',
             ],
             [

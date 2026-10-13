@@ -92,10 +92,17 @@ add_filter('wp_headers', function ($headers) {
 /**
  * Pagina met fotoheader in de stijl "half" (components/page-hero.blade.php): body-class has-hero-half, zodat de
  * kenmerken-labels vanaf desktop niet ook nog in de inhoud staan (ze staan dan in de header, zie css/app.css).
+ * Stijl "achter de inhoud" (components/page-backdrop.blade.php): body-class has-hero-achtergrond, voor het witte vlak.
  */
 add_filter('body_class', function ($classes) {
-    if (is_page() && has_post_thumbnail() && function_exists('get_field') && get_field('foto_stijl') === 'half') {
+    $style = is_page() && has_post_thumbnail() && function_exists('get_field') ? get_field('foto_stijl') : null;
+
+    if ($style === 'half') {
         $classes[] = 'has-hero-half';
+    }
+
+    if ($style === 'achtergrond') {
+        $classes[] = 'has-hero-achtergrond';
     }
 
     return $classes;

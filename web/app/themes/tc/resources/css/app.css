@@ -324,6 +324,17 @@ html {
   @apply bg-triv-cream;
 }
 
+/* Fotoheader "achter de inhoud" (components/page-backdrop): de foto ligt bovenaan achter de pagina op crème, de inhoud
+   staat in een wit vlak in het midden dat een stuk onder de bovenrand begint, zodat de foto erboven en ernaast
+   zichtbaar blijft. Op mobiel 1rem marge tot de schermrand. */
+.page.has-hero-achtergrond #main {
+  @apply relative flow-root bg-triv-cream; /* flow-root: de bovenmarge van het witte vlak schuift niet door naar main */
+}
+
+.page.has-hero-achtergrond .main {
+  @apply relative mx-4 mt-[30svh] mb-16 rounded-3xl bg-white px-6 shadow-[0_30px_60px_-30px_rgb(120_70_40/0.3)] md:mx-auto md:mt-[35svh] md:mb-24 md:px-12;
+}
+
 /* Fotoheader "half": vanaf md staat alles links uitgelijnd in plaats van gecentreerd. De intro, het gekleurde vlak
    en de afsluiter beginnen op de lijn van de tekst in de kaarten (2rem binnen --rand) */
 /* Fotoheader "half": geen grijze lijn onder de header; vanaf md ligt de header transparant over de fotoheader,

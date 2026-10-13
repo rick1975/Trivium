@@ -8,12 +8,14 @@ class PageHero extends Composer
 {
     protected static $views = [
         'components.page-hero',
+        'components.page-backdrop',
     ];
 
     /**
      * Fotoheader van een gewone pagina: uitgelichte afbeelding, titel en de bovenliggende pagina (als label boven
      * de titel). Het focuspunt (ACF "Fotoheader") bepaalt de horizontale uitsnede; verticaal ligt het iets boven
-     * het midden, waar gezichten meestal zitten. Stijl: 'breed' (standaard) of 'half' (vanaf desktop foto rechts).
+     * het midden, waar gezichten meestal zitten. Stijl: 'breed' (standaard), 'half' (vanaf desktop foto rechts) of
+     * 'achtergrond' (foto achter de inhoud, components/page-backdrop).
      */
     public function with()
     {
