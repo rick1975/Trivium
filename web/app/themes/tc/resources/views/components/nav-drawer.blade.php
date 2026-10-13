@@ -41,11 +41,11 @@
           @if($item->children)
             <button type="button" @click="subOpen = !subOpen" :aria-expanded="subOpen.toString()"
               class="group w-full flex items-center gap-3 px-3 py-3 rounded-2xl border text-left transition-colors cursor-pointer"
-              :class="subOpen ? 'bg-white border-[#ece6da]' : 'border-transparent hover:bg-white/70'">
+              :class="subOpen ? 'bg-white border-[#f4f0e8]' : 'border-transparent hover:bg-white/70'">
               <span class="flex-1 font-bold text-lg leading-snug transition-colors"
                 :class="subOpen ? 'text-gray-900' : 'text-gray-800 group-hover:text-triv-oudroze'">{!! $item->label !!}</span>
               <span class="w-7 h-7 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300"
-                :class="subOpen ? 'bg-white border-[#ece6da] text-gray-900 rotate-90' : 'bg-white border-transparent text-stone-400 group-hover:text-triv-oudroze'">
+                :class="subOpen ? 'bg-white border-[#f4f0e8] text-gray-900 rotate-90' : 'bg-white border-transparent text-stone-400 group-hover:text-triv-oudroze'">
                 <x-icon name="chevron-right" class="size-3.5" />
               </span>
             </button>
