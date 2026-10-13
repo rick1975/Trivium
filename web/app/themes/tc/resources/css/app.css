@@ -377,7 +377,7 @@ html {
 
 /* Afwijkende kleur voor één pagina (body-class pagina-{slug}, app/filters.php) */
 .pagina-school-en-beleid {
-  --accent: var(--color-triv-salie-diep);
+  --accent: var(--color-triv-zeegroen);
   --accent-vlak: #cdd7cc; /* saliegroen, lichter */
 }
 
