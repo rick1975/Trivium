@@ -284,7 +284,7 @@
 
   /* Uitgelicht: witte kaart met gele rand (bv. De Spotlight) */
   .wp-block-group.is-style-uitgelicht {
-    @apply mt-8 rounded-2xl bg-white p-6 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.1)] md:p-8; /* witte kaart zoals de kaarten, geen zijrand of tint */
+    @apply mt-8; /* geen eigen achtergrond, rand of schaduw: een gewoon blok in de tekstkolom */
 
     h2,
     h3 {
