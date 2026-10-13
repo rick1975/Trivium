@@ -1,6 +1,8 @@
 {{-- Eén <footer> (contentinfo) om het slide-deel, de sitemap en de copyright heen --}}
 <footer>
-<div data-slide class="footer group">
+{{-- Alleen op de voorpagina is de footer een slide (glijdt automatisch in beeld). Op andere pagina's scrolt hij gewoon;
+     data-shown (voor de foto die inschuift) komt daar van x-intersect, zodra hij half in beeld is. --}}
+<div @if(is_front_page()) data-slide @else x-data x-intersect.once.half="$el.dataset.shown = ''" @endif class="footer group">
   {{-- Fotoslider: aula en fruitkrat; wisselt met een crossfade en een trage zoom.
        Navigatie: voortgangsstreepjes rechtsonder. Het actieve streepje loopt in 6 s vol (CSS-animatie footer-progress);
        aan het eind daarvan (animationend) volgt de volgende foto, dus pauzeren is de animatie stilzetten:
@@ -8,7 +10,8 @@
        Bij "minder beweging" wisselt hij niet vanzelf; de streepjes werken dan als gewone knoppen.
        Mobiel: onder de tekst over de volle breedte, loopt bovenaan weg in het nachtblauw.
        Vanaf tablet 50/50: slider op de rechterhelft, loopt naar links weg in het effen nachtblauw. Schuift daar
-       van links op zijn plek zodra de footer in beeld is geschoven (js/slide-sections.js zet data-shown).
+       van links op zijn plek zodra de footer in beeld is geschoven (data-shown: op de voorpagina via js/slide-sections.js,
+       elders via x-intersect).
        Het verloop zit op de foto's zelf (.footer-photo-mask in app.css) zodat de streepjes scherp blijven. --}}
   <div x-data="{
       current: 0,
