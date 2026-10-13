@@ -364,7 +364,7 @@ html {
 
 .rubriek-beleid-documenten {
   --accent: var(--color-triv-leisteen);
-  --accent-vlak: #d9dee6;
+  --accent-vlak: #afc5d0; /* het lichte grijsblauw van de banken in de school */
 }
 
 /* Fotoheader "achter de inhoud" (components/page-backdrop): de foto ligt bovenaan achter de pagina op crème en loopt
