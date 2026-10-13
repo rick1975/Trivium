@@ -284,8 +284,9 @@
     @apply flex flex-wrap gap-3;
   }
 
+  /* Knop (core/button), bv. in de afsluiter: oudroze, net als de titel en de bolletjes bij de fotoheader "half" */
   .wp-block-button__link {
-    @apply inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-xl bg-triv-pink px-6 py-3 text-sm font-semibold text-white no-underline transition-colors duration-200;
+    @apply inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap rounded-xl bg-triv-oudroze px-6 py-3 text-sm font-semibold text-white no-underline transition-colors duration-200;
 
     &::before {
       @apply size-1.5 rounded-full bg-current;
@@ -294,7 +295,7 @@
 
     &:hover {
       @apply text-white;
-      background-color: color-mix(in oklch, var(--color-triv-pink) 65%, var(--color-triv-red));
+      background-color: color-mix(in oklch, var(--color-triv-oudroze) 80%, var(--color-triv-navy)); /* oudroze, iets donkerder */
     }
   }
 }
