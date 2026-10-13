@@ -89,22 +89,28 @@
       @apply mt-0 mb-3 text-xl md:text-2xl;
     }
 
-    /* Kaart met een gekleurde bovenrand: extra CSS-klasse op de kolom (is-kleur-groen, -oranje, -rood), bv. voor
-       de groene, oranje en rode afspraken bij Regels */
-    > .wp-block-column:is(.is-kleur-groen, .is-kleur-oranje, .is-kleur-rood) {
-      @apply border-t-[6px];
+    /* Kaart met een gekleurd bolletje voor de titel: extra CSS-klasse op de kolom (is-kleur-groen, -oranje, -rood),
+       bv. voor de groene, oranje en rode afspraken bij Regels. Geen gekleurde rand: die buigt lelijk mee met de
+       ronde hoeken. */
+    > :is(.is-kleur-groen, .is-kleur-oranje, .is-kleur-rood) > :is(h2, h3):first-child {
+      @apply flex items-center gap-3;
+
+      &::before {
+        @apply size-3.5 shrink-0 rounded-full bg-(--kaart-kleur);
+        content: '';
+      }
     }
 
     > .is-kleur-groen {
-      @apply border-triv-green;
+      --kaart-kleur: var(--color-triv-green);
     }
 
     > .is-kleur-oranje {
-      @apply border-triv-orange;
+      --kaart-kleur: var(--color-triv-orange);
     }
 
     > .is-kleur-rood {
-      @apply border-triv-red;
+      --kaart-kleur: var(--color-triv-red);
     }
   }
 
@@ -278,7 +284,7 @@
 
   /* Uitgelicht: witte kaart met gele rand (bv. De Spotlight) */
   .wp-block-group.is-style-uitgelicht {
-    @apply mt-8 rounded-2xl border-l-8 border-triv-yellow bg-white p-6 md:p-8;
+    @apply mt-8 rounded-2xl bg-[color-mix(in_oklch,var(--accent-vlak)_45%,white)] p-6 md:p-8; /* zachte tint van de rubriekskleur, geen zijrand */
 
     h2,
     h3 {
