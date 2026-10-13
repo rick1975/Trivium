@@ -64,7 +64,7 @@
       @apply mb-0 inline-flex items-center gap-1.5 rounded-full border border-[#ddd8cc] bg-white px-3 py-1.5 text-sm font-semibold text-triv-navy shadow-[0_8px_20px_-12px_rgb(11_31_58/0.4)] md:gap-2 md:px-4 md:py-2 md:text-base;
 
       &::before {
-        @apply size-1.5 rounded-full bg-triv-pink md:size-2;
+        @apply size-1.5 rounded-full bg-triv-oudroze md:size-2;
         content: '';
       }
     }
