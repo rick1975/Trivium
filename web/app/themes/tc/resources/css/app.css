@@ -262,6 +262,16 @@ html {
     @apply max-w-none text-base;
   }
 
+  /* Pagina met tabellen: tekst en koppen even breed als de tabellen, 1rem ingesprongen (op de lijn van de tekst in
+     de tabelcellen) */
+  &:has(> .wp-block-table) > :is(p, h2, h3, h4, .page-header) {
+    @apply max-w-none px-4;
+  }
+
+  &:has(> .wp-block-table) > .wp-block-list:not(.is-style-kenmerken) {
+    @apply max-w-none pr-4 pl-10;
+  }
+
   /* Kolommen mogen de volle breedte van het inhoudsvlak gebruiken (kaarten staan onder elkaar in de tekstkolom),
      het gekleurde vlak en de afsluiter de hele schermbreedte */
   > .wp-block-columns:not(.is-style-kaarten) {
