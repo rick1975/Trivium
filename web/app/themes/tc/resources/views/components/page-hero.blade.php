@@ -53,10 +53,11 @@
           {!! $parent['title'] !!}
         </a>
       @endif
-      {{-- Stijl "half": titel roze, het label erboven navy (omgekeerd aan "breed") --}}
+      {{-- Stijl "half": titel roze, het label erboven navy (omgekeerd aan "breed"). Het roze is de donkerdere tint van de
+           knoppen (roze met wat rood), voor meer contrast op het crème --}}
       <h1 @class([
         'mb-0 text-4xl font-semibold md:text-5xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]',
-        'text-triv-pink md:leading-[1.05] lg:text-6xl' => $half,
+        'text-[color-mix(in_oklch,var(--color-triv-pink)_65%,var(--color-triv-red))] md:leading-[1.05] lg:text-6xl' => $half,
       ])>{!! $title !!}</h1>
 
       @if($half && $intro)
