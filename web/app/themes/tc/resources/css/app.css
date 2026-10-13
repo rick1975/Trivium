@@ -371,14 +371,8 @@ html {
 }
 
 .rubriek-beleid-documenten {
-  --accent: var(--color-triv-blue);
-  --accent-vlak: #afc5d0; /* het lichte grijsblauw van de banken in de school */
-}
-
-/* Afwijkende kleur voor één pagina (body-class pagina-{slug}, app/filters.php) */
-.pagina-school-en-beleid {
   --accent: var(--color-triv-zeegroen);
-  --accent-vlak: #cdd7cc; /* saliegroen, lichter */
+  --accent-vlak: #c5ddd9; /* zeegroen, licht */
 }
 
 /* Fotoheader "achter de inhoud" (components/page-backdrop): de foto ligt bovenaan achter de pagina op crème en loopt
