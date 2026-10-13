@@ -358,8 +358,8 @@ body[class*='rubriek-'] {
 }
 
 .rubriek-groep-8 {
-  --accent: var(--color-triv-oranje-diep);
-  --accent-vlak: #f8d5bd;
+  --accent: var(--color-triv-koraal);
+  --accent-vlak: #f9dad6; /* koraal, licht */
 }
 
 .rubriek-leerlingen-ouders {
