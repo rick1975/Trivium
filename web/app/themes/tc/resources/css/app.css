@@ -157,6 +157,14 @@ html {
   mask-composite: intersect;
 }
 
+/* Gespiegeld (fotoheader "half, foto links"): de foto loopt naar rechts en onderen uit */
+@utility hero-fade-mask-links {
+  mask-image:
+    linear-gradient(to left, transparent 0%, rgb(0 0 0 / 0.3) 12%, rgb(0 0 0 / 0.75) 22%, black 32%),
+    linear-gradient(to top, transparent 0%, rgb(0 0 0 / 0.5) 10%, black 24%);
+  mask-composite: intersect;
+}
+
 /* Verschijnen bij scrollen (js/reveal.js zet data-reveal en daarna is-visible): omhoog schuiven en invagen, met een
    kleine vertraging per element in dezelfde rij (--reveal-index) */
 [data-reveal] {
@@ -421,6 +429,20 @@ html {
 
   @media (min-width: 783px) {
     top: 32px;
+  }
+}
+
+/* Fotoheader "half, foto links": de header blijft wit boven de foto (anders valt het logo op de foto), met donkere
+   hamburger */
+.has-hero-half.has-hero-links .banner {
+  @variant md {
+    position: relative;
+    top: auto;
+    background-color: var(--color-white);
+  }
+
+  [aria-controls='nav-drawer'] span span {
+    @apply md:bg-[#1a1612];
   }
 }
 

@@ -97,8 +97,12 @@ add_filter('wp_headers', function ($headers) {
 add_filter('body_class', function ($classes) {
     $style = is_page() && has_post_thumbnail() && function_exists('get_field') ? get_field('foto_stijl') : null;
 
-    if ($style === 'half') {
+    if ($style === 'half' || $style === 'half-links') {
         $classes[] = 'has-hero-half';
+    }
+
+    if ($style === 'half-links') {
+        $classes[] = 'has-hero-links';
     }
 
     if ($style === 'achtergrond') {
