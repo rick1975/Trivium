@@ -93,6 +93,7 @@ add_filter('wp_headers', function ($headers) {
  * Pagina met fotoheader in de stijl "half" (components/page-hero.blade.php): body-class has-hero-half, zodat de
  * kenmerken-labels vanaf desktop niet ook nog in de inhoud staan (ze staan dan in de header, zie css/app.css).
  * Stijl "achter de inhoud" (components/page-backdrop.blade.php): body-class has-hero-achtergrond, voor het witte vlak.
+ * Zonder uitgelichte afbeelding (gewone paginakop): body-class has-paginakop, voor de crème header.
  */
 add_filter('body_class', function ($classes) {
     $style = is_page() && has_post_thumbnail() && function_exists('get_field') ? get_field('foto_stijl') : null;
@@ -111,6 +112,10 @@ add_filter('body_class', function ($classes) {
 
     if ($style === 'kader') {
         $classes[] = 'has-hero-kader';
+    }
+
+    if (is_page() && ! is_front_page() && ! has_post_thumbnail()) {
+        $classes[] = 'has-paginakop';
     }
 
     // Hoofdrubriek (bovenste voorouder, of de pagina zelf): rubriek-{slug}, voor de rubriekskleur (zie css/app.css)

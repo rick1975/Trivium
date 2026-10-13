@@ -409,11 +409,16 @@ body[class*='rubriek-'] {
   }
 }
 
-/* Paginatemplate Documenten: header in het crème van de pagina (zonder lijn), zodat het crème doorloopt tot bovenin.
+/* Pagina's zonder fotoheader (gewone paginakop, ook de paginatemplate Documenten): header in het crème van de pagina
+   (zonder lijn), zodat het crème doorloopt tot bovenin, en de paginatitel in de rubriekskleur.
    Buiten @layer, anders winnen de utility-klassen op de header (bg-white, border-b) */
-.page-template-template-documenten .banner {
+:is(.has-paginakop, .page-template-template-documenten) .banner {
   border-bottom: 0;
   background-color: var(--color-triv-cream);
+}
+
+:is(.has-paginakop, .page-template-template-documenten) .main > .page-header h1 {
+  color: var(--accent);
 }
 
 /* Pagina's (niet de voorpagina): koppen h2 en h3 in 600, net als de paginatitel */
@@ -478,7 +483,8 @@ body[class*='rubriek-'] {
 /* De afsluiter ("Vragen?") lijnt uit op de tekst in de vraagkaarten van het gekleurde vlak erboven. Zelfde rekensom
    als dat vlak: rand + 2rem, dan 5/12 van de rest (na 4rem tussenruimte), de tussenruimte, en 2rem binnenruimte van
    de kaart. Tekst smaller (max-w-xl). */
-.page:is(.has-hero-half, .has-hero-kader) .main > .is-style-afsluiter {
+/* Alleen direct na een gekleurd vlak; anders lijnt de afsluiter gewoon uit op de tekstkolom erboven. */
+.page:is(.has-hero-half, .has-hero-kader) .main > .is-style-sectie + .is-style-afsluiter {
   @variant md {
     padding-inline: calc(var(--rand) + 2rem); /* rechts: tot het eind van de tekst in de vraagkaarten */
     padding-left: calc(var(--rand) + 2rem + (100vw - 2 * var(--rand) - 6rem) * 5 / 12 + 4rem + 2rem);
