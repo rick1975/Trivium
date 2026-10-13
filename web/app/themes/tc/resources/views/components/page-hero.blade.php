@@ -79,7 +79,7 @@
       {{-- Stijl "half": titel in de rubriekskleur (--accent, zie css/app.css), het label erboven zacht navy --}}
       <h1 @class([
         'mb-0 text-4xl font-semibold md:text-5xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]',
-        'text-(--accent) md:leading-[1.05] lg:text-6xl' => $half,
+        'text-(--accent) hyphens-auto break-words md:leading-[1.05] lg:text-6xl' => $half, /* lange woorden (Tevredenheidsonderzoek) breken af */
       ])>{!! $title !!}</h1>
 
       @if($half && $intro)
