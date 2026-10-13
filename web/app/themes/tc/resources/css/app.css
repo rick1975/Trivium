@@ -369,7 +369,7 @@ body[class*='rubriek-'] {
 
 .rubriek-ons-onderwijs {
   --accent: var(--color-triv-paars);
-  --accent-vlak: #e8d9ea; /* paars, licht */
+  --accent-vlak: #dddbe8; /* grijspaars, licht */
 }
 
 .rubriek-over-de-school {
