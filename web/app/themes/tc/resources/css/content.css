@@ -121,11 +121,6 @@
   .wp-block-group.is-style-sectie {
     @apply bg-(--accent-vlak) px-6 py-16 md:py-24 text-triv-navy;
 
-    /* Extra CSS-klasse is-vlak-salie: in het saliegroen van Snelle links in plaats van de rubriekstint */
-    &.is-vlak-salie {
-      @apply bg-triv-section;
-    }
-
     > * {
       @apply mx-auto max-w-2xl;
     }

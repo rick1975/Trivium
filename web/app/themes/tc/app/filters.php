@@ -118,6 +118,7 @@ add_filter('body_class', function ($classes) {
         $ancestors = get_post_ancestors(get_queried_object_id());
         $top = $ancestors ? end($ancestors) : get_queried_object_id();
         $classes[] = 'rubriek-' . get_post_field('post_name', $top);
+        $classes[] = 'pagina-' . get_post_field('post_name', get_queried_object_id()); // voor een afwijkende kleur per pagina
     }
 
     return $classes;

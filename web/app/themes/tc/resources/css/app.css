@@ -375,6 +375,12 @@ html {
   --accent-vlak: #afc5d0; /* het lichte grijsblauw van de banken in de school */
 }
 
+/* Afwijkende kleur voor één pagina (body-class pagina-{slug}, app/filters.php) */
+.pagina-school-en-beleid {
+  --accent: var(--color-triv-salie-diep);
+  --accent-vlak: #cdd7cc; /* saliegroen, lichter */
+}
+
 /* Fotoheader "achter de inhoud" (components/page-backdrop): de foto ligt bovenaan achter de pagina op crème en loopt
    door tot de bovenrand (de header ligt er transparant overheen, zie sections/header), de inhoud
    staat in een wit vlak in het midden dat een stuk onder de bovenrand begint, zodat de foto erboven en ernaast
