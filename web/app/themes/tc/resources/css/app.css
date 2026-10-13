@@ -374,6 +374,15 @@ html {
   @apply md:hidden;
 }
 
+/* Op mobiel gelijke ruimte (1,5rem) tussen titel, intro en kenmerken */
+.page.has-hero-half .main {
+  @apply max-md:pt-6;
+
+  > p:first-child + .is-style-kenmerken {
+    @apply max-md:mt-6;
+  }
+}
+
 /* De afsluiter ("Vragen?") lijnt uit op de tekst in de vraagkaarten van het gekleurde vlak erboven. Zelfde rekensom
    als dat vlak: rand + 2rem, dan 5/12 van de rest (na 4rem tussenruimte), de tussenruimte, en 2rem binnenruimte van
    de kaart. Tekst smaller (max-w-xl). */
