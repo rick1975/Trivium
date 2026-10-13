@@ -15,13 +15,13 @@
   />
   <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
   <div class="absolute inset-0 flex flex-col justify-end {{ $large ? 'p-8' : 'p-6' }}">
-    <div class="flex items-center gap-3 {{ $large ? 'mb-3' : 'mb-2' }}">
+    {{-- <div class="flex items-center gap-3 {{ $large ? 'mb-3' : 'mb-2' }}">
       @if($item['category'])
         <span class="{{ $item['categoryClass'] }} text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">{{ $item['category'] }}</span>
       @endif
       <time @if(! empty($item['datetime'])) datetime="{{ $item['datetime'] }}" @endif class="text-white/60 text-xs">{{ $item['date'] }}</time>
-    </div>
-    <h3 class="{{ $large ? 'text-2xl' : 'text-base' }} mb-1 font-black text-white leading-snug group-hover:text-triv-yellow transition-colors">
+    </div> --}}
+    <h3 class="{{ $large ? 'text-2xl' : 'text-base' }} !mb-1 font-medium text-white leading-snug group-hover:underline transition-colors">
       {{ $item['title'] }}
     </h3>
     @if($item['excerpt'])

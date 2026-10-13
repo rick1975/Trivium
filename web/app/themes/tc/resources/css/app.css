@@ -368,8 +368,8 @@ body[class*='rubriek-'] {
 }
 
 .rubriek-ons-onderwijs {
-  --accent: var(--color-triv-groen-diep);
-  --accent-vlak: #d3e8c6;
+  --accent: var(--color-triv-paars);
+  --accent-vlak: #e3dcf3; /* lavendel */
 }
 
 .rubriek-over-de-school {
