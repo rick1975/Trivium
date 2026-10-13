@@ -324,7 +324,8 @@ html {
   @apply bg-triv-cream;
 }
 
-/* Fotoheader "achter de inhoud" (components/page-backdrop): de foto ligt bovenaan achter de pagina op crème, de inhoud
+/* Fotoheader "achter de inhoud" (components/page-backdrop): de foto ligt bovenaan achter de pagina op crème en loopt
+   door tot de bovenrand (de header ligt er transparant overheen, zie sections/header), de inhoud
    staat in een wit vlak in het midden dat een stuk onder de bovenrand begint, zodat de foto erboven en ernaast
    zichtbaar blijft. Op mobiel 1rem marge tot de schermrand. */
 .page.has-hero-achtergrond #main {
@@ -332,7 +333,7 @@ html {
 }
 
 .page.has-hero-achtergrond .main {
-  @apply relative mx-4 mt-[18svh] mb-16 rounded-3xl bg-white px-6 md:mx-auto md:mt-[20svh] md:mb-24 md:px-12;
+  @apply relative mx-4 mt-[22svh] mb-16 rounded-3xl bg-white px-6 md:mx-auto md:mt-[22svh] md:mb-24 md:px-12;
 }
 
 /* Fotoheader "half": vanaf md staat alles links uitgelijnd in plaats van gecentreerd. De intro, het gekleurde vlak

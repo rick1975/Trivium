@@ -1,8 +1,9 @@
-{{-- Op de voorpagina ligt de header transparant over de hero; elders staat hij in de flow met een lichte achtergrond --}}
+{{-- Op de voorpagina en bij fotoheaderstijl "achter de inhoud" ligt de header transparant over de foto (wit logo en witte
+     iconen, zie Composers\Header); elders staat hij in de flow met een lichte achtergrond --}}
 <header @class([
     'banner z-50',
-    'absolute top-0 left-0 right-0 bg-transparent' => $isFront,
-    'relative bg-white border-b border-[#eef0f2]' => ! $isFront,
+    'absolute top-0 left-0 right-0 bg-transparent' => $overPhoto,
+    'relative bg-white border-b border-[#eef0f2]' => ! $overPhoto,
   ])
   x-data="{ mobileOpen: false, searchOpen: false }"
   @keydown.escape.window="mobileOpen = false; searchOpen = false"
@@ -13,14 +14,14 @@
 
       {{-- Logo --}}
       <a href="{{ home_url('/') }}" class="block" aria-label="{{ $siteName }} – home">
-        <x-logo @class(["w-48 md:w-56", "[--logo-letters:#fff]" => $isFront]) aria-hidden="true" />
+        <x-logo @class(["w-48 md:w-56", "[--logo-letters:#fff]" => $overPhoto]) aria-hidden="true" />
       </a>
 
       {{-- Zoek-icoon + hamburger, altijd gegroepeerd rechts --}}
       <div class="flex items-center gap-2">
 
         {{-- Zoek-icoon --}}
-        @php($searchIdleClass = $isFront
+        @php($searchIdleClass = $overPhoto
           ? 'bg-white/15 border-white/30 text-white backdrop-blur-sm hover:bg-white/25'
           : 'bg-white border-[#ddd8cc] text-[#1a1612] hover:bg-triv-cream')
         <button type="button"
@@ -36,7 +37,7 @@
         </button>
 
         {{-- Hamburger --}}
-        @php($barColor = $isFront ? 'bg-white' : 'bg-[#1a1612]')
+        @php($barColor = $overPhoto ? 'bg-white' : 'bg-[#1a1612]')
         <button type="button" class="-m-2.5 p-2.5 cursor-pointer" @click="mobileOpen = !mobileOpen; searchOpen = false" :aria-expanded="mobileOpen.toString()" aria-controls="nav-drawer" aria-label="Menu openen of sluiten">
           <span class="block relative w-6 h-4">
             <span class="absolute left-0 top-0 block h-[2px] w-6 {{ $barColor }} transition-transform duration-300" :class="mobileOpen ? 'translate-y-[7px] rotate-45' : ''"></span>
