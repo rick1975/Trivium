@@ -284,7 +284,7 @@
 
   /* Uitgelicht: witte kaart met gele rand (bv. De Spotlight) */
   .wp-block-group.is-style-uitgelicht {
-    @apply mt-8 rounded-2xl bg-[color-mix(in_oklch,var(--accent-vlak)_45%,white)] p-6 md:p-8; /* zachte tint van de rubriekskleur, geen zijrand */
+    @apply mt-8 rounded-2xl bg-white p-6 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.1)] md:p-8; /* witte kaart zoals de kaarten, geen zijrand of tint */
 
     h2,
     h3 {
