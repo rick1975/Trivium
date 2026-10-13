@@ -306,11 +306,11 @@ html {
     @apply mt-0;
   }
 
-  /* Afsluiter als laatste blok: crème band loopt door tot de footer */
-  &:has(> .is-style-afsluiter:last-child) {
+  /* Afsluiter of gekleurd vlak als laatste blok: de band loopt door tot de footer */
+  &:has(> :is(.is-style-afsluiter, .is-style-sectie):last-child) {
     @apply pb-0;
 
-    > .is-style-afsluiter:last-child {
+    > :is(.is-style-afsluiter, .is-style-sectie):last-child {
       @apply mb-0;
     }
   }

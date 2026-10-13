@@ -88,6 +88,24 @@
     h3 {
       @apply mt-0 mb-3 text-xl md:text-2xl;
     }
+
+    /* Kaart met een gekleurde bovenrand: extra CSS-klasse op de kolom (is-kleur-groen, -oranje, -rood), bv. voor
+       de groene, oranje en rode afspraken bij Regels */
+    > .wp-block-column:is(.is-kleur-groen, .is-kleur-oranje, .is-kleur-rood) {
+      @apply border-t-[6px];
+    }
+
+    > .is-kleur-groen {
+      @apply border-triv-green;
+    }
+
+    > .is-kleur-oranje {
+      @apply border-triv-orange;
+    }
+
+    > .is-kleur-rood {
+      @apply border-triv-red;
+    }
   }
 
   /* Gekleurd vlak over de hele schermbreedte (lichte tint van de rubriekskleur, --accent-vlak in css/app.css); inhoud in de tekstkolom,
