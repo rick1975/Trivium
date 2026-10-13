@@ -248,6 +248,11 @@
       @apply px-6 md:px-8;
     }
 
+    /* Opsomming in het antwoord: springt 1,25rem in ten opzichte van de tekst, zodat de bolletjes niet tegen de rand staan */
+    > .wp-block-list {
+      @apply pl-11 md:pl-13;
+    }
+
     > :last-child:not(summary) {
       @apply mb-0 pb-6 md:pb-8;
     }
