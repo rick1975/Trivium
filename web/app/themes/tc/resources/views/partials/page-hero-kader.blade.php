@@ -22,7 +22,7 @@
     <div class="mt-8 md:mt-0 md:pl-8">
       @if($parent)
         <a href="{{ $parent['url'] }}" class="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-triv-navy/55 no-underline hover:text-(--accent) motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.15s_both]">
-          <span class="size-1.5 rounded-full bg-current" aria-hidden="true"></span>
+          <span class="size-1.5 rounded-full bg-(--accent)" aria-hidden="true"></span>
           {!! $parent['title'] !!}
         </a>
       @endif

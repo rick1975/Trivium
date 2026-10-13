@@ -72,11 +72,12 @@
           'text-triv-pink hover:text-triv-navy' => ! $half,
           'text-triv-navy/55 hover:text-(--accent) md:ml-1' => $half,
         ])>
-          <span class="size-1.5 rounded-full bg-current" aria-hidden="true"></span>
+          {{-- Bolletje in stijl "half" in de rubriekskleur, net als de titel --}}
+          <span @class(['size-1.5 rounded-full', 'bg-current' => ! $half, 'bg-(--accent)' => $half]) aria-hidden="true"></span>
           {!! $parent['title'] !!}
         </a>
       @endif
-      {{-- Stijl "half": titel in de rubriekskleur (--accent, zie css/app.css), het label erboven zacht navy --}}
+      {{-- Stijl "half": titel in de rubriekskleur (--accent, zie css/app.css), het label erboven zacht navy met een bolletje in de rubriekskleur --}}
       <h1 @class([
         'mb-0 text-4xl font-semibold md:text-5xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]',
         'text-(--accent) hyphens-auto break-words md:leading-[1.05] lg:text-6xl' => $half, /* lange woorden (Tevredenheidsonderzoek) breken af */
