@@ -350,8 +350,9 @@ html {
   --accent-vlak: var(--color-triv-vlak);
 }
 
-/* Links in de inhoud in de rubriekskleur (hover iets donkerder) */
-body[class*='rubriek-'] .main {
+/* Links in de inhoud en in de intro van de fotoheader in de rubriekskleur (hover iets donkerder). Op de body, zodat
+   ook de intro buiten .main meedoet; header, menu en footer hebben eigen linkkleuren. */
+body[class*='rubriek-'] {
   --primary: var(--accent);
   --primary-dark: color-mix(in oklch, var(--accent) 75%, var(--color-triv-navy));
 }
