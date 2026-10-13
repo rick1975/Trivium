@@ -12,8 +12,8 @@
      Vanaf md ligt de header (80px) transparant over deze variant (zie .has-hero-half .banner in css/app.css): de foto
      loopt door tot de bovenrand van het scherm en de inhoud links schuift 5rem omlaag.
      - half-links ("Half, foto links"): gespiegeld: foto links (loopt naar rechts uit, hero-fade-mask-links), titel,
-       intro, cirkels en labels rechts. De header ligt hier niet over de foto (dan zou het logo op de foto vallen) maar
-       blijft wit erboven (.has-hero-links in css/app.css).
+       intro, cirkels en labels rechts. De header ligt er ook transparant overheen; het logo valt op de foto en wordt
+       wit, met een donker verloop bovenin de foto (.has-hero-links in css/app.css).
      Bij het laden komt de foto zacht in beeld en schuiven label en titel omhoog (niet bij "minder beweging"). ── --}}
 @if($layout === 'kader')
   @include('partials.page-hero-kader')
@@ -23,7 +23,7 @@
 <div @class([
   'relative',
   'bg-triv-cream md:flex md:min-h-[calc(min(70svh,960px)+5rem)] md:items-center md:overflow-hidden md:bg-triv-cream lg:min-h-[calc(min(90svh,960px)+5rem)]' => $half,
-  'md:pt-20' => $half && ! $links,
+  'md:pt-20' => $half,
 ])>
   @if($half)
     <div class="pointer-events-none absolute inset-0 overflow-hidden opacity-40 [mask-image:linear-gradient(to_bottom,#000_60%,transparent)] md:opacity-100 md:[mask-image:none]" aria-hidden="true">
@@ -50,6 +50,10 @@
       'loading' => 'eager',
       'fetchpriority' => 'high',
     ]) !!}
+    @if($links)
+      {{-- Donker verloop bovenin: het witte logo van de header blijft leesbaar op de foto --}}
+      <div class="absolute inset-x-0 top-0 hidden h-48 bg-gradient-to-b from-black/50 via-black/20 to-transparent md:block" aria-hidden="true"></div>
+    @endif
   </div>
 
   {{-- In de stijl "half" even breed als de brede inhoud eronder (--inhoud-breed in css/app.css) --}}

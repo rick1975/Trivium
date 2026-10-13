@@ -371,7 +371,7 @@ html {
 }
 
 .rubriek-beleid-documenten {
-  --accent: var(--color-triv-leisteen);
+  --accent: var(--color-triv-blue);
   --accent-vlak: #afc5d0; /* het lichte grijsblauw van de banken in de school */
 }
 
@@ -432,13 +432,14 @@ html {
   }
 }
 
-/* Fotoheader "half, foto links": de header blijft wit boven de foto (anders valt het logo op de foto), met donkere
-   hamburger */
+/* Fotoheader "half, foto links": de header ligt (net als bij "half") vanaf md transparant over de foto. Het logo staat
+   dan op de foto en wordt wit (met een donker verloop bovenin de foto, components/page-hero); zoeken en hamburger
+   staan rechts op het crème en blijven donker. */
 .has-hero-half.has-hero-links .banner {
-  @variant md {
-    position: relative;
-    top: auto;
-    background-color: var(--color-white);
+  a[aria-label$='home'] > div {
+    @variant md {
+      --logo-letters: #fff;
+    }
   }
 
   [aria-controls='nav-drawer'] span span {
