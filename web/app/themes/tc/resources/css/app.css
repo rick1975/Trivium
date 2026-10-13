@@ -377,6 +377,39 @@ body[class*='rubriek-'] {
   --accent-vlak: #cfdcec;
 }
 
+/* Ons onderwijs: kaarten onder elkaar in de tekstkolom, als genummerde blokken in een zachte tint van de rubriek
+   (in plaats van wit), met links een rond bolletje in de rubriekskleur met het nummer en de titel in de rubriekskleur */
+.page.rubriek-ons-onderwijs:not(.home):not(.page-template) .main > .wp-block-columns.is-style-kaarten {
+  @apply flex flex-col gap-4;
+  max-width: var(--container-2xl);
+  margin-inline: auto;
+  counter-reset: kaart;
+
+  > .wp-block-column {
+    @apply grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 p-6 shadow-none md:grid-cols-[3rem_minmax(0,1fr)] md:gap-x-6 md:p-8;
+    background-color: color-mix(in oklab, var(--accent-vlak) 60%, white);
+    counter-increment: kaart;
+
+    &::before {
+      @apply row-span-6 flex size-10 items-center justify-center rounded-full bg-(--accent) font-semibold text-white md:size-12 md:text-xl;
+      font-family: 'Poppins', sans-serif;
+      content: counter(kaart);
+    }
+
+    > * {
+      @apply col-start-2;
+    }
+
+    > :last-child {
+      @apply mb-0;
+    }
+  }
+
+  h2 {
+    @apply text-(--accent) md:mt-2;
+  }
+}
+
 .rubriek-beleid-documenten {
   --accent: var(--color-triv-zeegroen);
   --accent-vlak: #c5ddd9; /* zeegroen, licht */
