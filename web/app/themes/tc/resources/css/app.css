@@ -332,7 +332,7 @@ html {
 }
 
 .page.has-hero-achtergrond .main {
-  @apply relative mx-4 mt-[30svh] mb-16 rounded-3xl bg-white px-6 shadow-[0_30px_60px_-30px_rgb(120_70_40/0.3)] md:mx-auto md:mt-[35svh] md:mb-24 md:px-12;
+  @apply relative mx-4 mt-[18svh] mb-16 rounded-3xl bg-white px-6 md:mx-auto md:mt-[20svh] md:mb-24 md:px-12;
 }
 
 /* Fotoheader "half": vanaf md staat alles links uitgelijnd in plaats van gecentreerd. De intro, het gekleurde vlak
