@@ -105,6 +105,10 @@ add_filter('body_class', function ($classes) {
         $classes[] = 'has-hero-achtergrond';
     }
 
+    if ($style === 'kader') {
+        $classes[] = 'has-hero-kader';
+    }
+
     // Hoofdrubriek (bovenste voorouder, of de pagina zelf): rubriek-{slug}, voor de rubriekskleur (zie css/app.css)
     if (is_page() && ! is_front_page()) {
         $ancestors = get_post_ancestors(get_queried_object_id());

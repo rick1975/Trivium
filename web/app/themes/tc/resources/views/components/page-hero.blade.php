@@ -12,6 +12,9 @@
      Vanaf md ligt de header (80px) transparant over deze variant (zie .has-hero-half .banner in css/app.css): de foto
      loopt door tot de bovenrand van het scherm en de inhoud links schuift 5rem omlaag.
      Bij het laden komt de foto zacht in beeld en schuiven label en titel omhoog (niet bij "minder beweging"). ── --}}
+@if($layout === 'kader')
+  @include('partials.page-hero-kader')
+@else
 @php($half = $layout === 'half')
 <div @class(['relative', 'bg-triv-cream md:flex md:min-h-[calc(min(70svh,960px)+5rem)] md:items-center md:overflow-hidden md:bg-triv-cream md:pt-20 lg:min-h-[calc(min(90svh,960px)+5rem)]' => $half])>
   @if($half)
@@ -76,3 +79,4 @@
     </ul>
   @endif
 </div>
+@endif
