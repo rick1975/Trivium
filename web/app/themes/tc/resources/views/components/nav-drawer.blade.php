@@ -56,7 +56,7 @@
                 <li>
                   <a href="{{ $child->url }}" @click="mobileOpen = false"
                     @class([
-                      'nav-link inline-block my-1.5 text-[0.95rem] transition-opacity hover:opacity-90',
+                      'inline-block my-1.5 text-[0.95rem] transition-colors hover:text-gray-900',
                       'text-gray-900 font-semibold' => $child->active,
                       'text-stone-600' => ! $child->active,
                     ])
