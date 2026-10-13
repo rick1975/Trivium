@@ -47,7 +47,7 @@
         <a href="{{ $parent['url'] }}" @class([
           'mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest no-underline motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.15s_both]',
           'text-triv-pink hover:text-triv-navy' => ! $half,
-          'text-triv-navy hover:text-triv-pink md:ml-1' => $half,
+          'text-triv-navy/55 hover:text-triv-pink md:ml-1' => $half,
         ])>
           <span class="size-1.5 rounded-full bg-current" aria-hidden="true"></span>
           {!! $parent['title'] !!}
