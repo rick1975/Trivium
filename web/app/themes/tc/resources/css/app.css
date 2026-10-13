@@ -350,6 +350,12 @@ html {
   --accent-vlak: var(--color-triv-vlak);
 }
 
+/* Links in de inhoud in de rubriekskleur (hover iets donkerder) */
+body[class*='rubriek-'] .main {
+  --primary: var(--accent);
+  --primary-dark: color-mix(in oklch, var(--accent) 75%, var(--color-triv-navy));
+}
+
 .rubriek-groep-8 {
   --accent: var(--color-triv-oranje-diep);
   --accent-vlak: #f8d5bd;
