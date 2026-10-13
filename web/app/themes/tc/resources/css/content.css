@@ -74,7 +74,7 @@
     @apply mb-0 gap-4 grid-flow-row md:grid-flow-row lg:grid-flow-col lg:auto-cols-fr lg:gap-6;
 
     > .wp-block-column {
-      @apply rounded-2xl bg-white p-6 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.45)] lg:p-8;
+      @apply rounded-2xl bg-white p-6 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.2)] lg:p-8;
     }
 
     h2,
