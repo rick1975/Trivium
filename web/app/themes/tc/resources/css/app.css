@@ -268,14 +268,14 @@ html {
     @apply max-w-none;
   }
 
-  /* Kaarten: tot desktop onder elkaar in de tekstkolom, vanaf lg naast elkaar en breder dan het inhoudsvlak
+  /* Kaarten: op mobiel onder elkaar in de tekstkolom, vanaf md naast elkaar en breder dan het inhoudsvlak
      (tot --inhoud-breed, met minstens 1,5rem marge tot de schermrand) */
   /* Ruimte rond de kaarten: boven komt de binnenruimte van de pagina erbij, onder valt de marge samen met die van
      het gekleurde vlak (4rem), dus die is hier ruimer */
   > .is-style-kaarten {
     @apply mt-12 mb-16 md:mb-24 lg:mb-28;
 
-    @variant lg {
+    @variant md {
       max-width: none;
       margin-inline: calc(50% - 50vw + var(--rand));
     }
@@ -324,14 +324,14 @@ html {
   @apply bg-triv-cream;
 }
 
-/* Fotoheader "half": vanaf desktop staat alles links uitgelijnd in plaats van gecentreerd. De intro, het gekleurde vlak
+/* Fotoheader "half": vanaf md staat alles links uitgelijnd in plaats van gecentreerd. De intro, het gekleurde vlak
    en de afsluiter beginnen op de lijn van de tekst in de kaarten (2rem binnen --rand) */
-/* Fotoheader "half": geen grijze lijn onder de header; vanaf desktop ligt de header transparant over de fotoheader,
+/* Fotoheader "half": geen grijze lijn onder de header; vanaf md ligt de header transparant over de fotoheader,
    zodat de foto doorloopt tot de bovenrand (logo op het crème, knoppen hebben zelf een witte achtergrond) */
 .has-hero-half .banner {
   border-bottom: 0;
 
-  @variant lg {
+  @variant md {
     position: absolute;
     inset-inline: 0;
     top: 0;
@@ -344,9 +344,9 @@ html {
   @apply font-semibold;
 }
 
-/* Fotoheader "half": hamburger vanaf desktop wit, op de foto (zoals op de voorpagina) */
+/* Fotoheader "half": hamburger vanaf md wit, op de foto (zoals op de voorpagina) */
 .has-hero-half .banner [aria-controls='nav-drawer'] span span {
-  @apply lg:bg-white;
+  @apply md:bg-white;
 }
 
 /* Ingelogd: de WordPress-balk (vanaf 783px 32px hoog) staat bovenaan; een header die over de pagina ligt (voorpagina,
@@ -360,21 +360,25 @@ html {
 }
 
 .admin-bar.has-hero-half .banner {
-  @variant lg {
+  @variant md {
+    top: 46px;
+  }
+
+  @media (min-width: 783px) {
     top: 32px;
   }
 }
 
-/* De intro staat vanaf desktop in de header onder de titel (components/page-hero), niet nog eens in de inhoud */
+/* De intro staat vanaf md in de header onder de titel (components/page-hero), niet nog eens in de inhoud */
 .page.has-hero-half .main > p:first-child {
-  @apply lg:hidden;
+  @apply md:hidden;
 }
 
 /* De afsluiter ("Vragen?") lijnt uit op de tekst in de vraagkaarten van het gekleurde vlak erboven. Zelfde rekensom
    als dat vlak: rand + 2rem, dan 5/12 van de rest (na 4rem tussenruimte), de tussenruimte, en 2rem binnenruimte van
    de kaart. Tekst smaller (max-w-xl). */
 .page.has-hero-half .main > .is-style-afsluiter {
-  @variant lg {
+  @variant md {
     padding-inline: calc(var(--rand) + 2rem); /* rechts: tot het eind van de tekst in de vraagkaarten */
     padding-left: calc(var(--rand) + 2rem + (100vw - 2 * var(--rand) - 6rem) * 5 / 12 + 4rem + 2rem);
 
@@ -384,9 +388,9 @@ html {
   }
 }
 
-/* Fotoheader "half": de kenmerken staan vanaf desktop in de header, niet nog eens in de inhoud */
+/* Fotoheader "half": de kenmerken staan vanaf md in de header, niet nog eens in de inhoud */
 .page.has-hero-half .main > .is-style-kenmerken {
-  @apply lg:hidden;
+  @apply md:hidden;
 }
 
 /* Brede elementen (schermbreed gekleurd vlak) mogen geen horizontale scrollbalk geven */

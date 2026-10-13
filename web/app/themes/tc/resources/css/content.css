@@ -69,12 +69,18 @@
     }
   }
 
-  /* Kaarten: witte kaarten met navy titel en een lichte warme schaduw (als de uitklapblokken), zonder rand; tot desktop onder elkaar, vanaf lg naast elkaar (breedte: zie hierboven) */
+  /* Kaarten: witte kaarten met navy titel en een lichte warme schaduw (als de uitklapblokken), zonder rand; op mobiel
+     onder elkaar, vanaf md twee naast elkaar (een losse laatste kaart over de volle breedte), vanaf lg allemaal naast
+     elkaar (breedte: zie css/app.css) */
   .wp-block-columns.is-style-kaarten {
-    @apply mb-0 gap-4 grid-flow-row md:grid-flow-row lg:grid-flow-col lg:auto-cols-fr lg:gap-6;
+    @apply mb-0 gap-4 grid-flow-row md:grid-flow-row md:grid-cols-2 md:gap-6 lg:grid-flow-col lg:grid-cols-none lg:auto-cols-fr;
+
+    > .wp-block-column:last-child:nth-child(odd) {
+      @apply md:col-span-2 lg:col-auto;
+    }
 
     > .wp-block-column {
-      @apply rounded-2xl bg-white p-6 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.2)] lg:p-8;
+      @apply rounded-2xl bg-white p-6 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.1)] lg:p-8;
     }
 
     h2,
@@ -85,7 +91,7 @@
 
   /* Gekleurd vlak over de hele schermbreedte (gedempt roze, --color-triv-vlak); inhoud in de tekstkolom,
      stappen en uitgelicht blok iets breder.
-     Bestaat het vlak uit precies twee groepen (bv. kop + intro en de uitklapblokken), dan staan die vanaf lg naast
+     Bestaat het vlak uit precies twee groepen (bv. kop + intro en de uitklapblokken), dan staan die vanaf md naast
      elkaar, even breed als de kaarten (tot --inhoud-breed): links smal en blijvend in beeld bij scrollen, rechts breed. */
   .wp-block-group.is-style-sectie {
     @apply bg-triv-vlak px-6 py-16 md:py-24 text-triv-navy;
@@ -106,7 +112,7 @@
     }
 
     &:has(> .wp-block-group:first-child:nth-last-child(2)) {
-      @variant lg {
+      @variant md {
         display: grid;
         grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
         column-gap: 4rem;
