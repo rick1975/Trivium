@@ -52,9 +52,10 @@
           {!! $parent['title'] !!}
         </a>
       @endif
+      {{-- Stijl "half": titel in 70% navy, zachter naast de grote foto --}}
       <h1 @class([
         'mb-0 text-4xl font-semibold md:text-5xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]',
-        'md:leading-[1.05] lg:text-6xl' => $half,
+        'text-triv-navy/70 md:leading-[1.05] lg:text-6xl' => $half,
       ])>{!! $title !!}</h1>
 
       @if($half && $intro)
