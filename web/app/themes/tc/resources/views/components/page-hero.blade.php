@@ -52,12 +52,9 @@
           {!! $parent['title'] !!}
         </a>
       @endif
-      {{-- Stijl "half": titel vanaf lg op 70% van de vroegere 6xl (2,625rem); op tablet 2,5rem en op mobiel 4xl, zodat
-           hij groter blijft dan de tussenkoppen (h2) --}}
       <h1 @class([
-        'mb-0 text-4xl font-semibold motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]',
-        'md:text-5xl' => ! $half,
-        'md:text-[2.5rem] md:leading-[1.1] lg:text-[2.625rem]' => $half,
+        'mb-0 text-4xl font-semibold md:text-5xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]',
+        'md:leading-[1.05] lg:text-6xl' => $half,
       ])>{!! $title !!}</h1>
 
       @if($half && $intro)
