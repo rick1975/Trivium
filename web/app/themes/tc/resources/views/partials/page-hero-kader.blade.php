@@ -35,7 +35,7 @@
       @if($features)
         <ul class="mt-8 mb-0 hidden flex-wrap gap-2 pl-0 md:flex motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.5s_both]">
           @foreach($features as $feature)
-            <li class="mb-0 inline-flex items-center gap-2 rounded-full border border-[#ddd8cc] bg-white px-4 py-2 font-semibold text-triv-navy shadow-[0_8px_20px_-12px_rgb(11_31_58/0.4)]">
+            <li class="mb-0 inline-flex items-center gap-2 rounded-full border border-[#ddd8cc] bg-white px-4 py-2 font-semibold text-triv-navy/70 shadow-[0_8px_20px_-12px_rgb(11_31_58/0.4)]">
               <span class="size-2 rounded-full bg-(--accent)" aria-hidden="true"></span>
               {{ $feature }}
             </li>
