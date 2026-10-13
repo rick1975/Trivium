@@ -53,10 +53,10 @@
           {!! $parent['title'] !!}
         </a>
       @endif
-      {{-- Stijl "half": titel in het blauw van de letters van het logo, het label erboven zacht navy --}}
+      {{-- Stijl "half": titel in oudroze (#c25e78, contrast op crème ca. 3,9:1), het label erboven zacht navy --}}
       <h1 @class([
         'mb-0 text-4xl font-semibold md:text-5xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]',
-        'text-triv-blue md:leading-[1.05] lg:text-6xl' => $half,
+        'text-[#c25e78] md:leading-[1.05] lg:text-6xl' => $half,
       ])>{!! $title !!}</h1>
 
       @if($half && $intro)
