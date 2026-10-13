@@ -16,7 +16,7 @@
 <div @class(['relative', 'bg-triv-cream md:flex md:min-h-[calc(min(70svh,960px)+5rem)] md:items-center md:overflow-hidden md:bg-triv-cream md:pt-20 lg:min-h-[calc(min(90svh,960px)+5rem)]' => $half])>
   @if($half)
     <div class="pointer-events-none absolute inset-0 overflow-hidden opacity-40 [mask-image:linear-gradient(to_bottom,#000_60%,transparent)] md:opacity-100 md:[mask-image:none]" aria-hidden="true">
-      <img src="{{ Vite::asset('resources/images/shape-ripples.svg') }}" alt="" decoding="async"
+      <img src="{{ Vite::asset('resources/images/shape-ripples-animated.svg') }}" alt="" decoding="async"
         class="absolute left-[85%] top-[clamp(20rem,50svh,720px)] w-[800px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none md:left-[62%] md:top-[42%] md:w-[1500px] motion-safe:animate-[hero-photo_1.6s_ease-out_both]">
     </div>
   @endif
