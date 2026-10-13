@@ -29,7 +29,7 @@
       <h1 class="mb-0 text-4xl font-semibold text-(--accent) md:text-5xl md:leading-[1.05] lg:text-6xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]">{!! $title !!}</h1>
 
       @if($intro)
-        <p class="mt-6 mb-0 hidden text-lg leading-relaxed text-triv-navy md:block lg:text-xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.45s_both]">{!! $intro !!}</p>
+        <p class="hero-intro mt-6 mb-0 hidden text-lg leading-relaxed text-triv-navy md:block lg:text-xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.45s_both]">{!! $intro !!}</p>
       @endif
 
       @if($features)

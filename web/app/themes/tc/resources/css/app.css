@@ -505,8 +505,20 @@ body[class*='rubriek-'] {
   overflow-x: clip;
 }
 
-.main > p > a,
-.wp-block-list a,
-.wp-block-table a {
-  @apply font-semibold underline! underline-offset-2 decoration-(--accent)/60 hover:text-(--accent);
+/* Links in de tekst (ook in kaders en de intro van de fotoheader): vet in de rubriekskleur, met een onderstreping die
+   bij hover/focus van links naar rechts ingroeit, zoals nav-link. Met een achtergrondverloop i.p.v. ::after, zodat het
+   ook klopt bij links die over twee regels lopen. Knoppen en kaartlinks hebben een class en doen niet mee. */
+:is(.main :is(p, li, td), .hero-intro) a:not([class]) {
+  @apply font-semibold text-(--accent);
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  transition: background-size 0.5s ease-out, color 0.2s;
+
+  &:hover,
+  &:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
