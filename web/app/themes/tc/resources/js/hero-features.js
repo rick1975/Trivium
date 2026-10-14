@@ -14,6 +14,7 @@ export function initHeroFeatures() {
 
   // Met offsets (niet getBoundingClientRect), zodat de intro-animatie de meting niet beïnvloedt
   const measure = () => {
+    if (!list.offsetParent) return // verborgen (onder md)
     max = Math.max(0, list.offsetParent.offsetHeight - list.offsetTop - list.offsetHeight - gap)
     update()
   }
