@@ -22,7 +22,7 @@
 @php($half = $layout === 'half' || $links)
 <div @class([
   'relative',
-  'bg-triv-cream md:flex md:min-h-[calc(min(70svh,960px)+5rem)] md:items-center md:overflow-hidden md:bg-triv-cream lg:min-h-[calc(min(90svh,960px)+5rem)]' => $half,
+  'bg-triv-cream md:flex md:min-h-[calc(min(70svh,960px)+5rem)] md:items-center md:bg-triv-cream lg:min-h-[calc(min(90svh,960px)+5rem)]' => $half,
   'md:pt-20' => $half,
 ])>
   @if($half)
@@ -90,8 +90,8 @@
   </div>
 
   @if($half && $features)
-    {{-- Zakken bij het scrollen mee tot vlak boven de onderrand (js/hero-features.js) --}}
-    <ul data-hero-features @class(['absolute bottom-20 mb-0 hidden w-[55%] flex-wrap justify-center gap-2 px-4 md:flex lg:px-8 motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.5s_both]', 'right-0' => ! $links, 'left-0' => $links])>
+    {{-- Zakken bij het scrollen mee tot in het crème vlak onder de foto (js/hero-features.js); z-10 zodat de inhoud eronder er niet overheen valt --}}
+    <ul data-hero-features @class(['absolute bottom-20 z-10 mb-0 hidden w-[55%] flex-wrap justify-center gap-2 px-4 md:flex lg:px-8 motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.5s_both]', 'right-0' => ! $links, 'left-0' => $links])>
       @foreach($features as $feature)
         <li class="mb-0 inline-flex items-center gap-2 rounded-full border border-[#ddd8cc] bg-white px-4 py-2 text-sm font-medium text-triv-navy/70 shadow-[0_8px_20px_-12px_rgb(11_31_58/0.4)]">
           <span class="size-2 rounded-full bg-(--accent)" aria-hidden="true"></span>
