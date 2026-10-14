@@ -45,8 +45,10 @@
       @endif
       <ul class="grid grid-cols-2 gap-4 mb-0">
         @foreach($ctas as $cta)
-          <li class="mb-0"><a href="{{ $cta['url'] }}" class="group relative flex aspect-[3/4] items-end overflow-hidden rounded-xl no-underline">
+          <li class="mb-0"><a href="{{ $cta['url'] }}" class="group relative flex aspect-[3/4] items-end overflow-hidden rounded-xl bg-triv-navy no-underline">
+            @if($cta['image'])
             <img src="{{ $cta['image'] }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full max-w-none object-cover brightness-110 transition-transform duration-500 group-hover:scale-105">
+            @endif
             {{-- Verloop alleen onder de tekst (onderste ~60%), zodat de gezichten in het bovenste deel licht blijven --}}
             <span class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 via-35% to-transparent to-60%" aria-hidden="true"></span>
             <div class="relative z-10 p-4 sm:p-5">
