@@ -45,5 +45,3 @@
 ## Livegang-checklist
 - Alle testmateriaal verwijderen of vervangen door definitieve content, o.a.:
   - Testfoto's achtergrond Snelle links (`resources/images/jongen-achter-laptop.avif` (niet meer in gebruik), `resources/images/fotostudio-leerlingen.avif`, gebruikt in `resources/views/components/quick-links.blade.php`)
-  - Fotoblokken "Open dag 18 april" en "Zit je in groep 8?" in Snelle links: nog een eigen foto kiezen via Trivium Settings > Snelle links (testfoto's zijn verwijderd na AVG-check; zonder foto toont het blok een navy vlak)
-  - Uitgelichte afbeelding voor de pagina's Mentoruur en Niveaus & doorstroom (afgekeurd bij AVG-check en verwijderd)
