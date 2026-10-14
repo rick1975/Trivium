@@ -1,7 +1,7 @@
 /**
  * Kenmerken-labels in de fotoheader "half" (components/page-hero, [data-hero-features]): zakken bij het scrollen
- * langzaam mee naar beneden, tot vlak boven de onderrand van de fotoheader. Via de losse CSS-eigenschap
- * `translate`, zodat de intro-animatie (transform) er niet mee botst. Niet bij "minder beweging".
+ * langzaam mee naar beneden, tot vlak boven de onderrand van de fotoheader. Via `transform`: de intro-animatie
+ * (hero-rise) houdt `translate` vast en zou een inline translate overschrijven. Niet bij "minder beweging".
  */
 export function initHeroFeatures() {
   const list = document.querySelector('[data-hero-features]')
@@ -21,7 +21,7 @@ export function initHeroFeatures() {
 
   const update = () => {
     ticking = false
-    list.style.translate = `0 ${Math.min(window.scrollY * speed, max)}px`
+    list.style.transform = `translateY(${Math.min(window.scrollY * speed, max)}px)`
   }
 
   window.addEventListener('scroll', () => {
