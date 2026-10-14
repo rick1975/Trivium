@@ -373,8 +373,8 @@ body[class*='rubriek-'] {
 }
 
 .rubriek-over-de-school {
-  --accent: var(--color-triv-blue);
-  --accent-vlak: #cfdcec;
+  --accent: var(--color-triv-hemelblauw);
+  --accent-vlak: #d3e8f5; /* hemelblauw, licht */
 }
 
 /* Ons onderwijs: kaarten onder elkaar in de tekstkolom, als genummerde blokken in een zachte tint van de rubriek
