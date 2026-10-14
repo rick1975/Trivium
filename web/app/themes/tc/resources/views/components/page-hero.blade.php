@@ -90,7 +90,8 @@
   </div>
 
   @if($half && $features)
-    <ul @class(['absolute bottom-20 mb-0 hidden w-[55%] flex-wrap justify-center gap-2 px-4 md:flex lg:px-8 motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.5s_both]', 'right-0' => ! $links, 'left-0' => $links])>
+    {{-- Zakken bij het scrollen mee tot vlak boven de onderrand (js/hero-features.js) --}}
+    <ul data-hero-features @class(['absolute bottom-20 mb-0 hidden w-[55%] flex-wrap justify-center gap-2 px-4 md:flex lg:px-8 motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.5s_both]', 'right-0' => ! $links, 'left-0' => $links])>
       @foreach($features as $feature)
         <li class="mb-0 inline-flex items-center gap-2 rounded-full border border-[#ddd8cc] bg-white px-4 py-2 text-sm font-medium text-triv-navy/70 shadow-[0_8px_20px_-12px_rgb(11_31_58/0.4)]">
           <span class="size-2 rounded-full bg-(--accent)" aria-hidden="true"></span>

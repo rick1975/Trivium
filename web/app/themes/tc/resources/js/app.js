@@ -8,6 +8,7 @@ import { initSlideSections } from './slide-sections'
 import { initSteps } from './steps'
 import { initDetails } from './details'
 import { initReveal } from './reveal'
+import { initHeroFeatures } from './hero-features'
 
 window.Alpine = Alpine
 
@@ -22,6 +23,7 @@ initSlideSections()
 initSteps()
 initDetails()
 initReveal()
+initHeroFeatures()
 
 // iOS Safari past :active (en daarmee de hover-stijlen bij een tik, zie css/app.css) alleen toe als er een touch-listener is
 document.addEventListener('touchstart', () => {}, { passive: true })
