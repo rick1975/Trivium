@@ -93,5 +93,27 @@
       <x-button :href="App\page_url('aanmelden')" class="justify-center">Aanmelden</x-button>
       <x-button :href="App\page_url('open-dagen')" variant="outline" class="justify-center">Open dagen</x-button>
     </div>
+
+    {{-- Onder een streep: telefoon en e-mail (uit Trivium Settings, via de Contact-composer) --}}
+    @if($contact->telefoon || $contact->email)
+      <ul class="mt-5 mb-0 flex flex-col gap-2 border-t border-[#ece6d8] pt-5 text-sm">
+        @if($contact->telefoon)
+          <li class="mb-0">
+            <a href="tel:{{ $contact->telefoonLink }}" class="inline-flex items-center gap-3 text-stone-600 no-underline transition-colors hover:text-triv-pink">
+              <x-icon name="phone" class="shrink-0 text-triv-navy/50" />
+              {{ $contact->telefoon }}
+            </a>
+          </li>
+        @endif
+        @if($contact->email)
+          <li class="mb-0">
+            <a href="mailto:{{ $contact->email }}" class="inline-flex items-center gap-3 text-stone-600 no-underline transition-colors hover:text-triv-pink">
+              <x-icon name="mail" class="shrink-0 text-triv-navy/50" />
+              {{ $contact->email }}
+            </a>
+          </li>
+        @endif
+      </ul>
+    @endif
   </div>
 </div>
