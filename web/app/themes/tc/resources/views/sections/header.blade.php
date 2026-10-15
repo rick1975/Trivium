@@ -14,7 +14,7 @@
 
       {{-- Logo --}}
       <a href="{{ home_url('/') }}" class="block" aria-label="{{ $siteName }} – home">
-        <x-logo @class(["w-48 md:w-56", "[--logo-letters:#fff]" => $overPhoto]) aria-hidden="true" />
+        <x-logo @class(["w-48 md:w-56 lg:w-64", "[--logo-letters:#fff]" => $overPhoto]) aria-hidden="true" />
       </a>
 
       {{-- Zoek-icoon + hamburger, altijd gegroepeerd rechts --}}
