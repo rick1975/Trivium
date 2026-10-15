@@ -61,10 +61,10 @@
     @apply mb-10 flex flex-wrap gap-1.5 pl-0 list-none md:gap-2;
 
     > li {
-      @apply mb-0 inline-flex items-center gap-1.5 rounded-full border border-[#ddd8cc] bg-white px-3 py-1.5 text-xs font-medium text-triv-navy/70 shadow-[0_8px_20px_-12px_rgb(11_31_58/0.4)] md:gap-2 md:px-4 md:py-2 md:text-sm;
+      @apply mb-0 inline-flex items-center gap-1.5 rounded-full border border-[#ddd8cc] bg-white px-3.5 py-2 text-sm font-medium text-triv-navy/85 shadow-[0_8px_20px_-12px_rgb(11_31_58/0.4)] md:gap-2 md:px-4 md:text-triv-navy/70;
 
       &::before {
-        @apply size-1.5 rounded-full bg-(--accent) md:size-2;
+        @apply size-2 rounded-full bg-(--accent);
         content: '';
       }
     }

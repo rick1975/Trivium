@@ -26,8 +26,9 @@
   'md:pt-20' => $half,
 ])>
   @if($half)
-    {{-- Op mobiel (z-[1]) over de foto en de golfboog heen, zodat de cirkels doorlopen van foto naar crème; de titel ligt er weer boven --}}
-    <div class="pointer-events-none absolute inset-0 z-[1] overflow-hidden opacity-60 [mask-image:linear-gradient(to_bottom,#000_60%,transparent)] md:z-auto md:opacity-100 md:[mask-image:none]" aria-hidden="true">
+    {{-- Op mobiel (z-[1]) over de foto en de golfboog heen, zodat de cirkels doorlopen van foto naar crème; de titel ligt er weer boven.
+         Vaste lijndikte (non-scaling-stroke): op 800px breed zouden de lijnen anders ±0,3px dik en onzichtbaar worden --}}
+    <div class="pointer-events-none absolute inset-0 z-[1] overflow-hidden opacity-80 max-md:[&_circle]:[vector-effect:non-scaling-stroke] [mask-image:linear-gradient(to_bottom,#000_60%,transparent)] md:z-auto md:opacity-100 md:[mask-image:none]" aria-hidden="true">
       {{-- Inline (geen <img>), zodat de gekleurde cirkel de rubriekskleur krijgt --}}
       <div @class([
           'absolute left-[85%] top-[clamp(20rem,50svh,720px)] w-[800px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none md:top-[42%] md:w-[1500px] motion-safe:animate-[hero-photo_1.6s_ease-out_both] [&>svg]:block [&>svg]:h-auto [&>svg]:w-full',
