@@ -22,7 +22,7 @@
               @endforeach
             </ul>
           @endif
-          <x-button :href="$newsArchiveUrl">Alle berichten</x-button>
+          <x-button :href="$newsArchiveUrl" :dot="false">Alle berichten</x-button>
         </div>
       </div>
     </div>
