@@ -34,8 +34,8 @@
     <h3 class="mb-0 text-2xl font-semibold leading-snug text-triv-navy transition-colors group-hover:text-triv-pink md:text-3xl">
       {{ $item['title'] }}
     </h3>
-    <span class="flex size-12 shrink-0 items-center justify-center rounded-full border border-triv-navy/15 bg-white text-triv-navy transition-colors duration-300 group-hover:border-triv-pink group-hover:bg-triv-pink group-hover:text-white" aria-hidden="true">
-      <x-icon name="chevron-right" class="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+    <span class="flex size-8 shrink-0 items-center justify-center rounded-full border border-triv-navy/15 bg-white text-triv-navy transition-colors duration-300 group-hover:border-triv-pink group-hover:bg-triv-pink group-hover:text-white" aria-hidden="true">
+      <x-icon name="chevron-right" class="size-3 transition-transform duration-300 group-hover:translate-x-0.5" />
     </span>
   </div>
 </a>
