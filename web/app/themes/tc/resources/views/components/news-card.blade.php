@@ -1,5 +1,6 @@
 {{-- Nieuwskaart. 'large' = groot artikel met foto als achtergrond, 'small' = kleine fotokaart,
-     'row' = regel in de lijst naast het grote artikel: kleine foto met titel en beschrijving ernaast. --}}
+     'row' = regel in de lijst naast het grote artikel: kleine foto met titel en beschrijving ernaast,
+     'tile' = kaart in het raster van het nieuwsoverzicht: foto boven, datum, titel en beschrijving eronder. --}}
 @props([
   'item',
   'size' => 'small',
@@ -7,7 +8,21 @@
 
 @php($large = $size === 'large')
 
-@if($size === 'row')
+@if($size === 'tile')
+<a href="{{ $item['url'] }}" {{ $attributes->merge(['class' => 'group flex h-full flex-col no-underline']) }}>
+  <div class="mb-4 aspect-4/3 overflow-hidden rounded-xl">
+    <img src="{{ $item['image'] }}" alt="{{ $item['alt'] }}" loading="lazy" decoding="async"
+      class="size-full max-w-none object-cover transition-transform duration-500 group-hover:scale-105" />
+  </div>
+  <time @if(! empty($item['datetime'])) datetime="{{ $item['datetime'] }}" @endif class="mb-1 text-xs font-semibold uppercase tracking-widest text-stone-500">{{ $item['date'] }}</time>
+  <h3 class="mb-2 text-lg font-semibold leading-snug text-triv-navy transition-colors group-hover:text-triv-pink">
+    {{ $item['title'] }}
+  </h3>
+  @if($item['excerpt'])
+    <p class="mb-0 line-clamp-3 text-sm leading-relaxed text-stone-600">{{ $item['excerpt'] }}</p>
+  @endif
+</a>
+@elseif($size === 'row')
 <a href="{{ $item['url'] }}" {{ $attributes->merge(['class' => 'group flex items-start gap-5 no-underline']) }}>
   <div class="aspect-4/3 w-28 shrink-0 overflow-hidden rounded-lg sm:w-36">
     <img src="{{ $item['image'] }}" alt="{{ $item['alt'] }}" loading="lazy" decoding="async"
@@ -42,11 +57,6 @@
     <h3 class="{{ $large ? 'text-2xl' : 'text-base' }} !mb-1 font-medium text-white leading-snug group-hover:underline transition-colors">
       {{ $item['title'] }}
     </h3>
-    @if($item['excerpt'])
-      <p class="text-white/70 my-1 leading-relaxed">
-        {{ $item['excerpt'] }}
-      </p>
-    @endif
   </div>
 </a>
 @endif

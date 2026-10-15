@@ -114,7 +114,8 @@ add_filter('body_class', function ($classes) {
         $classes[] = 'has-hero-kader';
     }
 
-    if (is_page() && ! is_front_page() && ! has_post_thumbnail()) {
+    // Ook het nieuwsoverzicht (berichtenpagina): crème header die doorloopt in het crème vlak eronder
+    if ((is_page() && ! is_front_page() && ! has_post_thumbnail()) || is_home()) {
         $classes[] = 'has-paginakop';
     }
 
@@ -147,3 +148,14 @@ add_action('template_redirect', function () {
         exit;
     }
 }, 1); // vóór redirect_canonical (prio 10), die /?author=1 anders eerst naar /author/<inlognaam>/ stuurt
+
+/**
+ * Het categorie-archief Nieuws (/category/nieuws/) valt samen met het nieuwsoverzicht op de berichtenpagina (/nieuws/):
+ * daarheen doorsturen, zodat er één adres is (en "category" niet in de url staat).
+ */
+add_action('template_redirect', function () {
+    if (is_category('nieuws') && ($page = get_option('page_for_posts'))) {
+        wp_safe_redirect(get_permalink($page), 301);
+        exit;
+    }
+});
