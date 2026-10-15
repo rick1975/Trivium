@@ -26,7 +26,8 @@
   'md:pt-20' => $half,
 ])>
   @if($half)
-    <div class="pointer-events-none absolute inset-0 overflow-hidden opacity-40 [mask-image:linear-gradient(to_bottom,#000_60%,transparent)] md:opacity-100 md:[mask-image:none]" aria-hidden="true">
+    {{-- Op mobiel (z-[1]) over de foto en de golfboog heen, zodat de cirkels doorlopen van foto naar crème; de titel ligt er weer boven --}}
+    <div class="pointer-events-none absolute inset-0 z-[1] overflow-hidden opacity-60 [mask-image:linear-gradient(to_bottom,#000_60%,transparent)] md:z-auto md:opacity-100 md:[mask-image:none]" aria-hidden="true">
       {{-- Inline (geen <img>), zodat de gekleurde cirkel de rubriekskleur krijgt --}}
       <div @class([
           'absolute left-[85%] top-[clamp(20rem,50svh,720px)] w-[800px] max-w-none -translate-x-1/2 -translate-y-1/2 select-none md:top-[42%] md:w-[1500px] motion-safe:animate-[hero-photo_1.6s_ease-out_both] [&>svg]:block [&>svg]:h-auto [&>svg]:w-full',
@@ -54,10 +55,14 @@
       {{-- Donker verloop bovenin: het witte logo van de header blijft leesbaar op de foto --}}
       <div class="absolute inset-x-0 top-0 hidden h-48 bg-gradient-to-b from-black/50 via-black/20 to-transparent md:block" aria-hidden="true"></div>
     @endif
+    {{-- Mobiel: golfboog onderaan de foto naar het crème eronder (zelfde boog als components/wave-divider); −1px dekt het naadje --}}
+    <svg class="absolute inset-x-0 -bottom-px block h-8 w-full fill-triv-cream md:hidden" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,0 Q720,80 1440,0 L1440,80 L0,80 Z"/>
+    </svg>
   </div>
 
   {{-- In de stijl "half" even breed als de brede inhoud eronder (--inhoud-breed in css/app.css) --}}
-  <div @class(['page-container', 'relative md:max-w-[calc(var(--inhoud-breed)+3rem)]' => $half])>
+  <div @class(['page-container', 'relative z-[2] md:z-auto md:max-w-[calc(var(--inhoud-breed)+3rem)]' => $half])>
     <div @class([
       'relative',
       '-mt-16 rounded-2xl bg-white p-6 shadow-[0_20px_50px_-20px_rgb(11_31_58/0.35)] md:-mt-28 md:ml-auto md:max-w-xl md:p-10' => ! $half,
