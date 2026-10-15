@@ -1,4 +1,4 @@
-{{-- Nieuwskaart. 'large' = groot artikel: foto zonder overlay met alleen de titel eronder,
+{{-- Nieuwskaart. 'large' = groot artikel: foto zonder overlay met alleen de titel eronder (en een ronde pijlknop),
      'small' = kleine fotokaart met de titel over de foto,
      'row' = regel in de lijst naast het grote artikel: kleine foto met titel en beschrijving ernaast,
      'tile' = kaart in het raster van het nieuwsoverzicht: foto boven, datum, titel en beschrijving eronder. --}}
@@ -29,9 +29,15 @@
     <img src="{{ $item['image'] }}" alt="{{ $item['alt'] }}" loading="lazy" decoding="async"
       class="size-full max-w-none object-cover transition-transform duration-500 group-hover:scale-105" />
   </div>
-  <h3 class="mb-0 text-2xl font-semibold leading-snug text-triv-navy transition-colors group-hover:text-triv-pink md:text-3xl">
-    {{ $item['title'] }}
-  </h3>
+  {{-- Ronde knop met pijl achter de titel (decoratief: de hele kaart is de link); kleurt bij hover roze --}}
+  <div class="flex items-center justify-between gap-6">
+    <h3 class="mb-0 text-2xl font-semibold leading-snug text-triv-navy transition-colors group-hover:text-triv-pink md:text-3xl">
+      {{ $item['title'] }}
+    </h3>
+    <span class="flex size-12 shrink-0 items-center justify-center rounded-full border border-triv-navy/15 bg-white text-triv-navy transition-colors duration-300 group-hover:border-triv-pink group-hover:bg-triv-pink group-hover:text-white" aria-hidden="true">
+      <x-icon name="chevron-right" class="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+    </span>
+  </div>
 </a>
 @elseif($size === 'row')
 <a href="{{ $item['url'] }}" {{ $attributes->merge(['class' => 'group flex items-start gap-5 no-underline']) }}>
