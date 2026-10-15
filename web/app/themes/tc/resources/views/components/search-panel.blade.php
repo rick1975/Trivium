@@ -98,7 +98,7 @@
 
       {{-- Populaire pagina's: eenvoudige tekstlinks, geen buttons; direct naar de pagina (op slug), niet via de zoekresultaten --}}
       <div x-show="query.trim().length < 2" class="mt-12" style="display: none;">
-        <h2 class="text-stone-500 text-xs md:text-xs font-semibold uppercase tracking-widest leading-normal [font-family:inherit] px-1 mb-2">Populaire pagina's</h2>
+        <h2 class="text-triv-blue text-xs md:text-xs font-semibold uppercase tracking-widest leading-normal [font-family:inherit] px-1 mb-2">Populaire pagina's</h2>
         <ul class="flex flex-col">
           @foreach([
             'Aanmelden' => 'aanmelden',
@@ -118,8 +118,8 @@
         </ul>
 
         {{-- Contactgegevens (uit Trivium Settings, via de Contact-composer) --}}
-        <div class="mt-10 pt-6 px-1 border-t border-stone-300">
-          <h2 class="text-stone-500 text-xs md:text-xs font-semibold uppercase tracking-widest leading-normal [font-family:inherit] mb-3">Contact</h2>
+        <div class="mt-10 px-1">
+          <h2 class="text-triv-blue text-xs md:text-xs font-semibold uppercase tracking-widest leading-normal [font-family:inherit] mb-3">Contact</h2>
           <address class="not-italic text-sm text-stone-600 leading-relaxed">
             @if($contact->adres)
               <p>{!! nl2br(e($contact->adres)) !!}</p>
