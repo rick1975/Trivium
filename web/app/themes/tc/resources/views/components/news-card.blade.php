@@ -1,4 +1,4 @@
-{{-- Nieuwskaart. 'large' = groot artikel: foto zonder overlay met titel en beschrijving eronder,
+{{-- Nieuwskaart. 'large' = groot artikel: foto zonder overlay met alleen de titel eronder,
      'small' = kleine fotokaart met de titel over de foto,
      'row' = regel in de lijst naast het grote artikel: kleine foto met titel en beschrijving ernaast,
      'tile' = kaart in het raster van het nieuwsoverzicht: foto boven, datum, titel en beschrijving eronder. --}}
@@ -29,12 +29,9 @@
     <img src="{{ $item['image'] }}" alt="{{ $item['alt'] }}" loading="lazy" decoding="async"
       class="size-full max-w-none object-cover transition-transform duration-500 group-hover:scale-105" />
   </div>
-  <h3 class="mb-2 text-2xl font-semibold leading-snug text-triv-navy transition-colors group-hover:text-triv-pink md:text-3xl">
+  <h3 class="mb-0 text-2xl font-semibold leading-snug text-triv-navy transition-colors group-hover:text-triv-pink md:text-3xl">
     {{ $item['title'] }}
   </h3>
-  @if($item['excerpt'])
-    <p class="mb-0 line-clamp-3 leading-relaxed text-stone-600 md:text-lg">{{ $item['excerpt'] }}</p>
-  @endif
 </a>
 @elseif($size === 'row')
 <a href="{{ $item['url'] }}" {{ $attributes->merge(['class' => 'group flex items-start gap-5 no-underline']) }}>
