@@ -27,12 +27,13 @@
 ])>
   @if($half)
     {{-- Op mobiel (z-[1]) over de foto en de golfboog heen, zodat de cirkels doorlopen van foto naar crème; de titel ligt er weer boven.
-         Middelpunt op de rechterrand en gedraaid, zodat de bogen van rechts het beeld in komen.
-         Vaste lijndikte (non-scaling-stroke): op 800px breed zouden de lijnen anders ±0,3px dik en onzichtbaar worden --}}
-    <div class="pointer-events-none absolute inset-0 z-[1] overflow-hidden opacity-80 max-md:[&_circle]:[vector-effect:non-scaling-stroke] [mask-image:linear-gradient(to_bottom,#000_60%,transparent)] md:z-auto md:opacity-100 md:[mask-image:none]" aria-hidden="true">
+         Middelpunt op de rechterrand, op de hoogte van de titel, en zo groot dat de gekleurde boog (rubriekskleur, net als
+         de titel) in een ruime bocht om het eind van de titel loopt; de navy bogen lopen door over de foto. Onderaan vervagend.
+         Vaste lijndikte (non-scaling-stroke), zodat de lijnen op mobiel niet te dun worden door het schalen --}}
+    <div class="pointer-events-none absolute inset-0 z-[1] overflow-hidden opacity-80 max-md:[&_circle]:[vector-effect:non-scaling-stroke] [mask-image:linear-gradient(to_bottom,#000_calc(100%-4rem),transparent)] md:z-auto md:opacity-100 md:[mask-image:none]" aria-hidden="true">
       {{-- Inline (geen <img>), zodat de gekleurde cirkel de rubriekskleur krijgt --}}
       <div @class([
-          'absolute left-full top-[clamp(20rem,50svh,720px)] w-[800px] max-w-none -translate-x-1/2 -translate-y-1/2 -rotate-45 select-none md:top-[42%] md:rotate-0 md:w-[1500px] motion-safe:animate-[hero-photo_1.6s_ease-out_both] [&>svg]:block [&>svg]:h-auto [&>svg]:w-full',
+          'absolute left-full top-[calc(clamp(20rem,50svh,720px)+4rem)] w-[2000px] max-w-none -translate-x-1/2 -translate-y-1/2 -rotate-45 select-none md:top-[42%] md:rotate-0 md:w-[1500px] motion-safe:animate-[hero-photo_1.6s_ease-out_both] [&>svg]:block [&>svg]:h-auto [&>svg]:w-full',
           'md:left-[62%]' => ! $links,
           'md:left-[38%]' => $links,
         ])>{!! file_get_contents(get_theme_file_path('resources/images/shape-ripples-animated.svg')) !!}</div>
@@ -68,7 +69,7 @@
     <div @class([
       'relative',
       '-mt-16 rounded-2xl bg-white p-6 shadow-[0_20px_50px_-20px_rgb(11_31_58/0.35)] md:-mt-28 md:ml-auto md:max-w-xl md:p-10' => ! $half,
-      'pt-8 md:my-0 md:max-w-[42%] md:p-0' => $half,
+      'pt-4 md:my-0 md:max-w-[42%] md:p-0' => $half,
       'md:mr-0 md:ml-8' => $half && ! $links,
       'md:mr-8 md:ml-auto' => $links,
     ])>
