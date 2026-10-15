@@ -1,6 +1,6 @@
 {{-- ── NIEUWS — de vier nieuwste berichten (data uit de News-composer) ── --}}
 @if($newsItems)
-  <section x-data x-intersect.once.margin.0.0.-30%.0="$el.dataset.shown = ''" class="group/nieuws overflow-x-clip pb-20 pt-10 bg-triv-cream">
+  <section x-data x-intersect.once.margin.0.0.-30%.0="$el.dataset.shown = ''" class="group/nieuws overflow-x-clip pb-20 pt-10 bg-triv-cream lg:pb-32">
     <div class="page-container">
 
       {{-- Header. Vanaf md loopt op de hoogte van de kop een lijn vanaf de rechter schermrand naar links, met aan het eind
