@@ -24,7 +24,10 @@ class News extends Composer
     {
         return [
             'newsItems' => $this->items(),
-            'newsArchiveUrl' => get_post_type_archive_link('post'),
+            // Knop "Alle berichten": het archief van de categorie Nieuws (/category/nieuws/), anders alle berichten
+            'newsArchiveUrl' => ($category = get_category_by_slug('nieuws'))
+                ? get_category_link($category)
+                : get_post_type_archive_link('post'),
         ];
     }
 
