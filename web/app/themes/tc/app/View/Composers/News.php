@@ -65,11 +65,17 @@ class News extends Composer
             'categoryClass' => static::$categoryClasses[$i % count(static::$categoryClasses)],
             'date' => get_the_date('j F Y', $post),
             'datetime' => get_the_date('Y-m-d', $post),
-            'title' => get_the_title($post),
-            'excerpt' => has_excerpt($post)
+            // Als platte tekst (de kaarten escapen met {{ }}): HTML-codes als &hellip; en &#8217; omzetten naar tekens
+            'title' => static::plain(get_the_title($post)),
+            'excerpt' => static::plain(has_excerpt($post)
                 ? $post->post_excerpt
-                : wp_trim_words(wp_strip_all_tags(strip_shortcodes($post->post_content)), 18),
+                : wp_trim_words(wp_strip_all_tags(strip_shortcodes($post->post_content)), 18)),
         ];
+    }
+
+    protected static function plain(string $text): string
+    {
+        return html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
 
     protected static function fallbackImages(): array

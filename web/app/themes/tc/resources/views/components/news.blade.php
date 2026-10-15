@@ -5,7 +5,7 @@
 
       {{-- Header --}}
       <div class="mb-10">
-        <h2 class="text-4xl md:text-5xl xl:text-6xl font-bold text-triv-navy mb-0">Nieuws</h2>
+        <h2 class="text-4xl md:text-5xl xl:text-6xl font-bold text-triv-pink mb-0">Nieuws</h2>
       </div>
 
       <x-news-featured :items="$newsItems">
