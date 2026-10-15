@@ -270,14 +270,14 @@ html {
     @apply max-w-none text-base;
   }
 
-  /* Pagina met tabellen: tekst en koppen even breed als de tabellen, 1rem ingesprongen (op de lijn van de tekst in
-     de tabelcellen) */
+  /* Pagina met tabellen: tekst en koppen even breed als de tabellen, vanaf md 1rem ingesprongen (op de lijn van de
+     tekst in de tabelcellen). Op mobiel niet: dan zou de tekst inspringen t.o.v. de titel en de kenmerken erboven */
   &:has(> .wp-block-table) > :is(p, h2, h3, h4, .page-header) {
-    @apply max-w-none px-4;
+    @apply max-w-none md:px-4;
   }
 
   &:has(> .wp-block-table) > .wp-block-list:not(.is-style-kenmerken) {
-    @apply max-w-none pr-4 pl-10;
+    @apply max-w-none md:pr-4 md:pl-10;
   }
 
   /* Kolommen mogen de volle breedte van het inhoudsvlak gebruiken (kaarten staan onder elkaar in de tekstkolom),
