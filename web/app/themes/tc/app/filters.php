@@ -128,3 +128,22 @@ add_filter('body_class', function ($classes) {
 
     return $classes;
 });
+
+/**
+ * Gebruikersnamen niet publiek: de REST-route /wp/v2/users en de auteurspagina's (/?author=1, /author/…) verraden
+ * anders de inlognaam van de beheerder. Ingelogd blijft alles werken (de blokeditor gebruikt de users-route).
+ */
+add_filter('rest_endpoints', function ($endpoints) {
+    if (! is_user_logged_in()) {
+        unset($endpoints['/wp/v2/users'], $endpoints['/wp/v2/users/(?P<id>[\d]+)']);
+    }
+
+    return $endpoints;
+});
+
+add_action('template_redirect', function () {
+    if ((is_author() || isset($_GET['author'])) && ! is_user_logged_in()) {
+        wp_safe_redirect(home_url('/'), 301);
+        exit;
+    }
+}, 1); // vóór redirect_canonical (prio 10), die /?author=1 anders eerst naar /author/<inlognaam>/ stuurt
