@@ -378,7 +378,7 @@ body[class*='rubriek-'] {
 }
 
 /* Ons onderwijs: kaarten onder elkaar in de tekstkolom, als genummerde blokken in een zachte tint van de rubriek
-   (in plaats van wit), met links een rond bolletje in de rubriekskleur met het nummer en de titel in de rubriekskleur */
+   (in plaats van wit), met links een rond bolletje in (een zachtere tint van) de rubriekskleur met het nummer en de titel in de rubriekskleur */
 .page.rubriek-ons-onderwijs:not(.home):not(.page-template) .main > .wp-block-columns.is-style-kaarten {
   @apply flex flex-col gap-4;
   max-width: var(--container-2xl);
@@ -390,14 +390,25 @@ body[class*='rubriek-'] {
     background-color: color-mix(in oklab, var(--accent-vlak) 60%, white);
     counter-increment: kaart;
 
+    /* Bolletje iets zachter dan de rubriekskleur zelf */
     &::before {
-      @apply row-span-6 flex size-10 items-center justify-center rounded-full bg-(--accent) font-semibold text-white md:size-12 md:text-xl;
+      @apply flex size-10 items-center justify-center rounded-full font-semibold text-white md:row-span-6 md:size-12 md:text-xl;
+      background-color: color-mix(in oklab, var(--accent) 78%, white);
       font-family: 'Poppins', sans-serif;
       content: counter(kaart);
     }
 
+    /* Op mobiel staat alleen de titel naast het bolletje, de tekst eronder over de volle breedte */
     > * {
-      @apply col-start-2;
+      @apply col-span-2 md:col-span-1 md:col-start-2;
+    }
+
+    > h2:first-child {
+      @apply col-span-1 col-start-2 self-center max-md:mb-0;
+    }
+
+    > h2:first-child + * {
+      @apply max-md:mt-4;
     }
 
     > :last-child {
