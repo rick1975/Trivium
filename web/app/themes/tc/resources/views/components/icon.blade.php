@@ -12,19 +12,6 @@
     </svg>
     @break
 
-  @case('phone')
-    <svg width="{{ $size ?? 16 }}" height="{{ $size ?? 16 }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" {{ $attributes }}>
-      <path d="M5 4h3.5l1.5 4.5-2.25 1.5a11 11 0 0 0 6.25 6.25l1.5-2.25L20 15.5V19a1.5 1.5 0 0 1-1.5 1.5A16.5 16.5 0 0 1 3.5 5.5 1.5 1.5 0 0 1 5 4z"/>
-    </svg>
-    @break
-
-  @case('mail')
-    <svg width="{{ $size ?? 16 }}" height="{{ $size ?? 16 }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" {{ $attributes }}>
-      <rect x="3" y="5" width="18" height="14" rx="2"/>
-      <path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>
-    </svg>
-    @break
-
   @case('search')
     <svg width="{{ $size ?? 16 }}" height="{{ $size ?? 16 }}" viewBox="0 0 15 15" fill="none" aria-hidden="true" {{ $attributes }}>
       <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
