@@ -96,18 +96,23 @@
         </ul>
       </div>
 
-      {{-- Populaire pagina's: eenvoudige tekstlinks, geen buttons --}}
+      {{-- Populaire pagina's: eenvoudige tekstlinks, geen buttons; direct naar de pagina (op slug), niet via de zoekresultaten --}}
       <div x-show="query.trim().length < 2" class="mt-12" style="display: none;">
         <h2 class="text-stone-500 text-xs md:text-xs font-semibold uppercase tracking-widest leading-normal [font-family:inherit] px-1 mb-2">Populaire pagina's</h2>
         <ul class="flex flex-col">
-          @foreach(['Aanmelden', 'Open dag', 'Rooster', 'Contact', 'Vakanties'] as $suggestion)
+          @foreach([
+            'Aanmelden' => 'aanmelden',
+            'Open dag' => 'open-dagen',
+            'Rooster' => 'lestijden-roostervrije-dagen',
+            'Contact' => 'contact',
+            'Vakanties' => 'lestijden-roostervrije-dagen',
+          ] as $suggestion => $slug)
             <li class="border-b border-stone-300 last:border-b-0">
-              <button type="button"
-                @click="$refs.searchInput.value = @js($suggestion); $refs.searchForm.requestSubmit()"
-                class="group w-full flex items-center justify-between font-semibold gap-2 px-1 py-2.5 text-sm text-stone-500 hover:text-triv-pink transition-colors text-left cursor-pointer">
+              <a href="{{ App\page_url($slug, home_url('/?s=' . rawurlencode($suggestion))) }}"
+                class="group w-full flex items-center justify-between font-semibold gap-2 px-1 py-2.5 text-sm text-stone-500 no-underline hover:text-triv-pink transition-colors">
                 <span class="transition-transform duration-200 group-hover:translate-x-1.5">{{ $suggestion }}</span>
                 <x-icon name="chevron-right" class="size-3 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5" />
-              </button>
+              </a>
             </li>
           @endforeach
         </ul>
