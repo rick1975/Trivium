@@ -1,4 +1,5 @@
-{{-- Nieuwskaart. 'large' = groot artikel met foto als achtergrond, 'small' = kleine fotokaart,
+{{-- Nieuwskaart. 'large' = groot artikel: foto zonder overlay met titel en beschrijving eronder,
+     'small' = kleine fotokaart met de titel over de foto,
      'row' = regel in de lijst naast het grote artikel: kleine foto met titel en beschrijving ernaast,
      'tile' = kaart in het raster van het nieuwsoverzicht: foto boven, datum, titel en beschrijving eronder. --}}
 @props([
@@ -20,6 +21,19 @@
   </h3>
   @if($item['excerpt'])
     <p class="mb-0 line-clamp-3 text-sm leading-relaxed text-stone-600">{{ $item['excerpt'] }}</p>
+  @endif
+</a>
+@elseif($large)
+<a href="{{ $item['url'] }}" {{ $attributes->merge(['class' => 'group flex flex-col no-underline']) }}>
+  <div class="mb-5 aspect-16/10 overflow-hidden rounded-xl">
+    <img src="{{ $item['image'] }}" alt="{{ $item['alt'] }}" loading="lazy" decoding="async"
+      class="size-full max-w-none object-cover transition-transform duration-500 group-hover:scale-105" />
+  </div>
+  <h3 class="mb-2 text-2xl font-semibold leading-snug text-triv-navy transition-colors group-hover:text-triv-pink md:text-3xl">
+    {{ $item['title'] }}
+  </h3>
+  @if($item['excerpt'])
+    <p class="mb-0 line-clamp-3 leading-relaxed text-stone-600 md:text-lg">{{ $item['excerpt'] }}</p>
   @endif
 </a>
 @elseif($size === 'row')
