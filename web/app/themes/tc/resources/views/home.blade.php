@@ -6,9 +6,10 @@
 @section('before-main')
   <section class="bg-triv-cream pt-10 pb-20 md:pt-16">
     <div class="page-container">
-      <h1 class="mb-0 text-4xl font-bold text-triv-navy md:text-5xl xl:text-6xl">{!! $title !!}</h1>
+      {{-- Titel en intro zoals op de andere pagina's (components/page-hero): 600, in de accentkleur, en schuift bij het laden omhoog --}}
+      <h1 class="mb-0 text-4xl font-semibold text-(--accent) md:text-5xl md:leading-[1.05] lg:text-6xl motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.3s_both]">{!! $title !!}</h1>
       @if($intro)
-        <div class="mt-4 max-w-2xl text-lg leading-relaxed text-triv-navy">{!! wpautop($intro) !!}</div>
+        <div class="mt-6 max-w-2xl text-xl leading-relaxed text-triv-navy md:text-[1.375rem] [&>p:last-child]:mb-0 motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.45s_both]">{!! wpautop($intro) !!}</div>
       @endif
 
       @if($featured)
