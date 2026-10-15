@@ -1,10 +1,28 @@
-{{-- Nieuwskaart met foto als achtergrond. 'large' = groot artikel links, 'small' = kleine kaart rechts. --}}
+{{-- Nieuwskaart. 'large' = groot artikel met foto als achtergrond, 'small' = kleine fotokaart,
+     'row' = regel in de lijst naast het grote artikel: kleine foto met titel en beschrijving ernaast. --}}
 @props([
   'item',
   'size' => 'small',
 ])
 
 @php($large = $size === 'large')
+
+@if($size === 'row')
+<a href="{{ $item['url'] }}" {{ $attributes->merge(['class' => 'group flex items-start gap-5 no-underline']) }}>
+  <div class="aspect-4/3 w-28 shrink-0 overflow-hidden rounded-lg sm:w-36">
+    <img src="{{ $item['image'] }}" alt="{{ $item['alt'] }}" loading="lazy" decoding="async"
+      class="size-full max-w-none object-cover transition-transform duration-500 group-hover:scale-105" />
+  </div>
+  <div class="min-w-0">
+    <h3 class="mb-1 text-base font-semibold leading-snug text-triv-navy transition-colors group-hover:text-triv-pink md:text-lg">
+      {{ $item['title'] }}
+    </h3>
+    @if($item['excerpt'])
+      <p class="mb-0 line-clamp-2 text-sm leading-relaxed text-stone-600">{{ $item['excerpt'] }}</p>
+    @endif
+  </div>
+</a>
+@else
 
 <a href="{{ $item['url'] }}" {{ $attributes->merge(['class' => 'group relative rounded-xl overflow-hidden no-underline block ' . ($large ? 'min-h-[500px]' : 'min-h-[235px]')]) }}>
   <img
@@ -31,3 +49,4 @@
     @endif
   </div>
 </a>
+@endif

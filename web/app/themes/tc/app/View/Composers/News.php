@@ -29,13 +29,13 @@ class News extends Composer
     }
 
     /**
-     * De drie nieuwste berichten. Zolang er nog geen berichten zijn,
+     * De vier nieuwste berichten (één groot, drie in de lijst ernaast). Zolang er nog geen berichten zijn,
      * worden de voorbeeldberichten getoond.
      */
     protected function items(): array
     {
         $posts = get_posts([
-            'numberposts' => 3,
+            'numberposts' => 4,
             'post_status' => 'publish',
             'no_found_rows' => true,
         ]);
@@ -72,6 +72,7 @@ class News extends Composer
             Vite::asset('resources/images/Jongen-roert-in-pan.avif'),
             Vite::asset('resources/images/twee-jongens-aan-het-werk.avif'),
             Vite::asset('resources/images/drie-dames-kijken-op-laptop.avif'),
+            Vite::asset('resources/images/twee-meisjes-aan-het-bouwen.avif'),
         ];
     }
 
@@ -115,6 +116,17 @@ class News extends Composer
                 'datetime' => '2026-03-05',
                 'title' => 'Open dag > 18 april > kom langs!',
                 'excerpt' => 'Groep 8 leerlingen en ouders zijn van harte welkom.',
+            ],
+            [
+                'url' => '#',
+                'image' => $images[3],
+                'alt' => 'Twee meisjes bouwen samen aan een project',
+                'category' => 'Projecten',
+                'categoryClass' => $this->categoryClasses[0],
+                'date' => '1 maart 2026',
+                'datetime' => '2026-03-01',
+                'title' => 'Leerlingen bouwen een tiny house op het schoolplein',
+                'excerpt' => 'Samen ontwerpen, zagen en timmeren: in tien weken staat er een echt huisje.',
             ],
         ];
     }
