@@ -59,6 +59,30 @@ add_filter('theme_file_path', function ($path, $file) {
 }, 10, 2);
 
 /**
+ * Alleen de eigen kleuren (triv-*, wit, zwart) in het kleurenpalet. De gegenereerde theme.json bevat alle ±300
+ * Tailwind-kleuren; WordPress zet daar op elke pagina ±110 kB aan CSS-variabelen en .has-…-classes voor in de HTML.
+ * De Tailwind-classes in het thema zelf (text-gray-800 enz.) staan in app.css en hebben dit palet niet nodig.
+ *
+ * @return \WP_Theme_JSON_Data
+ */
+add_filter('wp_theme_json_data_theme', function ($themeJson) {
+    $data = $themeJson->get_data();
+    $palette = $data['settings']['color']['palette']['theme'] ?? $data['settings']['color']['palette'] ?? null;
+
+    if (! is_array($palette)) {
+        return $themeJson;
+    }
+
+    $palette = array_values(array_filter($palette, fn ($color) => in_array($color['slug'], ['white', 'black'], true)
+        || str_starts_with($color['slug'], 'triv-')));
+
+    return $themeJson->update_with([
+        'version' => $data['version'],
+        'settings' => ['color' => ['palette' => $palette]],
+    ]);
+});
+
+/**
  * Disable on-demand block asset loading.
  *
  * @link https://core.trac.wordpress.org/ticket/61965
