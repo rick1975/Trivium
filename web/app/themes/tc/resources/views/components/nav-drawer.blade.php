@@ -50,13 +50,14 @@
               </span>
             </button>
 
+            {{-- Mobiel (schermvullend): subitems op de lijn van het hoofditem en groter; in het paneel vanaf lg ingesprongen en kleiner --}}
             <ul x-show="subOpen" x-collapse style="display: none;"
-              class="ml-3 mr-2 mt-1 mb-3 pl-3 flex flex-col">
+              class="mr-2 mt-1 mb-3 pl-3 flex flex-col lg:ml-3">
               @foreach($item->children as $child)
                 <li>
                   <a href="{{ $child->url }}" @click="mobileOpen = false"
                     @class([
-                      'inline-block my-1.5 text-[0.95rem] transition-colors hover:text-triv-pink',
+                      'inline-block my-2 text-[1.0625rem] transition-colors hover:text-triv-pink lg:my-1.5 lg:text-[0.95rem]',
                       'text-gray-900 font-semibold' => $child->active,
                       'text-stone-600' => ! $child->active,
                     ])
