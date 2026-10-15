@@ -1,6 +1,5 @@
 {{-- Nieuwsoverzicht (berichtenpagina /nieuws/, Instellingen > Lezen; data uit Composers\NewsArchive). Crème vlak met
-     de titel, op de eerste pagina het nieuwste bericht groot met de drie volgende ernaast (components/news-featured,
-     als op de voorpagina), de overige als kaarten in een raster, en paginering. --}}
+     de titel, alle berichten als kaarten in een raster (geen groot bericht zoals op de voorpagina) en paginering. --}}
 @extends('layouts.app')
 
 @section('before-main')
@@ -12,18 +11,8 @@
         <div class="mt-6 max-w-2xl text-xl leading-relaxed text-triv-navy md:text-[1.375rem] [&>p:last-child]:mb-0 motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.45s_both]">{!! wpautop($intro) !!}</div>
       @endif
 
-      @if($featured)
-        <div class="mt-10">
-          <x-news-featured :items="$featured" />
-        </div>
-      @endif
-
       @if($tiles)
-        <ul @class([
-          'mb-0 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3',
-          'mt-16 border-t border-[#ddd8cc] pt-12' => $featured,
-          'mt-10' => ! $featured,
-        ])>
+        <ul class="mt-10 mb-0 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 md:mt-14">
           @foreach($tiles as $item)
             <li class="mb-0">
               <x-news-card :item="$item" size="tile" />

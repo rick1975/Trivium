@@ -5,9 +5,8 @@ namespace App\View\Composers;
 use Roots\Acorn\View\Composer;
 
 /**
- * Nieuwsoverzicht (berichtenpagina /nieuws/, view home): op de eerste pagina het nieuwste bericht groot met de drie
- * volgende in een lijst ernaast (zoals op de voorpagina), de rest als kaarten in een raster. Zolang er nog geen
- * berichten zijn, de voorbeeldberichten van de voorpagina.
+ * Nieuwsoverzicht (berichtenpagina /nieuws/, view home): alle berichten als kaarten in een raster (geen groot
+ * bericht zoals op de voorpagina). Zolang er nog geen berichten zijn, de voorbeeldberichten van de voorpagina.
  */
 class NewsArchive extends Composer
 {
@@ -23,13 +22,11 @@ class NewsArchive extends Composer
         $items = $posts
             ? array_map([News::class, 'item'], $posts, array_keys($posts))
             : News::placeholders();
-        $first = ! is_paged();
 
         return [
             'title' => get_the_title(get_option('page_for_posts')) ?: __('Nieuws', 'sage'),
             'intro' => trim(get_post_field('post_content', get_option('page_for_posts'))),
-            'featured' => $first ? array_slice($items, 0, 4) : [],
-            'tiles' => $first ? array_slice($items, 4) : $items,
+            'tiles' => $items,
             'pagination' => paginate_links([
                 'type' => 'array',
                 'prev_text' => __('Vorige', 'sage'),

@@ -1,6 +1,6 @@
 {{-- Groot bericht links; vanaf lg rechts daarnaast, achter een verticale lijn, de volgende berichten als lijst met een
      kleine foto (op mobiel eronder, achter een horizontale lijn). Onder de lijst optioneel een slot (bv. de knop
-     "Alle berichten" op de voorpagina). Gebruikt op de voorpagina (components/news) en in het nieuwsoverzicht (home). --}}
+     "Alle berichten" op de voorpagina). Gebruikt op de voorpagina (components/news). --}}
 @props(['items'])
 
 <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1.5fr_1fr] lg:gap-0">
