@@ -33,7 +33,7 @@
     <div class="pointer-events-none absolute inset-0 z-[1] overflow-hidden opacity-80 max-md:[&_circle]:[vector-effect:non-scaling-stroke] [mask-image:linear-gradient(to_bottom,#000_calc(100%-4rem),transparent)] md:z-auto md:opacity-100 md:[mask-image:none]" aria-hidden="true">
       {{-- Inline (geen <img>), zodat de gekleurde cirkel de rubriekskleur krijgt --}}
       <div @class([
-          'absolute left-full top-[calc(clamp(20rem,50svh,720px)+4rem)] w-[2000px] max-w-none -translate-x-1/2 -translate-y-1/2 -rotate-45 select-none md:top-[42%] md:rotate-0 md:w-[1500px] motion-safe:animate-[hero-photo_1.6s_ease-out_both] [&>svg]:block [&>svg]:h-auto [&>svg]:w-full',
+          'absolute left-full top-[calc(clamp(20rem,50svh,720px)+4rem)] w-[1500px] max-w-none -translate-x-1/2 -translate-y-1/2 -rotate-45 select-none md:top-[42%] md:rotate-0 motion-safe:animate-[hero-photo_1.6s_ease-out_both] [&>svg]:block [&>svg]:h-auto [&>svg]:w-full',
           'md:left-[62%]' => ! $links,
           'md:left-[38%]' => $links,
         ])>{!! file_get_contents(get_theme_file_path('resources/images/shape-ripples-animated.svg')) !!}</div>
