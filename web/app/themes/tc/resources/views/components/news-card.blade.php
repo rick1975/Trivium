@@ -14,7 +14,7 @@
     <img src="{{ $item['image'] }}" alt="{{ $item['alt'] }}" loading="lazy" decoding="async"
       class="size-full max-w-none object-cover transition-transform duration-500 group-hover:scale-105" />
   </div>
-  <time @if(! empty($item['datetime'])) datetime="{{ $item['datetime'] }}" @endif class="mb-1 text-xs font-semibold uppercase tracking-widest text-stone-500">{{ $item['date'] }}</time>
+  <time @if(! empty($item['datetime'])) datetime="{{ $item['datetime'] }}" @endif class="mb-1 text-sm text-stone-500">{{ $item['date'] }}</time>
   <h3 class="mb-2 text-lg font-semibold leading-snug text-triv-navy transition-colors group-hover:text-triv-pink">
     {{ $item['title'] }}
   </h3>
