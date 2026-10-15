@@ -29,13 +29,13 @@
     <img src="{{ $item['image'] }}" alt="{{ $item['alt'] }}" loading="lazy" decoding="async"
       class="size-full max-w-none object-cover transition-transform duration-500 group-hover:scale-105" />
   </div>
-  {{-- Ronde knop met pijl achter de titel (decoratief: de hele kaart is de link); kleurt bij hover roze --}}
+  {{-- Ronde knop met pijl achter de titel (decoratief: de hele kaart is de link); kleurt bij hover roze, de pijl staat stil. Iets hoger dan het midden van de regel, zodat hij optisch op de letters uitlijnt --}}
   <div class="flex items-center justify-between gap-6">
     <h3 class="mb-0 text-2xl font-semibold leading-snug text-triv-navy transition-colors group-hover:text-triv-pink md:text-3xl">
       {{ $item['title'] }}
     </h3>
-    <span class="flex size-8 shrink-0 items-center justify-center rounded-full border border-triv-navy/15 bg-white text-triv-navy transition-colors duration-300 group-hover:border-triv-pink group-hover:bg-triv-pink group-hover:text-white" aria-hidden="true">
-      <x-icon name="chevron-right" class="size-3 transition-transform duration-300 group-hover:translate-x-0.5" />
+    <span class="relative -top-1 flex size-8 shrink-0 items-center justify-center rounded-full border border-triv-navy/15 bg-white text-triv-navy transition-colors duration-300 group-hover:border-triv-pink group-hover:bg-triv-pink group-hover:text-white" aria-hidden="true">
+      <x-icon name="chevron-right" class="size-3" />
     </span>
   </div>
 </a>
