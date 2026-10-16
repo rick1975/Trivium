@@ -20,10 +20,8 @@
   style="display: none;"
   role="dialog" aria-modal="true" aria-label="Hoofdmenu">
 
-  {{-- Kop: links de niveaus (zoals op de brochure en in de footer), zacht, iets donkerder dan de lijn onderaan het
-       paneel; rechts sluiten. Op de lijn van de menutekst. --}}
-  <div class="flex items-center justify-between gap-4 px-6 lg:px-8 pt-6 pb-6 shrink-0">
-    <p class="mb-0 text-xs font-bold tracking-wide translate-y-1 text-[#d6cebb]">VMBO B/K en K/TL</p>
+  {{-- Kop: sluiten --}}
+  <div class="flex items-center justify-end px-6 lg:px-8 pt-6 pb-2 shrink-0">
     <button type="button" @click="mobileOpen = false"
       class="w-9 h-9 rounded-full flex items-center justify-center bg-white text-[#1a1612] shadow-sm hover:bg-triv-pink hover:text-white hover:rotate-90 transition-all duration-300 cursor-pointer"
       aria-label="Menu sluiten">
@@ -86,6 +84,9 @@
       @endforeach
     </ul>
   </nav>
+
+  {{-- Niveaus (zoals op de brochure en in de footer): zacht, iets donkerder dan de lijn eronder; op de lijn van de menutekst --}}
+  <p class="shrink-0 mb-0 px-6 lg:px-8 pb-3 text-xs font-bold tracking-wide text-[#d6cebb]">VMBO B/K en K/TL</p>
 
   {{-- Voet: snelle acties --}}
   <div class="shrink-0 px-6 lg:px-8 pt-5 pb-6 border-t border-[#ece6d8] transition-all duration-500 ease-out"
