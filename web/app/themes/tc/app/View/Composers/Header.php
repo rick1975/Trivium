@@ -21,6 +21,30 @@ class Header extends Composer
         return [
             'isFront' => is_front_page(),
             'overPhoto' => is_front_page() || $backdrop,
+            'languages' => $this->languages(),
         ];
+    }
+
+    /**
+     * Talen voor de taalknop in de header (TranslatePress). Elke taal heeft een korte code (NL, EN), de naam, de url
+     * van de huidige pagina in die taal en of het de actieve taal is. Leeg als TranslatePress niet actief is.
+     */
+    protected function languages()
+    {
+        if (! function_exists('trp_custom_language_switcher')) {
+            return [];
+        }
+
+        global $TRP_LANGUAGE;
+
+        return collect(trp_custom_language_switcher())
+            ->map(fn ($language, $code) => (object) [
+                'code' => strtoupper(strtok($code, '_')),
+                'name' => $language['language_name'],
+                'url' => $language['current_page_url'],
+                'active' => $code === $TRP_LANGUAGE,
+            ])
+            ->values()
+            ->all();
     }
 }
