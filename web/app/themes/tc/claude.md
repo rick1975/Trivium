@@ -45,3 +45,4 @@
 ## Livegang-checklist
 - Alle testmateriaal verwijderen of vervangen door definitieve content, o.a.:
   - Testfoto's achtergrond Snelle links (`resources/images/jongen-achter-laptop.avif` (niet meer in gebruik), `resources/images/fotostudio-leerlingen.avif`, gebruikt in `resources/views/components/quick-links.blade.php`)
+- Zoekmachine-indexering weer aanzetten: `DISALLOW_INDEXING=true` uit `.env` halen (of op `false` zetten)
