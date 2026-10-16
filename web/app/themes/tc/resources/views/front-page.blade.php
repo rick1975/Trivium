@@ -7,8 +7,11 @@
 @endsection
 
 @section('content')
+  {{-- Alleen bij echte inhoud: op vertaalde pagina's laat TranslatePress anders een lege (witte) .main achter --}}
   @while(have_posts()) @php(the_post())
-    @include('partials.content-page')
+    @if(trim(get_post_field('post_content')) !== '')
+      @include('partials.content-page')
+    @endif
   @endwhile
 @endsection
 
