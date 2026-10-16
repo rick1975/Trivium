@@ -26,6 +26,7 @@
        tint #fbe6e3, perzik #f5e9de, warm zand #f2ebdf, lichtblauw #eaf1f6, salie var(--color-triv-section) */
     --color-triv-vlak: #f6cbc8;
     --color-triv-yellow: #fcbf00;
+    --color-triv-lef: #f8af1e; /* warm goudgeel van "LEF" uit de brochure, o.a. gele fotobanner + gele knop. Terug: #fcbf00 */
     --color-triv-cream: #fbfaf4;
     --breakpoint-2xl: 1500px;
 }

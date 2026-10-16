@@ -39,7 +39,7 @@
   default => $right ? 'bg-gradient-to-l' : 'bg-gradient-to-r',
 })
 @php($accentClass = match ($accent) {
-  'geel' => 'text-triv-yellow',
+  'geel' => 'text-triv-lef',
   'groen' => 'text-triv-green',
   'oranje' => 'text-triv-orange',
   default => 'text-triv-pink',
