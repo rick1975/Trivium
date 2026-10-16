@@ -20,10 +20,10 @@
   style="display: none;"
   role="dialog" aria-modal="true" aria-label="Hoofdmenu">
 
-  {{-- Kop: links de niveaus (zoals op de brochure en in de footer), heel zacht in de kleur van de lijn onderaan het
+  {{-- Kop: links de niveaus (zoals op de brochure en in de footer), zacht, iets donkerder dan de lijn onderaan het
        paneel; rechts sluiten. Op de lijn van de menutekst. --}}
   <div class="flex items-center justify-between gap-4 px-6 lg:px-8 pt-6 pb-6 shrink-0">
-    <p class="mb-0 text-xs font-bold uppercase tracking-[0.2em] translate-y-1 text-[#ece6d8]">VMBO B/K en K/TL</p>
+    <p class="mb-0 text-xs font-bold tracking-wide translate-y-1 text-[#d6cebb]">VMBO B/K en K/TL</p>
     <button type="button" @click="mobileOpen = false"
       class="w-9 h-9 rounded-full flex items-center justify-center bg-white text-[#1a1612] shadow-sm hover:bg-triv-pink hover:text-white hover:rotate-90 transition-all duration-300 cursor-pointer"
       aria-label="Menu sluiten">
