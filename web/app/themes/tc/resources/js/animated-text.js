@@ -169,12 +169,26 @@ export function initAnimatedText() {
             container.parentElement?.querySelector("h1")
             ?? document.querySelector("h1");
 
-        const FONT_SIZE = h1
+        const H1_FONT_SIZE = h1
             ? parseFloat(getComputedStyle(h1).fontSize)
             : 48;
 
         const viewBoxWidth =
             svg.getBoundingClientRect().width || 1600;
+
+        // Past de tekst niet (bv. een langere vertaling), dan krimpt
+        // de lettergrootte precies zoveel dat de breedste regel past.
+        // Gemeten tot de rechterkant van de inkt (incl. cursief).
+        ctx.font = `italic ${FONT_WEIGHT} ${H1_FONT_SIZE}px ${FONT_FAMILY}`;
+
+        const textWidth = Math.max(...lines.map(line => {
+            const metrics = ctx.measureText(line.text);
+            return Math.max(metrics.width, metrics.actualBoundingBoxRight || 0);
+        }));
+
+        const FONT_SIZE = textWidth > viewBoxWidth
+            ? H1_FONT_SIZE * viewBoxWidth / textWidth
+            : H1_FONT_SIZE;
 
 
         /*
