@@ -8,7 +8,7 @@ export function initHeroFeatures() {
   if (!list || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
   const speed = 0.5 // deel van de scrollafstand dat de labels meezakken
-  const beyond = 40 // zover komt de onderkant van de labels onder de fotoheader uit (px)
+  const beyond = 16 // zover komt de onderkant van de labels onder de fotoheader uit (px)
   let max = 0
   let ticking = false
 

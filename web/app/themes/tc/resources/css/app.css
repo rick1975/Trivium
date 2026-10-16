@@ -272,7 +272,7 @@ html {
 
   /* Pagina met tabellen: tekst en koppen even breed als de tabellen, vanaf md 1rem ingesprongen (op de lijn van de
      tekst in de tabelcellen). Op mobiel niet: dan zou de tekst inspringen t.o.v. de titel en de kenmerken erboven */
-  &:has(> .wp-block-table) > :is(p, h2, h3, h4, .page-header) {
+  &:has(> .wp-block-table) > :is(p, h2, h3, h4, .page-header, .wp-block-buttons) {
     @apply max-w-none md:px-4;
   }
 
@@ -542,9 +542,10 @@ body[class*='rubriek-'] {
   @apply md:hidden;
 }
 
-/* Op mobiel gelijke ruimte (1,5rem) tussen titel, intro en kenmerken */
+/* Op mobiel gelijke ruimte (1,5rem) tussen titel, intro en kenmerken; vanaf md ruim afstand tussen de
+   (meegezakte) kenmerken-labels en de tekst eronder */
 .page:is(.has-hero-half, .has-hero-kader) .main {
-  @apply max-md:pt-6;
+  @apply max-md:pt-6 md:pt-24;
 
   > p:first-child + .is-style-kenmerken {
     @apply max-md:mt-6;
