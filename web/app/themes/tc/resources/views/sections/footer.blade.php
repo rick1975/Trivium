@@ -3,7 +3,7 @@
 {{-- Alleen op de voorpagina is de footer een slide (glijdt automatisch in beeld). Op andere pagina's scrolt hij gewoon;
      data-shown (voor de foto die inschuift) komt daar van x-intersect, zodra hij half in beeld is. --}}
 <div @if(is_front_page()) data-slide @else x-data x-intersect.once.half="$el.dataset.shown = ''" @endif class="footer group">
-  {{-- Fotoslider: aula en fruitkrat; wisselt met een crossfade en een trage zoom.
+  {{-- Fotoslider: foto's uit Trivium Settings > Footer (standaard aula en fruitkrat); wisselt met een crossfade en een trage zoom.
        Navigatie: voortgangsstreepjes rechtsonder. Het actieve streepje loopt in 6 s vol (CSS-animatie footer-progress);
        aan het eind daarvan (animationend) volgt de volgende foto, dus pauzeren is de animatie stilzetten:
        buiten beeld en bij hover. Klik op een streepje: naar die foto en het wisselen stopt (zo is het stil te zetten).
@@ -36,7 +36,9 @@
       </figure>
     @endforeach
 
-    {{-- Voortgangsstreepjes: eerdere foto's vol, actieve loopt vol (of staat vol als het wisselen stopt), latere leeg --}}
+    {{-- Voortgangsstreepjes: eerdere foto's vol, actieve loopt vol (of staat vol als het wisselen stopt), latere leeg.
+         Bij één foto geen streepjes. --}}
+    @if(count($footer->slides) > 1)
     <div class="absolute bottom-3 right-4 md:bottom-7 md:right-8 flex gap-1">
       @foreach($footer->slides as $slide)
         <button type="button" @click="go({{ $loop->index }})" :aria-current="current === {{ $loop->index }}"
@@ -51,6 +53,7 @@
         </button>
       @endforeach
     </div>
+    @endif
   </div>
 
   <div class="relative page-container">

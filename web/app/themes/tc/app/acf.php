@@ -19,6 +19,7 @@ const OPTION_PAGES = [
     'trivium-snelle-links' => 'Snelle links',
     'trivium-fotobanner' => 'Fotobanner',
     'trivium-footer' => 'Footer',
+    'trivium-menu' => 'Menu en zoeken',
 ];
 
 /**
@@ -354,13 +355,15 @@ add_action('acf/init', function () {
                 'instructions' => 'Korte introductie boven de contactgegevens. Adres, telefoon en e-mail komen uit Contactgegevens.',
             ],
             [
-                'key' => 'field_trivium_footer_afbeelding',
-                'label' => 'Foto',
-                'name' => 'footer_afbeelding',
-                'type' => 'image',
-                'instructions' => 'Staat vanaf tablet op de rechterhelft, op mobiel onder de tekst. Leeg = standaardfoto.',
+                'key' => 'field_trivium_footer_fotos',
+                'label' => "Foto's",
+                'name' => 'footer_fotos',
+                'type' => 'gallery',
+                'instructions' => 'Wisselen elkaar om de 6 seconden af. Staan vanaf tablet op de rechterhelft, op mobiel onder de tekst. Volgorde aanpassen door te slepen. Leeg = standaardfoto\'s.',
                 'return_format' => 'id',
                 'preview_size' => 'medium',
+                'insert' => 'append',
+                'max' => 6,
             ],
             [
                 'key' => 'field_trivium_footer_sitemap_label',
@@ -372,6 +375,63 @@ add_action('acf/init', function () {
             ],
         ],
         'location' => $location('trivium-footer'),
+    ]);
+
+    // Knoppen onderin het uitklapmenu (components/nav-drawer) en de snelle links in het zoekpaneel (components/search-panel)
+    $menuButton = fn (string $key, string $name, string $label, string $default) => [
+        'key' => $key,
+        'label' => $label,
+        'name' => $name,
+        'type' => 'link',
+        'instructions' => "Leeg = {$default}.",
+        'return_format' => 'array',
+        'wrapper' => ['width' => 50],
+    ];
+
+    acf_add_local_field_group([
+        'key' => 'group_trivium_menu',
+        'title' => 'Menu en zoeken',
+        'fields' => [
+            [
+                'key' => 'field_trivium_menu_tab_knoppen',
+                'label' => 'Knoppen in het menu',
+                'type' => 'tab',
+            ],
+            [
+                'key' => 'field_trivium_menu_knoppen_message',
+                'label' => '',
+                'name' => '',
+                'type' => 'message',
+                'message' => 'Twee knoppen onderin het uitklapmenu. De menu-items zelf beheer je onder Weergave > Menu\'s.',
+            ],
+            $menuButton('field_trivium_menu_knop_1', 'menu_knop_1', 'Knop 1 (roze)', 'Contact'),
+            $menuButton('field_trivium_menu_knop_2', 'menu_knop_2', 'Knop 2 (omlijnd)', 'Open dagen'),
+            [
+                'key' => 'field_trivium_menu_tab_zoeken',
+                'label' => 'Zoekpaneel',
+                'type' => 'tab',
+            ],
+            [
+                'key' => 'field_trivium_populaire_paginas',
+                'label' => "Populaire pagina's",
+                'name' => 'populaire_paginas',
+                'type' => 'repeater',
+                'instructions' => 'Links in het zoekpaneel zolang er nog niets is getypt. Geen links = het kopje verdwijnt.',
+                'layout' => 'table',
+                'button_label' => 'Link toevoegen',
+                'sub_fields' => [
+                    [
+                        'key' => 'field_trivium_populaire_pagina_titel',
+                        'label' => 'Titel',
+                        'name' => 'titel',
+                        'type' => 'text',
+                        'required' => 1,
+                    ],
+                    $pageLink('field_trivium_populaire_pagina_pagina'),
+                ],
+            ],
+        ],
+        'location' => $location('trivium-menu'),
     ]);
 
     // Fotoheader op gewone pagina's (uitgelichte afbeelding, components/page-hero.blade.php)

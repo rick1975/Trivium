@@ -96,26 +96,22 @@
         </ul>
       </div>
 
-      {{-- Populaire pagina's: eenvoudige tekstlinks, geen buttons; direct naar de pagina (op slug), niet via de zoekresultaten --}}
+      {{-- Populaire pagina's (Trivium Settings > Menu en zoeken, via Composers\Menu): eenvoudige tekstlinks, geen buttons --}}
       <div x-show="query.trim().length < 2" class="mt-12" style="display: none;">
+        @if($popularPages)
         <h2 class="text-triv-blue text-xs md:text-xs font-semibold uppercase tracking-widest leading-normal [font-family:inherit] px-1 mb-2">Populaire pagina's</h2>
         <ul class="flex flex-col">
-          @foreach([
-            'Aanmelden' => 'aanmelden',
-            'Open dag' => 'open-dagen',
-            'Rooster' => 'lestijden-roostervrije-dagen',
-            'Contact' => 'contact',
-            'Vakanties' => 'lestijden-roostervrije-dagen',
-          ] as $suggestion => $slug)
+          @foreach($popularPages as $page)
             <li class="border-b border-stone-300 last:border-b-0">
-              <a href="{{ App\page_url($slug, home_url('/?s=' . rawurlencode($suggestion))) }}"
+              <a href="{{ $page->url }}"
                 class="group w-full flex items-center justify-between font-semibold gap-2 px-1 py-2.5 text-sm text-stone-500 no-underline hover:text-triv-pink transition-colors">
-                <span class="transition-transform duration-200 group-hover:translate-x-1.5">{{ $suggestion }}</span>
+                <span class="transition-transform duration-200 group-hover:translate-x-1.5">{{ $page->title }}</span>
                 <x-icon name="chevron-right" class="size-3 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5" />
               </a>
             </li>
           @endforeach
         </ul>
+        @endif
 
         {{-- Contactgegevens (uit Trivium Settings, via de Contact-composer) --}}
         <div class="mt-10 px-1">

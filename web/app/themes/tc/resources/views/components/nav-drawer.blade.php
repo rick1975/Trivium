@@ -90,8 +90,10 @@
     :class="mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'"
     style="transition-delay: {{ 120 + count($navigation) * 50 }}ms;">
     <div class="grid grid-cols-2 gap-2">
-      <x-button :href="App\page_url('contact')" class="justify-center">Contact</x-button>
-      <x-button :href="App\page_url('open-dagen')" variant="outline" class="justify-center">Open dagen</x-button>
+      {{-- Uit Trivium Settings > Menu en zoeken (Composers\Menu) --}}
+      @foreach($menuButtons as $button)
+        <x-button :href="$button->url" :variant="$loop->first ? 'pink' : 'outline'" :target="$button->target" class="justify-center">{{ $button->title }}</x-button>
+      @endforeach
     </div>
   </div>
 </div>

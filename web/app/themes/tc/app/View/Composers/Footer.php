@@ -12,23 +12,25 @@ class Footer extends Composer
     ];
 
     /**
-     * Titel, tekst en foto uit Trivium Settings > Footer, met de sitenaam en standaardfoto als terugval.
-     * De foto is de eerste slide; daarna volgt een vaste fruitfoto.
+     * Titel, tekst en foto's uit Trivium Settings > Footer, met de sitenaam en de standaardfoto's (aula en fruitkrat) als terugval.
      * Het sitemap-label valt alleen terug op de standaardzin als het veld nog nooit is opgeslagen; leeg = geen label.
      */
     public function with()
     {
         $field = fn (string $name) => function_exists('get_field') ? get_field($name, 'option') : null;
-        $imageId = $field('footer_afbeelding');
+
+        $slides = array_values(array_filter(array_map(
+            fn ($id) => ($url = wp_get_attachment_image_url($id, 'full')) ? (object) ['image' => $url] : null,
+            $field('footer_fotos') ?: []
+        )));
 
         return [
             'footer' => (object) [
                 'title' => $field('footer_titel') ?: get_bloginfo('name', 'display'),
                 'text' => (string) $field('footer_tekst'),
-                'slides' => [
+                'slides' => $slides ?: [
                     (object) [
-                        'image' => ($imageId ? wp_get_attachment_image_url($imageId, 'full') : null)
-                            ?: Vite::asset('resources/images/aula-zittrap-daklicht-leerlingen.avif'),
+                        'image' => Vite::asset('resources/images/aula-zittrap-daklicht-leerlingen.avif'),
                     ],
                     (object) [
                         'image' => Vite::asset('resources/images/leerlingen-bij-de-fruitkrat.avif'),
