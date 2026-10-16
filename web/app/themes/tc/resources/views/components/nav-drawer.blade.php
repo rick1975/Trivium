@@ -85,8 +85,8 @@
     </ul>
   </nav>
 
-  {{-- Niveaus (zoals op de brochure en in de footer): zacht, iets donkerder dan de lijn eronder; op de lijn van de menutekst --}}
-  <p class="shrink-0 mb-0 px-6 lg:px-8 pb-3 text-xs font-bold tracking-wide text-[#c2b8a0]">VMBO B/K en K/TL</p>
+  {{-- Niveaus (zoals op de brochure en in de footer): zacht, in het grijs van de pijltjes naast de menu-items; op de lijn van de menutekst --}}
+  <p class="shrink-0 mb-0 px-6 lg:px-8 pb-3 text-xs font-bold tracking-wide text-stone-400">VMBO B/K en K/TL</p>
 
   {{-- Voet: snelle acties --}}
   <div class="shrink-0 px-6 lg:px-8 pt-5 pb-6 border-t border-[#ece6d8] transition-all duration-500 ease-out"
