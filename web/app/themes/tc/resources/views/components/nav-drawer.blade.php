@@ -21,7 +21,7 @@
   role="dialog" aria-modal="true" aria-label="Hoofdmenu">
 
   {{-- Kop: sluiten --}}
-  <div class="flex items-center justify-end px-6 lg:px-8 pt-6 pb-4 shrink-0">
+  <div class="flex items-center justify-end px-6 lg:px-8 pt-6 pb-1 shrink-0">
     <button type="button" @click="mobileOpen = false"
       class="w-9 h-9 rounded-full flex items-center justify-center bg-white text-[#1a1612] shadow-sm hover:bg-triv-pink hover:text-white hover:rotate-90 transition-all duration-300 cursor-pointer"
       aria-label="Menu sluiten">
@@ -30,7 +30,7 @@
   </div>
 
   {{-- Navigatie --}}
-  <nav aria-label="Hoofdmenu" class="flex-1 overflow-y-auto px-3 lg:px-5 py-2">
+  <nav aria-label="Hoofdmenu" class="flex-1 overflow-y-auto px-3 lg:px-5 pb-2">
     <ul class="flex flex-col gap-0.5">
       @foreach($navigation as $item)
         <li x-data="{ subOpen: {{ $item->activeAncestor || $item->activeParent ? 'true' : 'false' }} }"
