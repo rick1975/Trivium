@@ -52,7 +52,7 @@
                 :aria-expanded="langOpen.toString()" aria-controls="lang-menu" aria-label="Taal kiezen, nu {{ $current->name }}">
                 <span aria-hidden="true">{{ $current->code }}</span>
               </button>
-              <ul id="lang-menu" x-show="langOpen" x-transition style="display: none;"
+              <ul id="lang-menu" data-no-translation x-show="langOpen" x-transition style="display: none;"
                 class="absolute right-0 top-full mt-2 min-w-36 rounded-2xl bg-white p-1.5 shadow-xl border border-[#f4f0e8]">
                 @foreach($others as $language)
                   <li class="mb-0">
