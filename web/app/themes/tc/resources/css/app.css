@@ -300,13 +300,24 @@ html {
   }
 
   /* Kaarten met direct een knop eronder (bv. de aanmeldrondes op Aanmelden): binnen de tekstkolom, zodat ze bij de
-     tekst eromheen horen, en dicht bij de knop */
+     tekst eromheen horen, en dicht bij de knop. Zoals de blokken van Ons onderwijs in een zachte tint van de rubriek
+     met de titel in de rubriekskleur, maar zonder nummer */
   > .is-style-kaarten:has(+ .wp-block-buttons) {
     @apply mt-8 mb-8 md:mb-8 lg:mb-8;
 
     @variant md {
       max-width: var(--container-2xl);
       margin-inline: auto;
+    }
+
+    > .wp-block-column {
+      @apply shadow-none;
+      background-color: color-mix(in oklab, var(--accent-vlak) 60%, white);
+    }
+
+    h2,
+    h3 {
+      @apply text-(--accent);
     }
   }
 
