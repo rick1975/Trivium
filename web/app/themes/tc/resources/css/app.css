@@ -572,6 +572,11 @@ body[class*='rubriek-'] {
   @apply md:hidden;
 }
 
+/* Knoppen direct na de intro staan vanaf md in de header onder de intro (components/page-hero) */
+.page:is(.has-hero-half, .has-hero-kader) .main > p:first-child + .wp-block-buttons {
+  @apply md:hidden;
+}
+
 /* Brede elementen (schermbreed gekleurd vlak) mogen geen horizontale scrollbalk geven */
 #main {
   overflow-x: clip;

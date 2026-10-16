@@ -302,7 +302,10 @@
       @apply mt-0 mb-2 text-2xl md:text-3xl;
     }
   }
+}
 
+/* Knoppen uit de editor: in de inhoud, de editor en de fotoheader (knoppen direct na de intro, components/page-hero) */
+:is(.main, .editor-styles-wrapper, .hero-knoppen) {
   /* Knoppen uit de editor, in de stijl van <x-button> (roze, met stip) */
   .wp-block-buttons {
     @apply flex flex-wrap gap-3;

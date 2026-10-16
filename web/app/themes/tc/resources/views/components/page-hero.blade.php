@@ -93,6 +93,11 @@
       @if($half && $intro)
         <p class="hero-intro mt-6 mb-0 hidden text-xl leading-relaxed text-triv-navy md:block md:text-lg lg:text-xl xl:text-[1.375rem] motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.45s_both]">{!! $intro !!}</p>
       @endif
+
+      {{-- Knoppen direct na de intro in de inhoud (Composers\PageHero::buttons), vanaf md hier onder de intro --}}
+      @if($half && $intro && $buttons)
+        <div class="hero-knoppen mt-8 hidden md:block motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.5s_both]">{!! $buttons !!}</div>
+      @endif
     </div>
   </div>
 

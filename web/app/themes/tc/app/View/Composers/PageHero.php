@@ -29,6 +29,7 @@ class PageHero extends Composer
             'parent' => $parent ? ['title' => get_the_title($parent), 'url' => get_permalink($parent)] : null,
             'features' => $this->features($id),
             'intro' => $this->intro($id),
+            'buttons' => $this->buttons($id),
             'layout' => (function_exists('get_field') ? get_field('foto_stijl', $id) : null) ?: 'breed',
             'position' => match ($focus) {
                 'links' => '35% 40%',
@@ -56,6 +57,24 @@ class PageHero extends Composer
         $html = trim(preg_replace('#^\s*<p[^>]*>|</p>\s*$#', '', $blocks[0]['innerHTML']));
 
         return $html !== '' ? $html : null;
+    }
+
+    /**
+     * Knoppen direct na de intro (een blok Knoppen als tweede blok, na de eerste alinea): de fotoheader "half" en
+     * "kader" tonen ze vanaf desktop onder de intro; in de inhoud zijn ze dan verborgen (zie css/app.css).
+     */
+    protected function buttons(int $id): ?string
+    {
+        $blocks = array_values(array_filter(
+            parse_blocks(get_post_field('post_content', $id)),
+            fn ($block) => $block['blockName'] !== null
+        ));
+
+        if (($blocks[0]['blockName'] ?? null) !== 'core/paragraph' || ($blocks[1]['blockName'] ?? null) !== 'core/buttons') {
+            return null;
+        }
+
+        return trim(render_block($blocks[1])) ?: null;
     }
 
     /**
