@@ -91,12 +91,14 @@
 
 @include('components.sitemap')
 
-{{-- Copyright: zelfde nachtblauw als footer en sitemap, op dezelfde lijn --}}
+{{-- Copyright: zelfde nachtblauw als footer en sitemap, op dezelfde lijn; rechts de niveaus (zoals op de brochure),
+     op mobiel eronder --}}
 <div class="py-6 bg-triv-navy border-t border-white/10">
-  <div class="page-container">
+  <div class="page-container flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
     <p class="mb-0 text-left text-xs md:text-sm text-white/60">
       &copy; {{ date('Y') }} {{ $siteName }}. Alle rechten voorbehouden.
     </p>
+    <p class="mb-0 text-xs md:text-sm font-semibold uppercase tracking-wider text-white/60">VMBO B/K en K/TL</p>
   </div>
 </div>
 </footer>
