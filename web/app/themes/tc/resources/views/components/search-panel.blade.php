@@ -23,40 +23,7 @@
 
   {{-- Zoekveld en resultaten --}}
   <div class="flex-1 overflow-y-auto px-6 xl:px-20 py-6"
-    x-data="{
-      query: '',
-      results: [],
-      loading: false,
-      searchTimer: null,
-      abortController: null,
-      onInput() {
-        clearTimeout(this.searchTimer)
-        if (this.abortController) this.abortController.abort()
-        if (this.query.trim().length < 2) { this.results = []; this.loading = false; return }
-        this.searchTimer = setTimeout(() => this.fetchResults(), 200)
-      },
-      async fetchResults() {
-        const term = this.query.trim()
-        this.abortController = new AbortController()
-        this.loading = true
-        try {
-          const response = await fetch('/wp-json/wp/v2/search?search=' + encodeURIComponent(term) + '&per_page=5', { signal: this.abortController.signal })
-          this.results = response.ok ? await response.json() : []
-        } catch (e) {
-          if (e.name !== 'AbortError') this.results = []
-        }
-        this.loading = false
-      },
-      escapeHtml(text) {
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-      },
-      highlight(text) {
-        const safeText = this.escapeHtml(text)
-        const term = this.query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-        if (!term) return safeText
-        return safeText.replace(new RegExp('(' + term + ')', 'ig'), `<mark class='bg-triv-yellow/60 rounded-sm'>$1</mark>`)
-      }
-    }"
+    x-data="searchPanel"
     x-init="$watch('searchOpen', open => { if (open) $nextTick(() => $refs.searchInput.focus()) })"
     x-effect="if (searchOpen) { query = ''; results = [] }">
     <div class="max-w-lg mx-auto w-full">

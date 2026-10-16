@@ -9,12 +9,14 @@ import { initSteps } from './steps'
 import { initDetails } from './details'
 import { initReveal } from './reveal'
 import { initHeroFeatures } from './hero-features'
+import { registerSearchPanel } from './search-panel'
 
 window.Alpine = Alpine
 
 Alpine.plugin(intersect)
 Alpine.plugin(collapse)
 Alpine.plugin(focus)
+registerSearchPanel(Alpine)
 
 Alpine.start()
 
