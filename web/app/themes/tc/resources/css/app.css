@@ -299,6 +299,22 @@ html {
     }
   }
 
+  /* Kaarten met direct een knop eronder (bv. de aanmeldrondes op Aanmelden): binnen de tekstkolom, zodat ze bij de
+     tekst eromheen horen, en dicht bij de knop */
+  > .is-style-kaarten:has(+ .wp-block-buttons) {
+    @apply mt-8 mb-8 md:mb-8 lg:mb-8;
+
+    @variant md {
+      max-width: var(--container-2xl);
+      margin-inline: auto;
+    }
+  }
+
+  /* Losse knoppen in de tekst: ruimte tot de alinea eronder */
+  > .wp-block-buttons:not(:last-child) {
+    @apply mb-8;
+  }
+
   > .is-style-sectie,
   > .is-style-afsluiter {
     @apply my-16 max-w-none;
