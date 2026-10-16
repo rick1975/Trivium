@@ -17,8 +17,9 @@
         <x-logo @class(["w-48 md:w-56 lg:w-64", "[--logo-letters:#fff]" => $overPhoto]) aria-hidden="true" />
       </a>
 
-      {{-- Zoek-icoon + hamburger, altijd gegroepeerd rechts --}}
-      <div class="flex items-center gap-2">
+      {{-- Zoek-icoon + hamburger, altijd gegroepeerd rechts. Het logo-SVG heeft boven "VMBO" lege ruimte, waardoor het
+           zichtbare midden ~2% van de logobreedte lager ligt dan het midden van het vak; op desktop schuiven we mee. --}}
+      <div class="flex items-center gap-2 lg:translate-y-[5px]">
 
         {{-- Zoek-icoon --}}
         @php($searchIdleClass = $overPhoto
