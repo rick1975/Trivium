@@ -150,6 +150,9 @@ Config::define('DISALLOW_FILE_EDIT', true);
 // Disable plugin and theme updates and installation from the admin
 Config::define('DISALLOW_FILE_MODS', true);
 
+// Zoekmachines weren via .env (DISALLOW_INDEXING=true), bv. op de testomgeving
+Config::define('DISALLOW_INDEXING', env('DISALLOW_INDEXING') ?? false);
+
 // Limit the number of post revisions
 Config::define('WP_POST_REVISIONS', env('WP_POST_REVISIONS') ?? true);
 
