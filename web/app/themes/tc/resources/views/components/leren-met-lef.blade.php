@@ -4,8 +4,17 @@
      Eén grid voor beide: de knoppen vullen kolom 1 van boven naar beneden, alle panelen liggen in kolom 2 over elkaar
      (over alle rijen plus een laatste 1fr-rij die de extra hoogte opvangt) en alleen het actieve is zichtbaar.
      Het eerste onderwerp staat standaard open. ── --}}
+{{-- Per onderwerp een rubriekskleur (Over de school, Leerlingen & ouders, Groep 8, Beleid & documenten, Ons onderwijs):
+     voor het bolletje, de titel bij hover en het pijltje links, en de titel in het inhoudsvlak. Klassen voluit, zodat Tailwind ze vindt. --}}
 @php
-  $kleuren = ['bg-triv-hemelblauw', 'bg-triv-oudroze', 'bg-triv-koraal', 'bg-triv-zeegroen', 'bg-triv-paars', 'bg-triv-lightblue'];
+  $kleuren = [
+    ['bg' => 'bg-triv-hemelblauw', 'tekst' => 'text-triv-hemelblauw', 'hover' => 'group-hover:text-triv-hemelblauw'],
+    ['bg' => 'bg-triv-oudroze', 'tekst' => 'text-triv-oudroze', 'hover' => 'group-hover:text-triv-oudroze'],
+    ['bg' => 'bg-triv-koraal', 'tekst' => 'text-triv-koraal', 'hover' => 'group-hover:text-triv-koraal'],
+    ['bg' => 'bg-triv-zeegroen', 'tekst' => 'text-triv-zeegroen', 'hover' => 'group-hover:text-triv-zeegroen'],
+    ['bg' => 'bg-triv-paars', 'tekst' => 'text-triv-paars', 'hover' => 'group-hover:text-triv-paars'],
+    ['bg' => 'bg-triv-lightblue', 'tekst' => 'text-triv-lightblue', 'hover' => 'group-hover:text-triv-lightblue'],
+  ];
   $rijen = count($onderwerpen);
 @endphp
 
@@ -24,6 +33,7 @@
           style="grid-template-rows: repeat({{ $rijen }}, auto) 1fr;">
 
           @foreach ($onderwerpen as $i => $item)
+            @php($kleur = $kleuren[$i % count($kleuren)])
             {{-- Titel + knop (kolom 1). Titels zijn h2, direct onder de h1 "Leren met Lef" in de hero --}}
             <h2 class="mb-0 lg:col-start-1">
               <button type="button" id="lef-knop-{{ $i }}" aria-controls="lef-paneel-{{ $i }}"
@@ -31,17 +41,17 @@
                 class="group flex w-full items-start gap-4 rounded-xl p-4 lg:p-3 text-left cursor-pointer transition-all duration-300"
                 :class="actief === {{ $i }} ? 'bg-white' : 'bg-white lg:bg-transparent lg:hover:bg-white/70'"
                 @click="actief = (actief === {{ $i }} && ! lg()) ? null : {{ $i }}">
-                <span aria-hidden="true" class="{{ $kleuren[$i % count($kleuren)] }} size-10 shrink-0 rounded-full flex items-center justify-center text-white font-black text-base">
+                <span aria-hidden="true" class="{{ $kleur['bg'] }} size-10 shrink-0 rounded-full flex items-center justify-center text-white font-black text-base">
                   {{ $i + 1 }}
                 </span>
                 <span class="flex-1 self-center">
-                  <span class="block text-lg font-bold leading-snug text-triv-navy transition-colors group-hover:text-triv-pink">{{ $item['titel'] }}</span>
+                  <span class="block text-lg font-bold leading-snug text-triv-navy transition-colors {{ $kleur['hover'] }}">{{ $item['titel'] }}</span>
                   @if($item['intro'])
                     <span class="mt-1 block text-sm font-normal leading-relaxed text-stone-600 lg:hidden">{{ $item['intro'] }}</span>
                   @endif
                 </span>
                 {{-- Pijltje: mobiel draait het bij openklappen, vanaf lg schuift het iets op richting het inhoudsvlak --}}
-                <span aria-hidden="true" class="mt-3.5 shrink-0 text-triv-pink transition-transform duration-300"
+                <span aria-hidden="true" class="mt-3.5 shrink-0 {{ $kleur['tekst'] }} transition-transform duration-300"
                   :class="actief === {{ $i }} ? 'rotate-90 lg:rotate-0 lg:translate-x-1' : ''">
                   <x-icon name="chevron-right" class="size-3 stroke-[2.5]" />
                 </span>
@@ -55,7 +65,7 @@
 
               {{-- Titel en intro alleen vanaf lg (op mobiel staan ze al in de knop) --}}
               <div class="mb-8 hidden lg:block">
-                <p class="mb-2 font-['Poppins',sans-serif] text-3xl font-bold leading-tight text-triv-navy">{{ $item['titel'] }}</p>
+                <p class="mb-2 font-['Poppins',sans-serif] text-3xl font-bold leading-tight {{ $kleur['tekst'] }}">{{ $item['titel'] }}</p>
                 @if($item['intro'])
                   <p class="mb-0 text-lg leading-relaxed text-stone-600">{{ $item['intro'] }}</p>
                 @endif
