@@ -67,9 +67,9 @@
                     <span class="mt-1 block text-sm font-normal leading-relaxed text-stone-600 lg:hidden">{{ $item['intro'] }}</span>
                   @endif
                 </span>
-                {{-- Pijltje: mobiel draait het bij openklappen, vanaf lg blijft het staan --}}
-                <span aria-hidden="true" class="mt-3.5 shrink-0 {{ $kleur['tekst'] }} transition-transform duration-300"
-                  :class="actief === {{ $i }} && 'rotate-90 lg:rotate-0'">
+                {{-- Pijltje: navy, bij het actieve onderwerp in de rubriekskleur; mobiel draait het bij openklappen, vanaf lg blijft het staan --}}
+                <span aria-hidden="true" class="mt-3.5 shrink-0 transition-[rotate,color] duration-300"
+                  :class="actief === {{ $i }} ? 'rotate-90 lg:rotate-0 {{ $kleur['tekst'] }}' : 'text-triv-navy'">
                   <x-icon name="chevron-right" class="size-3 stroke-[2.5]" />
                 </span>
               </button>
