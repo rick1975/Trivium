@@ -137,7 +137,7 @@ add_action('acf/init', function () {
                         'name' => 'content',
                         'type' => 'textarea',
                         'rows' => 6,
-                        'instructions' => 'Begin een regel met • of - voor een opsommingspunt (vetgedrukt); de regel(s) eronder vormen de toelichting.',
+                        'instructions' => 'Begin een regel met • of - voor een opsommingspunt (vetgedrukt); de regel(s) eronder vormen de toelichting. Een korte kop zonder leesteken aan het eind, direct gevolgd door tekst, wordt vetgedrukt. Scheid alinea\'s met een witregel.',
                     ],
                 ],
             ],

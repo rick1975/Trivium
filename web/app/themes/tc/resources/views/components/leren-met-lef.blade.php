@@ -18,38 +18,59 @@
               {{ $i + 1 }}
             </div>
             <h2 class="text-xl md:text-xl font-bold text-gray-800 mb-4">{{ $item['titel'] }}</h2>
-            {{-- Content: regels die met • of - beginnen worden een opsomming (die regel vetgedrukt, de regels eronder de toelichting) --}}
+            {{-- Content, per alinea (gescheiden door een witregel):
+                 - regels die met • of - beginnen worden een opsomming (die regel vet, de regels eronder de toelichting);
+                 - een alinea waarvan de eerste regel kort is en niet op een leesteken eindigt, krijgt die regel als vetgedrukte kop;
+                 - de rest is gewone tekst. Afgebroken regels (bijv. geplakt uit een pdf) worden weer aan elkaar gezet. --}}
             @if(!empty($item['content']))
               @php
-                $punten = [];
-                $intro = [];
-                foreach (preg_split('/\R/', trim($item['content'])) as $regel) {
-                  $regel = trim($regel);
-                  if ($regel === '') continue;
-                  if (preg_match('/^[•\-]\s*(.+)$/u', $regel, $m)) {
-                    $punten[] = ['kop' => $m[1], 'tekst' => []];
-                  } elseif ($punten) {
-                    $punten[array_key_last($punten)]['tekst'][] = $regel;
-                  } else {
-                    $intro[] = $regel;
+                $blokken = [];
+                foreach (preg_split('/\R\s*\R/', trim($item['content'])) as $alinea) {
+                  $regels = array_values(array_filter(array_map('trim', preg_split('/\R/', $alinea)), 'strlen'));
+                  if (! $regels) continue;
+                  if (! preg_match('/^[•\-]/u', $regels[0])) {
+                    $tekst = [];
+                    while ($regels && ! preg_match('/^[•\-]/u', $regels[0])) $tekst[] = array_shift($regels);
+                    $isKop = count($tekst) > 1 && mb_strlen($tekst[0]) <= 60 && ! preg_match('/[.!?:,;]$/u', $tekst[0]);
+                    $blokken[] = $isKop
+                      ? ['type' => 'kop', 'kop' => array_shift($tekst), 'tekst' => implode(' ', $tekst)]
+                      : ['type' => 'tekst', 'tekst' => implode(' ', $tekst)];
+                  }
+                  foreach ($regels as $regel) {
+                    if (preg_match('/^[•\-]\s*(.+)$/u', $regel, $m)) {
+                      if (($blokken[array_key_last($blokken)]['type'] ?? null) !== 'lijst') $blokken[] = ['type' => 'lijst', 'punten' => []];
+                      $blokken[array_key_last($blokken)]['punten'][] = ['kop' => $m[1], 'tekst' => []];
+                    } else {
+                      $punten = &$blokken[array_key_last($blokken)]['punten'];
+                      $punten[array_key_last($punten)]['tekst'][] = $regel;
+                      unset($punten);
+                    }
                   }
                 }
               @endphp
-              @if($intro)
-                <p class="text-sm text-gray-600 mt-2">{!! implode('<br>', array_map('e', $intro)) !!}</p>
-              @endif
-              @if($punten)
-                <ul class="mt-2 mb-0 space-y-3 text-sm">
-                  @foreach($punten as $punt)
-                    <li class="relative mb-0 pl-4 before:absolute before:left-0 before:top-[0.5em] before:size-1.5 before:rounded-full before:bg-triv-pink">
-                      <span class="block font-semibold text-triv-navy">{{ $punt['kop'] }}</span>
-                      @if($punt['tekst'])
-                        <span class="block text-stone-600">{{ implode(' ', $punt['tekst']) }}</span>
-                      @endif
-                    </li>
-                  @endforeach
-                </ul>
-              @endif
+              <div class="mt-2 space-y-3 text-sm">
+                @foreach($blokken as $blok)
+                  @if($blok['type'] === 'lijst')
+                    <ul class="mb-0 space-y-3">
+                      @foreach($blok['punten'] as $punt)
+                        <li class="relative mb-0 pl-4 before:absolute before:left-0 before:top-[0.5em] before:size-1.5 before:rounded-full before:bg-triv-pink">
+                          <span class="block font-semibold text-triv-navy">{{ $punt['kop'] }}</span>
+                          @if($punt['tekst'])
+                            <span class="block text-stone-600">{{ implode(' ', $punt['tekst']) }}</span>
+                          @endif
+                        </li>
+                      @endforeach
+                    </ul>
+                  @elseif($blok['type'] === 'kop')
+                    <div>
+                      <h3 class="mb-0 text-sm font-semibold text-triv-navy">{{ $blok['kop'] }}</h3>
+                      <p class="mb-0 text-stone-600">{{ $blok['tekst'] }}</p>
+                    </div>
+                  @else
+                    <p class="mb-0 text-stone-600">{{ $blok['tekst'] }}</p>
+                  @endif
+                @endforeach
+              </div>
             @endif
           </li>
         @endforeach
