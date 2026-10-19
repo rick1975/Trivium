@@ -45,7 +45,7 @@
       @endif
       <ul class="grid grid-cols-2 gap-4 mb-0">
         @foreach($ctas as $cta)
-          <li class="mb-0"><a href="{{ $cta['url'] }}" class="group relative flex aspect-[3/4] items-end overflow-hidden rounded-xl bg-triv-navy no-underline">
+          <li class="mb-0"><a href="{{ $cta['url'] }}" @if($cta['extern']) target="_blank" rel="noopener" @endif class="group relative flex aspect-[3/4] items-end overflow-hidden rounded-xl bg-triv-navy no-underline">
             @if($cta['image'])
             <img src="{{ $cta['image'] }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full max-w-none object-cover brightness-110 transition-transform duration-500 group-hover:scale-105">
             @endif
@@ -55,6 +55,7 @@
               <h3 class="text-lg sm:text-2xl font-bold text-white leading-tight mb-2">{{ $cta['title'] }}</h3>
               <span class="flex items-center gap-2 text-xs sm:text-sm font-semibold text-white/90">
                 {{ $cta['text'] }}
+                @if($cta['extern'])<span class="sr-only">(opent in een nieuw tabblad)</span>@endif
                 <x-icon name="chevron-right" class="size-3 shrink-0 stroke-[2.5] text-triv-pink transition-transform duration-200 group-hover:translate-x-1.5" />
               </span>
             </div>

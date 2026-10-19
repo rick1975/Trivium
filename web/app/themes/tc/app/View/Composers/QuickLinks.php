@@ -22,7 +22,9 @@ class QuickLinks extends Composer
                 'title' => $cta['titel'],
                 // Pijl zit al in de kaart: een getypte "→" vooraan weglaten
                 'text' => preg_replace('/^[→\s]+/u', '', (string) $cta['tekst']),
-                'url' => $cta['pagina'] ?: '#',
+                // Een externe link (bv. aanmeldformulier) gaat voor de pagina en opent in een nieuw tabblad
+                'url' => ($cta['externe_link'] ?? '') ?: ($cta['pagina'] ?: '#'),
+                'extern' => ! empty($cta['externe_link']),
                 // Zonder eigen foto (Trivium Settings > Snelle links) toont de kaart een navy vlak
                 'image' => ! empty($cta['afbeelding']) ? wp_get_attachment_image_url($cta['afbeelding'], 'large') : null,
             ], $blocks),

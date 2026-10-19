@@ -205,7 +205,15 @@ add_action('acf/init', function () {
                         'type' => 'text',
                         'wrapper' => ['width' => 50],
                     ],
-                    $pageLink('field_trivium_snelle_links_blok_pagina'),
+                    ['required' => 0, 'wrapper' => ['width' => 50]] + $pageLink('field_trivium_snelle_links_blok_pagina'),
+                    [
+                        'key' => 'field_trivium_snelle_links_blok_externe_link',
+                        'label' => 'Of een externe link',
+                        'name' => 'externe_link',
+                        'type' => 'url',
+                        'instructions' => 'Bijvoorbeeld een aanmeldformulier. Gaat voor de pagina en opent in een nieuw tabblad.',
+                        'wrapper' => ['width' => 50],
+                    ],
                     [
                         'key' => 'field_trivium_snelle_links_blok_afbeelding',
                         'label' => 'Foto',
