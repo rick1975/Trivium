@@ -12,8 +12,8 @@
   <div class="px-4 md:px-6 xl:px-20">
     <div class="flex items-center justify-between min-h-[80px]">
 
-      {{-- Logo (vanaf tablet iets omlaag: de bovenste regel "VMBO" is klein, waardoor het logo optisch te hoog staat t.o.v. de iconen) --}}
-      <a href="{{ home_url('/') }}" class="block md:translate-y-1.5 lg:translate-y-2" aria-label="{{ $siteName }} – home">
+      {{-- Logo (op desktop iets omlaag: de bovenste regel "VMBO" is klein, waardoor het logo optisch te hoog staat t.o.v. de iconen) --}}
+      <a href="{{ home_url('/') }}" class="block lg:translate-y-2" aria-label="{{ $siteName }} – home">
         <x-logo @class(["w-48 md:w-56 lg:w-64", "[--logo-letters:#fff]" => $overPhoto]) aria-hidden="true" />
       </a>
 

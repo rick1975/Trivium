@@ -26,7 +26,7 @@
       @include('components.animated-text')
 
       {{-- Subtitel --}}
-      <p class="text-white font-light text-base leading-relaxed mb-8 max-w-[38rem]">
+      <p class="text-white font-light text-base leading-relaxed mb-5 md:mb-8 max-w-[38rem]">
         Veel kiezen en doen en met elkaar heel veel uitproberen. Lef betekent dat je dit durft. Want we doen veel samen en helpen elkaar vooruit. We zijn een kleine school met vertrouwde docenten die er de hele dag voor je zijn. </p>
 
       {{-- Buttons --}}
