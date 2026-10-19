@@ -30,7 +30,7 @@
              Wordt het scherm breder terwijl alles dicht is, dan gaat het eerste weer open. --}}
         <div x-data="{ actief: 0, lg: () => window.matchMedia('(min-width: 1024px)').matches }"
           @resize.window.debounce.150ms="if (actief === null && lg()) actief = 0"
-          class="flex flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-x-10 lg:gap-y-2 lg:items-start"
+          class="flex flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-x-10 lg:gap-y-4 lg:items-start"
           style="grid-template-rows: repeat({{ $rijen }}, auto) 1fr;">
 
           @foreach ($onderwerpen as $i => $item)
@@ -46,7 +46,7 @@
                   {{ $i + 1 }}
                 </span>
                 <span class="flex-1 self-center">
-                  <span class="block text-lg font-bold leading-snug text-triv-navy transition-colors {{ $kleur['hover'] }}">{{ $item['titel'] }}</span>
+                  <span class="block text-lg font-semibold leading-snug text-triv-navy transition-colors lg:font-semibold {{ $kleur['hover'] }}">{{ $item['titel'] }}</span>
                   @if($item['intro'])
                     <span class="mt-1 block text-sm font-normal leading-relaxed text-stone-600 lg:hidden">{{ $item['intro'] }}</span>
                   @endif
