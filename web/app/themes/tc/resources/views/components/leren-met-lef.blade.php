@@ -10,16 +10,16 @@
      één voor één omhoog en daarna het inhoudsvlak; bij "minder beweging" staat alles meteen stil. ── --}}
 {{-- Per onderwerp een rubriekskleur (Over de school, Leerlingen & ouders, Groep 8, Beleid & documenten, Ons onderwijs):
      voor het bolletje, de titel bij hover en het pijltje links, en in het inhoudsvlak de titel en de opsommingsbolletjes
-     (vette tekst en tussenkoppen blijven navy). Vanaf lg krijgt het inhoudsvlak een lichte tint van die kleur ('vlak') en
-     klapt er een gekantelde kleurvorm weg achter de foto ('vorm'), zodat het hele blok van sfeer wisselt. Klassen voluit, zodat Tailwind ze vindt. --}}
+     (vette tekst en tussenkoppen blijven navy). Vanaf lg krijgen het inhoudsvlak en het actieve tabblad een lichte tint van die kleur ('vlak'),
+     zodat het hele blok van sfeer wisselt. Klassen voluit, zodat Tailwind ze vindt. --}}
 @php
   $kleuren = [
-    ['bg' => 'bg-triv-hemelblauw', 'tekst' => 'text-triv-hemelblauw', 'hover' => 'group-hover:text-triv-hemelblauw', 'bolletje' => 'before:bg-triv-hemelblauw', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-hemelblauw)_11%,white)]', 'vorm' => 'bg-triv-hemelblauw/20'],
-    ['bg' => 'bg-triv-oudroze', 'tekst' => 'text-triv-oudroze', 'hover' => 'group-hover:text-triv-oudroze', 'bolletje' => 'before:bg-triv-oudroze', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-oudroze)_11%,white)]', 'vorm' => 'bg-triv-oudroze/20'],
-    ['bg' => 'bg-triv-koraal', 'tekst' => 'text-triv-koraal', 'hover' => 'group-hover:text-triv-koraal', 'bolletje' => 'before:bg-triv-koraal', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-koraal)_11%,white)]', 'vorm' => 'bg-triv-koraal/20'],
-    ['bg' => 'bg-triv-zeegroen', 'tekst' => 'text-triv-zeegroen', 'hover' => 'group-hover:text-triv-zeegroen', 'bolletje' => 'before:bg-triv-zeegroen', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-zeegroen)_11%,white)]', 'vorm' => 'bg-triv-zeegroen/20'],
-    ['bg' => 'bg-triv-paars', 'tekst' => 'text-triv-paars', 'hover' => 'group-hover:text-triv-paars', 'bolletje' => 'before:bg-triv-paars', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-paars)_11%,white)]', 'vorm' => 'bg-triv-paars/20'],
-    ['bg' => 'bg-triv-lightblue', 'tekst' => 'text-triv-lightblue', 'hover' => 'group-hover:text-triv-lightblue', 'bolletje' => 'before:bg-triv-lightblue', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-lightblue)_11%,white)]', 'vorm' => 'bg-triv-lightblue/20'],
+    ['bg' => 'bg-triv-hemelblauw', 'tekst' => 'text-triv-hemelblauw', 'hover' => 'group-hover:text-triv-hemelblauw', 'bolletje' => 'before:bg-triv-hemelblauw', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-hemelblauw)_11%,white)]'],
+    ['bg' => 'bg-triv-oudroze', 'tekst' => 'text-triv-oudroze', 'hover' => 'group-hover:text-triv-oudroze', 'bolletje' => 'before:bg-triv-oudroze', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-oudroze)_11%,white)]'],
+    ['bg' => 'bg-triv-koraal', 'tekst' => 'text-triv-koraal', 'hover' => 'group-hover:text-triv-koraal', 'bolletje' => 'before:bg-triv-koraal', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-koraal)_11%,white)]'],
+    ['bg' => 'bg-triv-zeegroen', 'tekst' => 'text-triv-zeegroen', 'hover' => 'group-hover:text-triv-zeegroen', 'bolletje' => 'before:bg-triv-zeegroen', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-zeegroen)_11%,white)]'],
+    ['bg' => 'bg-triv-paars', 'tekst' => 'text-triv-paars', 'hover' => 'group-hover:text-triv-paars', 'bolletje' => 'before:bg-triv-paars', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-paars)_11%,white)]'],
+    ['bg' => 'bg-triv-lightblue', 'tekst' => 'text-triv-lightblue', 'hover' => 'group-hover:text-triv-lightblue', 'bolletje' => 'before:bg-triv-lightblue', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-lightblue)_11%,white)]'],
   ];
   $rijen = count($onderwerpen);
 @endphp
@@ -75,12 +75,25 @@
 
             {{-- Inhoud (kolom 2, alle panelen op dezelfde plek) --}}
             <div id="lef-paneel-{{ $i }}" role="region" aria-labelledby="lef-knop-{{ $i }}" x-show="actief === {{ $i }}"
-              class="rounded-xl bg-white {{ $kleur['vlak'] }} p-5 shadow-sm sm:p-7 lg:col-start-2 lg:row-start-1 lg:p-10 lg:translate-y-6 lg:opacity-0 lg:transition-[translate,opacity] lg:duration-700 lg:delay-300 lg:ease-[cubic-bezier(.2,.8,.2,1)] lg:group-data-shown/lef:translate-y-0 lg:group-data-shown/lef:opacity-100 lg:motion-reduce:translate-y-0 lg:motion-reduce:opacity-100 lg:motion-reduce:transition-none"
+              class="rounded-xl bg-white {{ $kleur['vlak'] }} p-5 shadow-sm sm:p-7 lg:col-start-2 lg:row-start-1 lg:p-0 {{ $item['foto'] ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:overflow-hidden' : '' }} lg:translate-y-6 lg:opacity-0 lg:transition-[translate,opacity] lg:duration-700 lg:delay-300 lg:ease-[cubic-bezier(.2,.8,.2,1)] lg:group-data-shown/lef:translate-y-0 lg:group-data-shown/lef:opacity-100 lg:motion-reduce:translate-y-0 lg:motion-reduce:opacity-100 lg:motion-reduce:transition-none"
               style="grid-row-end: span {{ $rijen + 1 }};{{ $i > 0 ? ' display: none;' : '' }}">
 
               {{-- Bij wisselen van onderwerp schuift de tekst zacht omhoog en komt de foto in beeld: een CSS-animatie start
-                   opnieuw zodra x-show het paneel weer toont (display: none → block). Keyframes uit app.css (fotoheader); daarna
-                   klapt de kleurvorm achter de foto weg (lef-vorm). --}}
+                   opnieuw zodra x-show het paneel weer toont (display: none → block). Keyframes uit app.css (fotoheader). --}}
+              {{-- Met foto: vanaf lg is het vlak een grid met de tekst links en de foto rechts, die van boven tot onder
+                   tegen de rand van het vlak loopt (het vlak zelf heeft dan geen padding, de tekstkolom wel); op mobiel de foto erboven --}}
+              @if($item['foto'])
+                <div class="relative mb-6 aspect-4/3 overflow-hidden rounded-xl lg:order-2 lg:mb-0 lg:aspect-auto lg:min-h-[28rem] lg:rounded-none lg:animate-[hero-photo_700ms_ease-out_both] motion-reduce:animate-none">
+                {!! wp_get_attachment_image($item['foto'], 'large', false, [
+                  'class' => 'absolute inset-0 size-full max-w-none object-cover object-[45%_35%] lg:object-[50%_40%]',
+                  'sizes' => '(min-width: 1024px) 600px, 100vw',
+                  'loading' => 'lazy',
+                  'decoding' => 'async',
+                ]) !!}
+                </div>
+              @endif
+
+              <div class="lg:p-10">
               {{-- Titel en intro alleen vanaf lg (op mobiel staan ze al in de knop) --}}
               <div class="mb-8 hidden lg:block lg:animate-[hero-rise_500ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
                 <p class="mb-2 font-['Poppins',sans-serif] text-3xl font-bold leading-tight {{ $kleur['tekst'] }}">{{ $item['titel'] }}</p>
@@ -88,22 +101,6 @@
                   <p class="mb-0 text-lg leading-relaxed text-stone-600">{{ $item['intro'] }}</p>
                 @endif
               </div>
-
-              {{-- Met foto: vanaf lg inhoud links (één kolom) en foto rechts, even hoog als de tekst; op mobiel de foto erboven --}}
-              <div @class(['lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-10' => $item['foto']])>
-              @if($item['foto'])
-                <div class="relative mb-6 lg:order-2 lg:mb-0">
-                <div aria-hidden="true" class="absolute inset-0 hidden rounded-xl {{ $kleur['vorm'] }} lg:block lg:animate-[lef-vorm_600ms_600ms_ease-in-out_both] motion-reduce:hidden"></div>
-                <div class="relative aspect-4/3 overflow-hidden rounded-xl lg:aspect-auto lg:h-full lg:min-h-96 lg:animate-[hero-photo_700ms_ease-out_both] motion-reduce:animate-none">
-                {!! wp_get_attachment_image($item['foto'], 'large', false, [
-                  'class' => 'absolute inset-0 size-full max-w-none object-cover object-[45%_35%] lg:object-[50%_40%]',
-                  'sizes' => '(min-width: 1024px) 420px, 100vw',
-                  'loading' => 'lazy',
-                  'decoding' => 'async',
-                ]) !!}
-                </div>
-                </div>
-              @endif
 
               @if($item['blokken'])
                 <div class="flex flex-col gap-6 text-sm sm:text-base lg:animate-[hero-rise_500ms_100ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
