@@ -2,6 +2,7 @@
 
 namespace App\View\Composers;
 
+use Illuminate\Support\Str;
 use Roots\Acorn\View\Composer;
 
 class LerenMetLef extends Composer
@@ -17,11 +18,23 @@ class LerenMetLef extends Composer
         return [
             'onderwerpen' => array_map(fn ($item) => [
                 'titel' => $item['titel'] ?? '',
+                'anker' => $this->anker($item['titel'] ?? ''),
                 'intro' => $item['intro'] ?? '',
                 'foto' => $item['foto'] ?? null,
                 'blokken' => $this->blokken($item['content'] ?? ''),
             ], $onderwerpen),
         ];
+    }
+
+    /**
+     * Korte, deelbare anker-id uit de titel (bijv. "Leren met lef is goed voor je zorgen" → "goed-voor-je-zorgen"),
+     * zodat je direct naar een onderwerp kunt linken: /#goed-voor-je-zorgen.
+     */
+    protected function anker(string $titel): string
+    {
+        $slug = preg_replace('/^leren-met-lef-(is-)?/', '', Str::slug($titel));
+
+        return $slug !== '' ? $slug : 'leren-met-lef';
     }
 
     /**

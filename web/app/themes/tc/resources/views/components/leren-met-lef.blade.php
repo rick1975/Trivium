@@ -3,7 +3,11 @@
      Op mobiel dezelfde markup als uitklaplijst: knop met titel en korte intro, de inhoud klapt eronder open.
      Eén grid voor beide: de knoppen vullen kolom 1 van boven naar beneden, alle panelen liggen in kolom 2 over elkaar
      (over alle rijen plus een laatste 1fr-rij die de extra hoogte opvangt) en alleen het actieve is zichtbaar.
-     Het eerste onderwerp staat standaard open. ── --}}
+     Het eerste onderwerp staat standaard open, tenzij de URL een anker van een onderwerp heeft (/#goed-voor-je-zorgen, zie
+     Composers\LerenMetLef::anker); kiezen zet dat anker ook in de URL, zodat je de link kunt delen.
+     Pijltjestoetsen (en Home/End) springen tussen de onderwerpen; op desktop wordt het onderwerp dan ook meteen gekozen.
+     Binnenkomst: zodra het blok in beeld komt (x-intersect zet data-shown, net als bij Nieuws) schuiven de onderwerpen
+     één voor één omhoog en daarna het inhoudsvlak; bij "minder beweging" staat alles meteen stil. ── --}}
 {{-- Per onderwerp een rubriekskleur (Over de school, Leerlingen & ouders, Groep 8, Beleid & documenten, Ons onderwijs):
      voor het bolletje, de titel bij hover en het pijltje links, en in het inhoudsvlak de titel en de opsommingsbolletjes
      (vette tekst en tussenkoppen blijven navy). Klassen voluit, zodat Tailwind ze vindt. --}}
@@ -28,25 +32,31 @@
       @if($onderwerpen)
         {{-- Desktop: klik kiest een ander onderwerp (er staat er altijd één open); mobiel: klik klapt open of dicht.
              Wordt het scherm breder terwijl alles dicht is, dan gaat het eerste weer open. --}}
-        <div x-data="{ actief: 0, lg: () => window.matchMedia('(min-width: 1024px)').matches }"
+        <div x-data="{ actief: 0, ankers: {{ Js::from(array_column($onderwerpen, 'anker')) }}, lg: () => window.matchMedia('(min-width: 1024px)').matches, init() { this.volgHash() }, volgHash() { const i = this.ankers.indexOf(decodeURIComponent(location.hash.slice(1))); if (i > -1) this.actief = i }, kies(i) { this.actief = (this.actief === i && ! this.lg()) ? null : i; if (this.actief !== null) history.replaceState(null, '', '#' + this.ankers[i]) }, naar(i) { const n = (i + this.ankers.length) % this.ankers.length; document.getElementById('lef-knop-' + n).focus(); if (this.lg()) this.kies(n) } }"
           @resize.window.debounce.150ms="if (actief === null && lg()) actief = 0"
-          class="flex flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-x-10 lg:gap-y-4 lg:items-start"
+          @hashchange.window="volgHash()"
+          x-intersect.once.margin.0.0.-20%.0="$el.dataset.shown = ''"
+          class="group/lef flex flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-x-10 lg:gap-y-4 lg:items-start"
           style="grid-template-rows: repeat({{ $rijen }}, auto) 1fr;">
 
           @foreach ($onderwerpen as $i => $item)
             @php($kleur = $kleuren[$i % count($kleuren)])
             {{-- Titel + knop (kolom 1). Titels zijn h2, direct onder de h1 "Leren met Lef" in de hero --}}
-            <h2 class="mb-0 lg:col-start-1">
+            <h2 id="{{ $item['anker'] }}" style="--i: {{ $i }}"
+              class="mb-0 scroll-mt-6 lg:col-start-1 translate-y-6 opacity-0 transition-[translate,opacity] duration-700 ease-[cubic-bezier(.2,.8,.2,1)] delay-[calc(var(--i)*90ms)] group-data-shown/lef:translate-y-0 group-data-shown/lef:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none">
               <button type="button" id="lef-knop-{{ $i }}" aria-controls="lef-paneel-{{ $i }}"
                 aria-expanded="{{ $i === 0 ? 'true' : 'false' }}" :aria-expanded="(actief === {{ $i }}).toString()"
                 class="group flex w-full items-start gap-4 rounded-xl p-4 lg:p-3 text-left cursor-pointer transition-all duration-300"
                 :class="actief === {{ $i }} ? 'bg-white' : 'bg-white lg:bg-transparent lg:hover:bg-white/70'"
-                @click="actief = (actief === {{ $i }} && ! lg()) ? null : {{ $i }}">
+                @click="kies({{ $i }})"
+                @keydown.down.prevent="naar({{ $i + 1 }})" @keydown.right.prevent="naar({{ $i + 1 }})"
+                @keydown.up.prevent="naar({{ $i - 1 }})" @keydown.left.prevent="naar({{ $i - 1 }})"
+                @keydown.home.prevent="naar(0)" @keydown.end.prevent="naar(ankers.length - 1)">
                 <span aria-hidden="true" class="{{ $kleur['bg'] }} size-10 shrink-0 rounded-full flex items-center justify-center text-white font-black text-base">
                   {{ $i + 1 }}
                 </span>
                 <span class="flex-1 self-center">
-                  <span class="block text-lg font-semibold leading-snug text-triv-navy transition-colors lg:font-semibold {{ $kleur['hover'] }}">{{ $item['titel'] }}</span>
+                  <span class="block text-lg font-semibold leading-snug text-triv-navy transition-colors {{ $kleur['hover'] }}">{{ $item['titel'] }}</span>
                   @if($item['intro'])
                     <span class="mt-1 block text-sm font-normal leading-relaxed text-stone-600 lg:hidden">{{ $item['intro'] }}</span>
                   @endif
@@ -61,7 +71,7 @@
 
             {{-- Inhoud (kolom 2, alle panelen op dezelfde plek) --}}
             <div id="lef-paneel-{{ $i }}" role="region" aria-labelledby="lef-knop-{{ $i }}" x-show="actief === {{ $i }}"
-              class="rounded-xl bg-white p-5 shadow-sm sm:p-7 lg:col-start-2 lg:row-start-1 lg:p-10"
+              class="rounded-xl bg-white p-5 shadow-sm sm:p-7 lg:col-start-2 lg:row-start-1 lg:p-10 lg:translate-y-6 lg:opacity-0 lg:transition-[translate,opacity] lg:duration-700 lg:delay-300 lg:ease-[cubic-bezier(.2,.8,.2,1)] lg:group-data-shown/lef:translate-y-0 lg:group-data-shown/lef:opacity-100 lg:motion-reduce:translate-y-0 lg:motion-reduce:opacity-100 lg:motion-reduce:transition-none"
               style="grid-row-end: span {{ $rijen + 1 }};{{ $i > 0 ? ' display: none;' : '' }}">
 
               {{-- Titel en intro alleen vanaf lg (op mobiel staan ze al in de knop) --}}
