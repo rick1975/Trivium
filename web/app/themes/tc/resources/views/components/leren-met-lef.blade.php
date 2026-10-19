@@ -46,8 +46,8 @@
               class="mb-0 scroll-mt-6 lg:col-start-1 translate-y-6 opacity-0 transition-[translate,opacity] duration-700 ease-[cubic-bezier(.2,.8,.2,1)] delay-[calc(var(--i)*90ms)] group-data-shown/lef:translate-y-0 group-data-shown/lef:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none">
               <button type="button" id="lef-knop-{{ $i }}" aria-controls="lef-paneel-{{ $i }}"
                 aria-expanded="{{ $i === 0 ? 'true' : 'false' }}" :aria-expanded="(actief === {{ $i }}).toString()"
-                class="group flex w-full items-start gap-4 rounded-xl p-4 lg:p-3 text-left cursor-pointer transition-all duration-300"
-                :class="actief === {{ $i }} ? 'bg-white' : 'bg-white lg:bg-transparent lg:hover:bg-white/70'"
+                class="group flex w-full items-start gap-4 rounded-xl border border-transparent p-4 lg:p-3 text-left cursor-pointer transition-all duration-300"
+                :class="actief === {{ $i }} ? 'bg-white lg:border-triv-navy/10' : 'bg-white lg:bg-transparent lg:hover:bg-white/70'"
                 @click="kies({{ $i }})"
                 @keydown.down.prevent="naar({{ $i + 1 }})" @keydown.right.prevent="naar({{ $i + 1 }})"
                 @keydown.up.prevent="naar({{ $i - 1 }})" @keydown.left.prevent="naar({{ $i - 1 }})"
@@ -61,9 +61,9 @@
                     <span class="mt-1 block text-sm font-normal leading-relaxed text-stone-600 lg:hidden">{{ $item['intro'] }}</span>
                   @endif
                 </span>
-                {{-- Pijltje: mobiel draait het bij openklappen, vanaf lg schuift het iets op richting het inhoudsvlak --}}
+                {{-- Pijltje: mobiel draait het bij openklappen, vanaf lg blijft het staan --}}
                 <span aria-hidden="true" class="mt-3.5 shrink-0 {{ $kleur['tekst'] }} transition-transform duration-300"
-                  :class="actief === {{ $i }} ? 'rotate-90 lg:rotate-0 lg:translate-x-1' : ''">
+                  :class="actief === {{ $i }} && 'rotate-90 lg:rotate-0'">
                   <x-icon name="chevron-right" class="size-3 stroke-[2.5]" />
                 </span>
               </button>
