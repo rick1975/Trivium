@@ -118,7 +118,7 @@ add_action('acf/init', function () {
                 'label' => 'Kaarten',
                 'name' => 'leren_met_lef',
                 'type' => 'repeater',
-                'instructions' => 'Maximaal 6 kaarten.',
+                'instructions' => 'Maximaal 6 onderwerpen. Op de voorpagina als tabbladen (desktop) of uitklaplijst (mobiel).',
                 'min' => 0,
                 'max' => 6,
                 'layout' => 'block',
@@ -130,6 +130,14 @@ add_action('acf/init', function () {
                         'name' => 'titel',
                         'type' => 'text',
                         'required' => 1,
+                    ],
+                    [
+                        'key' => 'field_trivium_leren_met_lef_intro',
+                        'label' => 'Korte intro',
+                        'name' => 'intro',
+                        'type' => 'textarea',
+                        'rows' => 2,
+                        'instructions' => 'Eén zin die altijd zichtbaar is bij de titel, ook als de rest ingeklapt is.',
                     ],
                     [
                         'key' => 'field_trivium_leren_met_lef_content',

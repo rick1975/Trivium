@@ -1,6 +1,12 @@
-{{-- ── LEREN MET LEF — kaarten uit Trivium Settings > Leren met lef (Composers\LerenMetLef; max 6, 3+3 op desktop) ── --}}
+{{-- ── LEREN MET LEF — onderwerpen uit Trivium Settings > Leren met lef (Composers\LerenMetLef, die de content ook opdeelt in blokken).
+     Vanaf lg tabbladen: links de genummerde titels, rechts de inhoud van het gekozen onderwerp (één vast vlak, dus niets verspringt).
+     Op mobiel dezelfde markup als uitklaplijst: knop met titel en korte intro, de inhoud klapt eronder open.
+     Eén grid voor beide: de knoppen vullen kolom 1 van boven naar beneden, alle panelen liggen in kolom 2 over elkaar
+     (over alle rijen plus een laatste 1fr-rij die de extra hoogte opvangt) en alleen het actieve is zichtbaar.
+     Het eerste onderwerp staat standaard open. ── --}}
 @php
   $kleuren = ['bg-triv-blue', 'bg-triv-pink', 'bg-triv-orange', 'bg-triv-green', 'bg-triv-yellow', 'bg-triv-lightblue'];
+  $rijen = count($onderwerpen);
 @endphp
 
 <section class="relative z-20 -mt-[8vh]">
@@ -9,80 +15,84 @@
 
   <div class="bg-triv-cream pt-16 pb-20">
     <div class="page-container">
-       {{-- Grid: 1 kolom mobiel, 3+3 op desktop. Genummerde lijst; kaarttitels zijn h2 (direct onder de h1 "Leren met Lef" in de hero) --}}
-      <ol class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-0">
+      @if($onderwerpen)
+        {{-- Desktop: klik kiest een ander onderwerp (er staat er altijd één open); mobiel: klik klapt open of dicht.
+             Wordt het scherm breder terwijl alles dicht is, dan gaat het eerste weer open. --}}
+        <div x-data="{ actief: 0, lg: () => window.matchMedia('(min-width: 1024px)').matches }"
+          @resize.window.debounce.150ms="if (actief === null && lg()) actief = 0"
+          class="flex flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-x-10 lg:gap-y-2 lg:items-start"
+          style="grid-template-rows: repeat({{ $rijen }}, auto) 1fr;">
 
-        @foreach ($onderwerpen as $i => $item)
-          <li class="mb-0 rounded-xl bg-white p-7 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-            <div aria-hidden="true" class="{{ $kleuren[$i % count($kleuren)] }} w-11 h-11 rounded-2xl flex items-center justify-center text-white font-black text-lg mb-5">
-              {{ $i + 1 }}
-            </div>
-            <h2 class="text-xl md:text-xl font-bold text-gray-800 mb-4">{{ $item['titel'] }}</h2>
-            {{-- Content, per alinea (gescheiden door een witregel):
-                 - regels die met • of - beginnen worden een opsomming (die regel vet, de regels eronder de toelichting);
-                 - een alinea waarvan de eerste regel kort is en niet op een leesteken eindigt, krijgt die regel als vetgedrukte kop;
-                 - de rest is gewone tekst. Afgebroken regels (bijv. geplakt uit een pdf) worden weer aan elkaar gezet. --}}
-            @if(!empty($item['content']))
-              @php
-                $blokken = [];
-                foreach (preg_split('/\R\s*\R/', trim($item['content'])) as $alinea) {
-                  $regels = array_values(array_filter(array_map('trim', preg_split('/\R/', $alinea)), 'strlen'));
-                  if (! $regels) continue;
-                  if (! preg_match('/^[•\-]/u', $regels[0])) {
-                    $tekst = [];
-                    while ($regels && ! preg_match('/^[•\-]/u', $regels[0])) $tekst[] = array_shift($regels);
-                    $isKop = count($tekst) > 1 && mb_strlen($tekst[0]) <= 60 && ! preg_match('/[.!?:,;]$/u', $tekst[0]);
-                    $blokken[] = $isKop
-                      ? ['type' => 'kop', 'kop' => array_shift($tekst), 'tekst' => implode(' ', $tekst)]
-                      : ['type' => 'tekst', 'tekst' => implode(' ', $tekst)];
-                  }
-                  foreach ($regels as $regel) {
-                    if (preg_match('/^[•\-]\s*(.+)$/u', $regel, $m)) {
-                      if (($blokken[array_key_last($blokken)]['type'] ?? null) !== 'lijst') $blokken[] = ['type' => 'lijst', 'punten' => []];
-                      $blokken[array_key_last($blokken)]['punten'][] = ['kop' => $m[1], 'tekst' => []];
-                    } else {
-                      $punten = &$blokken[array_key_last($blokken)]['punten'];
-                      $punten[array_key_last($punten)]['tekst'][] = $regel;
-                      unset($punten);
-                    }
-                  }
-                }
-              @endphp
-              <div class="mt-2 flex flex-col gap-3 text-sm">
-                @foreach($blokken as $blok)
-                  @if($blok['type'] === 'lijst')
-                    <ul class="mb-0 flex flex-col gap-3">
-                      @foreach($blok['punten'] as $punt)
-                        <li class="relative mb-0 pl-4 before:absolute before:left-0 before:top-[0.5em] before:size-1.5 before:rounded-full before:bg-triv-pink">
-                          <span class="block font-semibold text-triv-navy">{{ $punt['kop'] }}</span>
-                          @if($punt['tekst'])
-                            <span class="block text-stone-600">{{ implode(' ', $punt['tekst']) }}</span>
-                          @endif
-                        </li>
-                      @endforeach
-                    </ul>
-                  @elseif($blok['type'] === 'kop')
-                    <div>
-                      <h3 class="mb-0 text-sm font-semibold text-triv-navy">{{ $blok['kop'] }}</h3>
-                      <p class="mb-0 text-stone-600">{{ $blok['tekst'] }}</p>
-                    </div>
-                  @else
-                    <p class="mb-0 text-stone-600">{{ $blok['tekst'] }}</p>
+          @foreach ($onderwerpen as $i => $item)
+            {{-- Titel + knop (kolom 1). Titels zijn h2, direct onder de h1 "Leren met Lef" in de hero --}}
+            <h2 class="mb-0 lg:col-start-1">
+              <button type="button" id="lef-knop-{{ $i }}" aria-controls="lef-paneel-{{ $i }}"
+                aria-expanded="{{ $i === 0 ? 'true' : 'false' }}" :aria-expanded="(actief === {{ $i }}).toString()"
+                class="group flex w-full items-start gap-4 rounded-xl p-4 lg:p-3 text-left cursor-pointer transition-all duration-300"
+                :class="actief === {{ $i }} ? 'bg-white shadow-sm' : 'bg-white lg:bg-transparent lg:hover:bg-white/70'"
+                @click="actief = (actief === {{ $i }} && ! lg()) ? null : {{ $i }}">
+                <span aria-hidden="true" class="{{ $kleuren[$i % count($kleuren)] }} size-10 shrink-0 rounded-2xl flex items-center justify-center text-white font-black text-base">
+                  {{ $i + 1 }}
+                </span>
+                <span class="flex-1 self-center">
+                  <span class="block text-lg font-bold leading-snug text-triv-navy transition-colors group-hover:text-triv-pink">{{ $item['titel'] }}</span>
+                  @if($item['intro'])
+                    <span class="mt-1 block text-sm font-normal leading-relaxed text-stone-600 lg:hidden">{{ $item['intro'] }}</span>
                   @endif
-                @endforeach
+                </span>
+                {{-- Pijltje: mobiel draait het bij openklappen, vanaf lg schuift het iets op richting het inhoudsvlak --}}
+                <span aria-hidden="true" class="mt-3.5 shrink-0 text-triv-pink transition-transform duration-300"
+                  :class="actief === {{ $i }} ? 'rotate-90 lg:rotate-0 lg:translate-x-1' : ''">
+                  <x-icon name="chevron-right" class="size-3 stroke-[2.5]" />
+                </span>
+              </button>
+            </h2>
+
+            {{-- Inhoud (kolom 2, alle panelen op dezelfde plek) --}}
+            <div id="lef-paneel-{{ $i }}" role="region" aria-labelledby="lef-knop-{{ $i }}" x-show="actief === {{ $i }}"
+              class="rounded-xl bg-white p-5 shadow-sm sm:p-7 lg:col-start-2 lg:row-start-1 lg:p-10"
+              style="grid-row-end: span {{ $rijen + 1 }};{{ $i > 0 ? ' display: none;' : '' }}">
+
+              {{-- Titel en intro alleen vanaf lg (op mobiel staan ze al in de knop) --}}
+              <div class="mb-8 hidden lg:block">
+                <p class="mb-2 font-['Poppins',sans-serif] text-3xl font-bold leading-tight text-triv-navy">{{ $item['titel'] }}</p>
+                @if($item['intro'])
+                  <p class="mb-0 text-lg leading-relaxed text-stone-600">{{ $item['intro'] }}</p>
+                @endif
               </div>
-            @endif
-          </li>
-        @endforeach
 
-        @if(count($onderwerpen) < 6)
-          {{-- Placeholder: content volgt later --}}
-          <li aria-hidden="true" class="mb-0 rounded-3xl border-2 border-dashed border-[#ddd8cc] p-7 flex flex-col items-center justify-center text-center min-h-[180px]">
-            <span class="text-sm font-semibold text-triv-section">Binnenkort meer</span>
-          </li>
-        @endif
+              @if($item['blokken'])
+                <div class="flex flex-col gap-6 text-sm sm:text-base">
+                  @foreach($item['blokken'] as $blok)
+                    @if($blok['type'] === 'lijst')
+                      <ul class="mb-0 grid gap-x-10 gap-y-5 md:grid-cols-2">
+                        @foreach($blok['punten'] as $punt)
+                          <li class="relative mb-0 pl-5 before:absolute before:left-0 before:top-[0.55em] before:size-2 before:rounded-full before:bg-triv-pink">
+                            <span @class(['block', 'font-semibold text-triv-navy' => $punt['vet'], 'text-stone-600' => ! $punt['vet']])>{{ $punt['kop'] }}</span>
+                            @if($punt['tekst'])
+                              <span class="mt-1 block text-stone-600">{{ $punt['tekst'] }}</span>
+                            @endif
+                          </li>
+                        @endforeach
+                      </ul>
+                    @elseif($blok['type'] === 'kop')
+                      <div>
+                        <h3 class="mb-1 text-base font-semibold text-triv-navy sm:text-lg">{{ $blok['kop'] }}</h3>
+                        <p class="mb-0 text-stone-600">{{ $blok['tekst'] }}</p>
+                      </div>
+                    @else
+                      <p class="mb-0 text-stone-600">{{ $blok['tekst'] }}</p>
+                    @endif
+                  @endforeach
+                </div>
+              @else
+                <p class="mb-0 italic text-stone-500">Hierover volgt binnenkort meer.</p>
+              @endif
+            </div>
+          @endforeach
 
-      </ol>
+        </div>
+      @endif
     </div>
   </div>
 </section>
