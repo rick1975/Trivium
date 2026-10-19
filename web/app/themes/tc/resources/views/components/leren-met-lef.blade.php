@@ -82,7 +82,7 @@
                    opnieuw zodra x-show het paneel weer toont (display: none → block). Keyframes uit app.css (fotoheader). --}}
               {{-- Titel en intro alleen vanaf lg (op mobiel staan ze al in de knop). Bij een foto liggen ze er als label overheen:
                    zo breed als de tekst, in de tint van het vlak met een afgeronde hoek rechtsonder, boven de foto (z-10) --}}
-              <div class="hidden lg:relative lg:z-10 lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:block lg:w-fit lg:max-w-full lg:rounded-br-2xl {{ $kleur['vlak'] }} lg:px-10 lg:pt-10 lg:pb-8 lg:animate-[hero-rise_500ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
+              <div class="hidden lg:relative lg:z-10 lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:block lg:w-fit lg:max-w-full lg:px-10 lg:pt-10 lg:pb-8 lg:animate-[hero-rise_500ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
                 <p class="mb-2 font-['Poppins',sans-serif] text-3xl font-bold leading-tight {{ $kleur['tekst'] }}">{{ $item['titel'] }}</p>
                 @if($item['intro'])
                   <p class="mb-0 text-lg leading-relaxed text-stone-600">{{ $item['intro'] }}</p>
