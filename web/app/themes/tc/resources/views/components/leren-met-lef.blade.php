@@ -62,7 +62,7 @@
                   {{ $i + 1 }}
                 </span>
                 <span class="flex-1 self-center">
-                  <span class="block text-lg font-semibold leading-snug text-triv-navy transition-colors {{ $kleur['hover'] }}">{{ $item['titel'] }}</span>
+                  <span class="block text-lg font-semibold leading-snug lg:text-base text-triv-navy transition-colors {{ $kleur['hover'] }}">{{ $item['titel'] }}</span>
                   @if($item['intro'])
                     <span class="mt-1 block text-sm font-normal leading-relaxed text-stone-600 lg:hidden">{{ $item['intro'] }}</span>
                   @endif
