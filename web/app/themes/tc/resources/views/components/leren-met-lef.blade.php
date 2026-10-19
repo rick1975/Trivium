@@ -75,15 +75,23 @@
 
             {{-- Inhoud (kolom 2, alle panelen op dezelfde plek) --}}
             <div id="lef-paneel-{{ $i }}" role="region" aria-labelledby="lef-knop-{{ $i }}" x-show="actief === {{ $i }}"
-              class="rounded-xl bg-white {{ $kleur['vlak'] }} p-5 shadow-sm sm:p-7 lg:col-start-2 lg:row-start-1 lg:p-0 {{ $item['foto'] ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:overflow-hidden' : '' }} lg:translate-y-6 lg:opacity-0 lg:transition-[translate,opacity] lg:duration-700 lg:delay-300 lg:ease-[cubic-bezier(.2,.8,.2,1)] lg:group-data-shown/lef:translate-y-0 lg:group-data-shown/lef:opacity-100 lg:motion-reduce:translate-y-0 lg:motion-reduce:opacity-100 lg:motion-reduce:transition-none"
+              class="rounded-xl bg-white {{ $kleur['vlak'] }} p-5 shadow-sm sm:p-7 lg:col-start-2 lg:row-start-1 lg:p-0 {{ $item['foto'] ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.8fr)] lg:grid-rows-[auto_1fr] lg:overflow-hidden' : '' }} lg:translate-y-6 lg:opacity-0 lg:transition-[translate,opacity] lg:duration-700 lg:delay-300 lg:ease-[cubic-bezier(.2,.8,.2,1)] lg:group-data-shown/lef:translate-y-0 lg:group-data-shown/lef:opacity-100 lg:motion-reduce:translate-y-0 lg:motion-reduce:opacity-100 lg:motion-reduce:transition-none"
               style="grid-row-end: span {{ $rijen + 1 }};{{ $i > 0 ? ' display: none;' : '' }}">
 
               {{-- Bij wisselen van onderwerp schuift de tekst zacht omhoog en komt de foto in beeld: een CSS-animatie start
                    opnieuw zodra x-show het paneel weer toont (display: none → block). Keyframes uit app.css (fotoheader). --}}
-              {{-- Met foto: vanaf lg is het vlak een grid met de tekst links en de foto rechts, die van boven tot onder
-                   tegen de rand van het vlak loopt (het vlak zelf heeft dan geen padding, de tekstkolom wel); op mobiel de foto erboven --}}
+              {{-- Titel en intro alleen vanaf lg (op mobiel staan ze al in de knop); lopen over de volle breedte, ook boven de foto --}}
+              <div class="hidden lg:col-span-2 lg:block lg:px-10 lg:pt-10 lg:pb-8 lg:animate-[hero-rise_500ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
+                <p class="mb-2 font-['Poppins',sans-serif] text-3xl font-bold leading-tight {{ $kleur['tekst'] }}">{{ $item['titel'] }}</p>
+                @if($item['intro'])
+                  <p class="mb-0 text-lg leading-relaxed text-stone-600">{{ $item['intro'] }}</p>
+                @endif
+              </div>
+
+              {{-- Met foto: vanaf lg is het vlak een grid met onder de titel de tekst links en de foto rechts, die tot de onderrand
+                   en tegen de rechterrand van het vlak loopt (het vlak zelf heeft dan geen padding, titel en tekst wel); op mobiel de foto erboven --}}
               @if($item['foto'])
-                <div class="relative mb-6 aspect-4/3 overflow-hidden rounded-xl lg:order-2 lg:mb-0 lg:aspect-auto lg:min-h-[28rem] lg:rounded-none lg:animate-[hero-photo_700ms_ease-out_both] motion-reduce:animate-none">
+                <div class="relative mb-6 aspect-4/3 overflow-hidden rounded-xl lg:col-start-2 lg:row-start-2 lg:mb-0 lg:aspect-auto lg:min-h-80 lg:rounded-none lg:rounded-tl-xl lg:animate-[hero-photo_700ms_ease-out_both] motion-reduce:animate-none">
                 {!! wp_get_attachment_image($item['foto'], 'large', false, [
                   'class' => 'absolute inset-0 size-full max-w-none object-cover object-[45%_35%] lg:object-[50%_40%]',
                   'sizes' => '(min-width: 1024px) 600px, 100vw',
@@ -93,14 +101,7 @@
                 </div>
               @endif
 
-              <div class="lg:p-10">
-              {{-- Titel en intro alleen vanaf lg (op mobiel staan ze al in de knop) --}}
-              <div class="mb-8 hidden lg:block lg:animate-[hero-rise_500ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
-                <p class="mb-2 font-['Poppins',sans-serif] text-3xl font-bold leading-tight {{ $kleur['tekst'] }}">{{ $item['titel'] }}</p>
-                @if($item['intro'])
-                  <p class="mb-0 text-lg leading-relaxed text-stone-600">{{ $item['intro'] }}</p>
-                @endif
-              </div>
+              <div class="lg:col-start-1 lg:row-start-2 lg:px-10 lg:pb-10">
 
               @if($item['blokken'])
                 <div class="flex flex-col gap-6 text-sm sm:text-base lg:animate-[hero-rise_500ms_100ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
