@@ -80,18 +80,19 @@
 
               {{-- Bij wisselen van onderwerp schuift de tekst zacht omhoog en komt de foto in beeld: een CSS-animatie start
                    opnieuw zodra x-show het paneel weer toont (display: none → block). Keyframes uit app.css (fotoheader). --}}
-              {{-- Titel en intro alleen vanaf lg (op mobiel staan ze al in de knop); lopen over de volle breedte, ook boven de foto --}}
-              <div class="hidden lg:col-span-2 lg:block lg:px-10 lg:pt-10 lg:pb-8 lg:animate-[hero-rise_500ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
+              {{-- Titel en intro alleen vanaf lg (op mobiel staan ze al in de knop). Bij een foto liggen ze er als label overheen:
+                   zo breed als de tekst, in de tint van het vlak met een afgeronde hoek rechtsonder, boven de foto (z-10) --}}
+              <div class="hidden lg:relative lg:z-10 lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:block lg:w-fit lg:max-w-full lg:rounded-br-2xl {{ $kleur['vlak'] }} lg:px-10 lg:pt-10 lg:pb-8 lg:animate-[hero-rise_500ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
                 <p class="mb-2 font-['Poppins',sans-serif] text-3xl font-bold leading-tight {{ $kleur['tekst'] }}">{{ $item['titel'] }}</p>
                 @if($item['intro'])
                   <p class="mb-0 text-lg leading-relaxed text-stone-600">{{ $item['intro'] }}</p>
                 @endif
               </div>
 
-              {{-- Met foto: vanaf lg is het vlak een grid met onder de titel de tekst links en de foto rechts, die tot de onderrand
-                   en tegen de rechterrand van het vlak loopt (het vlak zelf heeft dan geen padding, titel en tekst wel); op mobiel de foto erboven --}}
+              {{-- Met foto: vanaf lg is het vlak een grid met onder de titel de tekst links en rechts de foto, die van boven tot onder
+                   tegen de rand van het vlak loopt (het vlak zelf heeft dan geen padding, titel en tekst wel); op mobiel de foto erboven --}}
               @if($item['foto'])
-                <div class="relative mb-6 aspect-4/3 overflow-hidden rounded-xl lg:col-start-2 lg:row-start-2 lg:mb-0 lg:aspect-auto lg:min-h-80 lg:rounded-none lg:rounded-tl-xl lg:animate-[hero-photo_700ms_ease-out_both] motion-reduce:animate-none">
+                <div class="relative mb-6 aspect-4/3 overflow-hidden rounded-xl lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mb-0 lg:aspect-auto lg:min-h-80 lg:rounded-none lg:animate-[hero-photo_700ms_ease-out_both] motion-reduce:animate-none">
                 {!! wp_get_attachment_image($item['foto'], 'large', false, [
                   'class' => 'absolute inset-0 size-full max-w-none object-cover object-[45%_35%] lg:object-[50%_40%]',
                   'sizes' => '(min-width: 1024px) 600px, 100vw',
