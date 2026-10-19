@@ -81,7 +81,8 @@
               style="grid-row-end: span {{ $rijen + 1 }};{{ $i > 0 ? ' display: none;' : '' }}">
 
               {{-- Bij wisselen van onderwerp schuift de tekst zacht omhoog en komt de foto in beeld: een CSS-animatie start
-                   opnieuw zodra x-show het paneel weer toont (display: none → block). Keyframes uit app.css (fotoheader). --}}
+                   opnieuw zodra x-show het paneel weer toont (display: none → block). Keyframes uit app.css (fotoheader); daarna
+                   klapt de kleurvorm achter de foto uit (lef-vorm). --}}
               {{-- Titel en intro alleen vanaf lg (op mobiel staan ze al in de knop) --}}
               <div class="mb-8 hidden lg:block lg:animate-[hero-rise_500ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
                 <p class="mb-2 font-['Poppins',sans-serif] text-3xl font-bold leading-tight {{ $kleur['tekst'] }}">{{ $item['titel'] }}</p>
@@ -94,7 +95,7 @@
               <div @class(['lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-10' => $item['foto']])>
               @if($item['foto'])
                 <div class="relative mb-6 lg:order-2 lg:mb-0">
-                <div aria-hidden="true" class="absolute inset-0 hidden rounded-xl {{ $kleur['vorm'] }} lg:block lg:translate-x-3 lg:translate-y-3 lg:rotate-3"></div>
+                <div aria-hidden="true" class="absolute inset-0 hidden rounded-xl {{ $kleur['vorm'] }} lg:block lg:translate-x-3 lg:translate-y-3 lg:rotate-3 lg:animate-[lef-vorm_700ms_450ms_cubic-bezier(.34,1.56,.64,1)_both] motion-reduce:animate-none"></div>
                 <div class="relative aspect-4/3 overflow-hidden rounded-xl lg:aspect-auto lg:h-full lg:min-h-96 lg:animate-[hero-photo_700ms_ease-out_both] motion-reduce:animate-none">
                 {!! wp_get_attachment_image($item['foto'], 'large', false, [
                   'class' => 'absolute inset-0 size-full max-w-none object-cover object-[45%_35%] lg:object-[50%_40%]',

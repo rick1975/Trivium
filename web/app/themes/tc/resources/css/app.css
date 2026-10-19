@@ -190,6 +190,13 @@ html {
   to { opacity: 1; translate: 0 0; }
 }
 
+/* Leren met lef (components/leren-met-lef.blade.php): de kleurvorm achter de foto ligt eerst recht achter de foto
+   en klapt dan uit naar zijn gekantelde stand (eindwaarden = lg:translate-x-3 lg:translate-y-3 lg:rotate-3) */
+@keyframes lef-vorm {
+  from { translate: 0 0; rotate: 0deg; }
+  to { translate: 0.75rem 0.75rem; rotate: 3deg; }
+}
+
 /* Voortgangsstreepje van de footerslider (sections/footer.blade.php): loopt van links naar rechts vol */
 @keyframes footer-progress {
   from { scale: 0 1; }
