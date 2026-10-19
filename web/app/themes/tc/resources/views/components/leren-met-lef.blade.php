@@ -48,10 +48,10 @@
                   }
                 }
               @endphp
-              <div class="mt-2 space-y-3 text-sm">
+              <div class="mt-2 flex flex-col gap-3 text-sm">
                 @foreach($blokken as $blok)
                   @if($blok['type'] === 'lijst')
-                    <ul class="mb-0 space-y-3">
+                    <ul class="mb-0 flex flex-col gap-3">
                       @foreach($blok['punten'] as $punt)
                         <li class="relative mb-0 pl-4 before:absolute before:left-0 before:top-[0.5em] before:size-1.5 before:rounded-full before:bg-triv-pink">
                           <span class="block font-semibold text-triv-navy">{{ $punt['kop'] }}</span>
