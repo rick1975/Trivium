@@ -18,6 +18,7 @@ class LerenMetLef extends Composer
             'onderwerpen' => array_map(fn ($item) => [
                 'titel' => $item['titel'] ?? '',
                 'intro' => $item['intro'] ?? '',
+                'foto' => $item['foto'] ?? null,
                 'blokken' => $this->blokken($item['content'] ?? ''),
             ], $onderwerpen),
         ];

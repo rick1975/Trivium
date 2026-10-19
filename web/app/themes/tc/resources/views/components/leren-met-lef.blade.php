@@ -61,11 +61,24 @@
                 @endif
               </div>
 
+              {{-- Met foto: vanaf lg inhoud links (één kolom) en foto rechts, even hoog als de tekst; op mobiel de foto erboven --}}
+              <div @class(['lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-10' => $item['foto']])>
+              @if($item['foto'])
+                <div class="relative mb-6 aspect-4/3 overflow-hidden rounded-xl lg:order-2 lg:mb-0 lg:aspect-auto lg:min-h-96">
+                {!! wp_get_attachment_image($item['foto'], 'large', false, [
+                  'class' => 'absolute inset-0 size-full max-w-none object-cover object-[45%_35%] lg:object-[50%_40%]',
+                  'sizes' => '(min-width: 1024px) 420px, 100vw',
+                  'loading' => 'lazy',
+                  'decoding' => 'async',
+                ]) !!}
+                </div>
+              @endif
+
               @if($item['blokken'])
                 <div class="flex flex-col gap-6 text-sm sm:text-base">
                   @foreach($item['blokken'] as $blok)
                     @if($blok['type'] === 'lijst')
-                      <ul class="mb-0 grid gap-x-10 gap-y-5 md:grid-cols-2">
+                      <ul @class(['mb-0 grid gap-x-10 gap-y-5', 'md:grid-cols-2' => ! $item['foto']])>
                         @foreach($blok['punten'] as $punt)
                           <li class="relative mb-0 pl-5 before:absolute before:left-0 before:top-[0.55em] before:size-2 before:rounded-full before:bg-triv-pink">
                             <span @class(['block', 'font-semibold text-triv-navy' => $punt['vet'], 'text-stone-600' => ! $punt['vet']])>
@@ -99,6 +112,7 @@
               @else
                 <p class="mb-0 italic text-stone-500">Hierover volgt binnenkort meer.</p>
               @endif
+              </div>
             </div>
           @endforeach
 

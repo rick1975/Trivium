@@ -140,6 +140,15 @@ add_action('acf/init', function () {
                         'instructions' => 'Eén zin die altijd zichtbaar is bij de titel, ook als de rest ingeklapt is.',
                     ],
                     [
+                        'key' => 'field_trivium_leren_met_lef_foto',
+                        'label' => 'Foto',
+                        'name' => 'foto',
+                        'type' => 'image',
+                        'return_format' => 'id',
+                        'preview_size' => 'medium',
+                        'instructions' => 'Optioneel. Vanaf desktop rechts naast de inhoud (staand beeld werkt het best), op mobiel erboven.',
+                    ],
+                    [
                         'key' => 'field_trivium_leren_met_lef_content',
                         'label' => 'Content',
                         'name' => 'content',
