@@ -98,6 +98,11 @@
       @if($half && $intro && $buttons)
         <div class="hero-knoppen mt-8 hidden md:block motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.5s_both]">{!! $buttons !!}</div>
       @endif
+
+      {{-- Rubriekpagina: pillen naar de onderliggende pagina's onder de intro (in de inhoud dan vanaf md verborgen) --}}
+      @if($half)
+        <x-subpages plek="hero" />
+      @endif
     </div>
   </div>
 

@@ -13,16 +13,13 @@
   @endif
 @endsection
 
-{{-- Rubriekpagina zonder eigen uitgewerkte inhoud: kaarten naar de onderliggende pagina's (components/subpages) --}}
-@section('after-main')
-  <x-subpages />
-@endsection
-
 @section('content')
   @while(have_posts()) @php(the_post())
     @if($backdrop || ! has_post_thumbnail())
       @include('partials.page-header')
     @endif
     @includeFirst(['partials.content-page', 'partials.content'])
+    {{-- Rubriekpagina zonder eigen uitgewerkte inhoud: pillen naar de onderliggende pagina's, na de intro (components/subpages) --}}
+    <x-subpages />
   @endwhile
 @endsection

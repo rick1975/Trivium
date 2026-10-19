@@ -579,6 +579,11 @@ body[class*='rubriek-'] {
   @apply md:hidden;
 }
 
+/* Pillen naar de onderliggende pagina's (components/subpages): bij een fotoheader "half" staan ze vanaf md in de header */
+.page.has-hero-half .main > .subpages-inhoud {
+  @apply md:hidden;
+}
+
 /* Op mobiel gelijke ruimte (1,5rem) tussen titel, intro en kenmerken; vanaf md ruim afstand tussen de
    (meegezakte) kenmerken-labels en de tekst eronder */
 .page:is(.has-hero-half, .has-hero-kader) .main {
