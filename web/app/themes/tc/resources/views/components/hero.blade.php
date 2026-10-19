@@ -10,6 +10,9 @@
   {{-- Overlay (mobiel van onder, onder de tekst; vanaf tablet van rechts) --}}
   <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-black/70 md:from-black/60 via-black/30 to-transparent"></div>
 
+  {{-- Extra donker rechtsboven op mobiel, zodat de witte header-iconen goed leesbaar zijn --}}
+  <div class="md:hidden absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,0,0,0.55),transparent_55%)]"></div>
+
   {{-- Content: mobiel onderaan (anders valt de tekst over het gezicht op de foto), 1rem boven de golf van Leren met lef
        (die valt 8vh over de hero: 95 − 8 = 87vh, en de golf zelf nog 54px daarboven).
        Vanaf tablet rechts in de onderste helft: 10vh boven de golf. pt-20 houdt hem vrij van de header. --}}
@@ -17,7 +20,7 @@
     <div class="max-w-[30rem]">
 
       {{-- Titel (visueel verborgen, animated-text neemt de lettergrootte hiervan over) --}}
-      <h1 class="sr-only text-5xl sm:text-6xl lg:text-7xl font-bold italic">Leren met Lef</h1>
+      <h1 class="sr-only text-5xl sm:text-6xl lg:text-7xl font-bold">Leren met Lef</h1>
 
       {{-- Geanimeerde titel --}}
       @include('components.animated-text')
