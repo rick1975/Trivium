@@ -14,8 +14,9 @@ class PageHero extends Composer
     /**
      * Fotoheader van een gewone pagina: uitgelichte afbeelding, titel en de bovenliggende pagina (als label boven
      * de titel). Het focuspunt (ACF "Fotoheader") bepaalt de horizontale uitsnede; verticaal ligt het iets boven
-     * het midden, waar gezichten meestal zitten. Stijl: 'breed' (standaard), 'half' (vanaf desktop foto rechts) of
-     * 'achtergrond' (foto achter de inhoud, components/page-backdrop).
+     * het midden, waar gezichten meestal zitten. Stijl: 'half' (standaard, vanaf desktop foto rechts), 'half-links', 'kader' of
+     * 'achtergrond' (foto achter de inhoud, components/page-backdrop). De schermbrede stijl ('breed') is geen keuze meer:
+     * oude of lege waarden worden 'half'.
      */
     public function with()
     {
@@ -30,7 +31,10 @@ class PageHero extends Composer
             'features' => $this->features($id),
             'intro' => $this->intro($id),
             'buttons' => $this->buttons($id),
-            'layout' => (function_exists('get_field') ? get_field('foto_stijl', $id) : null) ?: 'breed',
+            'layout' => match ($stijl = function_exists('get_field') ? get_field('foto_stijl', $id) : null) {
+                'half-links', 'kader', 'achtergrond' => $stijl,
+                default => 'half',
+            },
             'position' => match ($focus) {
                 'links' => '35% 40%',
                 'rechts' => '65% 40%',

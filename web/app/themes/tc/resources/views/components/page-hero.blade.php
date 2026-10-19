@@ -1,5 +1,5 @@
 {{-- ── FOTOHEADER — gewone pagina met uitgelichte afbeelding (data uit Composers\PageHero). Stijl per pagina (veld "Fotoheader"):
-     - breed: schermbrede foto met de titel in een witte kaart die half over de onderrand valt; vanaf md rechts (zodat de
+     - breed (geen keuze meer in de editor, de composer maakt er 'half' van; de opmaak is nog de mobiele weergave van 'half'): schermbrede foto met de titel in een witte kaart die half over de onderrand valt; vanaf md rechts (zodat de
        kaart niet over de mensen links/midden valt), op mobiel over de volle breedte.
      - half: vanaf md staat de foto rechts op 55% van de breedte en loopt naar links en onderen uit in het wit (hero-fade-mask);
        de titel staat groot links (2rem ingesprongen, op de lijn van de kaarttekst eronder) met de intro (eerste alinea

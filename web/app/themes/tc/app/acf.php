@@ -471,8 +471,8 @@ add_action('acf/init', function () {
                 'name' => 'foto_stijl',
                 'type' => 'button_group',
                 'instructions' => 'Half: vanaf desktop staat de foto rechts en loopt hij uit in het wit, met de titel links. Op mobiel zijn beide gelijk. Achter de inhoud: de foto ligt bovenaan achter de pagina en vervaagt naar beneden; titel en inhoud staan in een wit vlak in het midden. Half, foto links: hetzelfde, gespiegeld. Kader: de foto rechts in een afgerond kader, titel en intro links.',
-                'choices' => ['breed' => 'Schermbreed', 'half' => 'Half', 'half-links' => 'Half, foto links', 'kader' => 'Kader', 'achtergrond' => 'Achter de inhoud'],
-                'default_value' => 'breed',
+                'choices' => ['half' => 'Half', 'half-links' => 'Half, foto links', 'kader' => 'Kader', 'achtergrond' => 'Achter de inhoud'],
+                'default_value' => 'half',
             ],
             [
                 'key' => 'field_trivium_pagina_foto_focus',
