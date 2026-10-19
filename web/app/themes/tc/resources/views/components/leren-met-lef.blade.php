@@ -26,7 +26,7 @@
   <div class="bg-triv-cream pt-16 pb-20">
     <div class="page-container">
       @if($onderwerpen)
-        {{-- Desktop: klik kiest een ander onderwerp (er staat er altijd één open; de andere zijn wat lichter en grauwer, bij hover weer vol); mobiel: klik klapt open of dicht.
+        {{-- Desktop: klik kiest een ander onderwerp (er staat er altijd één open); mobiel: klik klapt open of dicht.
              Wordt het scherm breder terwijl alles dicht is, dan gaat het eerste weer open. --}}
         <div x-data="{ actief: 0, lg: () => window.matchMedia('(min-width: 1024px)').matches }"
           @resize.window.debounce.150ms="if (actief === null && lg()) actief = 0"
@@ -40,7 +40,7 @@
               <button type="button" id="lef-knop-{{ $i }}" aria-controls="lef-paneel-{{ $i }}"
                 aria-expanded="{{ $i === 0 ? 'true' : 'false' }}" :aria-expanded="(actief === {{ $i }}).toString()"
                 class="group flex w-full items-start gap-4 rounded-xl p-4 lg:p-3 text-left cursor-pointer transition-all duration-300"
-                :class="actief === {{ $i }} ? 'bg-white' : 'bg-white lg:bg-transparent lg:opacity-55 lg:grayscale-[35%] lg:hover:bg-white/70 lg:hover:opacity-100 lg:hover:grayscale-0'"
+                :class="actief === {{ $i }} ? 'bg-white' : 'bg-white lg:bg-transparent lg:hover:bg-white/70'"
                 @click="actief = (actief === {{ $i }} && ! lg()) ? null : {{ $i }}">
                 <span aria-hidden="true" class="{{ $kleur['bg'] }} size-10 shrink-0 rounded-full flex items-center justify-center text-white font-black text-base">
                   {{ $i + 1 }}
