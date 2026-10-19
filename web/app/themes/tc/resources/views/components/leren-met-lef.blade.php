@@ -10,15 +10,16 @@
      één voor één omhoog en daarna het inhoudsvlak; bij "minder beweging" staat alles meteen stil. ── --}}
 {{-- Per onderwerp een rubriekskleur (Over de school, Leerlingen & ouders, Groep 8, Beleid & documenten, Ons onderwijs):
      voor het bolletje, de titel bij hover en het pijltje links, en in het inhoudsvlak de titel en de opsommingsbolletjes
-     (vette tekst en tussenkoppen blijven navy). Klassen voluit, zodat Tailwind ze vindt. --}}
+     (vette tekst en tussenkoppen blijven navy). Vanaf lg krijgt het inhoudsvlak een lichte tint van die kleur ('vlak') en
+     ligt er een gekantelde kleurvorm achter de foto ('vorm'), zodat het hele blok van sfeer wisselt. Klassen voluit, zodat Tailwind ze vindt. --}}
 @php
   $kleuren = [
-    ['bg' => 'bg-triv-hemelblauw', 'tekst' => 'text-triv-hemelblauw', 'hover' => 'group-hover:text-triv-hemelblauw', 'bolletje' => 'before:bg-triv-hemelblauw'],
-    ['bg' => 'bg-triv-oudroze', 'tekst' => 'text-triv-oudroze', 'hover' => 'group-hover:text-triv-oudroze', 'bolletje' => 'before:bg-triv-oudroze'],
-    ['bg' => 'bg-triv-koraal', 'tekst' => 'text-triv-koraal', 'hover' => 'group-hover:text-triv-koraal', 'bolletje' => 'before:bg-triv-koraal'],
-    ['bg' => 'bg-triv-zeegroen', 'tekst' => 'text-triv-zeegroen', 'hover' => 'group-hover:text-triv-zeegroen', 'bolletje' => 'before:bg-triv-zeegroen'],
-    ['bg' => 'bg-triv-paars', 'tekst' => 'text-triv-paars', 'hover' => 'group-hover:text-triv-paars', 'bolletje' => 'before:bg-triv-paars'],
-    ['bg' => 'bg-triv-lightblue', 'tekst' => 'text-triv-lightblue', 'hover' => 'group-hover:text-triv-lightblue', 'bolletje' => 'before:bg-triv-lightblue'],
+    ['bg' => 'bg-triv-hemelblauw', 'tekst' => 'text-triv-hemelblauw', 'hover' => 'group-hover:text-triv-hemelblauw', 'bolletje' => 'before:bg-triv-hemelblauw', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-hemelblauw)_6%,white)]', 'vorm' => 'bg-triv-hemelblauw/20'],
+    ['bg' => 'bg-triv-oudroze', 'tekst' => 'text-triv-oudroze', 'hover' => 'group-hover:text-triv-oudroze', 'bolletje' => 'before:bg-triv-oudroze', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-oudroze)_6%,white)]', 'vorm' => 'bg-triv-oudroze/20'],
+    ['bg' => 'bg-triv-koraal', 'tekst' => 'text-triv-koraal', 'hover' => 'group-hover:text-triv-koraal', 'bolletje' => 'before:bg-triv-koraal', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-koraal)_6%,white)]', 'vorm' => 'bg-triv-koraal/20'],
+    ['bg' => 'bg-triv-zeegroen', 'tekst' => 'text-triv-zeegroen', 'hover' => 'group-hover:text-triv-zeegroen', 'bolletje' => 'before:bg-triv-zeegroen', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-zeegroen)_6%,white)]', 'vorm' => 'bg-triv-zeegroen/20'],
+    ['bg' => 'bg-triv-paars', 'tekst' => 'text-triv-paars', 'hover' => 'group-hover:text-triv-paars', 'bolletje' => 'before:bg-triv-paars', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-paars)_6%,white)]', 'vorm' => 'bg-triv-paars/20'],
+    ['bg' => 'bg-triv-lightblue', 'tekst' => 'text-triv-lightblue', 'hover' => 'group-hover:text-triv-lightblue', 'bolletje' => 'before:bg-triv-lightblue', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-lightblue)_6%,white)]', 'vorm' => 'bg-triv-lightblue/20'],
   ];
   $rijen = count($onderwerpen);
 @endphp
@@ -42,8 +43,10 @@
           @foreach ($onderwerpen as $i => $item)
             @php($kleur = $kleuren[$i % count($kleuren)])
             {{-- Titel + knop (kolom 1). Titels zijn h2, direct onder de h1 "Leren met Lef" in de hero --}}
+            {{-- Vanaf lg verbindt een stippellijn de bolletjes tot een route (after: van elke h2 behalve de laatste,
+                 van onder het bolletje tot boven het volgende; 32px = p-3 + rand + half bolletje - halve lijn) --}}
             <h2 id="{{ $item['anker'] }}" style="--i: {{ $i }}"
-              class="mb-0 scroll-mt-6 lg:col-start-1 translate-y-6 opacity-0 transition-[translate,opacity] duration-700 ease-[cubic-bezier(.2,.8,.2,1)] delay-[calc(var(--i)*90ms)] group-data-shown/lef:translate-y-0 group-data-shown/lef:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none">
+              class="relative mb-0 scroll-mt-6 {{ $loop->last ? '' : 'lg:after:pointer-events-none lg:after:absolute lg:after:left-[32px] lg:after:top-[58px] lg:after:-bottom-[24px] lg:after:border-l-2 lg:after:border-dotted lg:after:border-triv-navy/20' }} lg:col-start-1 translate-y-6 opacity-0 transition-[translate,opacity] duration-700 ease-[cubic-bezier(.2,.8,.2,1)] delay-[calc(var(--i)*90ms)] group-data-shown/lef:translate-y-0 group-data-shown/lef:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none">
               <button type="button" id="lef-knop-{{ $i }}" aria-controls="lef-paneel-{{ $i }}"
                 aria-expanded="{{ $i === 0 ? 'true' : 'false' }}" :aria-expanded="(actief === {{ $i }}).toString()"
                 class="group flex w-full items-start gap-4 rounded-xl border border-transparent p-4 lg:p-3 text-left cursor-pointer transition-all duration-300"
@@ -71,11 +74,13 @@
 
             {{-- Inhoud (kolom 2, alle panelen op dezelfde plek) --}}
             <div id="lef-paneel-{{ $i }}" role="region" aria-labelledby="lef-knop-{{ $i }}" x-show="actief === {{ $i }}"
-              class="rounded-xl bg-white p-5 shadow-sm sm:p-7 lg:col-start-2 lg:row-start-1 lg:p-10 lg:translate-y-6 lg:opacity-0 lg:transition-[translate,opacity] lg:duration-700 lg:delay-300 lg:ease-[cubic-bezier(.2,.8,.2,1)] lg:group-data-shown/lef:translate-y-0 lg:group-data-shown/lef:opacity-100 lg:motion-reduce:translate-y-0 lg:motion-reduce:opacity-100 lg:motion-reduce:transition-none"
+              class="rounded-xl bg-white {{ $kleur['vlak'] }} p-5 shadow-sm sm:p-7 lg:col-start-2 lg:row-start-1 lg:p-10 lg:translate-y-6 lg:opacity-0 lg:transition-[translate,opacity] lg:duration-700 lg:delay-300 lg:ease-[cubic-bezier(.2,.8,.2,1)] lg:group-data-shown/lef:translate-y-0 lg:group-data-shown/lef:opacity-100 lg:motion-reduce:translate-y-0 lg:motion-reduce:opacity-100 lg:motion-reduce:transition-none"
               style="grid-row-end: span {{ $rijen + 1 }};{{ $i > 0 ? ' display: none;' : '' }}">
 
+              {{-- Bij wisselen van onderwerp schuift de tekst zacht omhoog en komt de foto in beeld: een CSS-animatie start
+                   opnieuw zodra x-show het paneel weer toont (display: none → block). Keyframes uit app.css (fotoheader). --}}
               {{-- Titel en intro alleen vanaf lg (op mobiel staan ze al in de knop) --}}
-              <div class="mb-8 hidden lg:block">
+              <div class="mb-8 hidden lg:block lg:animate-[hero-rise_500ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
                 <p class="mb-2 font-['Poppins',sans-serif] text-3xl font-bold leading-tight {{ $kleur['tekst'] }}">{{ $item['titel'] }}</p>
                 @if($item['intro'])
                   <p class="mb-0 text-lg leading-relaxed text-stone-600">{{ $item['intro'] }}</p>
@@ -85,7 +90,9 @@
               {{-- Met foto: vanaf lg inhoud links (één kolom) en foto rechts, even hoog als de tekst; op mobiel de foto erboven --}}
               <div @class(['lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-10' => $item['foto']])>
               @if($item['foto'])
-                <div class="relative mb-6 aspect-4/3 overflow-hidden rounded-xl lg:order-2 lg:mb-0 lg:aspect-auto lg:min-h-96">
+                <div class="relative mb-6 lg:order-2 lg:mb-0">
+                <div aria-hidden="true" class="absolute inset-0 hidden rounded-xl {{ $kleur['vorm'] }} lg:block lg:translate-x-3 lg:translate-y-3 lg:rotate-3"></div>
+                <div class="relative aspect-4/3 overflow-hidden rounded-xl lg:aspect-auto lg:h-full lg:min-h-96 lg:animate-[hero-photo_700ms_ease-out_both] motion-reduce:animate-none">
                 {!! wp_get_attachment_image($item['foto'], 'large', false, [
                   'class' => 'absolute inset-0 size-full max-w-none object-cover object-[45%_35%] lg:object-[50%_40%]',
                   'sizes' => '(min-width: 1024px) 420px, 100vw',
@@ -93,10 +100,11 @@
                   'decoding' => 'async',
                 ]) !!}
                 </div>
+                </div>
               @endif
 
               @if($item['blokken'])
-                <div class="flex flex-col gap-6 text-sm sm:text-base">
+                <div class="flex flex-col gap-6 text-sm sm:text-base lg:animate-[hero-rise_500ms_100ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
                   @foreach($item['blokken'] as $blok)
                     @if($blok['type'] === 'lijst')
                       <ul @class(['mb-0 grid gap-x-10 gap-y-5', 'md:grid-cols-2' => ! $item['foto']])>
