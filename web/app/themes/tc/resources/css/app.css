@@ -314,7 +314,7 @@ html {
 
   /* Kolommen mogen de volle breedte van het inhoudsvlak gebruiken (kaarten staan onder elkaar in de tekstkolom),
      het gekleurde vlak en de afsluiter de hele schermbreedte */
-  > .wp-block-columns:not(.is-style-kaarten) {
+  > .wp-block-columns:not(.is-style-kaarten, .is-style-quotes) {
     @apply max-w-none;
   }
 
@@ -351,6 +351,11 @@ html {
     h3 {
       @apply text-(--accent);
     }
+  }
+
+  /* Quotes (oranje kaarten): iets breder dan de tekstkolom, maar niet tot de volle inhoudsbreedte zoals de kaarten */
+  > .is-style-quotes {
+    @apply mt-10 mb-12 md:max-w-4xl;
   }
 
   /* Losse knoppen in de tekst: ruimte tot de alinea eronder */
