@@ -29,9 +29,9 @@
               <button type="button" id="lef-knop-{{ $i }}" aria-controls="lef-paneel-{{ $i }}"
                 aria-expanded="{{ $i === 0 ? 'true' : 'false' }}" :aria-expanded="(actief === {{ $i }}).toString()"
                 class="group flex w-full items-start gap-4 rounded-xl p-4 lg:p-3 text-left cursor-pointer transition-all duration-300"
-                :class="actief === {{ $i }} ? 'bg-white shadow-sm' : 'bg-white lg:bg-transparent lg:hover:bg-white/70'"
+                :class="actief === {{ $i }} ? 'bg-white' : 'bg-white lg:bg-transparent lg:hover:bg-white/70'"
                 @click="actief = (actief === {{ $i }} && ! lg()) ? null : {{ $i }}">
-                <span aria-hidden="true" class="{{ $kleuren[$i % count($kleuren)] }} size-10 shrink-0 rounded-2xl flex items-center justify-center text-white font-black text-base">
+                <span aria-hidden="true" class="{{ $kleuren[$i % count($kleuren)] }} size-10 shrink-0 rounded-full flex items-center justify-center text-white font-black text-base">
                   {{ $i + 1 }}
                 </span>
                 <span class="flex-1 self-center">
@@ -68,7 +68,18 @@
                       <ul class="mb-0 grid gap-x-10 gap-y-5 md:grid-cols-2">
                         @foreach($blok['punten'] as $punt)
                           <li class="relative mb-0 pl-5 before:absolute before:left-0 before:top-[0.55em] before:size-2 before:rounded-full before:bg-triv-pink">
-                            <span @class(['block', 'font-semibold text-triv-navy' => $punt['vet'], 'text-stone-600' => ! $punt['vet']])>{{ $punt['kop'] }}</span>
+                            <span @class(['block', 'font-semibold text-triv-navy' => $punt['vet'], 'text-stone-600' => ! $punt['vet']])>
+                              {{ $punt['kop'] }}
+                              {{-- Bij het punt over (gratis) fruit: de fruitanimatie uit het nieuwsblok (ploppen op, kleuren dan in).
+                                   x-intersect zet data-shown zodra het paneel in beeld komt en haalt het weg als het verdwijnt (ander tabblad / dichtgeklapt), zodat hij elke keer opnieuw speelt. --}}
+                              @if(str_contains(mb_strtolower($punt['kop']), 'fruit'))
+                                <span x-data="{ shown: false }" x-intersect="shown = true" x-intersect:leave="shown = false" :data-shown="shown" aria-hidden="true" class="group/fruit mt-2 flex items-center gap-1.5">
+                                  @foreach(['apple', 'banana', 'watermelon'] as $fruit)
+                                    <x-icon :name="$fruit" :size="24" class="h-6 w-auto md:h-7 text-triv-navy scale-0 transition-transform duration-400 ease-[cubic-bezier(.34,1.56,.64,1)] delay-[calc(300ms+var(--i)*120ms)] group-data-shown/fruit:scale-100 motion-reduce:scale-100 motion-reduce:transition-none [&_.fruit-fill]:opacity-0 [&_.fruit-fill]:transition-opacity [&_.fruit-fill]:duration-700 [&_.fruit-fill]:delay-[calc(1200ms+var(--i)*250ms)] group-data-shown/fruit:[&_.fruit-fill]:opacity-100 motion-reduce:[&_.fruit-fill]:opacity-100 [&_.fruit-outline]:transition-[stroke-width,color] [&_.fruit-outline]:duration-700 [&_.fruit-outline]:delay-[calc(1200ms+var(--i)*250ms)] group-data-shown/fruit:[&_.fruit-outline]:stroke-6 group-data-shown/fruit:[&_.fruit-outline]:text-triv-navy/70 motion-reduce:[&_.fruit-outline]:stroke-6 motion-reduce:[&_.fruit-outline]:text-triv-navy/70" style="--i: {{ $loop->index }}" />
+                                  @endforeach
+                                </span>
+                              @endif
+                            </span>
                             @if($punt['tekst'])
                               <span class="mt-1 block text-stone-600">{{ $punt['tekst'] }}</span>
                             @endif
