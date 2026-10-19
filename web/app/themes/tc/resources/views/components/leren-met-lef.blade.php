@@ -104,7 +104,7 @@
               <div class="lg:col-start-1 lg:row-start-2 lg:px-10 lg:pb-10">
 
               @if($item['blokken'])
-                <div class="flex flex-col gap-6 text-sm sm:text-base lg:animate-[hero-rise_500ms_100ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
+                <div class="flex flex-col gap-6 text-base sm:text-lg lg:animate-[hero-rise_500ms_100ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
                   @foreach($item['blokken'] as $blok)
                     @if($blok['type'] === 'lijst')
                       <ul @class(['mb-0 grid gap-x-10 gap-y-5', 'md:grid-cols-2' => ! $item['foto']])>
@@ -139,7 +139,7 @@
                       </ul>
                     @elseif($blok['type'] === 'kop')
                       <div>
-                        <h3 class="mb-1 text-base font-semibold text-triv-navy sm:text-lg">{{ $blok['kop'] }}</h3>
+                        <h3 class="mb-1 text-lg font-semibold text-triv-navy sm:text-xl">{{ $blok['kop'] }}</h3>
                         <p class="mb-0 text-stone-600">{{ $blok['tekst'] }}</p>
                       </div>
                     @else
