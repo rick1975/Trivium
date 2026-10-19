@@ -114,14 +114,16 @@
     }
   }
 
-  /* Quotes: dezelfde opbouw als de kaarten (hierboven, daarom staat deze regel erna), maar oranje met navy tekst en zonder schaduw; bv. de
-     uitspraken van (ouders van) oud-leerlingen bij de Pr8-klas op Groep 8. Breedte: zie css/app.css */
+  /* Quotes: dezelfde opbouw als de kaarten (hierboven, daarom staat deze regel erna), maar zoals de aanmeldrondes op
+     Aanmelden in een zachte tint van de rubriek, met de titel in de rubriekskleur en zonder schaduw; bv. de uitspraken
+     van (ouders van) oud-leerlingen bij de Pr8-klas op Groep 8. Breedte: zie css/app.css */
   .wp-block-columns.is-style-quotes > .wp-block-column {
-    @apply bg-triv-orange text-triv-navy shadow-none;
+    @apply shadow-none;
+    background-color: color-mix(in oklab, var(--accent-vlak, var(--color-triv-vlak)) 60%, white);
 
     h2,
     h3 {
-      @apply text-triv-navy;
+      @apply text-(--accent);
     }
   }
 

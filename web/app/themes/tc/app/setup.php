@@ -174,7 +174,7 @@ add_action('init', function () {
         ],
         'core/columns' => [
             'kaarten' => 'Kaarten',
-            'quotes' => 'Quotes (oranje)',
+            'quotes' => 'Quotes (zachte tint)',
         ],
         'core/group' => [
             'sectie' => 'Gekleurd vlak (schermbreed)',

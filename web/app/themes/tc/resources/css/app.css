@@ -353,7 +353,7 @@ html {
     }
   }
 
-  /* Quotes (oranje kaarten): iets breder dan de tekstkolom, maar niet tot de volle inhoudsbreedte zoals de kaarten */
+  /* Quotes (kaarten in een zachte tint): iets breder dan de tekstkolom, maar niet tot de volle inhoudsbreedte zoals de kaarten */
   > .is-style-quotes {
     @apply mt-10 mb-12 md:max-w-4xl;
   }
