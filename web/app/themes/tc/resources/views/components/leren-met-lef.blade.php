@@ -5,7 +5,7 @@
      (over alle rijen plus een laatste 1fr-rij die de extra hoogte opvangt) en alleen het actieve is zichtbaar.
      Het eerste onderwerp staat standaard open. ── --}}
 @php
-  $kleuren = ['bg-triv-blue', 'bg-triv-oudroze', 'bg-triv-koraal', 'bg-triv-zeegroen', 'bg-triv-yellow', 'bg-triv-lightblue'];
+  $kleuren = ['bg-triv-hemelblauw', 'bg-triv-oudroze', 'bg-triv-koraal', 'bg-triv-zeegroen', 'bg-triv-yellow', 'bg-triv-lightblue'];
   $rijen = count($onderwerpen);
 @endphp
 
