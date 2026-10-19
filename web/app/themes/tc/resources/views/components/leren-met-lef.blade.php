@@ -5,15 +5,17 @@
      (over alle rijen plus een laatste 1fr-rij die de extra hoogte opvangt) en alleen het actieve is zichtbaar.
      Het eerste onderwerp staat standaard open. ── --}}
 {{-- Per onderwerp een rubriekskleur (Over de school, Leerlingen & ouders, Groep 8, Beleid & documenten, Ons onderwijs):
-     voor het bolletje, de titel bij hover en het pijltje links, en de titel in het inhoudsvlak. Klassen voluit, zodat Tailwind ze vindt. --}}
+     voor het bolletje, de titel bij hover en het pijltje links, en in het inhoudsvlak de titel, de opsommingsbolletjes en de vette
+     tekst ('klein': bij de lichte kleuren hemelblauw en koraal iets donkerder gemengd met navy, voor genoeg contrast op kleine tekst).
+     Klassen voluit, zodat Tailwind ze vindt. --}}
 @php
   $kleuren = [
-    ['bg' => 'bg-triv-hemelblauw', 'tekst' => 'text-triv-hemelblauw', 'hover' => 'group-hover:text-triv-hemelblauw'],
-    ['bg' => 'bg-triv-oudroze', 'tekst' => 'text-triv-oudroze', 'hover' => 'group-hover:text-triv-oudroze'],
-    ['bg' => 'bg-triv-koraal', 'tekst' => 'text-triv-koraal', 'hover' => 'group-hover:text-triv-koraal'],
-    ['bg' => 'bg-triv-zeegroen', 'tekst' => 'text-triv-zeegroen', 'hover' => 'group-hover:text-triv-zeegroen'],
-    ['bg' => 'bg-triv-paars', 'tekst' => 'text-triv-paars', 'hover' => 'group-hover:text-triv-paars'],
-    ['bg' => 'bg-triv-lightblue', 'tekst' => 'text-triv-lightblue', 'hover' => 'group-hover:text-triv-lightblue'],
+    ['bg' => 'bg-triv-hemelblauw', 'tekst' => 'text-triv-hemelblauw', 'hover' => 'group-hover:text-triv-hemelblauw', 'klein' => 'text-[color-mix(in_oklch,var(--color-triv-hemelblauw)_70%,var(--color-triv-navy))]', 'bolletje' => 'before:bg-triv-hemelblauw'],
+    ['bg' => 'bg-triv-oudroze', 'tekst' => 'text-triv-oudroze', 'hover' => 'group-hover:text-triv-oudroze', 'klein' => 'text-triv-oudroze', 'bolletje' => 'before:bg-triv-oudroze'],
+    ['bg' => 'bg-triv-koraal', 'tekst' => 'text-triv-koraal', 'hover' => 'group-hover:text-triv-koraal', 'klein' => 'text-[color-mix(in_oklch,var(--color-triv-koraal)_70%,var(--color-triv-navy))]', 'bolletje' => 'before:bg-triv-koraal'],
+    ['bg' => 'bg-triv-zeegroen', 'tekst' => 'text-triv-zeegroen', 'hover' => 'group-hover:text-triv-zeegroen', 'klein' => 'text-triv-zeegroen', 'bolletje' => 'before:bg-triv-zeegroen'],
+    ['bg' => 'bg-triv-paars', 'tekst' => 'text-triv-paars', 'hover' => 'group-hover:text-triv-paars', 'klein' => 'text-triv-paars', 'bolletje' => 'before:bg-triv-paars'],
+    ['bg' => 'bg-triv-lightblue', 'tekst' => 'text-triv-lightblue', 'hover' => 'group-hover:text-triv-lightblue', 'klein' => 'text-[color-mix(in_oklch,var(--color-triv-lightblue)_70%,var(--color-triv-navy))]', 'bolletje' => 'before:bg-triv-lightblue'],
   ];
   $rijen = count($onderwerpen);
 @endphp
@@ -90,8 +92,8 @@
                     @if($blok['type'] === 'lijst')
                       <ul @class(['mb-0 grid gap-x-10 gap-y-5', 'md:grid-cols-2' => ! $item['foto']])>
                         @foreach($blok['punten'] as $punt)
-                          <li class="relative mb-0 pl-5 before:absolute before:left-0 before:top-[0.55em] before:size-2 before:rounded-full before:bg-triv-pink">
-                            <span @class(['block', 'font-semibold text-triv-navy' => $punt['vet'], 'text-stone-600' => ! $punt['vet']])>
+                          <li class="relative mb-0 pl-5 before:absolute before:left-0 before:top-[0.55em] before:size-2 before:rounded-full {{ $kleur['bolletje'] }}">
+                            <span @class(['block', 'font-semibold ' . $kleur['klein'] => $punt['vet'], 'text-stone-600' => ! $punt['vet']])>
                               {{ $punt['kop'] }}
                               {{-- Bij het punt over (gratis) fruit: de fruitanimatie uit het nieuwsblok (ploppen op, kleuren dan in).
                                    x-intersect zet data-shown zodra het paneel in beeld komt en haalt het weg als het verdwijnt (ander tabblad / dichtgeklapt), zodat hij elke keer opnieuw speelt. --}}
@@ -111,7 +113,7 @@
                       </ul>
                     @elseif($blok['type'] === 'kop')
                       <div>
-                        <h3 class="mb-1 text-base font-semibold text-triv-navy sm:text-lg">{{ $blok['kop'] }}</h3>
+                        <h3 class="mb-1 text-base font-semibold sm:text-lg {{ $kleur['klein'] }}">{{ $blok['kop'] }}</h3>
                         <p class="mb-0 text-stone-600">{{ $blok['tekst'] }}</p>
                       </div>
                     @else
