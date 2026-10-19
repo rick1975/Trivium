@@ -127,6 +127,15 @@
                             @endif
                           </li>
                         @endforeach
+                        {{-- Bij "op maat" (zonder foto, oneven aantal punten) vult een meetlint het lege vak rechtsonder; speelt net als
+                             het fruit elke keer opnieuw als het paneel in beeld komt (x-intersect). Vanaf md, waar de lijst twee kolommen heeft. --}}
+                        @if(! $item['foto'] && str_contains(mb_strtolower($item['titel']), 'op maat') && count($blok['punten']) % 2)
+                          <li aria-hidden="true" class="mb-0 hidden items-center justify-center md:flex">
+                            <span x-data="{ shown: false }" x-intersect="shown = true" x-intersect:leave="shown = false" :data-shown="shown" class="block w-full max-w-60">
+                              <x-icon name="meetlint" class="h-auto w-full text-triv-navy" />
+                            </span>
+                          </li>
+                        @endif
                       </ul>
                     @elseif($blok['type'] === 'kop')
                       <div>

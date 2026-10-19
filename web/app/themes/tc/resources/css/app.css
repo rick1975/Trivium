@@ -190,6 +190,38 @@ html {
   to { opacity: 1; translate: 0 0; }
 }
 
+/* Meetlint (components/icon.blade.php, in Leren met lef bij "op maat"): zodra de wrapper data-shown krijgt springt het
+   rolletje in beeld en schuift het lint eruit terwijl het wieltje draait; zonder data-shown gaat alles terug. */
+.meetlint .meet-kast,
+.meetlint .meet-wiel {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.meetlint .meet-kast {
+  scale: 0;
+  transition: scale 400ms cubic-bezier(.34, 1.56, .64, 1) 200ms;
+}
+
+.meetlint .meet-lint {
+  translate: -196px 0;
+  transition: translate 1100ms cubic-bezier(.2, .8, .2, 1) 600ms;
+}
+
+.meetlint .meet-wiel {
+  transition: rotate 1100ms cubic-bezier(.2, .8, .2, 1) 600ms;
+}
+
+[data-shown] > .meetlint .meet-kast { scale: 1; }
+[data-shown] > .meetlint .meet-lint { translate: 0 0; }
+[data-shown] > .meetlint .meet-wiel { rotate: 540deg; }
+
+@media (prefers-reduced-motion: reduce) {
+  .meetlint .meet-kast { scale: 1; }
+  .meetlint .meet-lint { translate: 0 0; }
+  .meetlint * { transition: none !important; }
+}
+
 /* Voortgangsstreepje van de footerslider (sections/footer.blade.php): loopt van links naar rechts vol */
 @keyframes footer-progress {
   from { scale: 0 1; }
