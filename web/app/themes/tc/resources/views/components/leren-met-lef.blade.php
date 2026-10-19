@@ -18,8 +18,38 @@
               {{ $i + 1 }}
             </div>
             <h2 class="text-xl md:text-xl font-bold text-gray-800 mb-4">{{ $item['titel'] }}</h2>
+            {{-- Content: regels die met • of - beginnen worden een opsomming (die regel vetgedrukt, de regels eronder de toelichting) --}}
             @if(!empty($item['content']))
-              <p class="text-sm text-gray-600 mt-2">{!! nl2br(e($item['content'])) !!}</p>
+              @php
+                $punten = [];
+                $intro = [];
+                foreach (preg_split('/\R/', trim($item['content'])) as $regel) {
+                  $regel = trim($regel);
+                  if ($regel === '') continue;
+                  if (preg_match('/^[•\-]\s*(.+)$/u', $regel, $m)) {
+                    $punten[] = ['kop' => $m[1], 'tekst' => []];
+                  } elseif ($punten) {
+                    $punten[array_key_last($punten)]['tekst'][] = $regel;
+                  } else {
+                    $intro[] = $regel;
+                  }
+                }
+              @endphp
+              @if($intro)
+                <p class="text-sm text-gray-600 mt-2">{!! implode('<br>', array_map('e', $intro)) !!}</p>
+              @endif
+              @if($punten)
+                <ul class="mt-2 mb-0 space-y-3 text-sm">
+                  @foreach($punten as $punt)
+                    <li class="relative mb-0 pl-4 before:absolute before:left-0 before:top-[0.5em] before:size-1.5 before:rounded-full before:bg-triv-pink">
+                      <span class="block font-semibold text-triv-navy">{{ $punt['kop'] }}</span>
+                      @if($punt['tekst'])
+                        <span class="block text-stone-600">{{ implode(' ', $punt['tekst']) }}</span>
+                      @endif
+                    </li>
+                  @endforeach
+                </ul>
+              @endif
             @endif
           </li>
         @endforeach
