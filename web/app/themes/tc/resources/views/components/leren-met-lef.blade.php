@@ -9,17 +9,17 @@
      Binnenkomst: zodra het blok in beeld komt (x-intersect zet data-shown, net als bij Nieuws) schuiven de onderwerpen
      één voor één omhoog en daarna het inhoudsvlak; bij "minder beweging" staat alles meteen stil. ── --}}
 {{-- Per onderwerp een rubriekskleur (Over de school, Leerlingen & ouders, Groep 8, Beleid & documenten, Ons onderwijs):
-     voor het bolletje, de titel bij hover en het pijltje links, en in het inhoudsvlak de titel en de opsommingsbolletjes
+     voor de rand en het cijfer van het bolletje, de titel bij hover en het pijltje links, en in het inhoudsvlak de titel en de opsommingsbolletjes
      (vette tekst en tussenkoppen blijven navy). Vanaf lg krijgen het inhoudsvlak en het actieve tabblad een lichte tint van die kleur ('vlak'),
      zodat het hele blok van sfeer wisselt. Klassen voluit, zodat Tailwind ze vindt. --}}
 @php
   $kleuren = [
-    ['bg' => 'bg-triv-hemelblauw', 'tekst' => 'text-triv-hemelblauw', 'hover' => 'group-hover:text-triv-hemelblauw', 'bolletje' => 'before:bg-triv-hemelblauw', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-hemelblauw)_11%,white)]'],
-    ['bg' => 'bg-triv-oudroze', 'tekst' => 'text-triv-oudroze', 'hover' => 'group-hover:text-triv-oudroze', 'bolletje' => 'before:bg-triv-oudroze', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-oudroze)_11%,white)]'],
-    ['bg' => 'bg-triv-koraal', 'tekst' => 'text-triv-koraal', 'hover' => 'group-hover:text-triv-koraal', 'bolletje' => 'before:bg-triv-koraal', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-koraal)_11%,white)]'],
-    ['bg' => 'bg-triv-zeegroen', 'tekst' => 'text-triv-zeegroen', 'hover' => 'group-hover:text-triv-zeegroen', 'bolletje' => 'before:bg-triv-zeegroen', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-zeegroen)_11%,white)]'],
-    ['bg' => 'bg-triv-paars', 'tekst' => 'text-triv-paars', 'hover' => 'group-hover:text-triv-paars', 'bolletje' => 'before:bg-triv-paars', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-paars)_11%,white)]'],
-    ['bg' => 'bg-triv-lightblue', 'tekst' => 'text-triv-lightblue', 'hover' => 'group-hover:text-triv-lightblue', 'bolletje' => 'before:bg-triv-lightblue', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-lightblue)_11%,white)]'],
+    ['rand' => 'border-triv-hemelblauw', 'tekst' => 'text-triv-hemelblauw', 'hover' => 'group-hover:text-triv-hemelblauw', 'bolletje' => 'before:bg-triv-hemelblauw', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-hemelblauw)_11%,white)]'],
+    ['rand' => 'border-triv-oudroze', 'tekst' => 'text-triv-oudroze', 'hover' => 'group-hover:text-triv-oudroze', 'bolletje' => 'before:bg-triv-oudroze', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-oudroze)_11%,white)]'],
+    ['rand' => 'border-triv-koraal', 'tekst' => 'text-triv-koraal', 'hover' => 'group-hover:text-triv-koraal', 'bolletje' => 'before:bg-triv-koraal', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-koraal)_11%,white)]'],
+    ['rand' => 'border-triv-zeegroen', 'tekst' => 'text-triv-zeegroen', 'hover' => 'group-hover:text-triv-zeegroen', 'bolletje' => 'before:bg-triv-zeegroen', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-zeegroen)_11%,white)]'],
+    ['rand' => 'border-triv-paars', 'tekst' => 'text-triv-paars', 'hover' => 'group-hover:text-triv-paars', 'bolletje' => 'before:bg-triv-paars', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-paars)_11%,white)]'],
+    ['rand' => 'border-triv-lightblue', 'tekst' => 'text-triv-lightblue', 'hover' => 'group-hover:text-triv-lightblue', 'bolletje' => 'before:bg-triv-lightblue', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-lightblue)_11%,white)]'],
   ];
   $rijen = count($onderwerpen);
 @endphp
@@ -56,7 +56,7 @@
                 @keydown.down.prevent="naar({{ $i + 1 }})" @keydown.right.prevent="naar({{ $i + 1 }})"
                 @keydown.up.prevent="naar({{ $i - 1 }})" @keydown.left.prevent="naar({{ $i - 1 }})"
                 @keydown.home.prevent="naar(0)" @keydown.end.prevent="naar(ankers.length - 1)">
-                <span aria-hidden="true" class="{{ $kleur['bg'] }} size-10 shrink-0 rounded-full flex items-center justify-center text-white font-black text-base">
+                <span aria-hidden="true" class="{{ $kleur['rand'] }} {{ $kleur['tekst'] }} size-10 shrink-0 rounded-full border-2 flex items-center justify-center font-black text-base">
                   {{ $i + 1 }}
                 </span>
                 <span class="flex-1 self-center">
