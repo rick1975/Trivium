@@ -36,21 +36,22 @@
           <x-icon name="search" />
         </button>
 
-        {{-- Taalknop (TranslatePress): rondje met de actieve taal, bij meer talen een keuzelijstje --}}
+        {{-- Taalknop (TranslatePress): rondje met de actieve taal, bij meer talen een keuzelijstje. De taalcodes niet laten vertalen
+             (data-no-translation): anders wordt "UK" (Oekraïens) op de Oekraïense pagina "Велика Британія". --}}
         @if($languages)
           @php($current = collect($languages)->firstWhere('active', true) ?? $languages[0])
           @php($others = collect($languages)->where('active', false))
           @php($langClass = 'w-9 h-9 rounded-full flex items-center justify-center border text-xs font-bold tracking-wide transition-all duration-300 ' . $searchIdleClass)
           @if($others->isEmpty())
             <span class="{{ $langClass }}" title="{{ $current->name }}">
-              <span aria-hidden="true">{{ $current->code }}</span>
+              <span aria-hidden="true" data-no-translation>{{ $current->code }}</span>
               <span class="sr-only">Taal: {{ $current->name }}</span>
             </span>
           @else
             <div class="relative" x-data="{ langOpen: false }" @click.outside="langOpen = false" @keydown.escape="langOpen = false">
               <button type="button" class="{{ $langClass }} cursor-pointer" @click="langOpen = !langOpen"
                 :aria-expanded="langOpen.toString()" aria-controls="lang-menu" aria-label="Taal kiezen, nu {{ $current->name }}">
-                <span aria-hidden="true">{{ $current->code }}</span>
+                <span aria-hidden="true" data-no-translation>{{ $current->code }}</span>
               </button>
               <ul id="lang-menu" data-no-translation x-show="langOpen" x-transition style="display: none;"
                 class="absolute right-0 top-full mt-2 min-w-36 rounded-2xl bg-white p-1.5 shadow-xl border border-[#f4f0e8]">
