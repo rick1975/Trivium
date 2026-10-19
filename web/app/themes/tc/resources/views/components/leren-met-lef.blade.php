@@ -14,12 +14,12 @@
      ligt er een gekantelde kleurvorm achter de foto ('vorm'), zodat het hele blok van sfeer wisselt. Klassen voluit, zodat Tailwind ze vindt. --}}
 @php
   $kleuren = [
-    ['bg' => 'bg-triv-hemelblauw', 'tekst' => 'text-triv-hemelblauw', 'hover' => 'group-hover:text-triv-hemelblauw', 'bolletje' => 'before:bg-triv-hemelblauw', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-hemelblauw)_6%,white)]', 'vorm' => 'bg-triv-hemelblauw/20'],
-    ['bg' => 'bg-triv-oudroze', 'tekst' => 'text-triv-oudroze', 'hover' => 'group-hover:text-triv-oudroze', 'bolletje' => 'before:bg-triv-oudroze', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-oudroze)_6%,white)]', 'vorm' => 'bg-triv-oudroze/20'],
-    ['bg' => 'bg-triv-koraal', 'tekst' => 'text-triv-koraal', 'hover' => 'group-hover:text-triv-koraal', 'bolletje' => 'before:bg-triv-koraal', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-koraal)_6%,white)]', 'vorm' => 'bg-triv-koraal/20'],
-    ['bg' => 'bg-triv-zeegroen', 'tekst' => 'text-triv-zeegroen', 'hover' => 'group-hover:text-triv-zeegroen', 'bolletje' => 'before:bg-triv-zeegroen', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-zeegroen)_6%,white)]', 'vorm' => 'bg-triv-zeegroen/20'],
-    ['bg' => 'bg-triv-paars', 'tekst' => 'text-triv-paars', 'hover' => 'group-hover:text-triv-paars', 'bolletje' => 'before:bg-triv-paars', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-paars)_6%,white)]', 'vorm' => 'bg-triv-paars/20'],
-    ['bg' => 'bg-triv-lightblue', 'tekst' => 'text-triv-lightblue', 'hover' => 'group-hover:text-triv-lightblue', 'bolletje' => 'before:bg-triv-lightblue', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-lightblue)_6%,white)]', 'vorm' => 'bg-triv-lightblue/20'],
+    ['bg' => 'bg-triv-hemelblauw', 'tekst' => 'text-triv-hemelblauw', 'hover' => 'group-hover:text-triv-hemelblauw', 'bolletje' => 'before:bg-triv-hemelblauw', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-hemelblauw)_11%,white)]', 'vorm' => 'bg-triv-hemelblauw/20'],
+    ['bg' => 'bg-triv-oudroze', 'tekst' => 'text-triv-oudroze', 'hover' => 'group-hover:text-triv-oudroze', 'bolletje' => 'before:bg-triv-oudroze', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-oudroze)_11%,white)]', 'vorm' => 'bg-triv-oudroze/20'],
+    ['bg' => 'bg-triv-koraal', 'tekst' => 'text-triv-koraal', 'hover' => 'group-hover:text-triv-koraal', 'bolletje' => 'before:bg-triv-koraal', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-koraal)_11%,white)]', 'vorm' => 'bg-triv-koraal/20'],
+    ['bg' => 'bg-triv-zeegroen', 'tekst' => 'text-triv-zeegroen', 'hover' => 'group-hover:text-triv-zeegroen', 'bolletje' => 'before:bg-triv-zeegroen', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-zeegroen)_11%,white)]', 'vorm' => 'bg-triv-zeegroen/20'],
+    ['bg' => 'bg-triv-paars', 'tekst' => 'text-triv-paars', 'hover' => 'group-hover:text-triv-paars', 'bolletje' => 'before:bg-triv-paars', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-paars)_11%,white)]', 'vorm' => 'bg-triv-paars/20'],
+    ['bg' => 'bg-triv-lightblue', 'tekst' => 'text-triv-lightblue', 'hover' => 'group-hover:text-triv-lightblue', 'bolletje' => 'before:bg-triv-lightblue', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-lightblue)_11%,white)]', 'vorm' => 'bg-triv-lightblue/20'],
   ];
   $rijen = count($onderwerpen);
 @endphp
@@ -45,12 +45,15 @@
             {{-- Titel + knop (kolom 1). Titels zijn h2, direct onder de h1 "Leren met Lef" in de hero --}}
             {{-- Vanaf lg verbindt een stippellijn de bolletjes tot een route (after: van elke h2 behalve de laatste,
                  van onder het bolletje tot boven het volgende; 32px = p-3 + rand + half bolletje - halve lijn) --}}
-            <h2 id="{{ $item['anker'] }}" style="--i: {{ $i }}"
+            {{-- Vanaf lg loopt het actieve onderwerp als tabblad door in het inhoudsvlak: zelfde tint, geen ruimte ertussen.
+                 De knop is daarvoor de kolomafstand (gap-x-10) plus 0,75rem breder, zodat hij ook de afgeronde hoek van het
+                 vlak afdekt, en de h2 komt boven het vlak te liggen (z-10). --}}
+            <h2 id="{{ $item['anker'] }}" style="--i: {{ $i }}" :class="actief === {{ $i }} && 'lg:z-10'"
               class="relative mb-0 scroll-mt-6 {{ $loop->last ? '' : 'lg:after:pointer-events-none lg:after:absolute lg:after:left-[32px] lg:after:top-[58px] lg:after:-bottom-[24px] lg:after:border-l-2 lg:after:border-dotted lg:after:border-triv-navy/20' }} lg:col-start-1 translate-y-6 opacity-0 transition-[translate,opacity] duration-700 ease-[cubic-bezier(.2,.8,.2,1)] delay-[calc(var(--i)*90ms)] group-data-shown/lef:translate-y-0 group-data-shown/lef:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none">
               <button type="button" id="lef-knop-{{ $i }}" aria-controls="lef-paneel-{{ $i }}"
                 aria-expanded="{{ $i === 0 ? 'true' : 'false' }}" :aria-expanded="(actief === {{ $i }}).toString()"
                 class="group flex w-full items-start gap-4 rounded-xl border border-transparent p-4 lg:p-3 text-left cursor-pointer transition-all duration-300"
-                :class="actief === {{ $i }} ? 'bg-white lg:border-triv-navy/10' : 'bg-white lg:bg-transparent lg:hover:bg-white/70'"
+                :class="actief === {{ $i }} ? 'bg-white {{ $kleur['vlak'] }} lg:w-[calc(100%+3.25rem)] lg:pr-[calc(0.75rem+3.25rem)] lg:rounded-r-none' : 'bg-white lg:bg-transparent lg:hover:bg-white/70'"
                 @click="kies({{ $i }})"
                 @keydown.down.prevent="naar({{ $i + 1 }})" @keydown.right.prevent="naar({{ $i + 1 }})"
                 @keydown.up.prevent="naar({{ $i - 1 }})" @keydown.left.prevent="naar({{ $i - 1 }})"
