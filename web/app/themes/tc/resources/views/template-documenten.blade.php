@@ -17,7 +17,7 @@
       <nav aria-label="Rubrieken" class="mb-12">
         <ul class="flex flex-wrap gap-2">
           @foreach($rubrieken as $rubriek)
-            <li><a href="#{{ $rubriek['id'] }}" class="inline-block rounded-full bg-white px-4 py-2 text-sm font-semibold text-triv-navy no-underline transition-colors hover:bg-(--accent) hover:text-white">{{ $rubriek['title'] }}</a></li>
+            <li><a href="#{{ $rubriek['id'] }}" class="inline-block rounded-full border border-[#ddd8cc] bg-white px-4 py-2 text-sm font-semibold text-triv-navy no-underline transition-colors hover:border-(--accent) hover:bg-(--accent) hover:text-white">{{ $rubriek['title'] }}</a></li>
           @endforeach
         </ul>
       </nav>
