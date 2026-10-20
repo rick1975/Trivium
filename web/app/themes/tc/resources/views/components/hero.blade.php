@@ -21,8 +21,8 @@
 
   {{-- Content: mobiel onderaan (anders valt de tekst over het gezicht op de foto), direct boven de golf van Leren met lef
        (die valt 4vh over de hero: 95 − 4 = 91vh, en de golf zelf nog 54px daarboven).
-       Vanaf tablet rechts in de onderste helft: 10vh boven de golf. pt-20 houdt hem vrij van de header. --}}
-  <div class="relative z-10 min-h-[91vh] flex flex-col justify-end pb-[54px] md:pt-20 md:pb-[10vh] items-end px-[6vw] 2xl:pr-52">
+       Vanaf tablet rechts in de onderste helft: 7vh boven de golf. pt-20 houdt hem vrij van de header. --}}
+  <div class="relative z-10 min-h-[91vh] flex flex-col justify-end pb-[54px] md:pt-20 md:pb-[7vh] items-end px-[6vw] 2xl:pr-52">
     <div class="max-w-[30rem]">
 
       {{-- Titel (visueel verborgen, animated-text neemt de lettergrootte hiervan over) --}}
@@ -32,11 +32,11 @@
       @include('components.animated-text')
 
       {{-- Subtitel --}}
-      <p class="text-white font-light text-base leading-relaxed mb-4 md:mb-8 max-w-[38rem]">
+      <p class="text-white font-light text-base leading-relaxed mb-3 md:mb-5 max-w-[38rem]">
         Veel kiezen en doen en met elkaar heel veel uitproberen. Lef betekent dat je dit durft. Want we doen veel samen en helpen elkaar vooruit. We zijn een kleine school met vertrouwde docenten die er de hele dag voor je zijn. </p>
 
       {{-- Buttons --}}
-      <div class="flex flex-wrap gap-3 md:mb-8">
+      <div class="flex flex-wrap gap-3">
         <x-button :href="App\page_url('onze-school')">Ontdek onze school</x-button>
       </div>
     </div>

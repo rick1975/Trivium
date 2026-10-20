@@ -221,7 +221,7 @@ export function initAnimatedText() {
             FONT_SIZE * 0.3;
 
         const bottomPad =
-            FONT_SIZE * 0.3;
+            FONT_SIZE * 0.12; // "Leren met Lef" heeft geen onderstokken, dus weinig ruimte onder nodig
 
         const lineHeight =
             FONT_SIZE * 1.05;
