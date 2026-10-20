@@ -24,7 +24,7 @@
   $rijen = count($onderwerpen);
 @endphp
 
-<section class="relative z-20 -mt-[4vh]">
+<section class="relative z-20 -mt-[7vh]">
   {{-- Golfboog direct over de hero-foto: de section zelf heeft hier geen achtergrond, zodat er contrast is --}}
   @include('components.wave-divider', ['fill' => '#fbfaf4'])
 
