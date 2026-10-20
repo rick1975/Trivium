@@ -1,11 +1,17 @@
 {{-- ── HERO — volledige breedte foto met tekst erop ── --}}
 <section class="relative min-h-[95vh] overflow-hidden">
 
-  {{-- Foto volledige breedte; op mobiel iets naar links uitgesneden zodat het lachende meisje in beeld blijft --}}
+  {{-- Foto volledige breedte (onder de video); op mobiel iets naar links uitgesneden zodat het lachende meisje in beeld blijft --}}
   <img src="{{ Vite::asset('resources/images/leerlingen-aan-tafel-meisje-lacht.avif') }}" alt="Lachende leerling aan een tafel met klasgenoten van Trivium College"
     fetchpriority="high" decoding="async"
     class="absolute inset-0 w-full h-full object-cover object-[22%_0%] md:object-top"
   />
+
+  {{-- Bovenbanner-video over de foto heen; de foto blijft zichtbaar tijdens het laden en bij "minder beweging" --}}
+  <video autoplay muted loop playsinline preload="auto" aria-hidden="true"
+    class="absolute inset-0 w-full h-full object-cover motion-reduce:hidden">
+    <source src="{{ Vite::asset('resources/images/Trivium_Bovenbanner1.mp4') }}" type="video/mp4">
+  </video>
 
   {{-- Overlay (mobiel van onder, onder de tekst; vanaf tablet van rechts) --}}
   <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-black/70 md:from-black/60 via-black/30 to-transparent"></div>
