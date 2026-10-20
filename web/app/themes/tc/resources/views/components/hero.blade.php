@@ -41,7 +41,13 @@
 
       {{-- Buttons --}}
       <div @class(['flex flex-wrap gap-3', 'max-md:hidden' => $verbergMobiel])>
-        <x-button :href="App\page_url('onze-school')">Ontdek onze school</x-button>
+        {{-- Trivium Settings > Hero > Knop; leeg = Ontdek onze school --}}
+        @php($knop = function_exists('get_field') ? get_field('hero_link', 'option') : null)
+        @if(! empty($knop['url']))
+          <x-button :href="$knop['url']" :target="$knop['target'] ?: null">{{ $knop['title'] ?: 'Meer informatie' }}</x-button>
+        @else
+          <x-button :href="App\page_url('onze-school')">Ontdek onze school</x-button>
+        @endif
       </div>
     </div>
   </div>

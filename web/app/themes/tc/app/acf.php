@@ -88,6 +88,14 @@ add_action('acf/init', function () {
                 'instructions' => 'Ja = op mobiel alleen de geanimeerde titel over de video; vanaf tablet blijven tekst en knop zichtbaar.',
                 'ui' => 1,
             ],
+            [
+                'key' => 'field_trivium_hero_link',
+                'label' => 'Knop',
+                'name' => 'hero_link',
+                'type' => 'link',
+                'instructions' => 'Bijvoorbeeld "Aanmelden info-avond" naar de open dagen. Leeg = "Ontdek onze school".',
+                'return_format' => 'array',
+            ],
         ],
         'location' => $location('trivium-hero'),
     ]);
