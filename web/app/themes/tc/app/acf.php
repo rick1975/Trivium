@@ -85,7 +85,7 @@ add_action('acf/init', function () {
                 'label' => 'Tekst en knop op mobiel verbergen',
                 'name' => 'hero_mobiel_verbergen',
                 'type' => 'true_false',
-                'instructions' => 'Aan = op mobiel alleen de geanimeerde titel over de video; vanaf tablet blijven tekst en knop zichtbaar.',
+                'instructions' => 'Ja = op mobiel alleen de geanimeerde titel over de video; vanaf tablet blijven tekst en knop zichtbaar.',
                 'ui' => 1,
             ],
         ],

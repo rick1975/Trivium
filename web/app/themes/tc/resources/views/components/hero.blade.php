@@ -23,9 +23,11 @@
 
   {{-- Content: mobiel onderaan (anders valt de tekst over het gezicht op de foto), direct boven de golf van Leren met lef
        (die valt 4vh over de hero: 95 − 4 = 91vh, en de golf zelf nog 54px daarboven).
-       Vanaf tablet rechts in de onderste helft: 7vh boven de golf. pt-20 houdt hem vrij van de header. --}}
-  <div class="relative z-10 min-h-[91vh] flex flex-col justify-end pb-[54px] md:pt-20 md:pb-[7vh] items-end px-[6vw] 2xl:pr-52">
-    <div class="max-w-[30rem]">
+       Vanaf tablet rechts in de onderste helft: 7vh boven de golf. pt-20 houdt hem vrij van de header.
+       Met alleen de titel op mobiel (Trivium Settings > Hero) staat hij iets hoger en over de volle breedte,
+       want de SVG heeft geen eigen breedte en krimpt anders in. --}}
+  <div @class(['relative z-10 min-h-[91vh] flex flex-col justify-end md:pt-20 md:pb-[7vh] items-end px-[6vw] 2xl:pr-52', $verbergMobiel ? 'pb-[14vh]' : 'pb-[54px]'])>
+    <div @class(['max-w-[30rem]', 'max-md:w-full' => $verbergMobiel])>
 
       {{-- Titel (visueel verborgen, animated-text neemt de lettergrootte hiervan over) --}}
       <h1 class="sr-only text-5xl sm:text-6xl lg:text-7xl font-bold">Leren met Lef</h1>
