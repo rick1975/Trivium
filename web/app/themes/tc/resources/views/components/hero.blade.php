@@ -1,5 +1,5 @@
 {{-- ── HERO — volledige breedte foto met tekst erop ── --}}
-<section class="relative min-h-[95vh] overflow-hidden">
+<section class="relative min-h-[100vh] overflow-hidden">
 
   {{-- Foto volledige breedte (onder de video); op mobiel iets naar links uitgesneden zodat het lachende meisje in beeld blijft --}}
   <img src="{{ Vite::asset('resources/images/leerlingen-aan-tafel-meisje-lacht.avif') }}" alt="Lachende leerling aan een tafel met klasgenoten van Trivium College"
@@ -20,9 +20,9 @@
   <div class="md:hidden absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,0,0,0.55),transparent_55%)]"></div>
 
   {{-- Content: mobiel onderaan (anders valt de tekst over het gezicht op de foto), direct boven de golf van Leren met lef
-       (die valt 8vh over de hero: 95 − 8 = 87vh, en de golf zelf nog 54px daarboven).
+       (die valt 8vh over de hero: 100 − 8 = 92vh, en de golf zelf nog 54px daarboven).
        Vanaf tablet rechts in de onderste helft: 10vh boven de golf. pt-20 houdt hem vrij van de header. --}}
-  <div class="relative z-10 min-h-[87vh] flex flex-col justify-end pb-[54px] md:pt-20 md:pb-[10vh] items-end px-[6vw] 2xl:pr-52">
+  <div class="relative z-10 min-h-[92vh] flex flex-col justify-end pb-[54px] md:pt-20 md:pb-[10vh] items-end px-[6vw] 2xl:pr-52">
     <div class="max-w-[30rem]">
 
       {{-- Titel (visueel verborgen, animated-text neemt de lettergrootte hiervan over) --}}
