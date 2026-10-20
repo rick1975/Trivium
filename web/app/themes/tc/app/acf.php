@@ -14,6 +14,7 @@ namespace App;
  * Subpagina's onder "Trivium Settings": slug => titel.
  */
 const OPTION_PAGES = [
+    'trivium-hero' => 'Hero',
     'trivium-contact' => 'Contactgegevens',
     'trivium-leren-met-lef' => 'Leren met lef',
     'trivium-snelle-links' => 'Snelle links',
@@ -74,6 +75,22 @@ add_action('acf/init', function () {
         'allow_archives' => 0,
         'required' => 1,
     ];
+
+    acf_add_local_field_group([
+        'key' => 'group_trivium_hero',
+        'title' => 'Hero',
+        'fields' => [
+            [
+                'key' => 'field_trivium_hero_mobiel_verbergen',
+                'label' => 'Tekst en knop op mobiel verbergen',
+                'name' => 'hero_mobiel_verbergen',
+                'type' => 'true_false',
+                'instructions' => 'Aan = op mobiel alleen de geanimeerde titel over de video; vanaf tablet blijven tekst en knop zichtbaar.',
+                'ui' => 1,
+            ],
+        ],
+        'location' => $location('trivium-hero'),
+    ]);
 
     acf_add_local_field_group([
         'key' => 'group_trivium_contact',

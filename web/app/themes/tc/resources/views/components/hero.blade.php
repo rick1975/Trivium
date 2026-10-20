@@ -1,4 +1,6 @@
 {{-- ── HERO — volledige breedte foto met tekst erop ── --}}
+{{-- Trivium Settings > Hero: tekst en knop op mobiel verbergen (alleen de titel blijft) --}}
+@php($verbergMobiel = function_exists('get_field') && get_field('hero_mobiel_verbergen', 'option'))
 <section class="relative min-h-[95vh] overflow-hidden">
 
   {{-- Foto volledige breedte (onder de video); op mobiel iets naar links uitgesneden zodat het lachende meisje in beeld blijft --}}
@@ -32,11 +34,11 @@
       @include('components.animated-text')
 
       {{-- Subtitel --}}
-      <p class="text-white font-light text-base leading-relaxed mb-3 md:mb-5 max-w-[38rem]">
+      <p @class(['text-white font-light text-base leading-relaxed mb-3 md:mb-5 max-w-[38rem]', 'max-md:hidden' => $verbergMobiel])>
         Veel kiezen en doen en met elkaar heel veel uitproberen. Lef betekent dat je dit durft. Want we doen veel samen en helpen elkaar vooruit. We zijn een kleine school met vertrouwde docenten die er de hele dag voor je zijn. </p>
 
       {{-- Buttons --}}
-      <div class="flex flex-wrap gap-3">
+      <div @class(['flex flex-wrap gap-3', 'max-md:hidden' => $verbergMobiel])>
         <x-button :href="App\page_url('onze-school')">Ontdek onze school</x-button>
       </div>
     </div>
