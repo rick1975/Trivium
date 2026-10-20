@@ -615,15 +615,30 @@ export function initAnimatedText() {
     |--------------------------------------------------------------------------
     | Opnieuw opbouwen bij resize, zodat de tekst even
     | groot blijft als de (responsive) h1 erboven.
+    |
+    | We kijken naar de breedte van het titelvlak zelf en niet
+    | alleen naar het venster: die hangt ook af van de tekst
+    | eronder, en wordt dus nog breder zodra de overige fonts
+    | binnen zijn. Zonder dit bleef de titel bij een koude cache
+    | soms te klein (zonder venster-resize geen nieuwe meting).
+    | Dubbele metingen vangt buildKey af.
     |--------------------------------------------------------------------------
     */
 
     let resizeTimer;
 
-    window.addEventListener("resize", () => {
+    const scheduleBuild = () => {
 
         clearTimeout(resizeTimer);
 
-        resizeTimer = setTimeout(build, 200);
-    });
+        resizeTimer = setTimeout(build, 150);
+    };
+
+    if (window.ResizeObserver) {
+        new ResizeObserver(scheduleBuild).observe(container);
+    } else {
+        window.addEventListener("resize", scheduleBuild);
+    }
+
+    document.fonts?.ready.then(scheduleBuild);
 }

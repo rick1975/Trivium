@@ -26,7 +26,7 @@
        Vanaf tablet rechts in de onderste helft: 7vh boven de golf. pt-20 houdt hem vrij van de header.
        Met alleen de titel op mobiel (Trivium Settings > Hero) staat hij iets hoger en over de volle breedte,
        want de SVG heeft geen eigen breedte en krimpt anders in. --}}
-  <div @class(['relative z-10 min-h-[91vh] flex flex-col justify-end md:pt-20 md:pb-[7vh] items-end px-[6vw] 2xl:pr-52', $verbergMobiel ? 'pb-[14vh]' : 'pb-[54px]'])>
+  <div @class(['relative z-10 min-h-[91vh] flex flex-col justify-end md:pt-20 md:pb-[7vh] items-end px-[6vw] 2xl:pr-52', $verbergMobiel ? 'pb-[9vh]' : 'pb-[54px]'])>
     <div @class(['max-w-[30rem]', 'max-md:w-full' => $verbergMobiel])>
 
       {{-- Titel (visueel verborgen, animated-text neemt de lettergrootte hiervan over) --}}
