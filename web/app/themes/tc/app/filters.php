@@ -159,3 +159,11 @@ add_action('template_redirect', function () {
         exit;
     }
 });
+
+/**
+ * TranslatePress herkent uploads alleen aan "wp-content/uploads"; in Bedrock staan ze in /app/uploads/. Zonder dit
+ * krijgen links naar PDF's e.d. op vertaalde pagina's een taal ervoor (/en/app/uploads/…pdf/) en geven ze een 404.
+ */
+add_filter('trp_url_is_file', function ($isFile, $url) {
+    return $isFile || str_starts_with((string) $url, wp_get_upload_dir()['baseurl'].'/');
+}, 10, 2);

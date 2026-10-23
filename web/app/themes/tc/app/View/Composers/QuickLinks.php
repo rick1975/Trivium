@@ -28,11 +28,18 @@ class QuickLinks extends Composer
                 // Zonder eigen foto (Trivium Settings > Snelle links) toont de kaart een navy vlak
                 'image' => ! empty($cta['afbeelding']) ? wp_get_attachment_image_url($cta['afbeelding'], 'large') : null,
             ], $blocks),
-            'links' => array_map(fn ($link) => [
-                'title' => $link['titel'],
-                'text' => $link['tekst'],
-                'url' => $link['pagina'] ?: '#',
-            ], $field('snelle_links_links') ?: []),
+            'links' => array_map(function ($link) {
+                // Een bestand (bv. de schoolgids-PDF) gaat voor de pagina en opent in een nieuw tabblad
+                $file = ! empty($link['bestand']) ? wp_get_attachment_url($link['bestand']) : null;
+                $anchor = ltrim((string) ($link['anker'] ?? ''), '#');
+
+                return [
+                    'title' => $link['titel'],
+                    'text' => $link['tekst'],
+                    'url' => $file ?: (($link['pagina'] ?: '#').($anchor !== '' ? '#'.$anchor : '')),
+                    'file' => (bool) $file,
+                ];
+            }, $field('snelle_links_links') ?: []),
         ];
     }
 }

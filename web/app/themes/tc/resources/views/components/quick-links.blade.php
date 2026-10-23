@@ -71,8 +71,8 @@
            zodat ze los op het rimpelpatroon liggen --}}
       <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-0" aria-labelledby="quick-links-direct">
         @foreach($links as $link)
-          <li class="mb-0"><a href="{{ $link['url'] }}" class="group flex h-full items-center justify-between gap-4 rounded-xl bg-white border border-gray-200 px-5 py-4 no-underline shadow-[0_1px_2px_rgb(11_31_58/0.04)] transition-colors duration-200 hover:border-triv-pink">
-            <span class="text-lg font-bold text-triv-navy group-hover:text-triv-pink transition-colors">{{ $link['title'] }}</span>
+          <li class="mb-0"><a href="{{ $link['url'] }}" @if($link['file']) target="_blank" rel="noopener" @endif class="group flex h-full items-center justify-between gap-4 rounded-xl bg-white border border-gray-200 px-5 py-4 no-underline shadow-[0_1px_2px_rgb(11_31_58/0.04)] transition-colors duration-200 hover:border-triv-pink">
+            <span class="text-lg font-bold text-triv-navy group-hover:text-triv-pink transition-colors">{{ $link['title'] }}@if($link['file'])<span class="sr-only"> (PDF, opent in een nieuw tabblad)</span>@endif</span>
             <x-icon name="chevron-right" class="size-4 shrink-0 stroke-[2.5] text-triv-pink transition-transform duration-200 group-hover:translate-x-1.5" />
           </a></li>
         @endforeach
