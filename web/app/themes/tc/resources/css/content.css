@@ -28,6 +28,23 @@
     @apply mb-6 pl-6 list-disc marker:text-(--accent);
   }
 
+  /* Ingesloten video (YouTube e.d.): schermvullend in de tekstkolom, 16:9, afgerond */
+  .wp-block-embed {
+    @apply my-10;
+
+    .wp-block-embed__wrapper {
+      @apply overflow-hidden rounded-2xl bg-triv-navy shadow-[0_12px_30px_-20px_rgb(11_31_58/0.5)];
+    }
+
+    iframe {
+      @apply block aspect-video h-auto w-full;
+    }
+
+    figcaption {
+      @apply mt-3 text-center text-sm text-gray-600;
+    }
+  }
+
   .wp-block-table {
     @apply mb-8 overflow-x-auto rounded-xl border border-gray-200 bg-white;
 
