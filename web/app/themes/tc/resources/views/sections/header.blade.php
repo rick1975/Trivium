@@ -14,7 +14,8 @@
 
       {{-- Logo (op desktop iets omlaag: de bovenste regel "VMBO" is klein, waardoor het logo optisch te hoog staat t.o.v. de iconen) --}}
       <a href="{{ home_url('/') }}" class="block lg:translate-y-2" aria-label="{{ $siteName }} – home">
-        <x-logo @class(["w-48 md:w-56 lg:w-64", "[--logo-letters:#fff]" => $overPhoto]) aria-hidden="true" />
+        {{-- Onder 360px kleiner, anders passen logo en de drie knoppen er niet naast elkaar op --}}
+        <x-logo @class(["w-40 min-[360px]:w-48 md:w-56 lg:w-64", "[--logo-letters:#fff]" => $overPhoto]) aria-hidden="true" />
       </a>
 
       {{-- Zoek-icoon + hamburger, altijd gegroepeerd rechts --}}
