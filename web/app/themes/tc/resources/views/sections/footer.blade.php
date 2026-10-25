@@ -99,7 +99,13 @@
     <p class="mb-0 text-left text-xs md:text-sm text-white/60">
       &copy; {{ date('Y') }} {{ $siteName }}. Alle rechten voorbehouden.
     </p>
-    <p class="mb-0 text-xs md:text-sm font-semibold uppercase tracking-wider text-white/60">VMBO B/K en K/TL</p>
+    <div class="flex items-center gap-3">
+      <p class="mb-0 text-xs md:text-sm font-semibold uppercase tracking-wider text-white/60">VMBO B/K en K/TL</p>
+      <a href="https://www.instagram.com/vmbotriviumcollege/" target="_blank" rel="noopener" aria-label="Volg ons op Instagram"
+        class="-m-1.5 p-1.5 text-white/60 transition-colors hover:text-white">
+        <x-icon name="instagram" />
+      </a>
+    </div>
   </div>
 </div>
 </footer>
