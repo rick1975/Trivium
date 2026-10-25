@@ -34,7 +34,8 @@ class Documents extends Composer
 
                 return [
                     'url' => $url,
-                    'title' => $document['titel'] ?: get_the_title($id),
+                    // get_the_title geeft HTML-entiteiten (&#8211;), Blade escapet die nog een keer
+                    'title' => $document['titel'] ?: html_entity_decode(get_the_title($id), ENT_QUOTES | ENT_HTML5, 'UTF-8'),
                     'type' => strtoupper(pathinfo($url, PATHINFO_EXTENSION)),
                     'size' => $path && file_exists($path) ? size_format(filesize($path), 1) : null,
                 ];
