@@ -84,8 +84,9 @@
         <div class="mt-10 px-1">
           <h2 class="text-triv-blue text-xs md:text-xs font-semibold uppercase tracking-widest leading-normal [font-family:inherit] mb-3">Contact</h2>
           <address class="not-italic text-sm text-stone-600 leading-relaxed">
+            {{-- Adres niet vertalen (TranslatePress maakte van Dierenriem "Zodiac") --}}
             @if($contact->adres)
-              <p>{!! nl2br(e($contact->adres)) !!}</p>
+              <p data-no-translation>{!! nl2br(e($contact->adres)) !!}</p>
             @endif
             @if($contact->email || $contact->telefoon)
               <p class="mt-3">

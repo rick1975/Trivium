@@ -66,8 +66,9 @@
         @endif
         @if($contact->adres || $contact->telefoon || $contact->email)
           <address class="not-italic">
+            {{-- Adres niet vertalen (TranslatePress maakte van Dierenriem "Zodiac") --}}
             @if($contact->adres)
-              <p>{!! nl2br(e($contact->adres)) !!}</p>
+              <p data-no-translation>{!! nl2br(e($contact->adres)) !!}</p>
             @endif
             @if($contact->telefoon || $contact->email)
               <p>
