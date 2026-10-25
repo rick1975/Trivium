@@ -495,6 +495,13 @@ add_action('acf/init', function () {
                         'required' => 1,
                     ],
                     $pageLink('field_trivium_populaire_pagina_pagina'),
+                    [
+                        'key' => 'field_trivium_populaire_pagina_externe_link',
+                        'label' => 'Of een externe link',
+                        'name' => 'externe_link',
+                        'type' => 'url',
+                        'instructions' => 'Bijvoorbeeld Magister. Gaat voor de pagina en opent in een nieuw tabblad.',
+                    ],
                 ],
             ],
         ],

@@ -35,7 +35,12 @@ class Menu extends Composer
                 $button('menu_knop_2', 'Open dagen', 'open-dagen'),
             ],
             'popularPages' => $popularSaved
-                ? array_map(fn ($row) => (object) ['title' => $row['titel'], 'url' => $row['pagina'] ?: '#'], $field('populaire_paginas') ?: [])
+                // Een externe link (bv. Magister) gaat voor de pagina en opent in een nieuw tabblad
+                ? array_map(fn ($row) => (object) [
+                    'title' => $row['titel'],
+                    'url' => ($row['externe_link'] ?? '') ?: ($row['pagina'] ?: '#'),
+                    'extern' => ! empty($row['externe_link']),
+                ], $field('populaire_paginas') ?: [])
                 : static::defaultPopularPages(),
         ];
     }

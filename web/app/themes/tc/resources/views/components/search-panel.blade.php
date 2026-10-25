@@ -70,7 +70,7 @@
         <ul class="flex flex-col">
           @foreach($popularPages as $page)
             <li class="border-b border-stone-300 last:border-b-0">
-              <a href="{{ $page->url }}"
+              <a href="{{ $page->url }}" @if($page->extern ?? false) target="_blank" rel="noopener" @endif
                 class="group w-full flex items-center justify-between font-semibold gap-2 px-1 py-2.5 text-sm text-stone-500 no-underline hover:text-triv-pink transition-colors">
                 <span class="transition-transform duration-200 group-hover:translate-x-1.5">{{ $page->title }}</span>
                 <x-icon name="chevron-right" class="size-3 shrink-0 transition-transform duration-200 group-hover:translate-x-1.5" />
