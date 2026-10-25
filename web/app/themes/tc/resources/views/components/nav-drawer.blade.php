@@ -23,7 +23,7 @@
   {{-- Kop: sluiten --}}
   <div class="flex items-center justify-end px-6 lg:px-8 pt-6 pb-4 shrink-0">
     <button type="button" @click="mobileOpen = false"
-      class="w-9 h-9 rounded-full flex items-center justify-center bg-white text-[#1a1612] shadow-sm hover:bg-triv-pink hover:text-white hover:rotate-90 transition-all duration-300 cursor-pointer"
+      class="w-9 h-9 rounded-full flex items-center justify-center bg-white text-stone-500 hover:bg-triv-pink hover:text-white hover:rotate-90 transition-all duration-300 cursor-pointer"
       aria-label="Menu sluiten">
       <x-icon name="close" />
     </button>
