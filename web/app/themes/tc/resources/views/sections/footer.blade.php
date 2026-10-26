@@ -107,7 +107,7 @@
       </a>
       <a href="https://triviumcollege.magister.net/" target="_blank" rel="noopener" aria-label="Inloggen in Magister"
         class="-m-1.5 p-1.5 text-white/60 transition-colors hover:text-white">
-        <x-icon name="magister" />
+        <x-icon name="magister" :size="22" />
       </a>
     </div>
   </div>
