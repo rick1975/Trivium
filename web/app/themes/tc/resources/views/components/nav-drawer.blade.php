@@ -86,17 +86,19 @@
   </nav>
 
   {{-- Niveaus (zoals op de brochure en in de footer): zacht, in het grijs van de pijltjes naast de menu-items; op de lijn van de menutekst.
-       Daarnaast Instagram en Magister --}}
+       Rechts Instagram en Magister --}}
   <div class="shrink-0 flex items-center gap-3 px-6 lg:px-8 pb-3">
     <p class="mb-0 text-xs font-bold tracking-wide text-stone-400">VMBO B/K en K/TL</p>
-    <a href="https://www.instagram.com/vmbotriviumcollege/" target="_blank" rel="noopener" aria-label="Volg ons op Instagram"
-      class="-m-1.5 p-1.5 text-stone-400 transition-colors hover:text-triv-pink">
-      <x-icon name="instagram" :size="16" />
-    </a>
-    <a href="https://triviumcollege.magister.net/" target="_blank" rel="noopener" aria-label="Inloggen in Magister"
-      class="-m-1.5 p-1.5 text-stone-400 transition-colors hover:text-triv-pink">
-      <x-icon name="magister" :size="16" />
-    </a>
+    <div class="ml-auto flex items-center gap-3">
+      <a href="https://www.instagram.com/vmbotriviumcollege/" target="_blank" rel="noopener" aria-label="Volg ons op Instagram"
+        class="-m-1.5 p-1.5 text-stone-400 transition-colors hover:text-triv-pink">
+        <x-icon name="instagram" :size="16" />
+      </a>
+      <a href="https://triviumcollege.magister.net/" target="_blank" rel="noopener" aria-label="Inloggen in Magister"
+        class="-m-1.5 p-1.5 text-stone-400 transition-colors hover:text-triv-pink">
+        <x-icon name="magister" :size="16" />
+      </a>
+    </div>
   </div>
 
   {{-- Voet: snelle acties --}}
