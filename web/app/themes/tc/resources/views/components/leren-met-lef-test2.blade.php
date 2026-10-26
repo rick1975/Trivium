@@ -110,7 +110,8 @@
           </div>
         </template>
 
-        {{-- Tekstpaneel: schuift van rechts in beeld (mobiel volledig scherm, desktop zwevend paneel rechts, zoals het menu).
+        {{-- Tekstpaneel: schuift van rechts in beeld (mobiel volledig scherm, desktop zwevend paneel rechts zoals het menu, maar breder
+             en met de opsomming in twee kolommen, zodat de tekst zonder scrollen in beeld past).
              Bovenin een vlak in de onderwerpkleur met de titel. --}}
         <template x-teleport="body">
           <div>
@@ -122,8 +123,8 @@
                 x-transition:enter="transition ease-out duration-400" x-transition:enter-start="opacity-0 translate-x-12" x-transition:enter-end="opacity-100 translate-x-0"
                 x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 translate-x-12"
                 role="dialog" aria-modal="true" aria-labelledby="lef-lees-{{ $i }}"
-                class="fixed inset-0 z-60 flex flex-col overflow-hidden bg-white shadow-2xl lg:inset-auto lg:top-3 lg:right-3 lg:bottom-3 lg:w-[520px] lg:rounded-3xl" style="display: none;">
-                <div class="{{ $kleur['vlak'] }} relative shrink-0 overflow-hidden px-6 pt-16 pb-6 sm:px-10">
+                class="fixed inset-0 z-60 flex flex-col overflow-hidden bg-white shadow-2xl lg:inset-auto lg:top-3 lg:right-3 lg:bottom-3 lg:w-[min(56rem,calc(100vw-1.5rem))] lg:rounded-3xl" style="display: none;">
+                <div class="{{ $kleur['vlak'] }} relative shrink-0 overflow-hidden px-6 pt-16 pb-6 sm:px-10 lg:pt-10 lg:pr-20">
                   <button type="button" @click="lees = null" aria-label="Sluiten"
                     class="absolute top-4 right-4 flex size-9 cursor-pointer items-center justify-center rounded-full bg-white text-stone-500 transition-all duration-300 hover:rotate-90 hover:text-triv-navy">
                     <x-icon name="close" />
@@ -140,10 +141,10 @@
                     </button>
                   @endif
                 </div>
-                <div class="flex flex-1 flex-col gap-5 overflow-y-auto px-6 py-8 text-base sm:px-10">
+                <div class="flex flex-1 flex-col gap-5 overflow-y-auto px-6 py-8 text-base sm:px-10 lg:py-10">
                   @foreach($item['blokken'] as $blok)
                     @if($blok['type'] === 'lijst')
-                      <ul class="mb-0 grid gap-4 pl-0">
+                      <ul class="mb-0 grid gap-x-10 gap-y-5 pl-0 lg:grid-cols-2">
                         @foreach($blok['punten'] as $punt)
                           <li class="relative mb-0 list-none pl-5 before:absolute before:left-0 before:top-[0.55em] before:size-2 before:rounded-full {{ $kleur['bolletje'] }}">
                             <span @class(['block', 'font-semibold text-triv-navy' => $punt['vet'], 'text-stone-600' => ! $punt['vet']])>{{ $punt['kop'] }}</span>
