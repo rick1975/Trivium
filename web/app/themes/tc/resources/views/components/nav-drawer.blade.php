@@ -96,7 +96,7 @@
       </a>
       <a href="https://triviumcollege.magister.net/" target="_blank" rel="noopener" aria-label="Inloggen in Magister"
         class="-m-1.5 p-1.5 text-stone-400 transition-colors hover:text-triv-pink">
-        <x-icon name="magister" :size="16" />
+        <x-icon name="magister" :size="20" />
       </a>
     </div>
   </div>
