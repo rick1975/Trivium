@@ -174,6 +174,13 @@ add_action('acf/init', function () {
                         'instructions' => 'Optioneel. Vanaf desktop rechts naast de inhoud (staand beeld werkt het best), op mobiel erboven.',
                     ],
                     [
+                        'key' => 'field_trivium_leren_met_lef_video',
+                        'label' => 'Video',
+                        'name' => 'video',
+                        'type' => 'url',
+                        'instructions' => 'Optioneel. Link naar een (liggende) video op YouTube of Vimeo. Op de foto komt een afspeelknop; zonder foto wordt het beeld van de video zelf gebruikt. De video speelt af in een venster.',
+                    ],
+                    [
                         'key' => 'field_trivium_leren_met_lef_content',
                         'label' => 'Content',
                         'name' => 'content',

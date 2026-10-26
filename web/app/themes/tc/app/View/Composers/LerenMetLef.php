@@ -21,9 +21,54 @@ class LerenMetLef extends Composer
                 'anker' => $this->anker($item['titel'] ?? ''),
                 'intro' => $item['intro'] ?? '',
                 'foto' => $item['foto'] ?? null,
+                'video' => $this->video($item['video'] ?? ''),
                 'blokken' => $this->blokken($item['content'] ?? ''),
             ], $onderwerpen),
         ];
+    }
+
+    /**
+     * Video-link (YouTube of Vimeo) omzetten naar wat de speler nodig heeft: de embed-URL (pas na de klik geladen, zonder
+     * tracking), een stilstaand beeld voor als er geen foto is en de duur (die geeft alleen Vimeo zonder API-sleutel).
+     * De Vimeo-gegevens komen uit oEmbed en worden een dag bewaard. Onbekende link → null, dan blijft alles zoals zonder video.
+     */
+    protected function video(string $url): ?array
+    {
+        $url = trim($url);
+
+        if (preg_match('~(?:youtube(?:-nocookie)?\.com/(?:watch\?(?:.*&)?v=|embed/|shorts/|live/)|youtu\.be/)([\w-]{11})~', $url, $m)) {
+            return [
+                'embed' => "https://www.youtube-nocookie.com/embed/{$m[1]}?autoplay=1&rel=0",
+                'beeld' => "https://i.ytimg.com/vi/{$m[1]}/maxresdefault.jpg",
+                'reserve' => "https://i.ytimg.com/vi/{$m[1]}/hqdefault.jpg",
+                'duur' => null,
+            ];
+        }
+
+        // Ook niet-openbare video's: vimeo.com/123/abcdef of player.vimeo.com/video/123?h=abcdef
+        if (preg_match('~vimeo\.com/(?:video/)?(\d+)(?:/([\da-f]+))?~', $url, $m)) {
+            $hash = $m[2] ?? (preg_match('~[?&]h=([\da-f]+)~', $url, $h) ? $h[1] : '');
+
+            $sleutel = 'trivium_vimeo_'.md5($url);
+            $info = get_transient($sleutel);
+            if ($info === false) {
+                $antwoord = wp_remote_get('https://vimeo.com/api/oembed.json?width=1280&url='.rawurlencode($url), ['timeout' => 5]);
+                $info = json_decode(wp_remote_retrieve_body($antwoord), true) ?: [];
+                // Mislukt: na een uur opnieuw proberen
+                set_transient($sleutel, $info, $info ? DAY_IN_SECONDS : HOUR_IN_SECONDS);
+            }
+
+            $duur = (int) ($info['duration'] ?? 0);
+
+            return [
+                'embed' => "https://player.vimeo.com/video/{$m[1]}?autoplay=1&dnt=1".($hash ? "&h={$hash}" : ''),
+                'beeld' => $info['thumbnail_url'] ?? null,
+                'reserve' => null,
+                'duur' => $duur ? sprintf('%d:%02d', intdiv($duur, 60), $duur % 60) : null,
+            ];
+        }
+
+        return null;
     }
 
     /**
