@@ -3,7 +3,8 @@
 
 @section('before-main')
   @include('components.hero')
-  @include('components.leren-met-lef')
+  {{-- Testversie van Leren met lef via ?lef-test (zie components/leren-met-lef-test) --}}
+  @include(request()->has('lef-test') ? 'components.leren-met-lef-test' : 'components.leren-met-lef')
 @endsection
 
 @section('content')

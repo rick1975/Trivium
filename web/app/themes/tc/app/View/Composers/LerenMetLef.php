@@ -9,6 +9,7 @@ class LerenMetLef extends Composer
 {
     protected static $views = [
         'components.leren-met-lef',
+        'components.leren-met-lef-test',
     ];
 
     public function with()
