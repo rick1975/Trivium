@@ -19,9 +19,10 @@
   @include('components.wave-divider', ['fill' => '#fbfaf4'])
 
   <div class="bg-triv-cream pt-12 pb-20" x-data="{ video: null, lees: null }">
-    <div class="page-container">
+    {{-- Vanaf lg breder dan de rest van de pagina (page-container is 1280px), zodat de tegels meer ruimte krijgen --}}
+    <div class="page-container lg:max-w-[1600px] lg:px-8">
       @if($onderwerpen)
-        <ul class="mb-0 grid list-none grid-cols-2 gap-3 pl-0 sm:gap-4 lg:h-[min(40rem,calc(100vh-8rem))] lg:grid-cols-4 lg:grid-rows-2">
+        <ul class="mb-0 grid list-none grid-cols-2 gap-3 pl-0 sm:gap-4 lg:h-[min(46rem,calc(100vh-7rem))] lg:grid-cols-4 lg:grid-rows-2">
           @foreach ($onderwerpen as $i => $item)
             @php($kleur = $kleuren[$i % count($kleuren)])
             @php($actie = $item['video'] ? "video = {$i}" : "lees = {$i}")
