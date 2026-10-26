@@ -49,7 +49,7 @@
               @endif
 
               {{-- Groot cijfer: bij de grote tegel rechtsboven, bij de andere rechtsonder (achter de tekst); over een foto iets sterker, met een zachte schaduw --}}
-              <span aria-hidden="true" @class(['pointer-events-none absolute font-[\'Poppins\',sans-serif] font-black leading-none', 'text-white/20' => ! $item['foto'] && ! ($item['video']['beeld'] ?? null), 'text-white/45 [text-shadow:0_4px_40px_rgb(11_31_58/0.25)]' => $item['foto'] || ($item['video']['beeld'] ?? null), 'top-4 right-5 text-[6rem] lg:top-6 lg:right-8 lg:text-[9rem]' => $i === 0, 'right-4 bottom-3 text-[2.75rem] lg:right-5 lg:bottom-4 lg:text-[3.5rem]' => $i > 0])>{{ $i + 1 }}</span>
+              <span aria-hidden="true" @class(['pointer-events-none absolute font-[\'Poppins\',sans-serif] font-black leading-none', 'text-white/20' => ! $item['foto'] && ! ($item['video']['beeld'] ?? null), 'text-white/45 [text-shadow:0_4px_40px_rgb(11_31_58/0.25)]' => $item['foto'] || ($item['video']['beeld'] ?? null), 'top-3 right-4 text-[3rem] lg:top-5 lg:right-6 lg:text-[5rem]' => $i === 0, 'right-4 bottom-3 text-[2.75rem] lg:right-5 lg:bottom-4 lg:text-[3.5rem]' => $i > 0])>{{ $i + 1 }}</span>
 
               {{-- De hele tegel is klikbaar (video, of zonder video de tekst); voor toetsenbord en schermlezer tellen de knoppen onderin --}}
               <button type="button" @click="{{ $actie }}" tabindex="-1" aria-hidden="true" class="absolute inset-0 size-full cursor-pointer"></button>
