@@ -1,7 +1,7 @@
 {{-- ── LEREN MET LEF (TESTVERSIE 2, te zien via /?lef-test=2) — zelfde gegevens als components/leren-met-lef (Composers\LerenMetLef).
      Concept "alles in één oogopslag": de onderwerpen als tegels in één raster (vanaf lg één grote tegel links en vier kleinere
      ernaast, op mobiel de eerste breed en de rest twee aan twee). Elke tegel: beeld (foto, anders het beeld van de video, anders
-     de onderwerpkleur) met een groot cijfer erover, titel (en bij de grote tegel de intro), en twee aparte knoppen: "Video" (venster in het midden,
+     de onderwerpkleur) met een groot cijfer erover, titel (de intro staat in het tekstpaneel), en twee aparte knoppen: "Video" (venster in het midden,
      speelt meteen, stopt bij sluiten) en "Lees meer" (de volledige tekst schuift als paneel van rechts in beeld, zoals het menu).
      Een klik elders op de tegel doet hetzelfde als de eerste knop (video, of zonder video de tekst). ── --}}
 @php
@@ -64,10 +64,6 @@
               {{-- Kleine tegels: ruimte rechts voor het cijfer, zodat de tekst er niet overheen loopt --}}
               <div @class(['pointer-events-none relative flex flex-col gap-1.5 p-4 sm:p-5 lg:p-6', 'pr-10 sm:pr-12 lg:pr-16' => $i > 0])>
                 <h2 @class(['mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-white', 'text-2xl lg:text-4xl' => $i === 0, 'text-base sm:text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
-                {{-- Intro alleen in de grote tegel; bij de kleine staat hij in het tekstpaneel --}}
-                @if($item['intro'] && $i === 0)
-                  <p class="mb-0 text-base leading-snug text-white/85 lg:max-w-md lg:text-lg">{{ $item['intro'] }}</p>
-                @endif
                 <div class="pointer-events-auto mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
                   @if($item['video'])
                     <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
