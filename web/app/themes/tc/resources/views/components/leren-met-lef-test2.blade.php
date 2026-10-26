@@ -49,8 +49,8 @@
                 <span aria-hidden="true" class="absolute inset-0 bg-linear-to-t from-triv-navy/90 via-triv-navy/35 via-45% to-transparent"></span>
               @endif
 
-              {{-- Groot cijfer rechtsboven, deels buiten de tegel; over een foto iets sterker, met een zachte schaduw --}}
-              <span aria-hidden="true" @class(['pointer-events-none absolute font-[\'Poppins\',sans-serif] font-black leading-none', 'text-white/20' => ! $item['foto'] && ! ($item['video']['beeld'] ?? null), 'text-white/45 [text-shadow:0_4px_40px_rgb(11_31_58/0.25)]' => $item['foto'] || ($item['video']['beeld'] ?? null), '-top-3 -right-1 text-[6rem] lg:-top-4 lg:text-[9rem]' => $i === 0, '-top-3 -right-1 text-[5.5rem] lg:text-[7rem]' => $i > 0])>{{ $i + 1 }}</span>
+              {{-- Groot cijfer: bij de grote tegel rechtsboven, bij de andere rechtsonder (achter de tekst); over een foto iets sterker, met een zachte schaduw --}}
+              <span aria-hidden="true" @class(['pointer-events-none absolute font-[\'Poppins\',sans-serif] font-black leading-none', 'text-white/20' => ! $item['foto'] && ! ($item['video']['beeld'] ?? null), 'text-white/45 [text-shadow:0_4px_40px_rgb(11_31_58/0.25)]' => $item['foto'] || ($item['video']['beeld'] ?? null), 'top-4 right-5 text-[6rem] lg:top-6 lg:right-8 lg:text-[9rem]' => $i === 0, 'right-4 bottom-3 text-[2.75rem] lg:right-5 lg:bottom-4 lg:text-[3.5rem]' => $i > 0])>{{ $i + 1 }}</span>
 
               {{-- De hele tegel is klikbaar (video, of zonder video de tekst); voor toetsenbord en schermlezer tellen de knoppen onderin --}}
               <button type="button" @click="{{ $actie }}" tabindex="-1" aria-hidden="true" class="absolute inset-0 size-full cursor-pointer"></button>
@@ -62,7 +62,8 @@
                 </span>
               @endif
 
-              <div class="pointer-events-none relative flex flex-col gap-1.5 p-4 sm:p-5 lg:p-6">
+              {{-- Kleine tegels: ruimte rechts voor het cijfer, zodat de tekst er niet overheen loopt --}}
+              <div @class(['pointer-events-none relative flex flex-col gap-1.5 p-4 sm:p-5 lg:p-6', 'pr-10 sm:pr-12 lg:pr-16' => $i > 0])>
                 <h2 @class(['mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-white', 'text-2xl lg:text-4xl' => $i === 0, 'text-base sm:text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
                 @if($item['intro'])
                   <p @class(['mb-0 leading-snug text-white/85', 'text-base lg:max-w-md lg:text-lg' => $i === 0, 'hidden text-sm sm:block lg:line-clamp-2' => $i > 0])>{{ $item['intro'] }}</p>
@@ -110,8 +111,9 @@
           </div>
         </template>
 
-        {{-- Tekstpaneel: schuift van rechts in beeld (mobiel volledig scherm, desktop zwevend paneel rechts zoals het menu, maar breder
-             en met de opsomming in twee kolommen, zodat de tekst zonder scrollen in beeld past).
+        {{-- Tekstpaneel: schuift van rechts in beeld (mobiel volledig scherm, desktop zwevend paneel rechts zoals het menu).
+             De breedte hangt af van de hoeveelheid tekst: weinig tekst → even breed als het menu; veel tekst → breder, met de
+             opsomming in twee kolommen, zodat de tekst zonder scrollen in beeld past.
              Bovenin een vlak in de onderwerpkleur met de titel. --}}
         <template x-teleport="body">
           <div>
@@ -119,11 +121,12 @@
               class="fixed inset-0 z-60 bg-triv-navy/40 backdrop-blur-sm" style="display: none;"></div>
             @foreach ($onderwerpen as $i => $item)
               @php($kleur = $kleuren[$i % count($kleuren)])
+              @php($breed = collect($item['blokken'])->sum(fn ($b) => mb_strlen(($b['kop'] ?? '').($b['tekst'] ?? '').collect($b['punten'] ?? [])->map(fn ($p) => $p['kop'].$p['tekst'])->implode(''))) > 650)
               <div x-show="lees === {{ $i }}" x-trap.inert.noscroll="lees === {{ $i }}" @keydown.escape.window="lees = null"
                 x-transition:enter="transition ease-out duration-400" x-transition:enter-start="opacity-0 translate-x-12" x-transition:enter-end="opacity-100 translate-x-0"
                 x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 translate-x-12"
                 role="dialog" aria-modal="true" aria-labelledby="lef-lees-{{ $i }}"
-                class="fixed inset-0 z-60 flex flex-col overflow-hidden bg-white shadow-2xl lg:inset-auto lg:top-3 lg:right-3 lg:bottom-3 lg:w-[min(56rem,calc(100vw-1.5rem))] lg:rounded-3xl" style="display: none;">
+                @class(['fixed inset-0 z-60 flex flex-col overflow-hidden bg-white shadow-2xl lg:inset-auto lg:top-3 lg:right-3 lg:bottom-3 lg:rounded-3xl', 'lg:w-[min(56rem,calc(100vw-1.5rem))]' => $breed, 'lg:w-[440px]' => ! $breed]) style="display: none;">
                 <div class="{{ $kleur['vlak'] }} relative shrink-0 overflow-hidden px-6 pt-16 pb-6 sm:px-10 lg:pt-10 lg:pr-20">
                   <button type="button" @click="lees = null" aria-label="Sluiten"
                     class="absolute top-4 right-4 flex size-9 cursor-pointer items-center justify-center rounded-full bg-white text-stone-500 transition-all duration-300 hover:rotate-90 hover:text-triv-navy">
@@ -144,7 +147,7 @@
                 <div class="flex flex-1 flex-col gap-5 overflow-y-auto px-6 py-8 text-base sm:px-10 lg:py-10">
                   @foreach($item['blokken'] as $blok)
                     @if($blok['type'] === 'lijst')
-                      <ul class="mb-0 grid gap-x-10 gap-y-5 pl-0 lg:grid-cols-2">
+                      <ul @class(['mb-0 grid gap-x-10 gap-y-5 pl-0', 'lg:grid-cols-2' => $breed])>
                         @foreach($blok['punten'] as $punt)
                           <li class="relative mb-0 list-none pl-5 before:absolute before:left-0 before:top-[0.55em] before:size-2 before:rounded-full {{ $kleur['bolletje'] }}">
                             <span @class(['block', 'font-semibold text-triv-navy' => $punt['vet'], 'text-stone-600' => ! $punt['vet']])>{{ $punt['kop'] }}</span>
