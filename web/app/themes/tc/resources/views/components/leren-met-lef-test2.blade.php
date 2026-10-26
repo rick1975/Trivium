@@ -1,7 +1,7 @@
 {{-- ── LEREN MET LEF (TESTVERSIE 2, te zien via /?lef-test=2) — zelfde gegevens als components/leren-met-lef (Composers\LerenMetLef).
      Concept "alles in één oogopslag": de onderwerpen als tegels in één raster (vanaf lg één grote tegel links en vier kleinere
      ernaast, op mobiel de eerste breed en de rest twee aan twee). Elke tegel: beeld (foto, anders het beeld van de video, anders
-     de onderwerpkleur) met een groot cijfer erover, titel en intro, en twee aparte knoppen: "Video" (venster in het midden,
+     de onderwerpkleur) met een groot cijfer erover, titel (en bij de grote tegel de intro), en twee aparte knoppen: "Video" (venster in het midden,
      speelt meteen, stopt bij sluiten) en "Lees meer" (de volledige tekst schuift als paneel van rechts in beeld, zoals het menu).
      Een klik elders op de tegel doet hetzelfde als de eerste knop (video, of zonder video de tekst). ── --}}
 @php
@@ -21,8 +21,6 @@
   <div class="bg-triv-cream pt-12 pb-20" x-data="{ video: null, lees: null }">
     <div class="page-container">
       @if($onderwerpen)
-        <p class="mb-8 text-sm font-semibold uppercase tracking-wider text-stone-500">Leren met lef in {{ count($onderwerpen) }} filmpjes</p>
-
         <ul class="mb-0 grid list-none grid-cols-2 gap-3 pl-0 sm:gap-4 lg:h-[min(40rem,calc(100vh-8rem))] lg:grid-cols-4 lg:grid-rows-2">
           @foreach ($onderwerpen as $i => $item)
             @php($kleur = $kleuren[$i % count($kleuren)])
@@ -65,8 +63,9 @@
               {{-- Kleine tegels: ruimte rechts voor het cijfer, zodat de tekst er niet overheen loopt --}}
               <div @class(['pointer-events-none relative flex flex-col gap-1.5 p-4 sm:p-5 lg:p-6', 'pr-10 sm:pr-12 lg:pr-16' => $i > 0])>
                 <h2 @class(['mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-white', 'text-2xl lg:text-4xl' => $i === 0, 'text-base sm:text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
-                @if($item['intro'])
-                  <p @class(['mb-0 leading-snug text-white/85', 'text-base lg:max-w-md lg:text-lg' => $i === 0, 'hidden text-sm sm:block lg:line-clamp-2' => $i > 0])>{{ $item['intro'] }}</p>
+                {{-- Intro alleen in de grote tegel; bij de kleine staat hij in het tekstpaneel --}}
+                @if($item['intro'] && $i === 0)
+                  <p class="mb-0 text-base leading-snug text-white/85 lg:max-w-md lg:text-lg">{{ $item['intro'] }}</p>
                 @endif
                 <div class="pointer-events-auto mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
                   @if($item['video'])
