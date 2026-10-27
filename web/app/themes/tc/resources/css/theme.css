@@ -38,3 +38,49 @@
   --inhoud-breed: 90rem;
   --rand: max(1.5rem, calc(50vw - var(--inhoud-breed) / 2));
 }
+
+/* Rubriekskleuren: elke hoofdrubriek heeft een eigen accentkleur (titel in de fotoheader "half", bolletjes, knoppen,
+   uitklapblokken, opsommingstekens, links in de tekst) en een lichte tint voor het gekleurde vlak. Per rubriek als
+   variabele --accent-{slug} / --accent-vlak-{slug}: de site koppelt ze via de body-class rubriek-{slug}
+   (app/filters.php), de blokeditor via een regel uit app/setup.php. Pagina's buiten een rubriek (contact, zoeken)
+   houden het Trivium-roze. Nieuwe rubriek: hier twee variabelen en een .rubriek-{slug}-regel toevoegen. */
+:root {
+  --accent: var(--color-triv-pink);
+  --accent-vlak: var(--color-triv-vlak);
+
+  --accent-groep-8: var(--color-triv-koraal);
+  --accent-vlak-groep-8: #fadacd; /* koraal, licht */
+  --accent-leerlingen-ouders: var(--color-triv-oudroze);
+  --accent-vlak-leerlingen-ouders: var(--color-triv-vlak);
+  --accent-ons-onderwijs: var(--color-triv-paars);
+  --accent-vlak-ons-onderwijs: #e7e1ef; /* paars, licht */
+  --accent-over-de-school: var(--color-triv-hemelblauw);
+  --accent-vlak-over-de-school: #cdebf2; /* hemelblauw, licht */
+  --accent-beleid-documenten: var(--color-triv-zeegroen);
+  --accent-vlak-beleid-documenten: #c5ddd9; /* zeegroen, licht */
+}
+
+.rubriek-groep-8 {
+  --accent: var(--accent-groep-8);
+  --accent-vlak: var(--accent-vlak-groep-8);
+}
+
+.rubriek-leerlingen-ouders {
+  --accent: var(--accent-leerlingen-ouders);
+  --accent-vlak: var(--accent-vlak-leerlingen-ouders);
+}
+
+.rubriek-ons-onderwijs {
+  --accent: var(--accent-ons-onderwijs);
+  --accent-vlak: var(--accent-vlak-ons-onderwijs);
+}
+
+.rubriek-over-de-school {
+  --accent: var(--accent-over-de-school);
+  --accent-vlak: var(--accent-vlak-over-de-school);
+}
+
+.rubriek-beleid-documenten {
+  --accent: var(--accent-beleid-documenten);
+  --accent-vlak: var(--accent-vlak-beleid-documenten);
+}

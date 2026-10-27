@@ -13,15 +13,30 @@ use Illuminate\Support\Facades\Vite;
  *
  * @return array
  */
-add_filter('block_editor_settings_all', function ($settings) {
+add_filter('block_editor_settings_all', function ($settings, $context) {
     $style = Vite::asset('resources/css/editor.css');
 
     $settings['styles'][] = [
         'css' => "@import url('{$style}')",
     ];
 
+    // Pagina's (behalve de voorpagina) zoals op de site: crème achtergrond en de kleur van de hoofdrubriek
+    // (bovenste voorouder, zelfde logica als de body-class rubriek-{slug} in filters.php; variabelen in css/theme.css).
+    // Een nieuwe bovenliggende pagina telt pas mee na opslaan en herladen.
+    $post = $context->post ?? null;
+
+    if ($post && $post->post_type === 'page' && $post->ID !== (int) get_option('page_on_front')) {
+        $ancestors = get_post_ancestors($post);
+        $slug = sanitize_html_class(get_post_field('post_name', $ancestors ? end($ancestors) : $post));
+        $accent = $slug ? "--accent: var(--accent-{$slug}, var(--color-triv-pink)); --accent-vlak: var(--accent-vlak-{$slug}, var(--color-triv-vlak));" : '';
+
+        $settings['styles'][] = [
+            'css' => ".editor-styles-wrapper { background-color: var(--color-triv-cream); {$accent} }",
+        ];
+    }
+
     return $settings;
-});
+}, 10, 2);
 
 /**
  * Inject scripts into the block editor.

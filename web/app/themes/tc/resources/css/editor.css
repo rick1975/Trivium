@@ -2,6 +2,7 @@
    Zelfde kleuren (theme.css) en blokstijlen (content.css) als de site, zodat de school ziet wat er op de pagina komt.
    Geen preflight/utilities: alleen de standaardwaarden van Tailwind (theme) voor @apply en de variabelen. */
 @import "@fontsource/dm-sans/latin-400.css";
+@import "@fontsource/dm-sans/latin-500.css";
 @import "@fontsource/dm-sans/latin-600.css";
 @import "@fontsource/poppins/latin-400.css";
 @import "@fontsource/poppins/latin-500.css";
@@ -11,7 +12,8 @@
 @import "./theme.css";
 @import "./content.css";
 
-/* Basis zoals op vervolgpagina's: DM Sans 18px, koppen in Poppins */
+/* Basis zoals op vervolgpagina's: DM Sans 18px, koppen in Poppins. Rubriekskleur (--accent) en de crème achtergrond
+   van pagina's zet app/setup.php erbij, afhankelijk van de pagina die bewerkt wordt. */
 .editor-styles-wrapper {
   @apply bg-white text-lg text-gray-700 antialiased;
   font-family: 'DM Sans', sans-serif;
@@ -31,6 +33,11 @@
 
   p {
     @apply mb-4;
+  }
+
+  /* Links in de tekst: vet in de rubriekskleur, zoals op de site (css/app.css) */
+  :is(p, li, td) a:not([class]) {
+    @apply font-semibold text-(--accent) no-underline;
   }
 
   /* Op de site lopen deze vlakken over de hele schermbreedte en rekenen ze met de schermrand (--rand);
