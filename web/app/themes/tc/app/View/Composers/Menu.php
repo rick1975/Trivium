@@ -11,6 +11,7 @@ class Menu extends Composer
     protected static $views = [
         'components.nav-drawer',
         'components.search-panel',
+        '404',
     ];
 
     /**

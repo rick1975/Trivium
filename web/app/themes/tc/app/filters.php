@@ -98,7 +98,8 @@ add_filter('wp_headers', function ($headers) {
 add_filter('body_class', function ($classes) {
     $style = is_page() && has_post_thumbnail() && function_exists('get_field') ? get_field('foto_stijl') : null;
 
-    if ($style === 'half' || $style === 'half-links') {
+    // De 404 (404.blade.php) heeft dezelfde opbouw als de fotoheader "half"
+    if ($style === 'half' || $style === 'half-links' || is_404()) {
         $classes[] = 'has-hero-half';
     }
 
