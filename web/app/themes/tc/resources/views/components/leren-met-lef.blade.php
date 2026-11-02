@@ -12,7 +12,7 @@
 <section class="relative z-20 -mt-[7vh]">
   @include('components.wave-divider', ['fill' => '#fbfaf4'])
 
-  <div class="bg-triv-cream pt-12 pb-20" x-data="{ video: null, lees: null }">
+  <div class="bg-triv-cream pt-12 pb-20" x-data="{ video: null, speler: null, lees: null }">
     {{-- Vanaf lg breder dan de rest van de pagina (page-container is 1280px), zodat de tegels meer ruimte krijgen --}}
     <div class="page-container lg:max-w-[1600px] lg:px-8">
       @if($onderwerpen)
@@ -79,7 +79,8 @@
 
         {{-- Videovenster: pas geladen als het open is, stopt bij sluiten (naar de body verplaatst, zodat het boven alles ligt) --}}
         <template x-teleport="body">
-          <div x-show="video !== null" x-transition.opacity.duration.300ms x-trap.inert.noscroll="video !== null"
+          {{-- speler volgt video pas als het venster zichtbaar is: anders meet YouTube een speler van 0×0 en blijft hij op 240p --}}
+          <div x-show="video !== null" x-init="$watch('video', v => { speler = null; if (v !== null) $nextTick(() => requestAnimationFrame(() => speler = v)) })" x-transition.opacity.duration.300ms x-trap.inert.noscroll="video !== null"
             @keydown.escape.window="video = null" @click.self="video = null" role="dialog" aria-modal="true" aria-label="Video"
             class="fixed inset-0 z-60 flex items-center justify-center bg-triv-navy/90 p-4 backdrop-blur-sm sm:p-10" style="display: none;">
             <div class="relative w-full max-w-5xl">
@@ -90,8 +91,8 @@
               <div class="aspect-video overflow-hidden rounded-xl bg-black shadow-2xl">
                 @foreach ($onderwerpen as $i => $item)
                   @if($item['video'])
-                    <template x-if="video === {{ $i }}">
-                      <iframe src="{{ $item['video']['embed'] }}" title="{{ $item['titel'] }}" class="size-full" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
+                    <template x-if="speler === {{ $i }}">
+                      <iframe src="{{ $item['video']['embed'] }}" title="{{ $item['titel'] }}" width="1280" height="720" class="size-full" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
                     </template>
                   @endif
                 @endforeach
