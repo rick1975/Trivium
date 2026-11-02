@@ -1,18 +1,12 @@
 {{-- ── LEREN MET LEF — onderwerpen uit Trivium Settings > Leren met lef (Composers\LerenMetLef).
      Concept "alles in één oogopslag": de onderwerpen als tegels in één raster (vanaf lg één grote tegel links en vier kleinere
      ernaast, op mobiel de eerste breed en de rest twee aan twee). Elke tegel: beeld (foto, anders het beeld van de video, anders
-     de onderwerpkleur) met een groot cijfer erover, titel (de intro staat in het tekstpaneel), en twee aparte knoppen: "Video" (venster in het midden,
+     het roze) met een groot cijfer erover, titel (de intro staat in het tekstpaneel), en twee aparte knoppen: "Video" (venster in het midden,
      speelt meteen, stopt bij sluiten) en "Lees meer" (de volledige tekst schuift als paneel van rechts in beeld, zoals het menu).
      Een klik elders op de tegel doet hetzelfde als de eerste knop (video, of zonder video de tekst). ── --}}
 @php
-  $kleuren = [
-    ['tekst' => 'text-triv-hemelblauw', 'vlak' => 'bg-triv-hemelblauw', 'bolletje' => 'before:bg-triv-hemelblauw'],
-    ['tekst' => 'text-triv-oudroze', 'vlak' => 'bg-triv-oudroze', 'bolletje' => 'before:bg-triv-oudroze'],
-    ['tekst' => 'text-triv-koraal', 'vlak' => 'bg-triv-koraal', 'bolletje' => 'before:bg-triv-koraal'],
-    ['tekst' => 'text-triv-zeegroen', 'vlak' => 'bg-triv-zeegroen', 'bolletje' => 'before:bg-triv-zeegroen'],
-    ['tekst' => 'text-triv-paars', 'vlak' => 'bg-triv-paars', 'bolletje' => 'before:bg-triv-paars'],
-    ['tekst' => 'text-triv-lightblue', 'vlak' => 'bg-triv-lightblue', 'bolletje' => 'before:bg-triv-lightblue'],
-  ];
+  // Alle onderwerpen in hetzelfde Trivium-roze
+  $kleur = ['tekst' => 'text-triv-pink', 'vlak' => 'bg-triv-pink', 'bolletje' => 'before:bg-triv-pink'];
 @endphp
 
 <section class="relative z-20 -mt-[7vh]">
@@ -24,7 +18,6 @@
       @if($onderwerpen)
         <ul class="mb-0 grid list-none grid-cols-2 gap-3 pl-0 sm:gap-4 lg:h-[min(46rem,calc(100vh-7rem))] lg:grid-cols-4 lg:grid-rows-2">
           @foreach ($onderwerpen as $i => $item)
-            @php($kleur = $kleuren[$i % count($kleuren)])
             @php($actie = $item['video'] ? "video = {$i}" : "lees = {$i}")
             <li id="{{ $item['anker'] }}" @class(['group relative mb-0 flex scroll-mt-6 flex-col justify-end overflow-hidden rounded-2xl shadow-sm sm:rounded-3xl', $kleur['vlak'], 'col-span-2 aspect-video lg:row-span-2 lg:aspect-auto' => $i === 0, 'aspect-3/4 sm:aspect-4/3 lg:aspect-auto' => $i > 0])>
 
@@ -110,13 +103,12 @@
         {{-- Tekstpaneel: schuift van rechts in beeld (mobiel volledig scherm, desktop zwevend paneel rechts zoals het menu).
              De breedte hangt af van de hoeveelheid tekst: weinig tekst → even breed als het menu; veel tekst → breder, met de
              opsomming in twee kolommen, zodat de tekst zonder scrollen in beeld past.
-             Bovenin een vlak in de onderwerpkleur met de titel. --}}
+             Bovenin een vlak in het roze met de titel. --}}
         <template x-teleport="body">
           <div>
             <div x-show="lees !== null" x-transition.opacity.duration.300ms @click="lees = null" aria-hidden="true"
               class="fixed inset-0 z-60 bg-triv-navy/40 backdrop-blur-sm" style="display: none;"></div>
             @foreach ($onderwerpen as $i => $item)
-              @php($kleur = $kleuren[$i % count($kleuren)])
               @php($breed = collect($item['blokken'])->sum(fn ($b) => mb_strlen(($b['kop'] ?? '').($b['tekst'] ?? '').collect($b['punten'] ?? [])->map(fn ($p) => $p['kop'].$p['tekst'])->implode(''))) > 650)
               <div x-show="lees === {{ $i }}" x-trap.inert.noscroll="lees === {{ $i }}" @keydown.escape.window="lees = null"
                 x-transition:enter="transition ease-out duration-400" x-transition:enter-start="opacity-0 translate-x-12" x-transition:enter-end="opacity-100 translate-x-0"
