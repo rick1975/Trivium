@@ -3,8 +3,7 @@
 
 @section('before-main')
   @include('components.hero')
-  {{-- Testversies van Leren met lef: ?lef-test (stapelkaarten, components/leren-met-lef-test) en ?lef-test=2 (tegels, components/leren-met-lef-test2) --}}
-  @include(match (request()->query('lef-test')) { null => 'components.leren-met-lef', '2' => 'components.leren-met-lef-test2', default => 'components.leren-met-lef-test' })
+  @include('components.leren-met-lef')
 @endsection
 
 @section('content')

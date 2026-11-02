@@ -1,164 +1,157 @@
-{{-- ── LEREN MET LEF — onderwerpen uit Trivium Settings > Leren met lef (Composers\LerenMetLef, die de content ook opdeelt in blokken).
-     Vanaf lg tabbladen: links de genummerde titels, rechts de inhoud van het gekozen onderwerp (één vast vlak, dus niets verspringt).
-     Op mobiel dezelfde markup als uitklaplijst: knop met titel en korte intro, de inhoud klapt eronder open.
-     Eén grid voor beide: de knoppen vullen kolom 1 van boven naar beneden, alle panelen liggen in kolom 2 over elkaar
-     (over alle rijen plus een laatste 1fr-rij die de extra hoogte opvangt) en alleen het actieve is zichtbaar.
-     Het eerste onderwerp staat standaard open, tenzij de URL een anker van een onderwerp heeft (/#goed-voor-je-zorgen, zie
-     Composers\LerenMetLef::anker); kiezen zet dat anker ook in de URL, zodat je de link kunt delen.
-     Pijltjestoetsen (en Home/End) springen tussen de onderwerpen; op desktop wordt het onderwerp dan ook meteen gekozen.
-     Binnenkomst: zodra het blok in beeld komt (x-intersect zet data-shown, net als bij Nieuws) schuiven de onderwerpen
-     één voor één omhoog en daarna het inhoudsvlak; bij "minder beweging" staat alles meteen stil.
-     Video (YouTube/Vimeo, zie Composers\LerenMetLef::video): afspeelknop op de foto (of zonder foto op het beeld van de video);
-     de speler laadt pas na de klik, in een venster over de pagina. Sluiten (knop, Esc of klik ernaast) haalt de iframe weg,
-     zodat de video stopt. ── --}}
-{{-- Per onderwerp een rubriekskleur (Over de school, Leerlingen & ouders, Groep 8, Beleid & documenten, Ons onderwijs):
-     voor de rand en het cijfer van het bolletje, de titel bij hover en het pijltje links, en in het inhoudsvlak de titel en de opsommingsbolletjes
-     (vette tekst en tussenkoppen blijven navy). Vanaf lg krijgen het inhoudsvlak en het actieve tabblad een lichte tint van die kleur ('vlak'),
-     zodat het hele blok van sfeer wisselt. Klassen voluit, zodat Tailwind ze vindt. --}}
+{{-- ── LEREN MET LEF — onderwerpen uit Trivium Settings > Leren met lef (Composers\LerenMetLef).
+     Concept "alles in één oogopslag": de onderwerpen als tegels in één raster (vanaf lg één grote tegel links en vier kleinere
+     ernaast, op mobiel de eerste breed en de rest twee aan twee). Elke tegel: beeld (foto, anders het beeld van de video, anders
+     de onderwerpkleur) met een groot cijfer erover, titel (de intro staat in het tekstpaneel), en twee aparte knoppen: "Video" (venster in het midden,
+     speelt meteen, stopt bij sluiten) en "Lees meer" (de volledige tekst schuift als paneel van rechts in beeld, zoals het menu).
+     Een klik elders op de tegel doet hetzelfde als de eerste knop (video, of zonder video de tekst). ── --}}
 @php
   $kleuren = [
-    ['rand' => 'border-triv-hemelblauw', 'tekst' => 'text-triv-hemelblauw', 'hover' => 'group-hover:text-triv-hemelblauw', 'bolletje' => 'before:bg-triv-hemelblauw', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-hemelblauw)_11%,white)]'],
-    ['rand' => 'border-triv-oudroze', 'tekst' => 'text-triv-oudroze', 'hover' => 'group-hover:text-triv-oudroze', 'bolletje' => 'before:bg-triv-oudroze', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-oudroze)_11%,white)]'],
-    ['rand' => 'border-triv-koraal', 'tekst' => 'text-triv-koraal', 'hover' => 'group-hover:text-triv-koraal', 'bolletje' => 'before:bg-triv-koraal', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-koraal)_11%,white)]'],
-    ['rand' => 'border-triv-zeegroen', 'tekst' => 'text-triv-zeegroen', 'hover' => 'group-hover:text-triv-zeegroen', 'bolletje' => 'before:bg-triv-zeegroen', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-zeegroen)_11%,white)]'],
-    ['rand' => 'border-triv-paars', 'tekst' => 'text-triv-paars', 'hover' => 'group-hover:text-triv-paars', 'bolletje' => 'before:bg-triv-paars', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-paars)_11%,white)]'],
-    ['rand' => 'border-triv-lightblue', 'tekst' => 'text-triv-lightblue', 'hover' => 'group-hover:text-triv-lightblue', 'bolletje' => 'before:bg-triv-lightblue', 'vlak' => 'lg:bg-[color-mix(in_oklab,var(--color-triv-lightblue)_11%,white)]'],
+    ['tekst' => 'text-triv-hemelblauw', 'vlak' => 'bg-triv-hemelblauw', 'bolletje' => 'before:bg-triv-hemelblauw'],
+    ['tekst' => 'text-triv-oudroze', 'vlak' => 'bg-triv-oudroze', 'bolletje' => 'before:bg-triv-oudroze'],
+    ['tekst' => 'text-triv-koraal', 'vlak' => 'bg-triv-koraal', 'bolletje' => 'before:bg-triv-koraal'],
+    ['tekst' => 'text-triv-zeegroen', 'vlak' => 'bg-triv-zeegroen', 'bolletje' => 'before:bg-triv-zeegroen'],
+    ['tekst' => 'text-triv-paars', 'vlak' => 'bg-triv-paars', 'bolletje' => 'before:bg-triv-paars'],
+    ['tekst' => 'text-triv-lightblue', 'vlak' => 'bg-triv-lightblue', 'bolletje' => 'before:bg-triv-lightblue'],
   ];
-  $rijen = count($onderwerpen);
-  $videos = array_map(fn ($o) => $o['video'] ? $o['video'] + ['titel' => $o['titel']] : null, $onderwerpen);
 @endphp
 
 <section class="relative z-20 -mt-[7vh]">
-  {{-- Golfboog direct over de hero-foto: de section zelf heeft hier geen achtergrond, zodat er contrast is --}}
   @include('components.wave-divider', ['fill' => '#fbfaf4'])
 
-  <div class="bg-triv-cream pt-16 pb-20">
-    <div class="page-container">
+  <div class="bg-triv-cream pt-12 pb-20" x-data="{ video: null, lees: null }">
+    {{-- Vanaf lg breder dan de rest van de pagina (page-container is 1280px), zodat de tegels meer ruimte krijgen --}}
+    <div class="page-container lg:max-w-[1600px] lg:px-8">
       @if($onderwerpen)
-        {{-- Desktop: klik kiest een ander onderwerp (er staat er altijd één open); mobiel: klik klapt open of dicht.
-             Wordt het scherm breder terwijl alles dicht is, dan gaat het eerste weer open. --}}
-        <div x-data="{ actief: 0, video: null, videos: {{ Js::from($videos) }}, ankers: {{ Js::from(array_column($onderwerpen, 'anker')) }}, lg: () => window.matchMedia('(min-width: 1024px)').matches, init() { this.volgHash() }, volgHash() { const i = this.ankers.indexOf(decodeURIComponent(location.hash.slice(1))); if (i > -1) this.actief = i }, kies(i) { this.actief = (this.actief === i && ! this.lg()) ? null : i; if (this.actief !== null) history.replaceState(null, '', '#' + this.ankers[i]) }, naar(i) { const n = (i + this.ankers.length) % this.ankers.length; document.getElementById('lef-knop-' + n).focus(); if (this.lg()) this.kies(n) } }"
-          @resize.window.debounce.150ms="if (actief === null && lg()) actief = 0"
-          @hashchange.window="volgHash()"
-          x-intersect.once.margin.0.0.-20%.0="$el.dataset.shown = ''"
-          class="group/lef flex flex-col gap-3 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-x-10 lg:gap-y-4 lg:items-start"
-          style="grid-template-rows: repeat({{ $rijen }}, auto) 1fr;">
-
+        <ul class="mb-0 grid list-none grid-cols-2 gap-3 pl-0 sm:gap-4 lg:h-[min(46rem,calc(100vh-7rem))] lg:grid-cols-4 lg:grid-rows-2">
           @foreach ($onderwerpen as $i => $item)
             @php($kleur = $kleuren[$i % count($kleuren)])
-            @php($beeld = $item['foto'] || $item['video'])
-            {{-- Titel + knop (kolom 1). Titels zijn h2, direct onder de h1 "Leren met Lef" in de hero --}}
-            {{-- Vanaf lg loopt het actieve onderwerp als tabblad door in het inhoudsvlak: zelfde tint, geen ruimte ertussen.
-                 De knop is daarvoor de kolomafstand (gap-x-10) plus 0,75rem breder, zodat hij ook de afgeronde hoek van het
-                 vlak afdekt, en de h2 komt boven het vlak te liggen (z-10). --}}
-            <h2 id="{{ $item['anker'] }}" style="--i: {{ $i }}" :class="actief === {{ $i }} && 'lg:z-10'"
-              class="relative mb-0 scroll-mt-6 lg:col-start-1 translate-y-6 opacity-0 transition-[translate,opacity] duration-700 ease-[cubic-bezier(.2,.8,.2,1)] delay-[calc(var(--i)*90ms)] group-data-shown/lef:translate-y-0 group-data-shown/lef:opacity-100 motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none">
-              <button type="button" id="lef-knop-{{ $i }}" aria-controls="lef-paneel-{{ $i }}"
-                aria-expanded="{{ $i === 0 ? 'true' : 'false' }}" :aria-expanded="(actief === {{ $i }}).toString()"
-                class="group flex w-full items-start gap-4 rounded-xl border border-transparent p-4 lg:p-3 text-left cursor-pointer transition-all duration-300"
-                :class="actief === {{ $i }} ? 'bg-white {{ $kleur['vlak'] }} lg:w-[calc(100%+3.25rem)] lg:pr-[calc(0.75rem+3.25rem)] lg:rounded-r-none' : 'bg-white lg:bg-transparent lg:hover:bg-white/70'"
-                @click="kies({{ $i }})"
-                @keydown.down.prevent="naar({{ $i + 1 }})" @keydown.right.prevent="naar({{ $i + 1 }})"
-                @keydown.up.prevent="naar({{ $i - 1 }})" @keydown.left.prevent="naar({{ $i - 1 }})"
-                @keydown.home.prevent="naar(0)" @keydown.end.prevent="naar(ankers.length - 1)">
-                <span aria-hidden="true" class="{{ $kleur['rand'] }} {{ $kleur['tekst'] }} size-10 shrink-0 rounded-full border-2 flex items-center justify-center font-black text-base">
-                  {{ $i + 1 }}
-                </span>
-                <span class="flex-1 self-center">
-                  <span class="block text-lg font-semibold leading-snug lg:text-base text-triv-navy transition-colors {{ $kleur['hover'] }}">{{ $item['titel'] }}</span>
-                  @if($item['intro'])
-                    <span class="mt-1 block text-sm font-normal leading-relaxed text-stone-600 lg:hidden">{{ $item['intro'] }}</span>
+            @php($actie = $item['video'] ? "video = {$i}" : "lees = {$i}")
+            <li id="{{ $item['anker'] }}" @class(['group relative mb-0 flex scroll-mt-6 flex-col justify-end overflow-hidden rounded-2xl shadow-sm sm:rounded-3xl', $kleur['vlak'], 'col-span-2 aspect-video lg:row-span-2 lg:aspect-auto' => $i === 0, 'aspect-3/4 sm:aspect-4/3 lg:aspect-auto' => $i > 0])>
+
+              {{-- Beeld, zoomt licht in bij hover --}}
+              @if($item['foto'] || ($item['video']['beeld'] ?? null))
+                <span class="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105 motion-reduce:transition-none">
+                  @if($item['foto'])
+                    {!! wp_get_attachment_image($item['foto'], 'large', false, [
+                      'class' => 'absolute inset-0 size-full max-w-none object-cover object-[50%_35%]',
+                      'sizes' => $i === 0 ? '(min-width: 1024px) 640px, 100vw' : '(min-width: 1024px) 320px, 50vw',
+                      'loading' => 'lazy',
+                      'decoding' => 'async',
+                      'alt' => '',
+                    ]) !!}
+                  @else
+                    <img src="{{ $item['video']['beeld'] }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full max-w-none object-cover"
+                      @if($item['video']['reserve']) onerror="this.onerror = null; this.src = '{{ $item['video']['reserve'] }}'" @endif>
                   @endif
                 </span>
-                {{-- Pijltje: navy, bij het actieve onderwerp in de rubriekskleur; mobiel draait het bij openklappen, vanaf lg blijft het staan --}}
-                <span aria-hidden="true" class="mt-3.5 shrink-0 transition-[rotate,color] duration-300"
-                  :class="actief === {{ $i }} ? 'rotate-90 lg:rotate-0 {{ $kleur['tekst'] }}' : 'text-triv-navy'">
-                  <x-icon name="chevron-right" class="size-3 stroke-[2.5]" />
-                </span>
-              </button>
-            </h2>
-
-            {{-- Inhoud (kolom 2, alle panelen op dezelfde plek) --}}
-            <div id="lef-paneel-{{ $i }}" role="region" aria-labelledby="lef-knop-{{ $i }}" x-show="actief === {{ $i }}"
-              class="rounded-xl bg-white {{ $kleur['vlak'] }} p-5 shadow-sm sm:p-7 lg:col-start-2 lg:row-start-1 lg:p-0 {{ $beeld ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,0.75fr)] lg:grid-rows-[auto_1fr] lg:overflow-hidden' : '' }} lg:translate-y-6 lg:opacity-0 lg:transition-[translate,opacity] lg:duration-700 lg:delay-300 lg:ease-[cubic-bezier(.2,.8,.2,1)] lg:group-data-shown/lef:translate-y-0 lg:group-data-shown/lef:opacity-100 lg:motion-reduce:translate-y-0 lg:motion-reduce:opacity-100 lg:motion-reduce:transition-none"
-              style="grid-row-end: span {{ $rijen + 1 }};{{ $i > 0 ? ' display: none;' : '' }}">
-
-              {{-- Bij wisselen van onderwerp schuift de tekst zacht omhoog en komt de foto in beeld: een CSS-animatie start
-                   opnieuw zodra x-show het paneel weer toont (display: none → block). Keyframes uit app.css (fotoheader). --}}
-              {{-- Titel en intro alleen vanaf lg (op mobiel staan ze al in de knop); bij een foto in de linkerkolom, naast de foto --}}
-              <div class="hidden lg:col-start-1 lg:row-start-1 lg:block lg:px-10 lg:pt-10 lg:pb-5 lg:animate-[hero-rise_500ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
-                <p class="mb-2 font-['Poppins',sans-serif] text-3xl font-bold leading-tight {{ $kleur['tekst'] }}">{{ $item['titel'] }}</p>
-                @if($item['intro'])
-                  <p class="mb-0 text-lg leading-relaxed text-stone-600">{{ $item['intro'] }}</p>
-                @endif
-              </div>
-
-              {{-- Met foto of video: vanaf lg is het vlak een grid met onder de titel de tekst links en rechts het beeld, dat van boven tot onder
-                   tegen de rand van het vlak loopt (het vlak zelf heeft dan geen padding, titel en tekst wel); op mobiel het beeld erboven
-                   (bij een video liggend 16:9). Zonder foto het beeld van de video; bij YouTube valt dat terug op een kleinere versie
-                   als er geen groot beeld is. --}}
-              @if($beeld)
-                <div @class(['relative mb-6 overflow-hidden rounded-xl lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mb-0 lg:aspect-auto lg:min-h-80 lg:rounded-none lg:animate-[hero-photo_700ms_ease-out_both] motion-reduce:animate-none', 'aspect-4/3' => ! $item['video'], 'aspect-video bg-triv-navy' => $item['video']])>
-                @if($item['foto'])
-                  {!! wp_get_attachment_image($item['foto'], 'large', false, [
-                    'class' => 'absolute inset-0 size-full max-w-none object-cover object-[45%_35%] lg:object-[50%_40%]',
-                    'sizes' => '(min-width: 1024px) 600px, 100vw',
-                    'loading' => 'lazy',
-                    'decoding' => 'async',
-                  ]) !!}
-                @elseif($item['video']['beeld'])
-                  <img src="{{ $item['video']['beeld'] }}" alt="" loading="lazy" decoding="async" class="absolute inset-0 size-full max-w-none object-cover"
-                    @if($item['video']['reserve']) onerror="this.onerror = null; this.src = '{{ $item['video']['reserve'] }}'" @endif>
-                @endif
-                @if($item['video'])
-                  <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
-                    class="group/video absolute inset-0 flex size-full cursor-pointer items-center justify-center bg-triv-navy/10 transition-colors duration-300 hover:bg-triv-navy/25">
-                    <span class="{{ $kleur['tekst'] }} flex size-16 items-center justify-center rounded-full bg-white/95 shadow-lg ring-8 ring-white/30 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover/video:scale-110 group-focus-visible/video:scale-110 motion-reduce:transition-none lg:size-20">
-                      <x-icon name="play" class="size-7 lg:size-8" />
-                    </span>
-                    @if($item['video']['duur'])
-                      <span class="absolute right-3 bottom-3 rounded-full bg-triv-navy/80 px-2.5 py-1 text-xs font-semibold text-white">{{ $item['video']['duur'] }}</span>
-                    @endif
-                  </button>
-                @endif
-                </div>
+                {{-- Verloop onderin, zodat de witte tekst altijd leesbaar is --}}
+                <span aria-hidden="true" class="absolute inset-0 bg-linear-to-t from-triv-navy/90 via-triv-navy/35 via-45% to-transparent"></span>
               @endif
 
-              <div class="lg:col-start-1 lg:row-start-2 lg:px-10 lg:pb-10">
+              {{-- Groot cijfer: bij de grote tegel rechtsboven, bij de andere rechtsonder (achter de tekst); over een foto iets sterker, met een zachte schaduw --}}
+              <span aria-hidden="true" @class(['pointer-events-none absolute font-[\'Poppins\',sans-serif] font-black leading-none', 'text-white/20' => ! $item['foto'] && ! ($item['video']['beeld'] ?? null), 'text-white/45 [text-shadow:0_4px_40px_rgb(11_31_58/0.25)]' => $item['foto'] || ($item['video']['beeld'] ?? null), 'top-3 right-4 text-[3rem] lg:top-5 lg:right-6 lg:text-[5rem]' => $i === 0, 'right-4 bottom-3 text-[2.75rem] lg:right-5 lg:bottom-4 lg:text-[3.5rem]' => $i > 0])>{{ $i + 1 }}</span>
 
-              @if($item['blokken'])
-                <div class="flex flex-col gap-6 text-base lg:animate-[hero-rise_500ms_100ms_cubic-bezier(.2,.8,.2,1)_both] motion-reduce:animate-none">
+              {{-- De hele tegel is klikbaar (video, of zonder video de tekst); voor toetsenbord en schermlezer tellen de knoppen onderin --}}
+              <button type="button" @click="{{ $actie }}" tabindex="-1" aria-hidden="true" class="absolute inset-0 size-full cursor-pointer"></button>
+
+              {{-- Grote tegel vanaf lg: afspeelknop in het midden --}}
+              @if($i === 0 && $item['video'])
+                <span aria-hidden="true" class="{{ $kleur['tekst'] }} pointer-events-none absolute top-1/2 left-1/2 hidden size-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 shadow-lg ring-8 ring-white/30 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:scale-110 motion-reduce:transition-none lg:flex">
+                  <x-icon name="play" class="size-10" />
+                </span>
+              @endif
+
+              {{-- Kleine tegels: ruimte rechts voor het cijfer, zodat de tekst er niet overheen loopt --}}
+              <div @class(['pointer-events-none relative flex flex-col gap-1.5 p-4 sm:p-5 lg:p-6', 'pr-10 sm:pr-12 lg:pr-16' => $i > 0])>
+                <h2 @class(['mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-white', 'text-2xl lg:text-4xl' => $i === 0, 'text-base sm:text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
+                <div class="pointer-events-auto mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
+                  @if($item['video'])
+                    <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
+                      class="inline-flex cursor-pointer items-center gap-1.5 rounded-full bg-white py-1.5 pr-3.5 pl-2.5 text-sm font-semibold text-triv-navy shadow-sm transition-transform hover:scale-105 motion-reduce:transition-none">
+                      <x-icon name="play" :size="14" class="{{ $kleur['tekst'] }}" /> Video
+                      @if($item['video']['duur'])<span class="font-normal text-stone-500">{{ $item['video']['duur'] }}</span>@endif
+                    </button>
+                  @endif
+                  @if($item['blokken'])
+                    <button type="button" @click="lees = {{ $i }}" aria-haspopup="dialog" aria-label="Lees meer: {{ $item['titel'] }}"
+                      class="inline-flex cursor-pointer items-center gap-1 text-sm font-semibold text-white underline decoration-white/50 decoration-2 underline-offset-4 transition-colors hover:decoration-white">
+                      Lees meer <x-icon name="chevron-right" class="size-2.5 stroke-[2.5]" />
+                    </button>
+                  @endif
+                </div>
+              </div>
+            </li>
+          @endforeach
+        </ul>
+
+        {{-- Videovenster: pas geladen als het open is, stopt bij sluiten (naar de body verplaatst, zodat het boven alles ligt) --}}
+        <template x-teleport="body">
+          <div x-show="video !== null" x-transition.opacity.duration.300ms x-trap.inert.noscroll="video !== null"
+            @keydown.escape.window="video = null" @click.self="video = null" role="dialog" aria-modal="true" aria-label="Video"
+            class="fixed inset-0 z-60 flex items-center justify-center bg-triv-navy/90 p-4 backdrop-blur-sm sm:p-10" style="display: none;">
+            <div class="relative w-full max-w-5xl">
+              <button type="button" @click="video = null" aria-label="Video sluiten"
+                class="absolute right-0 -top-12 flex size-10 cursor-pointer items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white">
+                <x-icon name="close" :size="18" />
+              </button>
+              <div class="aspect-video overflow-hidden rounded-xl bg-black shadow-2xl">
+                @foreach ($onderwerpen as $i => $item)
+                  @if($item['video'])
+                    <template x-if="video === {{ $i }}">
+                      <iframe src="{{ $item['video']['embed'] }}" title="{{ $item['titel'] }}" class="size-full" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
+                    </template>
+                  @endif
+                @endforeach
+              </div>
+            </div>
+          </div>
+        </template>
+
+        {{-- Tekstpaneel: schuift van rechts in beeld (mobiel volledig scherm, desktop zwevend paneel rechts zoals het menu).
+             De breedte hangt af van de hoeveelheid tekst: weinig tekst → even breed als het menu; veel tekst → breder, met de
+             opsomming in twee kolommen, zodat de tekst zonder scrollen in beeld past.
+             Bovenin een vlak in de onderwerpkleur met de titel. --}}
+        <template x-teleport="body">
+          <div>
+            <div x-show="lees !== null" x-transition.opacity.duration.300ms @click="lees = null" aria-hidden="true"
+              class="fixed inset-0 z-60 bg-triv-navy/40 backdrop-blur-sm" style="display: none;"></div>
+            @foreach ($onderwerpen as $i => $item)
+              @php($kleur = $kleuren[$i % count($kleuren)])
+              @php($breed = collect($item['blokken'])->sum(fn ($b) => mb_strlen(($b['kop'] ?? '').($b['tekst'] ?? '').collect($b['punten'] ?? [])->map(fn ($p) => $p['kop'].$p['tekst'])->implode(''))) > 650)
+              <div x-show="lees === {{ $i }}" x-trap.inert.noscroll="lees === {{ $i }}" @keydown.escape.window="lees = null"
+                x-transition:enter="transition ease-out duration-400" x-transition:enter-start="opacity-0 translate-x-12" x-transition:enter-end="opacity-100 translate-x-0"
+                x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 translate-x-12"
+                role="dialog" aria-modal="true" aria-labelledby="lef-lees-{{ $i }}"
+                @class(['fixed inset-0 z-60 flex flex-col overflow-hidden bg-white shadow-2xl lg:inset-auto lg:top-3 lg:right-3 lg:bottom-3 lg:rounded-3xl', 'lg:w-[min(56rem,calc(100vw-1.5rem))]' => $breed, 'lg:w-[440px]' => ! $breed]) style="display: none;">
+                <div class="{{ $kleur['vlak'] }} relative shrink-0 overflow-hidden px-6 pt-16 pb-6 sm:px-10 lg:pt-10 lg:pr-20">
+                  <button type="button" @click="lees = null" aria-label="Sluiten"
+                    class="absolute top-4 right-4 flex size-9 cursor-pointer items-center justify-center rounded-full bg-white text-stone-500 transition-all duration-300 hover:rotate-90 hover:text-triv-navy">
+                    <x-icon name="close" />
+                  </button>
+                  <p id="lef-lees-{{ $i }}" class="relative mb-2 font-['Poppins',sans-serif] text-2xl font-bold leading-tight text-white sm:text-3xl">{{ $item['titel'] }}</p>
+                  @if($item['intro'])
+                    <p class="relative mb-0 text-lg leading-relaxed text-white/90">{{ $item['intro'] }}</p>
+                  @endif
+                  @if($item['video'])
+                    <button type="button" @click="lees = null; video = {{ $i }}"
+                      class="relative mt-5 inline-flex cursor-pointer items-center gap-1.5 rounded-full bg-white py-2 pr-4 pl-3 text-sm font-semibold text-triv-navy shadow-sm transition-transform hover:scale-105 motion-reduce:transition-none">
+                      <x-icon name="play" :size="14" class="{{ $kleur['tekst'] }}" /> Bekijk de video
+                      @if($item['video']['duur'])<span class="font-normal text-stone-500">{{ $item['video']['duur'] }}</span>@endif
+                    </button>
+                  @endif
+                </div>
+                <div class="flex flex-1 flex-col gap-5 overflow-y-auto px-6 py-8 text-base sm:px-10 lg:py-10">
                   @foreach($item['blokken'] as $blok)
                     @if($blok['type'] === 'lijst')
-                      <ul @class(['mb-0 grid gap-x-10 gap-y-5', 'md:grid-cols-2' => ! $beeld])>
+                      <ul @class(['mb-0 grid gap-x-10 gap-y-5 pl-0', 'lg:grid-cols-2' => $breed])>
                         @foreach($blok['punten'] as $punt)
-                          <li class="relative mb-0 pl-5 before:absolute before:left-0 before:top-[0.55em] before:size-2 before:rounded-full {{ $kleur['bolletje'] }}">
-                            <span @class(['block', 'font-semibold text-triv-navy' => $punt['vet'], 'text-stone-600' => ! $punt['vet']])>
-                              {{ $punt['kop'] }}
-                              {{-- Bij het punt over (gratis) fruit: de fruitanimatie uit het nieuwsblok (ploppen op, kleuren dan in).
-                                   x-intersect zet data-shown zodra het paneel in beeld komt en haalt het weg als het verdwijnt (ander tabblad / dichtgeklapt), zodat hij elke keer opnieuw speelt. --}}
-                              @if(str_contains(mb_strtolower($punt['kop']), 'fruit'))
-                                <span x-data="{ shown: false }" x-intersect="shown = true" x-intersect:leave="shown = false" :data-shown="shown" aria-hidden="true" class="group/fruit mt-2 flex items-center gap-1.5">
-                                  @foreach(['apple', 'banana', 'watermelon'] as $fruit)
-                                    <x-icon :name="$fruit" :size="24" class="h-6 w-auto md:h-7 text-triv-navy scale-0 transition-transform duration-400 ease-[cubic-bezier(.34,1.56,.64,1)] delay-[calc(300ms+var(--i)*120ms)] group-data-shown/fruit:scale-100 motion-reduce:scale-100 motion-reduce:transition-none [&_.fruit-fill]:opacity-0 [&_.fruit-fill]:transition-opacity [&_.fruit-fill]:duration-700 [&_.fruit-fill]:delay-[calc(1200ms+var(--i)*250ms)] group-data-shown/fruit:[&_.fruit-fill]:opacity-100 motion-reduce:[&_.fruit-fill]:opacity-100 [&_.fruit-outline]:transition-[stroke-width,color] [&_.fruit-outline]:duration-700 [&_.fruit-outline]:delay-[calc(1200ms+var(--i)*250ms)] group-data-shown/fruit:[&_.fruit-outline]:stroke-6 group-data-shown/fruit:[&_.fruit-outline]:text-triv-navy/70 motion-reduce:[&_.fruit-outline]:stroke-6 motion-reduce:[&_.fruit-outline]:text-triv-navy/70" style="--i: {{ $loop->index }}" />
-                                  @endforeach
-                                </span>
-                              @endif
-                            </span>
+                          <li class="relative mb-0 list-none pl-5 before:absolute before:left-0 before:top-[0.55em] before:size-2 before:rounded-full {{ $kleur['bolletje'] }}">
+                            <span @class(['block', 'font-semibold text-triv-navy' => $punt['vet'], 'text-stone-600' => ! $punt['vet']])>{{ $punt['kop'] }}</span>
                             @if($punt['tekst'])
                               <span class="mt-1 block text-stone-600">{{ $punt['tekst'] }}</span>
                             @endif
                           </li>
                         @endforeach
-                        {{-- Bij "op maat" (zonder foto, oneven aantal punten) vult een meetlint het lege vak rechtsonder; speelt net als
-                             het fruit elke keer opnieuw als het paneel in beeld komt (x-intersect). Vanaf md, waar de lijst twee kolommen heeft. --}}
-                        @if(! $beeld && str_contains(mb_strtolower($item['titel']), 'op maat') && count($blok['punten']) % 2)
-                          <li aria-hidden="true" class="mb-0 hidden items-center justify-center md:flex">
-                            <span x-data="{ shown: false }" x-intersect="shown = true" x-intersect:leave="shown = false" :data-shown="shown" class="block w-full max-w-60">
-                              <x-icon name="meetlint" class="h-auto w-full text-triv-navy" />
-                            </span>
-                          </li>
-                        @endif
                       </ul>
                     @elseif($blok['type'] === 'kop')
                       <div>
@@ -170,35 +163,10 @@
                     @endif
                   @endforeach
                 </div>
-              @else
-                <p class="mb-0 italic text-stone-500">Hierover volgt binnenkort meer.</p>
-              @endif
               </div>
-            </div>
-          @endforeach
-
-          {{-- Videovenster: naar de body verplaatst, zodat het boven alles ligt (en niet in het grid of onder een translate valt).
-               x-trap houdt de focus in het venster (eerst op de sluitknop) en zet hem bij sluiten terug op de afspeelknop. --}}
-          <template x-teleport="body">
-            <div x-show="video !== null" x-transition.opacity.duration.300ms x-trap.inert.noscroll="video !== null"
-              @keydown.escape.window="video = null" @click.self="video = null"
-              role="dialog" aria-modal="true" :aria-label="video !== null && videos[video].titel"
-              class="fixed inset-0 z-60 flex items-center justify-center bg-triv-navy/90 p-4 backdrop-blur-sm sm:p-10" style="display: none;">
-              <div class="relative w-full max-w-5xl">
-                <button type="button" @click="video = null" aria-label="Video sluiten"
-                  class="absolute right-0 -top-12 flex size-10 cursor-pointer items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white">
-                  <x-icon name="close" :size="18" />
-                </button>
-                <div class="aspect-video overflow-hidden rounded-xl bg-black shadow-2xl">
-                  <template x-if="video !== null">
-                    <iframe :src="videos[video].embed" :title="videos[video].titel" class="size-full" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe>
-                  </template>
-                </div>
-              </div>
-            </div>
-          </template>
-
-        </div>
+            @endforeach
+          </div>
+        </template>
       @endif
     </div>
   </div>
