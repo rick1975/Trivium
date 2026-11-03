@@ -38,7 +38,7 @@
                   @endif
                 </span>
                 {{-- Verloop onderin, zodat de witte tekst altijd leesbaar is --}}
-                <span aria-hidden="true" class="absolute inset-0 bg-linear-to-t from-triv-navy/90 via-triv-navy/35 via-45% to-transparent"></span>
+                <span aria-hidden="true" class="absolute inset-0 bg-linear-to-t from-triv-navy/80 via-triv-navy/20 via-40% to-transparent"></span>
               @endif
 
               {{-- Groot cijfer: altijd rechtsboven, bij de grote tegel vanaf lg groter; over een foto iets sterker, met een zachte schaduw --}}
