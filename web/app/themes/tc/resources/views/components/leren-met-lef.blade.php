@@ -1,9 +1,9 @@
 {{-- ── LEREN MET LEF — onderwerpen uit Trivium Settings > Leren met lef (Composers\LerenMetLef).
      Concept "alles in één oogopslag": de onderwerpen als tegels in één raster (vanaf lg één grote tegel links en vier kleinere
      ernaast, op mobiel alles onder elkaar, vanaf sm de eerste breed en de rest twee aan twee). Elke tegel: beeld (foto, anders het beeld van de video, anders
-     het roze) met een groot cijfer erover, titel (de intro staat in het tekstpaneel), en twee aparte knoppen: "Video" (venster in het midden,
+     het roze) met een groot cijfer erover, titel (de intro staat in het tekstpaneel), een ronde afspeelknop midden in de tegel (venster in het midden,
      speelt meteen, stopt bij sluiten) en "Lees meer" (de volledige tekst schuift als paneel van rechts in beeld, zoals het menu).
-     Een klik elders op de tegel doet hetzelfde als de eerste knop (video, of zonder video de tekst). ── --}}
+     Een klik elders op de tegel opent de video, of zonder video de tekst. ── --}}
 @php
   // Alle onderwerpen in hetzelfde Trivium-roze
   $kleur = ['tekst' => 'text-triv-pink', 'vlak' => 'bg-triv-pink', 'bolletje' => 'before:bg-triv-pink'];
@@ -44,35 +44,33 @@
               {{-- Groot cijfer: altijd rechtsboven, bij de grote tegel vanaf lg groter; over een foto iets sterker, met een zachte schaduw --}}
               <span aria-hidden="true" @class(['pointer-events-none absolute font-[\'Poppins\',sans-serif] font-black leading-none', 'text-white/20' => ! $item['foto'] && ! ($item['video']['beeld'] ?? null), 'text-white/45 [text-shadow:0_4px_40px_rgb(11_31_58/0.25)]' => $item['foto'] || ($item['video']['beeld'] ?? null), 'top-3 right-4 text-[3rem] lg:top-5 lg:right-6 lg:text-[5rem]' => $i === 0, 'top-3 right-4 text-[3rem] sm:text-[2.75rem] lg:top-4 lg:right-5 lg:text-[3.5rem]' => $i > 0])>{{ $i + 1 }}</span>
 
-              {{-- De hele tegel is klikbaar (video, of zonder video de tekst); voor toetsenbord en schermlezer tellen de knoppen onderin --}}
+              {{-- De hele tegel is klikbaar (video, of zonder video de tekst); voor toetsenbord en schermlezer tellen de knoppen hieronder --}}
               <button type="button" @click="{{ $actie }}" tabindex="-1" aria-hidden="true" class="absolute inset-0 size-full cursor-pointer"></button>
 
-              {{-- Grote tegel vanaf lg: afspeelknop in het midden --}}
-              @if($i === 0 && $item['video'])
-                <span aria-hidden="true" class="{{ $kleur['tekst'] }} pointer-events-none absolute top-1/2 left-1/2 hidden size-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 shadow-lg ring-8 ring-white/30 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:scale-110 motion-reduce:transition-none lg:flex">
-                  <x-icon name="play" class="size-10" />
-                </span>
-              @endif
-
-              {{-- Op mobiel is dit blok niet gepositioneerd, zodat de afspeelknop midden in de tegel kan staan; titel en "Lees meer" zijn daarom zelf relative (boven verloop en klikvlak) --}}
-              <div class="pointer-events-none relative flex flex-col gap-1.5 p-4 max-sm:static max-sm:gap-1 max-sm:pb-3 sm:p-5 lg:p-6">
+              {{-- Het blok hieronder is niet gepositioneerd, zodat de afspeelknop midden in de tegel kan staan; titel en "Lees meer" zijn daarom zelf relative (boven verloop en klikvlak) --}}
+              <div class="pointer-events-none flex flex-col gap-1 p-4 pb-3 sm:gap-1.5 sm:p-5 lg:p-6">
+                @if($item['video'])
+                  {{-- Ronde afspeelknop midden in de tegel; groeit mee met de tegel en springt iets op bij hover --}}
+                  <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
+                    @class(['pointer-events-auto absolute top-1/2 left-1/2 flex size-12 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/95 shadow-lg ring-4 ring-white/30 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:scale-110 motion-reduce:transition-none', $kleur['tekst'], 'sm:size-16 sm:ring-6 lg:size-24 lg:ring-8' => $i === 0, 'lg:size-14 lg:ring-6' => $i > 0])>
+                    <x-icon name="play" :class="$i === 0 ? 'size-6 sm:size-8 lg:size-10' : 'size-6 lg:size-7'" />
+                  </button>
+                @endif
                 <h2 @class(['relative mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-balance text-white', 'text-lg sm:text-2xl lg:text-4xl' => $i === 0, 'text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
-                <div class="pointer-events-auto mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 max-sm:mt-0">
-                  @if($item['video'])
-                    {{-- Op mobiel een ronde afspeelknop midden in de tegel, vanaf sm een knop onderin met het woord "Video" en de duur --}}
-                    <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
-                      class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full bg-white text-sm font-semibold text-triv-navy shadow-sm transition-transform hover:scale-105 motion-reduce:transition-none max-sm:absolute max-sm:top-1/2 max-sm:left-1/2 max-sm:size-12 max-sm:-translate-x-1/2 max-sm:-translate-y-1/2 max-sm:bg-white/95 max-sm:shadow-lg max-sm:ring-4 max-sm:ring-white/30 sm:py-1.5 sm:pr-3.5 sm:pl-2.5">
-                      <x-icon name="play" :size="14" class="{{ $kleur['tekst'] }} max-sm:size-6" /> <span class="max-sm:hidden">Video</span>
-                      @if($item['video']['duur'])<span class="font-normal text-stone-500 max-sm:hidden">{{ $item['video']['duur'] }}</span>@endif
-                    </button>
-                  @endif
-                  @if($item['blokken'])
-                    <button type="button" @click="lees = {{ $i }}" aria-haspopup="dialog" aria-label="Lees meer: {{ $item['titel'] }}"
-                      class="relative inline-flex cursor-pointer items-center gap-1 text-sm font-semibold text-white underline decoration-white/50 decoration-2 underline-offset-4 transition-colors hover:decoration-white">
-                      Lees meer <x-icon name="chevron-right" class="size-2.5 stroke-[2.5]" />
-                    </button>
-                  @endif
-                </div>
+                @if($item['blokken'] || ($item['video']['duur'] ?? null))
+                  <div class="pointer-events-auto flex flex-wrap items-center gap-x-4 gap-y-2 sm:mt-1">
+                    @if($item['blokken'])
+                      <button type="button" @click="lees = {{ $i }}" aria-haspopup="dialog" aria-label="Lees meer: {{ $item['titel'] }}"
+                        class="relative inline-flex cursor-pointer items-center gap-1 text-sm font-semibold text-white underline decoration-white/50 decoration-2 underline-offset-4 transition-colors hover:decoration-white">
+                        Lees meer <x-icon name="chevron-right" class="size-2.5 stroke-[2.5]" />
+                      </button>
+                    @endif
+                    {{-- Duur van de video (alleen bekend bij Vimeo) --}}
+                    @if($item['video']['duur'] ?? null)
+                      <span class="relative text-sm text-white/75">{{ $item['video']['duur'] }}</span>
+                    @endif
+                  </div>
+                @endif
               </div>
             </li>
           @endforeach
