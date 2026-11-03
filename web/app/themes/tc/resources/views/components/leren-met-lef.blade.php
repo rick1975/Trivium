@@ -48,16 +48,18 @@
               <button type="button" @click="{{ $actie }}" tabindex="-1" aria-hidden="true" class="absolute inset-0 size-full cursor-pointer"></button>
 
               {{-- Het blok hieronder is niet gepositioneerd, zodat de afspeelknop midden in de tegel kan staan; titel en "Lees meer" zijn daarom zelf relative (boven verloop en klikvlak) --}}
-              {{-- Kleine tegels vanaf sm: rechts ruimte voor de afspeelknop, zodat de titel (evenwichtig afgebroken) op twee regels valt --}}
-              <div @class(['pointer-events-none flex flex-col gap-1 p-4 pb-3 sm:gap-1.5 sm:p-5 lg:p-6', 'sm:pr-20 lg:pr-24' => $i > 0 && $item['video']])>
-                @if($item['video'])
-                  {{-- Ronde afspeelknop: bij de grote tegel (en op mobiel bij alle tegels) in het midden, bij de kleine tegels vanaf sm rechtsonder naast de titel; springt iets op bij hover --}}
-                  <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
-                    @class(['pointer-events-auto absolute top-1/2 left-1/2 flex size-12 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/95 shadow-lg ring-4 ring-white/30 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:scale-110 motion-reduce:transition-none', $kleur['tekst'], 'sm:size-16 sm:ring-6 lg:size-24 lg:ring-8' => $i === 0, 'sm:top-auto sm:right-5 sm:bottom-5 sm:left-auto sm:translate-x-0 sm:translate-y-0 lg:right-6 lg:bottom-6 lg:size-14 lg:ring-6' => $i > 0])>
-                    <x-icon name="play" :class="$i === 0 ? 'size-6 sm:size-8 lg:size-10' : 'size-6 lg:size-7'" />
-                  </button>
-                @endif
-                <h2 @class(['relative mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-balance text-white', 'text-lg sm:text-2xl lg:text-4xl' => $i === 0, 'text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
+              <div class="pointer-events-none flex flex-col gap-1 p-4 pb-3 sm:gap-1.5 sm:p-5 lg:p-6">
+                {{-- Titel met (bij de kleine tegels vanaf sm) de afspeelknop rechts ernaast; de titel breekt evenwichtig af en valt zo op twee regels --}}
+                <div class="flex items-center gap-3 lg:gap-4">
+                  @if($item['video'])
+                    {{-- Ronde afspeelknop: bij de grote tegel (en op mobiel bij alle tegels) midden in de tegel, bij de kleine tegels vanaf sm naast de titel; springt iets op bij hover --}}
+                    <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
+                      @class(['pointer-events-auto absolute top-1/2 left-1/2 flex size-12 shrink-0 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/95 shadow-lg ring-4 ring-white/30 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:scale-110 motion-reduce:transition-none', $kleur['tekst'], 'sm:size-16 sm:ring-6 lg:size-24 lg:ring-8' => $i === 0, 'sm:relative sm:inset-auto sm:order-last sm:size-10 sm:translate-x-0 sm:translate-y-0 lg:size-12' => $i > 0])>
+                      <x-icon name="play" :class="$i === 0 ? 'size-6 sm:size-8 lg:size-10' : 'size-6 sm:size-5 lg:size-6'" />
+                    </button>
+                  @endif
+                  <h2 @class(['relative mb-0 min-w-0 flex-1 font-[\'Poppins\',sans-serif] font-bold leading-tight text-balance text-white', 'text-lg sm:text-2xl lg:text-4xl' => $i === 0, 'text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
+                </div>
                 @if($item['blokken'] || ($item['video']['duur'] ?? null))
                   <div class="pointer-events-auto flex flex-wrap items-center gap-x-4 gap-y-2 sm:mt-1">
                     @if($item['blokken'])
