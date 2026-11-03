@@ -56,7 +56,7 @@
 
               {{-- Op mobiel met video: afspeelknop links, titel en "Lees meer" ernaast (de knoppenrij doet dan via contents mee in het raster) --}}
               <div @class(['pointer-events-none relative flex flex-col gap-1.5 p-4 sm:p-5 lg:p-6', 'max-sm:grid max-sm:grid-cols-[auto_1fr] max-sm:items-center max-sm:gap-x-3 max-sm:gap-y-1' => $item['video']])>
-                <h2 @class(['mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-white max-sm:col-start-2 max-sm:row-start-1', 'text-2xl lg:text-4xl' => $i === 0, 'text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
+                <h2 @class(['mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-white max-sm:col-start-2 max-sm:row-start-1', 'text-lg sm:text-2xl lg:text-4xl' => $i === 0, 'text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
                 <div @class(['pointer-events-auto mt-2 flex flex-wrap items-center gap-x-4 gap-y-2', 'max-sm:contents' => $item['video']])>
                   @if($item['video'])
                     {{-- Op mobiel alleen een afspeelknop, vanaf sm met het woord "Video" en de duur --}}
