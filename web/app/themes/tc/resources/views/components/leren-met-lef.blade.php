@@ -1,6 +1,6 @@
 {{-- ── LEREN MET LEF — onderwerpen uit Trivium Settings > Leren met lef (Composers\LerenMetLef).
      Concept "alles in één oogopslag": de onderwerpen als tegels in één raster (vanaf lg één grote tegel links en vier kleinere
-     ernaast, op mobiel de eerste breed en de rest twee aan twee). Elke tegel: beeld (foto, anders het beeld van de video, anders
+     ernaast, op mobiel alles onder elkaar, vanaf sm de eerste breed en de rest twee aan twee). Elke tegel: beeld (foto, anders het beeld van de video, anders
      het roze) met een groot cijfer erover, titel (de intro staat in het tekstpaneel), en twee aparte knoppen: "Video" (venster in het midden,
      speelt meteen, stopt bij sluiten) en "Lees meer" (de volledige tekst schuift als paneel van rechts in beeld, zoals het menu).
      Een klik elders op de tegel doet hetzelfde als de eerste knop (video, of zonder video de tekst). ── --}}
@@ -19,7 +19,7 @@
         <ul class="mb-0 grid list-none grid-cols-2 gap-3 pl-0 sm:gap-4 lg:h-[min(46rem,calc(100vh-7rem))] lg:grid-cols-4 lg:grid-rows-2">
           @foreach ($onderwerpen as $i => $item)
             @php($actie = $item['video'] ? "video = {$i}" : "lees = {$i}")
-            <li id="{{ $item['anker'] }}" @class(['group relative mb-0 flex scroll-mt-6 flex-col justify-end overflow-hidden rounded-2xl shadow-sm sm:rounded-3xl', $kleur['vlak'], 'col-span-2 aspect-video lg:row-span-2 lg:aspect-auto' => $i === 0, 'aspect-3/4 sm:aspect-4/3 lg:aspect-auto' => $i > 0])>
+            <li id="{{ $item['anker'] }}" @class(['group relative mb-0 flex scroll-mt-6 flex-col justify-end overflow-hidden rounded-2xl shadow-sm sm:rounded-3xl', $kleur['vlak'], 'col-span-2 aspect-video lg:row-span-2 lg:aspect-auto' => $i === 0, 'col-span-2 aspect-4/3 sm:col-span-1 lg:aspect-auto' => $i > 0])>
 
               {{-- Beeld, zoomt licht in bij hover --}}
               @if($item['foto'] || ($item['video']['beeld'] ?? null))
@@ -27,7 +27,7 @@
                   @if($item['foto'])
                     {!! wp_get_attachment_image($item['foto'], 'large', false, [
                       'class' => 'absolute inset-0 size-full max-w-none object-cover object-[50%_35%]',
-                      'sizes' => $i === 0 ? '(min-width: 1024px) 640px, 100vw' : '(min-width: 1024px) 320px, 50vw',
+                      'sizes' => $i === 0 ? '(min-width: 1024px) 640px, 100vw' : '(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw',
                       'loading' => 'lazy',
                       'decoding' => 'async',
                       'alt' => '',
@@ -56,7 +56,7 @@
 
               {{-- Kleine tegels: ruimte rechts voor het cijfer, zodat de tekst er niet overheen loopt --}}
               <div @class(['pointer-events-none relative flex flex-col gap-1.5 p-4 sm:p-5 lg:p-6', 'pr-10 sm:pr-12 lg:pr-16' => $i > 0])>
-                <h2 @class(['mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-white', 'text-2xl lg:text-4xl' => $i === 0, 'text-base sm:text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
+                <h2 @class(['mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-white', 'text-2xl lg:text-4xl' => $i === 0, 'text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
                 <div class="pointer-events-auto mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
                   @if($item['video'])
                     <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
