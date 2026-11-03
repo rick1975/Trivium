@@ -19,7 +19,7 @@
         <ul class="mb-0 grid list-none grid-cols-2 gap-3 pl-0 sm:gap-4 lg:h-[min(46rem,calc(100vh-7rem))] lg:grid-cols-4 lg:grid-rows-2">
           @foreach ($onderwerpen as $i => $item)
             @php($actie = $item['video'] ? "video = {$i}" : "lees = {$i}")
-            <li id="{{ $item['anker'] }}" @class(['group relative mb-0 flex scroll-mt-6 flex-col justify-end overflow-hidden rounded-2xl shadow-sm sm:rounded-3xl', $kleur['vlak'], 'col-span-2 aspect-video lg:row-span-2 lg:aspect-auto' => $i === 0, 'col-span-2 aspect-4/3 sm:col-span-1 lg:aspect-auto' => $i > 0])>
+            <li id="{{ $item['anker'] }}" @class(['group relative mb-0 flex scroll-mt-6 flex-col justify-end overflow-hidden rounded-2xl shadow-sm sm:rounded-3xl', $kleur['vlak'], 'col-span-2 aspect-video lg:row-span-2 lg:aspect-auto' => $i === 0, 'col-span-2 aspect-video sm:col-span-1 sm:aspect-4/3 lg:aspect-auto' => $i > 0])>
 
               {{-- Beeld, zoomt licht in bij hover --}}
               @if($item['foto'] || ($item['video']['beeld'] ?? null))
@@ -59,10 +59,11 @@
                 <h2 @class(['mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-white', 'text-2xl lg:text-4xl' => $i === 0, 'text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
                 <div class="pointer-events-auto mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
                   @if($item['video'])
+                    {{-- Op mobiel alleen een grote afspeelknop, vanaf sm met het woord "Video" en de duur --}}
                     <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
-                      class="inline-flex cursor-pointer items-center gap-1.5 rounded-full bg-white py-1.5 pr-3.5 pl-2.5 text-sm font-semibold text-triv-navy shadow-sm transition-transform hover:scale-105 motion-reduce:transition-none">
-                      <x-icon name="play" :size="14" class="{{ $kleur['tekst'] }}" /> Video
-                      @if($item['video']['duur'])<span class="font-normal text-stone-500">{{ $item['video']['duur'] }}</span>@endif
+                      class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full bg-white text-sm font-semibold text-triv-navy shadow-sm transition-transform hover:scale-105 motion-reduce:transition-none max-sm:size-12 sm:py-1.5 sm:pr-3.5 sm:pl-2.5">
+                      <x-icon name="play" :size="14" class="{{ $kleur['tekst'] }} max-sm:size-6" /> <span class="max-sm:hidden">Video</span>
+                      @if($item['video']['duur'])<span class="font-normal text-stone-500 max-sm:hidden">{{ $item['video']['duur'] }}</span>@endif
                     </button>
                   @endif
                   @if($item['blokken'])
