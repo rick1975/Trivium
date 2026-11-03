@@ -48,11 +48,12 @@
               <button type="button" @click="{{ $actie }}" tabindex="-1" aria-hidden="true" class="absolute inset-0 size-full cursor-pointer"></button>
 
               {{-- Het blok hieronder is niet gepositioneerd, zodat de afspeelknop midden in de tegel kan staan; titel en "Lees meer" zijn daarom zelf relative (boven verloop en klikvlak) --}}
-              <div class="pointer-events-none flex flex-col gap-1 p-4 pb-3 sm:gap-1.5 sm:p-5 lg:p-6">
+              {{-- Kleine tegels vanaf sm: rechts ruimte voor de afspeelknop, zodat de titel (evenwichtig afgebroken) op twee regels valt --}}
+              <div @class(['pointer-events-none flex flex-col gap-1 p-4 pb-3 sm:gap-1.5 sm:p-5 lg:p-6', 'sm:pr-20 lg:pr-24' => $i > 0 && $item['video']])>
                 @if($item['video'])
-                  {{-- Ronde afspeelknop midden in de tegel; groeit mee met de tegel en springt iets op bij hover --}}
+                  {{-- Ronde afspeelknop: bij de grote tegel (en op mobiel bij alle tegels) in het midden, bij de kleine tegels vanaf sm rechtsonder naast de titel; springt iets op bij hover --}}
                   <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
-                    @class(['pointer-events-auto absolute top-1/2 left-1/2 flex size-12 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/95 shadow-lg ring-4 ring-white/30 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:scale-110 motion-reduce:transition-none', $kleur['tekst'], 'sm:size-16 sm:ring-6 lg:size-24 lg:ring-8' => $i === 0, 'lg:size-14 lg:ring-6' => $i > 0])>
+                    @class(['pointer-events-auto absolute top-1/2 left-1/2 flex size-12 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white/95 shadow-lg ring-4 ring-white/30 transition-transform duration-300 ease-[cubic-bezier(.34,1.56,.64,1)] group-hover:scale-110 motion-reduce:transition-none', $kleur['tekst'], 'sm:size-16 sm:ring-6 lg:size-24 lg:ring-8' => $i === 0, 'sm:top-auto sm:right-5 sm:bottom-5 sm:left-auto sm:translate-x-0 sm:translate-y-0 lg:right-6 lg:bottom-6 lg:size-14 lg:ring-6' => $i > 0])>
                     <x-icon name="play" :class="$i === 0 ? 'size-6 sm:size-8 lg:size-10' : 'size-6 lg:size-7'" />
                   </button>
                 @endif
