@@ -55,9 +55,9 @@
               @endif
 
               {{-- Op mobiel is dit blok niet gepositioneerd, zodat de afspeelknop midden in de tegel kan staan; titel en "Lees meer" zijn daarom zelf relative (boven verloop en klikvlak) --}}
-              <div class="pointer-events-none relative flex flex-col gap-1.5 p-4 max-sm:static sm:p-5 lg:p-6">
+              <div class="pointer-events-none relative flex flex-col gap-1.5 p-4 max-sm:static max-sm:gap-1 max-sm:pb-3 sm:p-5 lg:p-6">
                 <h2 @class(['relative mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-balance text-white', 'text-lg sm:text-2xl lg:text-4xl' => $i === 0, 'text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
-                <div class="pointer-events-auto mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
+                <div class="pointer-events-auto mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 max-sm:mt-0">
                   @if($item['video'])
                     {{-- Op mobiel een ronde afspeelknop midden in de tegel, vanaf sm een knop onderin met het woord "Video" en de duur --}}
                     <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
