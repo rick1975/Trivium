@@ -54,21 +54,21 @@
                 </span>
               @endif
 
-              {{-- Op mobiel met video: afspeelknop links, titel en "Lees meer" ernaast (de knoppenrij doet dan via contents mee in het raster) --}}
-              <div @class(['pointer-events-none relative flex flex-col gap-1.5 p-4 sm:p-5 lg:p-6', 'max-sm:grid max-sm:grid-cols-[auto_1fr] max-sm:items-center max-sm:gap-x-3 max-sm:gap-y-1' => $item['video']])>
-                <h2 @class(['mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-white max-sm:col-start-2 max-sm:row-start-1', 'text-lg sm:text-2xl lg:text-4xl' => $i === 0, 'text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
-                <div @class(['pointer-events-auto mt-2 flex flex-wrap items-center gap-x-4 gap-y-2', 'max-sm:contents' => $item['video']])>
+              {{-- Op mobiel is dit blok niet gepositioneerd, zodat de afspeelknop midden in de tegel kan staan; titel en "Lees meer" zijn daarom zelf relative (boven verloop en klikvlak) --}}
+              <div class="pointer-events-none relative flex flex-col gap-1.5 p-4 max-sm:static sm:p-5 lg:p-6">
+                <h2 @class(['relative mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-balance text-white', 'text-lg sm:text-2xl lg:text-4xl' => $i === 0, 'text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
+                <div class="pointer-events-auto mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
                   @if($item['video'])
-                    {{-- Op mobiel alleen een afspeelknop, vanaf sm met het woord "Video" en de duur --}}
+                    {{-- Op mobiel een ronde afspeelknop midden in de tegel, vanaf sm een knop onderin met het woord "Video" en de duur --}}
                     <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
-                      class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full bg-white text-sm font-semibold text-triv-navy shadow-sm transition-transform hover:scale-105 motion-reduce:transition-none max-sm:col-start-1 max-sm:row-span-2 max-sm:row-start-1 max-sm:size-10 sm:py-1.5 sm:pr-3.5 sm:pl-2.5">
-                      <x-icon name="play" :size="14" class="{{ $kleur['tekst'] }} max-sm:size-5" /> <span class="max-sm:hidden">Video</span>
+                      class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full bg-white text-sm font-semibold text-triv-navy shadow-sm transition-transform hover:scale-105 motion-reduce:transition-none max-sm:absolute max-sm:top-1/2 max-sm:left-1/2 max-sm:size-14 max-sm:-translate-x-1/2 max-sm:-translate-y-1/2 max-sm:bg-white/95 max-sm:shadow-lg max-sm:ring-6 max-sm:ring-white/30 sm:py-1.5 sm:pr-3.5 sm:pl-2.5">
+                      <x-icon name="play" :size="14" class="{{ $kleur['tekst'] }} max-sm:size-7" /> <span class="max-sm:hidden">Video</span>
                       @if($item['video']['duur'])<span class="font-normal text-stone-500 max-sm:hidden">{{ $item['video']['duur'] }}</span>@endif
                     </button>
                   @endif
                   @if($item['blokken'])
                     <button type="button" @click="lees = {{ $i }}" aria-haspopup="dialog" aria-label="Lees meer: {{ $item['titel'] }}"
-                      class="inline-flex cursor-pointer items-center gap-1 justify-self-start text-sm font-semibold text-white underline decoration-white/50 decoration-2 underline-offset-4 transition-colors hover:decoration-white max-sm:col-start-2 max-sm:row-start-2">
+                      class="relative inline-flex cursor-pointer items-center gap-1 text-sm font-semibold text-white underline decoration-white/50 decoration-2 underline-offset-4 transition-colors hover:decoration-white">
                       Lees meer <x-icon name="chevron-right" class="size-2.5 stroke-[2.5]" />
                     </button>
                   @endif
