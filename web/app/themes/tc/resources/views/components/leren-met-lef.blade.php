@@ -61,8 +61,8 @@
                   @if($item['video'])
                     {{-- Op mobiel een ronde afspeelknop midden in de tegel, vanaf sm een knop onderin met het woord "Video" en de duur --}}
                     <button type="button" @click="video = {{ $i }}" aria-haspopup="dialog" aria-label="Bekijk de video: {{ $item['titel'] }}"
-                      class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full bg-white text-sm font-semibold text-triv-navy shadow-sm transition-transform hover:scale-105 motion-reduce:transition-none max-sm:absolute max-sm:top-1/2 max-sm:left-1/2 max-sm:size-14 max-sm:-translate-x-1/2 max-sm:-translate-y-1/2 max-sm:bg-white/95 max-sm:shadow-lg max-sm:ring-6 max-sm:ring-white/30 sm:py-1.5 sm:pr-3.5 sm:pl-2.5">
-                      <x-icon name="play" :size="14" class="{{ $kleur['tekst'] }} max-sm:size-7" /> <span class="max-sm:hidden">Video</span>
+                      class="inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-full bg-white text-sm font-semibold text-triv-navy shadow-sm transition-transform hover:scale-105 motion-reduce:transition-none max-sm:absolute max-sm:top-1/2 max-sm:left-1/2 max-sm:size-12 max-sm:-translate-x-1/2 max-sm:-translate-y-1/2 max-sm:bg-white/95 max-sm:shadow-lg max-sm:ring-4 max-sm:ring-white/30 sm:py-1.5 sm:pr-3.5 sm:pl-2.5">
+                      <x-icon name="play" :size="14" class="{{ $kleur['tekst'] }} max-sm:size-6" /> <span class="max-sm:hidden">Video</span>
                       @if($item['video']['duur'])<span class="font-normal text-stone-500 max-sm:hidden">{{ $item['video']['duur'] }}</span>@endif
                     </button>
                   @endif
