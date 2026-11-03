@@ -41,8 +41,8 @@
                 <span aria-hidden="true" class="absolute inset-0 bg-linear-to-t from-triv-navy/90 via-triv-navy/35 via-45% to-transparent"></span>
               @endif
 
-              {{-- Groot cijfer: bij de grote tegel rechtsboven, bij de andere rechtsonder (achter de tekst); over een foto iets sterker, met een zachte schaduw --}}
-              <span aria-hidden="true" @class(['pointer-events-none absolute font-[\'Poppins\',sans-serif] font-black leading-none', 'text-white/20' => ! $item['foto'] && ! ($item['video']['beeld'] ?? null), 'text-white/45 [text-shadow:0_4px_40px_rgb(11_31_58/0.25)]' => $item['foto'] || ($item['video']['beeld'] ?? null), 'top-3 right-4 text-[3rem] lg:top-5 lg:right-6 lg:text-[5rem]' => $i === 0, 'right-4 bottom-3 text-[2.75rem] lg:right-5 lg:bottom-4 lg:text-[3.5rem]' => $i > 0])>{{ $i + 1 }}</span>
+              {{-- Groot cijfer: altijd rechtsboven, bij de grote tegel vanaf lg groter; over een foto iets sterker, met een zachte schaduw --}}
+              <span aria-hidden="true" @class(['pointer-events-none absolute font-[\'Poppins\',sans-serif] font-black leading-none', 'text-white/20' => ! $item['foto'] && ! ($item['video']['beeld'] ?? null), 'text-white/45 [text-shadow:0_4px_40px_rgb(11_31_58/0.25)]' => $item['foto'] || ($item['video']['beeld'] ?? null), 'top-3 right-4 text-[3rem] lg:top-5 lg:right-6 lg:text-[5rem]' => $i === 0, 'top-3 right-4 text-[3rem] sm:text-[2.75rem] lg:top-4 lg:right-5 lg:text-[3.5rem]' => $i > 0])>{{ $i + 1 }}</span>
 
               {{-- De hele tegel is klikbaar (video, of zonder video de tekst); voor toetsenbord en schermlezer tellen de knoppen onderin --}}
               <button type="button" @click="{{ $actie }}" tabindex="-1" aria-hidden="true" class="absolute inset-0 size-full cursor-pointer"></button>
@@ -54,9 +54,8 @@
                 </span>
               @endif
 
-              {{-- Kleine tegels: ruimte rechts voor het cijfer, zodat de tekst er niet overheen loopt.
-                   Op mobiel met video: afspeelknop links, titel en "Lees meer" ernaast (de knoppenrij doet dan via contents mee in het raster) --}}
-              <div @class(['pointer-events-none relative flex flex-col gap-1.5 p-4 sm:p-5 lg:p-6', 'pr-10 sm:pr-12 lg:pr-16' => $i > 0, 'max-sm:grid max-sm:grid-cols-[auto_1fr] max-sm:items-center max-sm:gap-x-3 max-sm:gap-y-1' => $item['video']])>
+              {{-- Op mobiel met video: afspeelknop links, titel en "Lees meer" ernaast (de knoppenrij doet dan via contents mee in het raster) --}}
+              <div @class(['pointer-events-none relative flex flex-col gap-1.5 p-4 sm:p-5 lg:p-6', 'max-sm:grid max-sm:grid-cols-[auto_1fr] max-sm:items-center max-sm:gap-x-3 max-sm:gap-y-1' => $item['video']])>
                 <h2 @class(['mb-0 font-[\'Poppins\',sans-serif] font-bold leading-tight text-white max-sm:col-start-2 max-sm:row-start-1', 'text-2xl lg:text-4xl' => $i === 0, 'text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
                 <div @class(['pointer-events-auto mt-2 flex flex-wrap items-center gap-x-4 gap-y-2', 'max-sm:contents' => $item['video']])>
                   @if($item['video'])
