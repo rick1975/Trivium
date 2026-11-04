@@ -37,7 +37,7 @@ add_action('acf/init', function () {
         'page_title' => 'Trivium Settings',
         'menu_title' => 'Trivium Settings',
         'menu_slug' => 'trivium-settings',
-        'capability' => 'edit_theme_options',
+        'capability' => 'edit_pages',
         'redirect' => true,
         'icon_url' => 'dashicons-admin-generic',
         'position' => 80,
@@ -49,7 +49,7 @@ add_action('acf/init', function () {
             'menu_title' => $title,
             'menu_slug' => $slug,
             'parent_slug' => 'trivium-settings',
-            'capability' => 'edit_theme_options',
+            'capability' => 'edit_pages',
         ]);
     }
 });
