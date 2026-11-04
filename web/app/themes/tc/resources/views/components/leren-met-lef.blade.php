@@ -60,18 +60,12 @@
                   @endif
                   <h2 @class(['relative mb-0 min-w-0 flex-1 font-[\'Poppins\',sans-serif] font-bold leading-tight text-balance text-white', 'text-lg sm:text-2xl lg:text-4xl' => $i === 0, 'text-lg lg:text-xl' => $i > 0])>{{ $item['titel'] }}</h2>
                 </div>
-                @if($item['blokken'] || ($item['video']['duur'] ?? null))
+                @if($item['blokken'])
                   <div class="pointer-events-auto flex flex-wrap items-center gap-x-4 gap-y-2 sm:mt-1">
-                    @if($item['blokken'])
-                      <button type="button" @click="lees = {{ $i }}" aria-haspopup="dialog" aria-label="Lees meer: {{ $item['titel'] }}"
-                        class="relative inline-flex cursor-pointer items-center gap-1 text-sm font-semibold text-white underline decoration-white/50 decoration-2 underline-offset-4 transition-colors hover:decoration-white">
-                        Lees meer <x-icon name="chevron-right" class="size-2.5 stroke-[2.5]" />
-                      </button>
-                    @endif
-                    {{-- Duur van de video (alleen bekend bij Vimeo) --}}
-                    @if($item['video']['duur'] ?? null)
-                      <span class="relative text-sm text-white/75">{{ $item['video']['duur'] }}</span>
-                    @endif
+                    <button type="button" @click="lees = {{ $i }}" aria-haspopup="dialog" aria-label="Lees meer: {{ $item['titel'] }}"
+                      class="relative inline-flex cursor-pointer items-center gap-1 text-sm font-semibold text-white underline decoration-white/50 decoration-2 underline-offset-4 transition-colors hover:decoration-white">
+                      Lees meer <x-icon name="chevron-right" class="size-2.5 stroke-[2.5]" />
+                    </button>
                   </div>
                 @endif
               </div>
