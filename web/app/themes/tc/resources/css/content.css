@@ -322,6 +322,40 @@
     }
   }
 
+  /* Vacature: per vacature een witte kaart met warme schaduw (als de uitklapblokken), bv. op Werken bij ons. Opbouw:
+     kop (functie), alinea (korte pitch), lijst in stijl Kenmerken (start, fte, schaal), alinea (sluitdatum) en een knop
+     naar de vacaturetekst. Meerdere vacatures staan als losse kaarten onder elkaar. */
+  .wp-block-group.is-style-vacature {
+    @apply mt-6 rounded-2xl bg-white p-6 shadow-[0_12px_30px_-20px_rgb(120_70_40/0.45)] md:p-8;
+
+    + .is-style-vacature {
+      @apply mt-4 md:mt-6;
+    }
+
+    h2,
+    h3 {
+      @apply mt-0 mb-2 text-xl md:text-2xl;
+    }
+
+    /* Pitch direct onder de functie */
+    :is(h2, h3) + p {
+      @apply mb-5 text-triv-navy/80;
+    }
+
+    .wp-block-list.is-style-kenmerken {
+      @apply mb-5;
+    }
+
+    /* Sluitdatum onder de labels: kleiner en grijs */
+    .is-style-kenmerken + p {
+      @apply mb-6 text-base text-gray-600;
+    }
+
+    > :last-child {
+      @apply mb-0;
+    }
+  }
+
   /* Afsluiter: tekst met een knop eronder op wit, bv. "Vragen? Neem contact op" */
   .wp-block-group.is-style-afsluiter {
     @apply mt-16 flex flex-col items-start gap-6 bg-white py-16 md:py-24 lg:py-28;

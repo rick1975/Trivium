@@ -194,6 +194,7 @@ add_action('init', function () {
         'core/group' => [
             'sectie' => 'Gekleurd vlak (schermbreed)',
             'uitgelicht' => 'Uitgelicht',
+            'vacature' => 'Vacature (kaart)',
             'afsluiter' => 'Afsluiter met knop',
         ],
     ];
