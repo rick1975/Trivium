@@ -69,6 +69,8 @@ export function initSteps() {
             return button;
         });
 
+        // De ul is nu een set tabpanelen, geen lijst meer: anders bevat de lijst geen geldige li's (WCAG 1.3.1)
+        list.setAttribute('role', 'none');
         list.before(tabs);
         list.classList.add('is-enhanced');
         select(0);
