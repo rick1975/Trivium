@@ -77,7 +77,7 @@
         <a href="{{ $parent['url'] }}" @class([
           'mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest no-underline motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.15s_both]',
           'text-triv-pink hover:text-triv-navy' => ! $half,
-          'text-triv-navy/55 hover:text-(--accent) md:ml-1' => $half,
+          'text-triv-navy/70 hover:text-(--accent) md:ml-1' => $half,
         ])>
           {{-- Bolletje in stijl "half" in de rubriekskleur, net als de titel --}}
           <span @class(['size-1.5 rounded-full', 'bg-current' => ! $half, 'bg-(--accent)' => $half]) aria-hidden="true"></span>

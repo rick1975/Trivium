@@ -7,7 +7,7 @@
     <div class="page-container">
       {{-- Titel en intro zoals op de andere pagina's (components/page-hero): 600, in de accentkleur, en schuift bij het laden omhoog.
            Label erboven zoals daar het rubriekslabel, met een knipoog naar het gratis fruit: "Vers geplukt / Nieuws" --}}
-      <p class="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-triv-navy/55 md:ml-1 motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.15s_both]">
+      <p class="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-triv-navy/70 md:ml-1 motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.15s_both]">
         <span class="size-1.5 rounded-full bg-(--accent)" aria-hidden="true"></span>
         Vers geplukt
       </p>

@@ -23,7 +23,7 @@
 
     <div class="page-container relative z-[2] pb-16 md:z-auto md:max-w-[calc(var(--inhoud-breed)+3rem)] md:pb-0">
       <div class="relative pt-4 md:my-0 md:ml-8 md:mr-0 md:max-w-[42%] md:p-0">
-        <p class="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-triv-navy/55 md:ml-1 motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.15s_both]">
+        <p class="mb-3 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-triv-navy/70 md:ml-1 motion-safe:animate-[hero-rise_.9s_cubic-bezier(.2,.8,.2,1)_.15s_both]">
           <span class="size-1.5 rounded-full bg-(--accent)" aria-hidden="true"></span>
           {{ __('Foutcode 404', 'sage') }}
         </p>
@@ -49,7 +49,7 @@
           <x-button :href="home_url('/')" class="mt-6">{{ __('Naar de homepage', 'sage') }}</x-button>
 
           @if($popularPages)
-            <h2 class="mt-10 mb-3 text-xs font-semibold uppercase tracking-widest text-triv-navy/55 [font-family:inherit]">{{ __("Populaire pagina's", 'sage') }}</h2>
+            <h2 class="mt-10 mb-3 text-xs font-semibold uppercase tracking-widest text-triv-navy/70 [font-family:inherit]">{{ __("Populaire pagina's", 'sage') }}</h2>
             <ul class="mb-0 flex flex-wrap gap-2">
               @foreach($popularPages as $page)
                 <li class="mb-0">
