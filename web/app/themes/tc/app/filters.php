@@ -168,3 +168,19 @@ add_action('template_redirect', function () {
 add_filter('trp_url_is_file', function ($isFile, $url) {
     return $isFile || str_starts_with((string) $url, wp_get_upload_dir()['baseurl'].'/');
 }, 10, 2);
+
+/**
+ * Video's uit het insluitblok van de editor privacyvriendelijk maken, zodat er zonder toestemming geen
+ * tracking-cookies worden geplaatst: YouTube via youtube-nocookie.com, Vimeo met dnt=1 (do not track).
+ */
+add_filter('embed_oembed_html', function ($html) {
+    $html = preg_replace('~https?://(?:www\.)?youtube\.com/embed/~', 'https://www.youtube-nocookie.com/embed/', $html);
+
+    return preg_replace_callback('~(src=")(https://player\.vimeo\.com/video/[^"]+)~', function ($m) {
+        if (str_contains($m[2], 'dnt=')) {
+            return $m[0];
+        }
+
+        return $m[1].$m[2].(str_contains($m[2], '?') ? '&amp;' : '?').'dnt=1';
+    }, $html);
+});
